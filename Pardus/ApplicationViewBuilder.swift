@@ -19,6 +19,16 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
         switch view {
         case .main:
             buildMain()
+        case .mealsList :
+            buildMealsList()
+        case .mealEdit(let mealId):
+            buildMealEdit(mealId)
+        case .dishList:
+            buildDishList()
+        case .dishEdit:
+            buildDishEdit()
+        case .dishesPick(let caller, let preselected, let completion):
+            buildDishPick(caller, preselected, completion)
         }
     }
     
@@ -27,6 +37,30 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
         container.resolve(MainAssembly.self).build()
     }
     
+    @ViewBuilder
+    fileprivate func buildMealsList() -> some View {
+        container.resolve(MealsListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildMealEdit(_ mealId: UUID?) -> some View {
+        container.resolve(MealEditAssembly.self).build(mealId: mealId)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishList() -> some View {
+        container.resolve(DishesListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishEdit() -> some View {
+        container.resolve(DishEditAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishPick(_ caller: Views, _ preselected: [UUID], _ completion: @escaping ([UUID]) -> Void) -> some View {
+        container.resolve(DishesPickAssembly.self).build(callingView: caller, preselected, completion)
+    }
 }
 
 extension ApplicationViewBuilder {

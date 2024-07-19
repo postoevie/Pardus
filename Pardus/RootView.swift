@@ -8,27 +8,68 @@
 
 import SwiftUI
 
+struct MealsBasementView: View {
+    @ObservedObject var navigationService: NavigationService
+    
+    var body: some View {
+        Spacer()
+            .onAppear {
+                navigationService.items.append(.mealsList)
+            }
+    }
+}
+
+struct DishesBasementView: View {
+    @ObservedObject var navigationService: NavigationService
+    
+    var body: some View {
+        Spacer()
+            .onAppear {
+                navigationService.items.append(.dishList)
+            }
+    }
+}
+
 struct RootView: View {
     
     @ObservedObject var navigationService: NavigationService
     @ObservedObject var appViewBuilder: ApplicationViewBuilder
     
     var body: some View {
-        NavigationStack(path: $navigationService.items) {
-            appViewBuilder.build(view: .main)
-                .navigationDestination(for: Views.self) { path in
-                    switch path {
-                    default:
-                        fatalError()
+
+        TabView(selection: $navigationService.selectedTab) {
+            NavigationStack(path: $navigationService.items) {
+                Spacer()
+                    .navigationDestination(for: Views.self) { path in
+                        if navigationService.items.contains(.mealsList) {
+                            appViewBuilder.build(view: path)
+                        } else {
+                            Spacer()
+                        }
                     }
-                }
+            }
+            .tabItem {
+                Label("Meals", systemImage: "")
+            }
+            .tag("Meals")
+            NavigationStack(path: $navigationService.items) {
+                Spacer()
+                    .navigationDestination(for: Views.self) { path in
+                        if navigationService.items.contains(.dishList) {
+                            appViewBuilder.build(view: path)
+                        } else {
+                            Spacer()
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Dishes", systemImage: "")
+            }
+            .tag("Dishes")
         }
         .fullScreenCover(isPresented: .constant($navigationService.modalView.wrappedValue != nil)) {
             if let modal = navigationService.modalView {
-                switch modal {
-                default:
-                    fatalError()
-                }
+                appViewBuilder.build(view: modal)
             }
         }
         .alert(isPresented: .constant($navigationService.alert.wrappedValue != nil)) {
@@ -41,6 +82,5 @@ struct RootView: View {
                 fatalError()
             }
         }
-        
     }
 }

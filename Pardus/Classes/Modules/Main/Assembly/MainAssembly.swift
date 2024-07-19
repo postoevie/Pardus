@@ -22,17 +22,15 @@ final class MainAssembly: Assembly {
         let interactor = MainInteractor()
 
         //ViewState
-        let viewState =  MainViewState()
+        let viewState = MainViewState()
 
         // Presenter
         let presenter = MainPresenter(router: router,
-                                                           interactor: interactor,
-                                                           viewState: viewState)
-        
-        viewState.set(with: presenter)
+                                      interactor: interactor,
+                                      viewState: viewState)
         
         // View
-        let view = MainView(viewState: viewState)
+        let view = MainView(viewState: viewState, presenter: presenter)
         return view
     }
 }

@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import Combine
 
 public class NavigationService: NavigationServiceType  {
     
@@ -18,12 +19,30 @@ public class NavigationService: NavigationServiceType  {
     }
     
     @Published var modalView: Views?
-    @Published var items: [Views] = []
+    @Published var items: [Views] = [.mealsList]
     @Published var alert: CustomAlert?
+    @Published var selectedTab: String = "Dishes"
+    
+    var itemsPublisher: Published<[Views]>.Publisher {
+        $items
+    }
+    
+    private var subscription: AnyCancellable?
+    
+    init() {
+        subscription = $selectedTab.sink { output in
+            if output == "Dishes" {
+                self.items = [.dishList]
+            }
+            if output == "Meals" {
+                self.items = [.mealsList]
+            }
+        }
+    }
 }
 
 
-enum Views: Equatable, Hashable {
+indirect enum Views: Equatable, Hashable {
     
     static func == (lhs: Views, rhs: Views) -> Bool {
         lhs.stringKey == rhs.stringKey
@@ -34,15 +53,29 @@ enum Views: Equatable, Hashable {
     }
     
     case main
+    case mealsList
+    case mealEdit(mealId: UUID?)
+    case dishList
+    case dishEdit
+    case dishesPick(callingView: Views, preselectedDishes: [UUID], completion: ([UUID]) -> Void)
     
     var stringKey: String {
         switch self {
         case .main:
             return "main"
+        case .mealsList:
+            return "mealsList"
+        case .mealEdit:
+            return "mealEditing"
+        case .dishList:
+            return "dishList"
+        case .dishEdit:
+            return "dishEdit"
+        case .dishesPick:
+            return "dishesPick"
         }
     }
 }
-
 
 class StubNavigation: NavigationServiceType, ObservableObject, Equatable  {
     @Published var modalView: Views?
@@ -59,6 +92,10 @@ class StubNavigation: NavigationServiceType, ObservableObject, Equatable  {
     static var stub: any NavigationServiceType { NavigationService() }
     
     @Published var items: [Views] = []
+    
+    var itemsPublisher: Published<[Views]>.Publisher {
+        $items
+    }
 }
 
 enum CustomAlert: Equatable, Hashable {

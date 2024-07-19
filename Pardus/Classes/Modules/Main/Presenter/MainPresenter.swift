@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-final class MainPresenter: MainPresenterProtocol {
+final class MainPresenter: ObservableObject, MainPresenterProtocol {
     
     private let router: MainRouterProtocol
     private weak var viewState: MainViewStateProtocol?
@@ -22,5 +22,7 @@ final class MainPresenter: MainPresenterProtocol {
         self.viewState = viewState
     }
     
-    
+    func didAppear() {
+        router.navigateToMealsList()
+    }
 }

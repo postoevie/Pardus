@@ -8,11 +8,7 @@
 
 import SwiftUI
 
-final class MainViewState: ObservableObject, MainViewStateProtocol {    
-    private let id = UUID()
-    private var presenter: MainPresenterProtocol?
+final class MainViewState: ObservableObject, MainViewStateProtocol {
     
-    func set(with presener: MainPresenterProtocol) {
-        self.presenter = presener
-    }
+    private let id = UUID()
 }

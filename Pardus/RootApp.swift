@@ -17,13 +17,20 @@ class RootApp: App {
     let container: DependencyContainer = {
         let factory = AssemblyFactory()
         let container = DependencyContainer(assemblyFactory: factory)
-                
+
         // Services
         container.apply(NavigationAssembly.self)
+        container.apply(CoreDataStackServiceAssembly.self)
+        container.apply(CoreDataRestorationStoreAssembly.self)
     
         // Modules
         container.apply(MainAssembly.self)
-
+        container.apply(MealsListAssembly.self)
+        container.apply(MealEditAssembly.self)
+        container.apply(DishesListAssembly.self)
+        container.apply(DishEditAssembly.self)
+        container.apply(DishesPickAssembly.self)
+        
         return container
     }()
 

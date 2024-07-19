@@ -12,11 +12,13 @@ import SwiftUI
 // Router
 protocol MainRouterProtocol: RouterProtocol {
 
+    func navigateToMealsList()
 }
 
 // Presenter
-protocol MainPresenterProtocol: PresenterProtocol {
-
+protocol MainPresenterProtocol: ObservableObject, PresenterProtocol {
+    
+    func didAppear()
 }
 
 // Interactor
@@ -26,5 +28,5 @@ protocol MainInteractorProtocol: InteractorProtocol {
 
 // ViewState
 protocol MainViewStateProtocol: ViewStateProtocol {
-    func set(with presenter: MainPresenterProtocol)
+    
 }

@@ -14,5 +14,8 @@ final class MainRouter: MainRouterProtocol {
     init(navigation: any NavigationServiceType){
         self.navigation = navigation
     }
-       
+    
+    func navigateToMealsList() {
+        navigation.items.append(.mealsList)
+    }
 }

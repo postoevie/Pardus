@@ -11,9 +11,13 @@ import SwiftUI
 struct MainView: View {
            
     @StateObject var viewState: MainViewState
+    @StateObject var presenter: MainPresenter
     
     var body: some View {
-        Text("Hello iOS")
+        Spacer()
+            .onAppear {
+                presenter.didAppear()
+            }
     }
 }
 
