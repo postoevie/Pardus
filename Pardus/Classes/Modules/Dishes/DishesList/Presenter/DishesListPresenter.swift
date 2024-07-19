@@ -29,16 +29,20 @@ final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
     
     func delete(indexSet: IndexSet) {
         Task {
-            try await interactor.deleteDishes(indexSet: indexSet)
-            try await interactor.loadDishes()
+            do {
+                try await interactor.deleteDishes(indexSet: indexSet)
+                try await interactor.loadDishes()
+            } catch {
+                print(error) // TODO: Make error handling (P-3)
+            }
             await MainActor.run {
                 viewState?.set(items: interactor.dishModels)
             }
         }
     }
     
-    func tap(at indexPath: IndexPath) {
-        //wip
+    func tapDish(_ dish: DishViewModel) {
+        router.showEdit(dishId: dish.id)
     }
     
     func didAppear() {

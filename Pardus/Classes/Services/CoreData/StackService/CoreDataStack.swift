@@ -133,6 +133,7 @@ class CoreDataStack {
         dishToMealRel.name = "meals"
         dishToMealRel.isOptional = true
         dishToMealRel.destinationEntity = mealDescription
+        dishToMealRel.deleteRule = .denyDeleteRule
         dishDescription.properties.append(dishToMealRel)
         
         mealToDishRel.inverseRelationship = dishToMealRel
@@ -143,7 +144,7 @@ class CoreDataStack {
         dishToCatRel.destinationEntity = dishCategoryDescription
         dishToCatRel.maxCount = 1
         dishToCatRel.isOptional = true
-        dishToCatRel.deleteRule = .nullifyDeleteRule
+    
         // how obnject erases
         dishDescription.properties.append(dishToCatRel)
 

@@ -56,7 +56,7 @@ indirect enum Views: Equatable, Hashable {
     case mealsList
     case mealEdit(mealId: UUID?)
     case dishList
-    case dishEdit
+    case dishEdit(dishId: UUID?)
     case dishesPick(callingView: Views, preselectedDishes: [UUID], completion: ([UUID]) -> Void)
     
     var stringKey: String {

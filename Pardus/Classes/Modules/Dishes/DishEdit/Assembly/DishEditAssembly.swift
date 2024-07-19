@@ -11,7 +11,7 @@ import SwiftUI
 
 final class DishEditAssembly: Assembly {
     
-    func build() -> some View {
+    func build(dishId: UUID?) -> some View {
         
         let navigation = container.resolve(NavigationAssembly.self).build()
 
@@ -21,11 +21,11 @@ final class DishEditAssembly: Assembly {
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: .dishEdit)
+        let restorated = restoration.restore(key: .dishEdit(dishId: dishId))
         let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
                                                     caches: restorated?.entityCaches ?? [:],
                                                     restoration: restoration)
-        let interactor = DishEditInteractor(modelService: coreDataService, mealId: nil)
+        let interactor = DishEditInteractor(modelService: coreDataService, dishId: dishId)
 
         //ViewState
         let viewState =  DishEditViewState()

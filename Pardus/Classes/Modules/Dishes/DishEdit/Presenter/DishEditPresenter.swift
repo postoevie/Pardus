@@ -23,19 +23,10 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
     }
     
     func didAppear() {
-        guard let viewState else {
-            return
-        }
         Task {
             try await interactor.loadInitialDish()
             await MainActor.run {
-                guard let dish = self.interactor.dish else {
-                    viewState.name = ""
-                    viewState.error = "No entity"
-                    return
-                }
-                viewState.name = dish.name
-                viewState.error = nil
+                self.updateViewState()
             }
         }
     }
@@ -48,6 +39,19 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                 router.returnBack()
             }
         }
+    }
+    
+    func updateViewState() {
+        guard let viewState else {
+            return
+        }
+        guard let dish = self.interactor.dish else {
+            viewState.name = ""
+            viewState.error = "No entity"
+            return
+        }
+        viewState.name = dish.name
+        viewState.error = nil
     }
     
     private func valueSubmitted() async throws {

@@ -25,8 +25,8 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
             buildMealEdit(mealId)
         case .dishList:
             buildDishList()
-        case .dishEdit:
-            buildDishEdit()
+        case .dishEdit(let dishId):
+            buildDishEdit(dishId)
         case .dishesPick(let caller, let preselected, let completion):
             buildDishPick(caller, preselected, completion)
         }
@@ -53,8 +53,8 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
-    fileprivate func buildDishEdit() -> some View {
-        container.resolve(DishEditAssembly.self).build()
+    fileprivate func buildDishEdit(_ dishId: UUID?) -> some View {
+        container.resolve(DishEditAssembly.self).build(dishId: dishId)
     }
     
     @ViewBuilder

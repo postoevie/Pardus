@@ -37,7 +37,7 @@ struct DishEditView: View {
 
 struct DishEditPreviews: PreviewProvider {
     static var previews: some View {
-        ApplicationViewBuilder.stub.build(view: .dishEdit)
+        ApplicationViewBuilder.stub.build(view: .dishEdit(dishId: nil))
     }
 }
 

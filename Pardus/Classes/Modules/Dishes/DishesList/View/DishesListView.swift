@@ -16,7 +16,17 @@ struct DishesListView: View {
     var body: some View {
         List {
             ForEach(viewState.dishesList) { dish in
-                DishesListCell(dish: dish)
+                Button {
+                    presenter.tapDish(dish)
+                } label: {
+                    HStack {
+                        Text(dish.name)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .frame(width: 8, height: 10)
+                    }
+                }
             }
             .onDelete(perform: { indexSet in
                 presenter.delete(indexSet: indexSet)
@@ -38,17 +48,6 @@ struct DishesListView: View {
         }
         .onAppear {
             presenter.didAppear()
-        }
-    }
-}
-
-struct DishesListCell: View {
-    
-    var dish: DishViewModel
-    
-    var body: some View {
-        HStack {
-            Text(dish.name)
         }
     }
 }

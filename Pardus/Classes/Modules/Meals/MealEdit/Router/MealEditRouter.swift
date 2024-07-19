@@ -21,6 +21,8 @@ final class MealEditRouter: MealEditRouterProtocol {
     }
     
     func showDishesPick(preselectedDishes: [UUID], completion: @escaping ([UUID]) -> Void) {
-        navigation.items.append(.dishesPick(callingView: .dishEdit, preselectedDishes: preselectedDishes, completion: completion))
+        navigation.items.append(.dishesPick(callingView: .mealEdit(mealId: nil), // TODO: Consider nil as non-correct value
+                                            preselectedDishes: preselectedDishes,
+                                            completion: completion))
     }
 }

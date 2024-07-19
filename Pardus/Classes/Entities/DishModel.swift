@@ -13,9 +13,9 @@ struct DishModel: EntityModelType, Identifiable {
     
     let id: UUID
     let name: String
-    let category: DishCategoryModel
+    let category: DishCategoryModel?
     
-    let objectId: NSManagedObjectID
+    let objectId: NSManagedObjectID?
 }
 
 struct DishModelMapping: EntityModelMappingType {
@@ -34,9 +34,13 @@ struct DishModelMapping: EntityModelMappingType {
         guard let entity = managedObject as? Dish else {
             throw NSError()
         }
+        var category: DishCategoryModel? = nil
+        if let entityCategory = entity.category {
+            category = try DishCategoryModel.mapping.createModel(managedObject: entityCategory) as? DishCategoryModel
+        }
         return DishModel(id: entity.id,
                          name: entity.name,
-                         category: try DishCategoryModel.mapping.createModel(managedObject: entity.category) as! DishCategoryModel,
+                         category: category,
                          objectId: entity.objectID)
     }
     
@@ -47,7 +51,11 @@ struct DishModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.name = model.name
-        entity.category = context.object(with: model.category.objectId) as! DishCategory
+        entity.category = if let category = model.category {
+            context.object(with: category.objectId) as? DishCategory
+        } else {
+            nil
+        }
     }
     
     func getMOName() throws -> String {

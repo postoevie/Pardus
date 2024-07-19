@@ -15,30 +15,28 @@ final class DishEditInteractor: DishEditInteractorProtocol {
     private(set) var dish: DishModel?
     
     private let modelService: EntityModelServiceType
-    private var mealId: UUID?
+    private var dishId: UUID?
     
-    init(modelService: EntityModelServiceType, mealId: UUID?) {
+    init(modelService: EntityModelServiceType, dishId: UUID?) {
         self.modelService = modelService
-        self.mealId = mealId
+        self.dishId = dishId
     }
     
     func loadInitialDish() async throws {
-        if let mealId {
-            dish = try await modelService.fetch(entityIds: [mealId]).first
+        if let dishId {
+            dish = try await modelService.fetch(entityIds: [dishId]).first
             return
         }
-        let category: DishCategoryModel
+        let category: DishCategoryModel? =
         if let first: DishCategoryModel = try await modelService.fetch(predicate: NSPredicate(value: true)).first {
-            category = first
+            first
         } else {
-            category = try await modelService.create(model: DishCategoryModel(id: UUID(),
-                                                                              name: "Soups",
-                                                                              objectId: NSManagedObjectID()))
+            nil
         }
         dish = try await modelService.create(model: DishModel(id: UUID(),
                                                               name: "",
                                                               category: category,
-                                                              objectId: NSManagedObjectID()))
+                                                              objectId: nil))
     }
     
     func update(model: DishModel) async throws {

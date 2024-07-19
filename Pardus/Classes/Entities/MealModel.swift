@@ -56,8 +56,12 @@ struct MealModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.date = model.date
-        entity.dishes = NSSet(array: model.dishes.map { dish in
-            context.object(with: dish.objectId) as! Dish
+        entity.dishes = NSSet(array: try model.dishes.map { dish in
+            guard let objectId = dish.objectId,
+                  let dish = context.object(with: objectId) as? Dish else {
+                throw NSError()
+            }
+            return dish
         })
     }
     

@@ -13,7 +13,7 @@ import SwiftUI
 protocol DishesListRouterProtocol: RouterProtocol {
 
     func showAdd()
-    func showEdit(onCompleted: (() -> Void)?)
+    func showEdit(dishId: UUID)
 }
 
 // Presenter
@@ -22,7 +22,7 @@ protocol DishesListPresenterProtocol: PresenterProtocol {
     func tapAddNew()
     func didAppear()
     func delete(indexSet: IndexSet)
-    func tap(at indexPath: IndexPath)
+    func tapDish(_ dish: DishViewModel)
 }
 
 // Interactor

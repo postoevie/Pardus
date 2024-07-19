@@ -10,8 +10,8 @@ import SwiftUI
 
 final class DishEditViewState: ObservableObject, DishEditViewStateProtocol {
     
-    var name: String = ""
-    var error: String?
+    @Published var name: String = "name in state"
+    @Published var error: String?
     
     private let id = UUID()
     private var presenter: DishEditPresenterProtocol?

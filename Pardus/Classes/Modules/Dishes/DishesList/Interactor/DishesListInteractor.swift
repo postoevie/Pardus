@@ -29,6 +29,7 @@ final class DishesListInteractor: DishesListInteractorProtocol {
     
     func deleteDishes(indexSet: IndexSet) async throws {
         try await modelService.delete(models: indexSet.map { dishes[$0] })
+        try await modelService.save()
     }
     
     func stashState() {

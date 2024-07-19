@@ -17,11 +17,10 @@ final class DishesListRouter: DishesListRouterProtocol {
     }
     
     func showAdd() {
-        navigation.items.append(.dishEdit)
+        navigation.items.append(.dishEdit(dishId: nil))
     }
     
-    func showEdit(onCompleted: (() -> Void)?) {
-        //wip
+    func showEdit(dishId: UUID) {
+        navigation.items.append(.dishEdit(dishId: dishId))
     }
-    
 }
