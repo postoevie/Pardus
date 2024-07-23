@@ -12,30 +12,33 @@ import SwiftUI
 // Router
 protocol DishesListRouterProtocol: RouterProtocol {
 
-    func showAdd()
-    func showEdit(dishId: UUID)
+    func showAddDish()
+    func showEditDish(dishId: UUID)
+    func showSections()
 }
 
 // Presenter
 protocol DishesListPresenterProtocol: PresenterProtocol {
 
-    func tapAddNew()
+    func tapNewDish()
     func didAppear()
-    func delete(indexSet: IndexSet)
-    func tapDish(_ dish: DishViewModel)
+    func delete(dishId: UUID)
+    func tapEditDish(dishId: UUID)
+    func setSearchText(_ text: String)
 }
 
 // Interactor
 protocol DishesListInteractorProtocol: InteractorProtocol {
 
-    var dishModels: [DishViewModel] { get }
+    var filteredDishes: [DishModel] { get }
     func loadDishes() async throws
-    func deleteDishes(indexSet: IndexSet) async throws
+    func deleteDish(dishId: UUID) async throws
     func stashState()
+    func setFilterText(_ text: String)
 }
 
 // ViewState
 protocol DishesListViewStateProtocol: ViewStateProtocol {
-    func set(with presenter: DishesListPresenterProtocol)
-    func set(items: [DishViewModel])
+    
+    func set(dishesList: [DishViewModel])
 }

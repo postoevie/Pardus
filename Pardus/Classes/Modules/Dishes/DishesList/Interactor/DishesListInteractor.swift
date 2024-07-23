@@ -11,13 +11,11 @@ import Foundation
 
 final class DishesListInteractor: DishesListInteractorProtocol {
     
-    let modelService: EntityModelServiceType
+    var filteredDishes: [DishModel] = []
 
     var dishes: [DishModel] = []
     
-    var dishModels: [DishViewModel] {
-        dishes.map { DishViewModel(model: $0) }
-    }
+    let modelService: EntityModelServiceType
     
     init(modelService: EntityModelServiceType) {
         self.modelService = modelService
@@ -27,13 +25,21 @@ final class DishesListInteractor: DishesListInteractorProtocol {
         dishes = try await modelService.fetch(predicate: NSPredicate(value: true))
     }
     
-    func deleteDishes(indexSet: IndexSet) async throws {
-        try await modelService.delete(models: indexSet.map { dishes[$0] })
+    func deleteDish(dishId: UUID) async throws {
+        guard let dishToDelete = dishes.first(where: { $0.id == dishId }) else {
+            assertionFailure()
+            return
+        }
+        try await modelService.delete(models: [dishToDelete])
         try await modelService.save()
     }
     
     func stashState() {
         modelService.stash(view: .dishList)
+    }
+    
+    func setFilterText(_ text: String) {
+        filteredDishes = dishes.filter { $0.name.hasPrefix(text) }
     }
 }
 

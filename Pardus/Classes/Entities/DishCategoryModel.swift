@@ -13,8 +13,9 @@ struct DishCategoryModel: EntityModelType {
     
     let id: UUID
     let name: String
+    let colorHex: String
     
-    let objectId: NSManagedObjectID
+    let objectId: NSManagedObjectID?
 }
 
 struct DishCategoryModelMapping: EntityModelMappingType {
@@ -25,6 +26,7 @@ struct DishCategoryModelMapping: EntityModelMappingType {
         }
         let entity = DishCategory(context: context)
         entity.id = model.id
+        entity.colorHex = model.colorHex
         try fill(managedObject: entity, with: model)
         return try createModel(managedObject: entity)
     }
@@ -33,7 +35,7 @@ struct DishCategoryModelMapping: EntityModelMappingType {
         guard let entity = managedObject as? DishCategory else {
             throw NSError()
         }
-        return DishCategoryModel(id: entity.id, name: entity.name, objectId: entity.objectID)
+        return DishCategoryModel(id: entity.id, name: entity.name, colorHex: entity.colorHex, objectId: entity.objectID)
     }
     
     func fill(managedObject: NSManagedObject, with model: EntityModelType) throws {
@@ -42,6 +44,7 @@ struct DishCategoryModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.name = model.name
+        entity.colorHex = model.colorHex
     }
     
     func getMOName() throws -> String {

@@ -51,8 +51,8 @@ struct DishModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.name = model.name
-        entity.category = if let category = model.category {
-            context.object(with: category.objectId) as? DishCategory
+        entity.category = if let categoryId = model.category?.objectId {
+            context.object(with: categoryId) as? DishCategory
         } else {
             nil
         }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
-    
+   
     private let router: DishesListRouterProtocol
     private weak var viewState: DishesListViewStateProtocol?
     private let interactor: DishesListInteractorProtocol
@@ -22,35 +22,48 @@ final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
         self.viewState = viewState
     }
     
-    func tapAddNew() {
-        interactor.stashState()
-        router.showAdd()
+    func tapGroup() {
+        router.showSections()
     }
     
-    func delete(indexSet: IndexSet) {
+    func tapNewDish() {
+        interactor.stashState()
+        router.showAddDish()
+    }
+    
+    func tapEditDish(dishId: UUID) {
+        router.showEditDish(dishId: dishId)
+    }
+    
+    func delete(dishId: UUID) {
         Task {
             do {
-                try await interactor.deleteDishes(indexSet: indexSet)
+                try await interactor.deleteDish(dishId: dishId)
                 try await interactor.loadDishes()
             } catch {
                 print(error) // TODO: Make error handling (P-3)
             }
             await MainActor.run {
-                viewState?.set(items: interactor.dishModels)
+                reloadList()
             }
         }
-    }
-    
-    func tapDish(_ dish: DishViewModel) {
-        router.showEdit(dishId: dish.id)
     }
     
     func didAppear() {
+        reloadList()
+    }
+    
+    func reloadList() {
         Task {
             try await interactor.loadDishes()
             await MainActor.run {
-                viewState?.set(items: interactor.dishModels)
+                viewState?.set(dishesList: interactor.filteredDishes.map { DishViewModel(model: $0) })
             }
         }
+    }
+    
+    func setSearchText(_ text: String) {
+        interactor.setFilterText(text)
+        reloadList()
     }
 }

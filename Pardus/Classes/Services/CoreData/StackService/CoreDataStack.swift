@@ -51,7 +51,7 @@ class CoreDataStack {
 //            let url = documentDir!.appending(path: $0)
 //            try? FileManager.default.removeItem(at: url)
 //        }
-        
+//        
         let url = documentDir!.appending(path: "Pardus.sqlite")
         
         //let url = URL(filePath: "/Users/igorpostoev/tmp/Pardus.sqlite")
@@ -119,7 +119,12 @@ class CoreDataStack {
             nameAttr.attributeType = .stringAttributeType
             nameAttr.isOptional = true
             
-            desc.properties = [idAttr, nameAttr]
+            let colorAttr = NSAttributeDescription()
+            colorAttr.name = "colorHex"
+            colorAttr.attributeType = .stringAttributeType
+            colorAttr.isOptional = true
+            
+            desc.properties = [idAttr, nameAttr, colorAttr]
             return desc
         }()
         

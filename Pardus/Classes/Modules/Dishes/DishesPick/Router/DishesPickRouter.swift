@@ -14,5 +14,4 @@ final class DishesPickRouter: DishesPickRouterProtocol {
     init(navigation: any NavigationServiceType){
         self.navigation = navigation
     }
-       
 }

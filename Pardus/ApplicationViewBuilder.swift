@@ -29,6 +29,10 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
             buildDishEdit(dishId)
         case .dishesPick(let caller, let preselected, let completion):
             buildDishPick(caller, preselected, completion)
+        case .dishCategoryEdit(dishCategoryId: let dishCategoryId):
+            buildDishCategoryEdit(dishCategoryId)
+        case .dishesSectionsList:
+            buildDishSectionList()
         }
     }
     
@@ -60,6 +64,16 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     @ViewBuilder
     fileprivate func buildDishPick(_ caller: Views, _ preselected: [UUID], _ completion: @escaping ([UUID]) -> Void) -> some View {
         container.resolve(DishesPickAssembly.self).build(callingView: caller, preselected, completion)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishCategoryEdit(_ dishCategoryId: UUID?) -> some View {
+        container.resolve(DishCategoryEditAssembly.self).build(dishCategoryId: dishCategoryId)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishSectionList() -> some View {
+        container.resolve(DishesSectionsListAssembly.self).build()
     }
 }
 

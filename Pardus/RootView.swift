@@ -8,28 +8,6 @@
 
 import SwiftUI
 
-struct MealsBasementView: View {
-    @ObservedObject var navigationService: NavigationService
-    
-    var body: some View {
-        Spacer()
-            .onAppear {
-                navigationService.items.append(.mealsList)
-            }
-    }
-}
-
-struct DishesBasementView: View {
-    @ObservedObject var navigationService: NavigationService
-    
-    var body: some View {
-        Spacer()
-            .onAppear {
-                navigationService.items.append(.dishList)
-            }
-    }
-}
-
 struct RootView: View {
     
     @ObservedObject var navigationService: NavigationService
@@ -55,7 +33,7 @@ struct RootView: View {
             NavigationStack(path: $navigationService.items) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
-                        if navigationService.items.contains(.dishList) {
+                        if navigationService.items.contains(.dishesSectionsList) {
                             appViewBuilder.build(view: path)
                         } else {
                             Spacer()

@@ -1,14 +1,14 @@
 //
-//  DishesListRouter.swift
+//  DishesSectionsListRouter.swift
 //  Pardus
 //
-//  Created by Igor Postoev on 2.6.24.
+//  Created by Igor Postoev on 23.7.24.
 //  
 //
 
 import Foundation
 
-final class DishesListRouter: DishesListRouterProtocol {
+final class DishesSectionsListRouter: DishesSectionsListRouterProtocol {
 
     private var navigation: any NavigationServiceType
     
@@ -32,7 +32,7 @@ final class DishesListRouter: DishesListRouterProtocol {
         navigation.items.append(.dishEdit(dishId: dishId))
     }
     
-    func showSections() {
-        _ = navigation.items.popLast()
+    func showSearchList() {
+        navigation.items.append(.dishList)
     }
 }

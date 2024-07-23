@@ -30,6 +30,8 @@ class RootApp: App {
         container.apply(DishesListAssembly.self)
         container.apply(DishEditAssembly.self)
         container.apply(DishesPickAssembly.self)
+        container.apply(DishCategoryEditAssembly.self)
+        container.apply(DishesSectionsListAssembly.self)
         
         return container
     }()

@@ -11,4 +11,5 @@ import CoreData
 class DishCategory: IdentifiedManagedObject {
     
     @NSManaged var name: String
+    @NSManaged var colorHex: String
 }

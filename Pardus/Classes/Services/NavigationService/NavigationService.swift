@@ -19,7 +19,7 @@ public class NavigationService: NavigationServiceType  {
     }
     
     @Published var modalView: Views?
-    @Published var items: [Views] = [.mealsList]
+    @Published var items: [Views] = [.dishesSectionsList]
     @Published var alert: CustomAlert?
     @Published var selectedTab: String = "Dishes"
     
@@ -32,7 +32,7 @@ public class NavigationService: NavigationServiceType  {
     init() {
         subscription = $selectedTab.sink { output in
             if output == "Dishes" {
-                self.items = [.dishList]
+                self.items = [.dishesSectionsList]
             }
             if output == "Meals" {
                 self.items = [.mealsList]
@@ -58,6 +58,8 @@ indirect enum Views: Equatable, Hashable {
     case dishList
     case dishEdit(dishId: UUID?)
     case dishesPick(callingView: Views, preselectedDishes: [UUID], completion: ([UUID]) -> Void)
+    case dishCategoryEdit(dishCategoryId: UUID?)
+    case dishesSectionsList
     
     var stringKey: String {
         switch self {
@@ -73,6 +75,10 @@ indirect enum Views: Equatable, Hashable {
             return "dishEdit"
         case .dishesPick:
             return "dishesPick"
+        case .dishCategoryEdit:
+            return "dishCategoryEdit"
+        case .dishesSectionsList:
+            return "dishesSectionsList"
         }
     }
 }
