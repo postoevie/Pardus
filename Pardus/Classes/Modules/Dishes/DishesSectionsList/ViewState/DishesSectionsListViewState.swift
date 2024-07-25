@@ -8,17 +8,11 @@
 
 import SwiftUI
 
-
-struct DishCategoryViewModel: Hashable {
-    
-    let id: UUID
-    let name: String
-    let color: UIColor?
-}
-
 struct DishListSection {
     
-    let category: DishCategoryViewModel
+    let categoryId: UUID?
+    let title: String
+    let color: UIColor?
     let dishes: [DishViewModel]
 }
 

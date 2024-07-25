@@ -9,14 +9,14 @@
 
 import SwiftUI
 
-final class DishesPickAssembly: Assembly {
+final class PicklistAssembly: Assembly {
     
-    func build(callingView: Views, _ preselected: [UUID], _ completion: @escaping ([UUID]) -> Void) -> some View {
+    func build(callingView: Views, _ preselected: Set<UUID>, _ completion: @escaping (Set<UUID>) -> Void) -> some View {
         
         let navigation = container.resolve(NavigationAssembly.self).build()
 
         // Router
-        let router = DishesPickRouter(navigation: navigation)
+        let router = PicklistRouter(navigation: navigation)
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
@@ -25,17 +25,22 @@ final class DishesPickAssembly: Assembly {
         let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
                                                     caches: [:],
                                                     restoration: nil)
-        let interactor = DishesPickInteractor(modelService: coreDataService, preselectedDishesIds: preselected)
+        let interactor: PicklistInteractorProtocol = switch callingView {
+        case .dishEdit:
+            DishCategoriesPicklistInteractor(modelService: coreDataService, preselectedCategoryIds: preselected)
+        default:
+            DishesPicklistInteractor(modelService: coreDataService, preselectedDishesIds: preselected)
+        }
 
         // Presenter
-        let presenter = DishesPickPresenter(router: router, interactor: interactor, completion: completion)
+        let presenter = PicklistPresenter(router: router, interactor: interactor, completion: completion)
         
         //ViewState
-        let viewState = DishesPicklistState()
+        let viewState = PicklistState()
         presenter.viewState = viewState
         
         // View
-        let view = DishesPicklist(viewState: viewState, presenter: presenter)
+        let view = PicklistView(viewState: viewState, presenter: presenter)
         return view
     }
 }

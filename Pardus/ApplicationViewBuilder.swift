@@ -27,12 +27,14 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
             buildDishList()
         case .dishEdit(let dishId):
             buildDishEdit(dishId)
-        case .dishesPick(let caller, let preselected, let completion):
+        case .picklist(let caller, let preselected, let completion):
             buildDishPick(caller, preselected, completion)
         case .dishCategoryEdit(dishCategoryId: let dishCategoryId):
             buildDishCategoryEdit(dishCategoryId)
         case .dishesSectionsList:
             buildDishSectionList()
+        case .dishCategoryPick(let callingView, let preselected, let completion):
+            buildDishCategoryPick(callingView, preselected, completion)
         }
     }
     
@@ -62,8 +64,10 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
-    fileprivate func buildDishPick(_ caller: Views, _ preselected: [UUID], _ completion: @escaping ([UUID]) -> Void) -> some View {
-        container.resolve(DishesPickAssembly.self).build(callingView: caller, preselected, completion)
+    fileprivate func buildDishPick(_ caller: Views,
+                                   _ preselected: Set<UUID>,
+                                   _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(PicklistAssembly.self).build(callingView: caller, preselected, completion)
     }
     
     @ViewBuilder
@@ -74,6 +78,13 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     @ViewBuilder
     fileprivate func buildDishSectionList() -> some View {
         container.resolve(DishesSectionsListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishCategoryPick(_ caller: Views,
+                                           _ preselected: Set<UUID>,
+                                           _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(PicklistAssembly.self).build(callingView: caller, preselected, completion)
     }
 }
 

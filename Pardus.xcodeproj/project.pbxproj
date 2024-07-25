@@ -61,6 +61,8 @@
 		525917702BFF1C87005394DC /* NSPredicate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5259176F2BFF1C87005394DC /* NSPredicate+Extension.swift */; };
 		525917722BFF1CE4005394DC /* IdentifiedManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917712BFF1CE4005394DC /* IdentifiedManagedObject.swift */; };
 		525917742BFF1D85005394DC /* CoreDataInMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */; };
+		526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A83082C52AA82003480C4 /* SubtitleCell.swift */; };
+		526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */; };
 		528700582C16D6C6003BE337 /* DishesPickAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004B2C16D6C6003BE337 /* DishesPickAssembly.swift */; };
 		528700592C16D6C6003BE337 /* DishesPickContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004D2C16D6C6003BE337 /* DishesPickContracts.swift */; };
 		5287005A2C16D6C6003BE337 /* DishesPickPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004F2C16D6C6003BE337 /* DishesPickPresenter.swift */; };
@@ -110,6 +112,7 @@
 		52C365A32C50372500C3AD99 /* DishesSectionsListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C3659A2C50372500C3AD99 /* DishesSectionsListViewState.swift */; };
 		52C365A42C50372500C3AD99 /* DishesSectionsListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C3659C2C50372500C3AD99 /* DishesSectionsListInteractor.swift */; };
 		52C365A52C50372500C3AD99 /* DishesSectionsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C3659E2C50372500C3AD99 /* DishesSectionsListRouter.swift */; };
+		52C365A82C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C365A72C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift */; };
 		52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D708A42C4D24DD00B64E0C /* RussoOne.ttf */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +183,8 @@
 		5259176F2BFF1C87005394DC /* NSPredicate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Extension.swift"; sourceTree = "<group>"; };
 		525917712BFF1CE4005394DC /* IdentifiedManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiedManagedObject.swift; sourceTree = "<group>"; };
 		525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInMemoryCache.swift; sourceTree = "<group>"; };
+		526A83082C52AA82003480C4 /* SubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleCell.swift; sourceTree = "<group>"; };
+		526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyTitleCell.swift; sourceTree = "<group>"; };
 		5287004B2C16D6C6003BE337 /* DishesPickAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesPickAssembly.swift; sourceTree = "<group>"; };
 		5287004D2C16D6C6003BE337 /* DishesPickContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesPickContracts.swift; sourceTree = "<group>"; };
 		5287004F2C16D6C6003BE337 /* DishesPickPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesPickPresenter.swift; sourceTree = "<group>"; };
@@ -229,6 +234,7 @@
 		52C3659A2C50372500C3AD99 /* DishesSectionsListViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesSectionsListViewState.swift; sourceTree = "<group>"; };
 		52C3659C2C50372500C3AD99 /* DishesSectionsListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesSectionsListInteractor.swift; sourceTree = "<group>"; };
 		52C3659E2C50372500C3AD99 /* DishesSectionsListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesSectionsListRouter.swift; sourceTree = "<group>"; };
+		52C365A72C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategoriesPicklistInteractor.swift; sourceTree = "<group>"; };
 		52D708A42C4D24DD00B64E0C /* RussoOne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RussoOne.ttf; sourceTree = "<group>"; };
 		52D708A92C4D284200B64E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -650,7 +656,24 @@
 			path = EntityService;
 			sourceTree = "<group>";
 		};
-		528700492C16D6C6003BE337 /* DishesPick */ = {
+		526A83062C52AA70003480C4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				526A83072C52AA75003480C4 /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		526A83072C52AA75003480C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				526A83082C52AA82003480C4 /* SubtitleCell.swift */,
+				526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		528700492C16D6C6003BE337 /* Picklist */ = {
 			isa = PBXGroup;
 			children = (
 				5287004A2C16D6C6003BE337 /* Assembly */,
@@ -661,7 +684,7 @@
 				528700542C16D6C6003BE337 /* Interactor */,
 				528700562C16D6C6003BE337 /* Router */,
 			);
-			path = DishesPick;
+			path = Picklist;
 			sourceTree = "<group>";
 		};
 		5287004A2C16D6C6003BE337 /* Assembly */ = {
@@ -741,9 +764,11 @@
 		52A861832C0CA0EA001AA01D /* Dishes */ = {
 			isa = PBXGroup;
 			children = (
+				526A83062C52AA70003480C4 /* Shared */,
+				52C365A62C523A1600C3AD99 /* DishCategoryPicklist */,
 				52C365902C50372500C3AD99 /* DishesSectionsList */,
 				52C365492C4EA65D00C3AD99 /* DishCategoryEdit */,
-				528700492C16D6C6003BE337 /* DishesPick */,
+				528700492C16D6C6003BE337 /* Picklist */,
 				52A861842C0CA0EA001AA01D /* DishEdit */,
 				52A861932C0CA0EA001AA01D /* DishesList */,
 			);
@@ -1060,6 +1085,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		52C365A62C523A1600C3AD99 /* DishCategoryPicklist */ = {
+			isa = PBXGroup;
+			children = (
+				52C365A72C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift */,
+			);
+			path = DishCategoryPicklist;
+			sourceTree = "<group>";
+		};
 		52D708A62C4D24F200B64E0C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1254,7 @@
 				525917252BF8B099005394DC /* MealsListViewState.swift in Sources */,
 				525917702BFF1C87005394DC /* NSPredicate+Extension.swift in Sources */,
 				52A861512C0A161D001AA01D /* Utils.swift in Sources */,
+				52C365A82C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift in Sources */,
 				5220DBED2BEF864C00F095EE /* WeakBox.swift in Sources */,
 				5220DBDD2BEF864C00F095EE /* NavigationServiceType.swift in Sources */,
 				525917442BF8E63A005394DC /* MealEditContracts.swift in Sources */,
@@ -1243,12 +1277,14 @@
 				5287005D2C16D6C6003BE337 /* DishesPickInteractor.swift in Sources */,
 				52A8614D2C09B8FD001AA01D /* CoreDataRestorationStoreAssembly.swift in Sources */,
 				52A861592C0B4FFF001AA01D /* DishCategory.swift in Sources */,
+				526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */,
 				52A861572C0B4FE2001AA01D /* Dish.swift in Sources */,
 				5220DBE52BEF864C00F095EE /* AssemblyFactory.swift in Sources */,
 				52A861A72C0CA0EA001AA01D /* DishEditInteractor.swift in Sources */,
 				52C365582C4EA65D00C3AD99 /* DishCategoryEditAssembly.swift in Sources */,
 				52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */,
 				5220DBC02BEF864C00F095EE /* ViewStateProtocol.swift in Sources */,
+				526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */,
 				528700582C16D6C6003BE337 /* DishesPickAssembly.swift in Sources */,
 				5220DBEB2BEF864C00F095EE /* StrongBox.swift in Sources */,
 				52C365462C4D635400C3AD99 /* UIColor+Hex.swift in Sources */,

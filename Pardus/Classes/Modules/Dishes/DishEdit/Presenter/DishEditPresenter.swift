@@ -22,9 +22,35 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         self.viewState = viewState
     }
     
+    func tapEditCategory() {
+        Task {
+            try await valueSubmitted()
+            await MainActor.run {
+                let preselected: [UUID] = if let category = interactor.dish?.category {
+                    [category.id]
+                } else {
+                    []
+                }
+                router.showPicklist(preselectedCategories: Set(preselected)) { [weak self ] selected in
+                    guard let self else {
+                        return
+                    }
+                    self.router.hideLast()
+                    Task {
+                        try await self.interactor.updateDishWith(categoryId: selected.first )
+                        try await self.interactor.loadDish()
+                        await MainActor.run {
+                            self.updateViewState()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func didAppear() {
         Task {
-            try await interactor.loadInitialDish()
+            try await interactor.loadDish()
             await MainActor.run {
                 self.updateViewState()
             }
@@ -51,6 +77,10 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             return
         }
         viewState.name = dish.name
+        if let category = dish.category {
+            let color = (try? UIColor(hex: category.colorHex)) ?? .clear
+            viewState.category = DishCategoryViewModel(id: category.id, name: category.name, color: color)
+        }
         viewState.error = nil
     }
     

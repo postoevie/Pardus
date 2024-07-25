@@ -43,7 +43,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
                 router.showDishesPick(preselectedDishes: meal.dishes.map { $0.id }) { selectedDishes in
                     self.router.returnBack()
                     Task {
-                        try await self.interactor.setSelectedDishes(selectedDishes)
+                        try await self.interactor.setSelectedDishes(Array(selectedDishes)) //TODO: Fix on meal editing task
                         await MainActor.run {
                             self.updateViewState()
                         }

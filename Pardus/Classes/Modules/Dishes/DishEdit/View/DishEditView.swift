@@ -14,30 +14,135 @@ struct DishEditView: View {
     @StateObject var presenter: DishEditPresenter
     
     var body: some View {
-        VStack {
-            TextField("name", text: $viewState.name)
+        VStack(spacing: 20) {
+            FieldSectionView(title: "Name") {
+                TextField("", text: $viewState.name)
+            }
+            VStack(spacing: 8) {
+                HStack(spacing: 16) {
+                    Text("Category")
+                        .font(Font.custom("RussoOne", size: 20))
+                        .foregroundStyle(Color(UIColor.lightGray))
+                    Button {
+                        presenter.tapEditCategory()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                            .font(.title2)
+                            .foregroundStyle(.black)
+                    }
+                    Spacer()
+                }
+                if let category = viewState.category {
+                    HStack {
+                        Circle()
+                            .frame(width: 16)
+                            .foregroundStyle(Color(category.color ?? UIColor.clear))
+                        Text(category.name)
+                        Spacer()
+                    }
+                }
+            }
+            FieldSectionView(title: "Calories in 0.1L") {
+                TextField("", text: $viewState.kcalsPer100)
+                    .disabled(true)
+            }
+            FieldSectionView(title: "Description") {
+                TextField("", text: $viewState.dishDescription)
+                    .disabled(true)
+            }
             Spacer()
         }
         .padding(8)
         .onAppear {
             presenter.didAppear()
         }
+        .padding(16)
+        .font(Font.custom("RussoOne", size: 16))
+        .foregroundStyle(Color(UIColor.black))
+        .textFieldStyle(.roundedBorder)
         .navigationTitle("Dish editing")
         .toolbar {
             ToolbarItem {
                 Button {
                     presenter.doneTapped()
                 } label: {
-                    Text("Save")
+                    Image(systemName: "externaldrive.badge.checkmark")
+                        .font(.title2)
+                        .foregroundStyle(.black)
                 }
             }
         }
     }
 }
 
-struct DishEditPreviews: PreviewProvider {
-    static var previews: some View {
-        ApplicationViewBuilder.stub.build(view: .dishEdit(dishId: nil))
+private struct FieldSectionView<Content: View>: View {
+    
+    var title: String
+    @ViewBuilder var content: () -> Content
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                Text(title)
+                    .font(Font.custom("RussoOne", size: 20))
+                    .foregroundStyle(Color(UIColor.lightGray))
+                Spacer()
+            }
+            content()
+        }
     }
 }
+
+struct DishEditPreviews: PreviewProvider {
+    static var previews: some View {
+        let viewState = DishEditViewState()
+        let presenter = DishEditPresenter(router: DishesListMockRouter(),
+                                          interactor: DishesListMockInteractor(),
+                                          viewState: viewState)
+        return DishEditView(viewState: viewState, presenter: presenter)
+    }
+}
+
+class DishesListMockRouter: DishEditRouterProtocol {
+    func showPicklist(preselectedCategories: Set<UUID>, completion: @escaping (Set<UUID>) -> Void) {
+        
+    }
+    
+    func hideLast() {
+        
+    }
+    
+    func returnBack() {
+        
+    }
+    
+    
+  
+}
+
+class DishesListMockInteractor: DishEditInteractorProtocol {
+    func loadDish() async throws {
+        
+    }
+    
+    func updateDishWith(categoryId: UUID?) async throws {
+        
+    }
+    
+    var dish: DishModel?
+    
+    func loadInitialDish() async throws {
+        
+    }
+    
+    func update(model: DishModel) async throws {
+        
+    }
+    
+    func save() async throws {
+        
+    }
+}
+
+
 

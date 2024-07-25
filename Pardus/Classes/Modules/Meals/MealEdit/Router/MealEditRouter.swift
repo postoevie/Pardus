@@ -3,13 +3,13 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 18.5.24.
-//  
+//
 //
 
 import Foundation
 
 final class MealEditRouter: MealEditRouterProtocol {
-   
+    
     private var navigation: any NavigationServiceType
     
     init(navigation: any NavigationServiceType){
@@ -20,9 +20,9 @@ final class MealEditRouter: MealEditRouterProtocol {
         _ = navigation.items.popLast()
     }
     
-    func showDishesPick(preselectedDishes: [UUID], completion: @escaping ([UUID]) -> Void) {
-        navigation.items.append(.dishesPick(callingView: .mealEdit(mealId: nil), // TODO: Consider nil as non-correct value
-                                            preselectedDishes: preselectedDishes,
-                                            completion: completion))
+    func showDishesPick(preselectedDishes: [UUID], completion: @escaping (Set<UUID>) -> Void) {
+        navigation.items.append(.picklist(callingView: .mealEdit(mealId: nil), // TODO: Consider nil as non-correct value
+                                          preselected: Set(preselectedDishes),
+                                          completion: completion))
     }
 }

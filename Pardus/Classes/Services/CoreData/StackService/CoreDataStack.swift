@@ -70,7 +70,7 @@ class CoreDataStack {
     }
     
     private func makeModel() -> NSManagedObjectModel {
-        var mealDescription = {
+        let mealDescription = {
             let desc = NSEntityDescription()
             desc.name = "Meal"
             desc.managedObjectClassName = String(describing: Meal.self)
@@ -87,7 +87,7 @@ class CoreDataStack {
             return desc
         }()
         
-        var dishDescription = {
+        let dishDescription = {
             let desc = NSEntityDescription()
             desc.name = "Dish"
             desc.managedObjectClassName = String(describing: Dish.self)

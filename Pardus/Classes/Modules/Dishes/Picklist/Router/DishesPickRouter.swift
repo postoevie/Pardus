@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class DishesPickRouter: DishesPickRouterProtocol {
+final class PicklistRouter: PicklistRouterProtocol {
     private var navigation: any NavigationServiceType
     
     init(navigation: any NavigationServiceType){

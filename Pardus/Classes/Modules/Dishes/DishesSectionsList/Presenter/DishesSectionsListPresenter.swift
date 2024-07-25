@@ -33,13 +33,22 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
     
     private func reloadSections() {
         let groupedDishes = Dictionary(grouping: interactor.dishes) { $0.category?.id }
-        let categories = interactor.dishCategories
-        let sections: [DishListSection] = categories.map { category in
-            .init(category: .init(id: category.id,
-                                  name: category.name,
-                                  color: try? .init(hex: category.colorHex)),
-                  dishes: groupedDishes[category.id]?.map { DishViewModel(model: $0) } ?? [])
+        if groupedDishes.isEmpty {
+            viewState?.set(sections: [])
+            return
         }
+        let categories = interactor.dishCategories
+        var sections: [DishListSection] = categories.map { category in
+            DishListSection(categoryId: category.id,
+                            title: category.name,
+                            color: try? .init(hex: category.colorHex),
+                            dishes: groupedDishes[category.id]?.map { DishViewModel(model: $0) } ?? [])
+            
+        }
+        sections.append(DishListSection(categoryId: nil,
+                                        title: "No category",
+                                        color: .lightGray,
+                                        dishes: groupedDishes[nil]?.map { DishViewModel(model: $0) } ?? []))
         viewState?.set(sections: sections)
     }
     

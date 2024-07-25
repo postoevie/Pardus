@@ -20,25 +20,9 @@ struct DishesListView: View {
                 .padding()
             List {
                 ForEach(viewState.dishesList) { dish in
-                    VStack {
-                        HStack {
-                            Text(dish.name)
-                                .foregroundStyle(Color(UIColor.black))
-                                .font(Font.custom("RussoOne", size: 14))
-                            Circle()
-                                .frame(width: 16)
-                                .foregroundStyle(Color(dish.categoryColor ?? UIColor.white))
-                            Spacer()
-                        }
-                        Spacer()
-                            .frame(height: 10)
-                        HStack {
-                            Text("300/150/200 1000")
-                                .foregroundStyle(Color(UIColor.lightGray))
-                                .font(Font.custom("RussoOne", size: 10))
-                            Spacer()
-                        }
-                    }
+                    SubtitleCell(title: dish.name,
+                                 subtitle: "200/200/200",
+                                 color: dish.categoryColor ?? .clear)
                     .frame(minHeight: 40)
                     .swipeActions {
                         Button {

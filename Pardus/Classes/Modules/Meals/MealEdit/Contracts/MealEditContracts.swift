@@ -13,7 +13,7 @@ import SwiftUI
 protocol MealEditRouterProtocol: RouterProtocol {
 
     func returnBack()
-    func showDishesPick(preselectedDishes: [UUID], completion: @escaping ([UUID]) -> Void)
+    func showDishesPick(preselectedDishes: [UUID], completion: @escaping (Set<UUID>) -> Void)
 }
 
 // Presenter

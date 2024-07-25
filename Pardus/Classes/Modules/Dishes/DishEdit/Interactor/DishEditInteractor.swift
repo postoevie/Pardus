@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 final class DishEditInteractor: DishEditInteractorProtocol {
-    
+ 
     private(set) var dish: DishModel?
     
     private let modelService: EntityModelServiceType
@@ -22,26 +22,37 @@ final class DishEditInteractor: DishEditInteractorProtocol {
         self.dishId = dishId
     }
     
-    func loadInitialDish() async throws {
+    func loadDish() async throws {
         if let dishId {
             dish = try await modelService.fetch(entityIds: [dishId]).first
             return
         }
-        let category: DishCategoryModel? =
-        if let first: DishCategoryModel = try await modelService.fetch(predicate: NSPredicate(value: true)).first {
-            first
-        } else {
-            nil
-        }
         dish = try await modelService.create(model: DishModel(id: UUID(),
                                                               name: "",
-                                                              category: category,
+                                                              category: nil,
                                                               objectId: nil))
+        dishId = dish?.id
     }
     
     func update(model: DishModel) async throws {
         try await modelService.update(models: [model])
         dish = try await modelService.fetch(entityIds: [model.id]).first
+    }
+    
+    func updateDishWith(categoryId: UUID?) async throws {
+        guard let dish else {
+            assertionFailure()
+            return
+        }
+        var dishCategory: DishCategoryModel? = nil
+        if let categoryId {
+            let categories: [DishCategoryModel] = try await modelService.fetch(entityIds: [categoryId])
+            dishCategory = categories.first
+        }
+        try await modelService.update(models: [DishModel(id: dish.id,
+                                                         name: dish.name,
+                                                         category: dishCategory,
+                                                         objectId: dish.objectId)])
     }
     
     func save() async throws {

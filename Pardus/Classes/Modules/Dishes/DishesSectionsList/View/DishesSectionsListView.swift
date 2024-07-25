@@ -15,32 +15,34 @@ struct DishesSectionsListView: View {
     
     var body: some View {
         List {
-            ForEach(viewState.sections, id: (\.category.id)) { section in
+            ForEach(viewState.sections, id: (\.categoryId)) { section in
                 HStack {
                     Spacer()
-                    Text(section.category.name)
+                    Text(section.title)
                         .foregroundStyle(Color(UIColor.white))
                         .font(Font.custom("RussoOne", size: 24))
                     Spacer()
                 }
                 .swipeActions {
-                    Button {
-                        presenter.tapEdit(categoryId: section.category.id)
-                    } label: {
-                        Image(systemName: "square.and.pencil")
+                    if let categoryId = section.categoryId {
+                        Button {
+                            presenter.tapEdit(categoryId: categoryId)
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                        }
+                        .tint(.orange)
+                        Button {
+                            presenter.delete(categoryId: categoryId)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
                     }
-                    .tint(.orange)
-                    Button {
-                        presenter.delete(categoryId: section.category.id)
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .tint(.red)
                 }
                 .listRowInsets(.init(top: 16, leading: 8, bottom: 0, trailing: 8))
                 .listRowSeparator(.hidden)
                 .frame(minHeight: 60, alignment: .leading)
-                .background(Color(section.category.color ?? UIColor.white))
+                .background(Color(section.color ?? UIColor.clear))
                 .clipShape(.rect(cornerRadii: section.dishes.isEmpty ?
                                  RectangleCornerRadii(topLeading: 16,
                                                       bottomLeading: 16,
@@ -49,21 +51,9 @@ struct DishesSectionsListView: View {
                                     RectangleCornerRadii(topLeading: 16, topTrailing: 16))
                 )
                 ForEach(section.dishes) { dish in
-                    VStack {
-                        HStack {
-                            Text(dish.name)
-                                .foregroundStyle(Color(UIColor.black))
-                                .font(Font.custom("RussoOne", size: 14))
-                            Spacer()
-                        }
-                        .padding(.bottom, 2)
-                        HStack {
-                            Text("300/150/200 1000")
-                                .foregroundStyle(Color(UIColor.lightGray))
-                                .font(Font.custom("RussoOne", size: 12))
-                            Spacer()
-                        }
-                    }
+                    SubtitleCell(title: dish.name,
+                                 subtitle: "300/150/200 1000",
+                                 color: .clear)
                     .swipeActions {
                         Button {
                             presenter.tapEditDish(dishId: dish.id)

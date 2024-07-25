@@ -29,7 +29,7 @@ class RootApp: App {
         container.apply(MealEditAssembly.self)
         container.apply(DishesListAssembly.self)
         container.apply(DishEditAssembly.self)
-        container.apply(DishesPickAssembly.self)
+        container.apply(PicklistAssembly.self)
         container.apply(DishCategoryEditAssembly.self)
         container.apply(DishesSectionsListAssembly.self)
         

@@ -8,15 +8,18 @@
 
 import SwiftUI
 
+struct DishCategoryViewModel {
+    
+    let id: UUID
+    let name: String
+    let color: UIColor?
+}
+
 final class DishEditViewState: ObservableObject, DishEditViewStateProtocol {
     
-    @Published var name: String = "name in state"
+    @Published var name: String = ""
+    @Published var category: DishCategoryViewModel?
+    @Published var kcalsPer100: String = ""
+    @Published var dishDescription: String = ""
     @Published var error: String?
-    
-    private let id = UUID()
-    private var presenter: DishEditPresenterProtocol?
-    
-    func set(with presener: DishEditPresenterProtocol) {
-        self.presenter = presener
-    }
 }

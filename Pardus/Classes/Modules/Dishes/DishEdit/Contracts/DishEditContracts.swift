@@ -13,6 +13,8 @@ import SwiftUI
 protocol DishEditRouterProtocol: RouterProtocol {
 
     func returnBack()
+    func hideLast()
+    func showPicklist(preselectedCategories: Set<UUID>, completion: @escaping (Set<UUID>) -> Void)
 }
 
 // Presenter
@@ -27,7 +29,8 @@ protocol DishEditInteractorProtocol: InteractorProtocol {
 
     var dish: DishModel? { get }
     
-    func loadInitialDish() async throws
+    func loadDish() async throws
+    func updateDishWith(categoryId: UUID?) async throws
     func update(model: DishModel) async throws
     func save() async throws
 }
@@ -36,4 +39,7 @@ protocol DishEditInteractorProtocol: InteractorProtocol {
 protocol DishEditViewStateProtocol: ViewStateProtocol {
     var name: String { get set }
     var error: String? { get set }
+    var kcalsPer100: String { get set }
+    var dishDescription: String { get set }
+    var category: DishCategoryViewModel? { get set }
 }

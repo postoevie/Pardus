@@ -57,7 +57,8 @@ indirect enum Views: Equatable, Hashable {
     case mealEdit(mealId: UUID?)
     case dishList
     case dishEdit(dishId: UUID?)
-    case dishesPick(callingView: Views, preselectedDishes: [UUID], completion: ([UUID]) -> Void)
+    case picklist(callingView: Views, preselected: Set<UUID>, completion: (Set<UUID>) -> Void)
+    case dishCategoryPick(callingView: Views, preselected: Set<UUID>, completion: (Set<UUID>) -> Void)
     case dishCategoryEdit(dishCategoryId: UUID?)
     case dishesSectionsList
     
@@ -73,12 +74,14 @@ indirect enum Views: Equatable, Hashable {
             return "dishList"
         case .dishEdit:
             return "dishEdit"
-        case .dishesPick:
-            return "dishesPick"
+        case .picklist:
+            return "picklist"
         case .dishCategoryEdit:
             return "dishCategoryEdit"
         case .dishesSectionsList:
             return "dishesSectionsList"
+        case .dishCategoryPick:
+            return "dishCategoryPick"
         }
     }
 }

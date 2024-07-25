@@ -33,8 +33,6 @@ final class DishEditAssembly: Assembly {
         // Presenter
         let presenter = DishEditPresenter(router: router, interactor: interactor, viewState: viewState)
         
-        viewState.set(with: presenter)
-        
         // View
         let view = DishEditView(viewState: viewState, presenter: presenter)
         return view
