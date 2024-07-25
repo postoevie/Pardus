@@ -32,20 +32,15 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
     }
     
     private func reloadSections() {
-        Task {
-            try await interactor.loadDishes()
-            let groupedDishes = Dictionary(grouping: interactor.dishes) { $0.category?.id }
-            let categories = interactor.dishCategories
-            let sections: [DishListSection] = categories.map { category in
-                .init(category: .init(id: category.id,
-                                      name: category.name,
-                                      color: try? .init(hex: category.colorHex)),
-                      dishes: groupedDishes[category.id]?.map { DishViewModel(model: $0) } ?? [])
-            }
-            await MainActor.run {
-                viewState?.set(sections: sections)
-            }
+        let groupedDishes = Dictionary(grouping: interactor.dishes) { $0.category?.id }
+        let categories = interactor.dishCategories
+        let sections: [DishListSection] = categories.map { category in
+            .init(category: .init(id: category.id,
+                                  name: category.name,
+                                  color: try? .init(hex: category.colorHex)),
+                  dishes: groupedDishes[category.id]?.map { DishViewModel(model: $0) } ?? [])
         }
+        viewState?.set(sections: sections)
     }
     
     func tapNewDish() {
@@ -73,7 +68,12 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
     }
     
     func didAppear() {
-        reloadSections()
+        Task {
+            try await interactor.loadDishes()
+            await MainActor.run {
+                reloadSections()
+            }
+        }
     }
     
     

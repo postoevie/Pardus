@@ -23,6 +23,7 @@ final class DishesListInteractor: DishesListInteractorProtocol {
     
     func loadDishes() async throws {
         dishes = try await modelService.fetch(predicate: NSPredicate(value: true))
+        filteredDishes = dishes
     }
     
     func deleteDish(dishId: UUID) async throws {

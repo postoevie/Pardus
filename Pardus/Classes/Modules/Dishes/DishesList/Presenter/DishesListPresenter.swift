@@ -50,16 +50,20 @@ final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
     }
     
     func didAppear() {
-        reloadList()
+        Task {
+            do {
+                try await interactor.loadDishes()
+            } catch {
+                print(error) // TODO: Make error handling (P-3)
+            }
+            await MainActor.run {
+                reloadList()
+            }
+        }
     }
     
     func reloadList() {
-        Task {
-            try await interactor.loadDishes()
-            await MainActor.run {
-                viewState?.set(dishesList: interactor.filteredDishes.map { DishViewModel(model: $0) })
-            }
-        }
+        viewState?.set(dishesList: interactor.filteredDishes.map { DishViewModel(model: $0) })
     }
     
     func setSearchText(_ text: String) {

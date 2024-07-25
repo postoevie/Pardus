@@ -19,11 +19,9 @@ final class DishesListAssembly: Assembly {
         let router = DishesListRouter(navigation: navigation)
 
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: .dishList)
-        let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: restorated?.entityCaches ?? [:],
-                                                    restoration: restoration)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext(),
+                                                    caches: [:],
+                                                    restoration: nil)
         // Interactor
         let interactor = DishesListInteractor(modelService: coreDataService)
 

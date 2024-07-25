@@ -20,11 +20,9 @@ final class DishesSectionsListAssembly: Assembly {
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: .dishList)
-        let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: restorated?.entityCaches ?? [:],
-                                                    restoration: restoration)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext(),
+                                                    caches: [:],
+                                                    restoration: nil)
         let interactor = DishesSectionsListInteractor(modelService: coreDataService)
 
         //ViewState
