@@ -31,7 +31,6 @@
 		5220DBEB2BEF864C00F095EE /* StrongBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEA2BEF864C00F095EE /* StrongBox.swift */; };
 		5220DBED2BEF864C00F095EE /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEC2BEF864C00F095EE /* WeakBox.swift */; };
 		5220DBEF2BEF864C00F095EE /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEE2BEF864C00F095EE /* WeakContainer.swift */; };
-		5220DBF22BEF864C00F095EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5220DBF12BEF864C00F095EE /* Assets.xcassets */; };
 		5220DC002BEF864D00F095EE /* PardusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBFF2BEF864D00F095EE /* PardusTests.swift */; };
 		525917212BF8B099005394DC /* MealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917142BF8B099005394DC /* MealsListAssembly.swift */; };
 		525917222BF8B099005394DC /* MealsListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917162BF8B099005394DC /* MealsListContracts.swift */; };
@@ -65,6 +64,7 @@
 		526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */; };
 		527E67E02C563DBB001A0008 /* DishesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67DF2C563DBB001A0008 /* DishesListItem.swift */; };
 		527E67E42C565440001A0008 /* PicklistViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67E32C565440001A0008 /* PicklistViewItem.swift */; };
+		527E67ED2C569123001A0008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527E67EC2C569122001A0008 /* Assets.xcassets */; };
 		528700582C16D6C6003BE337 /* PicklistAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004B2C16D6C6003BE337 /* PicklistAssembly.swift */; };
 		528700592C16D6C6003BE337 /* PicklistContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004D2C16D6C6003BE337 /* PicklistContracts.swift */; };
 		5287005A2C16D6C6003BE337 /* PicklistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004F2C16D6C6003BE337 /* PicklistPresenter.swift */; };
@@ -154,7 +154,6 @@
 		5220DBEA2BEF864C00F095EE /* StrongBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongBox.swift; sourceTree = "<group>"; };
 		5220DBEC2BEF864C00F095EE /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		5220DBEE2BEF864C00F095EE /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
-		5220DBF12BEF864C00F095EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = text; path = Assets.xcassets; sourceTree = "<group>"; };
 		5220DBFB2BEF864D00F095EE /* PardusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PardusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5220DBFF2BEF864D00F095EE /* PardusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardusTests.swift; sourceTree = "<group>"; };
 		525917142BF8B099005394DC /* MealsListAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListAssembly.swift; sourceTree = "<group>"; };
@@ -189,6 +188,7 @@
 		526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyTitleCell.swift; sourceTree = "<group>"; };
 		527E67DF2C563DBB001A0008 /* DishesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesListItem.swift; sourceTree = "<group>"; };
 		527E67E32C565440001A0008 /* PicklistViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicklistViewItem.swift; sourceTree = "<group>"; };
+		527E67EC2C569122001A0008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5287004B2C16D6C6003BE337 /* PicklistAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistAssembly.swift; sourceTree = "<group>"; };
 		5287004D2C16D6C6003BE337 /* PicklistContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistContracts.swift; sourceTree = "<group>"; };
 		5287004F2C16D6C6003BE337 /* PicklistPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistPresenter.swift; sourceTree = "<group>"; };
@@ -442,8 +442,8 @@
 		5220DBF02BEF864C00F095EE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				527E67EC2C569122001A0008 /* Assets.xcassets */,
 				52D708A62C4D24F200B64E0C /* Fonts */,
-				5220DBF12BEF864C00F095EE /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1205,7 +1205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5259172E2BF8C620005394DC /* LaunchScreen.storyboard in Resources */,
-				5220DBF22BEF864C00F095EE /* Assets.xcassets in Resources */,
+				527E67ED2C569123001A0008 /* Assets.xcassets in Resources */,
 				52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
