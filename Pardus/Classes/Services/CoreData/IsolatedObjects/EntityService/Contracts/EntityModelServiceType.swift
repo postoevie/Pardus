@@ -10,12 +10,17 @@ import Foundation
 
 protocol EntityModelServiceType {
  
+    /// CRUD Operations passing EntityModelType to make an peratioin with associated managed object
     func create<T: EntityModelType>(model: T) async throws -> T
     func fetch<T: EntityModelType>(entityIds: [UUID]) async throws -> [T]
     func fetch<T: EntityModelType>(predicate: NSPredicate?, sortParams: (field: String, ascending: Bool)?) async throws -> [T]
     func update<T: EntityModelType>(models: [T]) async throws
     func delete<T: EntityModelType>(models: [T]) async throws
+    
+    /// Persists data
     func save() async throws
+    
+    /// Puts current View data to the restoration store
     func stash(view: Views)
 }
 

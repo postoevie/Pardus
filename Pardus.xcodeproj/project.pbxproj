@@ -65,6 +65,9 @@
 		527E67E02C563DBB001A0008 /* DishesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67DF2C563DBB001A0008 /* DishesListItem.swift */; };
 		527E67E42C565440001A0008 /* PicklistViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67E32C565440001A0008 /* PicklistViewItem.swift */; };
 		527E67ED2C569123001A0008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527E67EC2C569122001A0008 /* Assets.xcassets */; };
+		527E67F22C569997001A0008 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67F12C569997001A0008 /* Array+Extension.swift */; };
+		527E67F42C569A52001A0008 /* IsolatedObjects.md in Resources */ = {isa = PBXBuildFile; fileRef = 527E67F32C569A52001A0008 /* IsolatedObjects.md */; };
+		527E67F72C56CFBD001A0008 /* CoreDataRestorationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67F62C56CFBD001A0008 /* CoreDataRestorationItem.swift */; };
 		528700582C16D6C6003BE337 /* PicklistAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004B2C16D6C6003BE337 /* PicklistAssembly.swift */; };
 		528700592C16D6C6003BE337 /* PicklistContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004D2C16D6C6003BE337 /* PicklistContracts.swift */; };
 		5287005A2C16D6C6003BE337 /* PicklistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287004F2C16D6C6003BE337 /* PicklistPresenter.swift */; };
@@ -189,6 +192,9 @@
 		527E67DF2C563DBB001A0008 /* DishesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesListItem.swift; sourceTree = "<group>"; };
 		527E67E32C565440001A0008 /* PicklistViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicklistViewItem.swift; sourceTree = "<group>"; };
 		527E67EC2C569122001A0008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		527E67F12C569997001A0008 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		527E67F32C569A52001A0008 /* IsolatedObjects.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IsolatedObjects.md; sourceTree = "<group>"; };
+		527E67F62C56CFBD001A0008 /* CoreDataRestorationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRestorationItem.swift; sourceTree = "<group>"; };
 		5287004B2C16D6C6003BE337 /* PicklistAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistAssembly.swift; sourceTree = "<group>"; };
 		5287004D2C16D6C6003BE337 /* PicklistContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistContracts.swift; sourceTree = "<group>"; };
 		5287004F2C16D6C6003BE337 /* PicklistPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicklistPresenter.swift; sourceTree = "<group>"; };
@@ -297,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				52C365442C4D633A00C3AD99 /* Shared */,
-				52BF79052C042C250039202E /* Entities */,
 				5220DBB82BEF864C00F095EE /* Architecture */,
 				5220DBC12BEF864C00F095EE /* Modules */,
 				5220DBD82BEF864C00F095EE /* Services */,
@@ -622,6 +627,7 @@
 				5259175C2BF97040005394DC /* NSManagedObjectContext+Extension.swift */,
 				5259176D2BFF1C3E005394DC /* KeyPath+Extension.swift */,
 				5259176F2BFF1C87005394DC /* NSPredicate+Extension.swift */,
+				527E67F12C569997001A0008 /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -629,11 +635,10 @@
 		525917612BF9735C005394DC /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				52A861452C09B80D001AA01D /* Restoration */,
-				525917662BFF1B88005394DC /* EntityService */,
+				527E67F02C56987A001A0008 /* IsolatedObjects */,
+				5259174E2BF96A65005394DC /* Entities */,
 				525917632BFF1973005394DC /* StackService */,
 				5259175B2BF97027005394DC /* Extensions */,
-				5259174E2BF96A65005394DC /* Entities */,
 				52A861502C0A161D001AA01D /* Utils.swift */,
 			);
 			path = CoreData;
@@ -656,7 +661,6 @@
 				52BF790A2C042D170039202E /* Contracts */,
 				5259175F2BF97353005394DC /* CoreDataEntityService.swift */,
 				525917672BFF1B88005394DC /* EntityServiceAssembly.swift */,
-				525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */,
 			);
 			path = EntityService;
 			sourceTree = "<group>";
@@ -701,6 +705,28 @@
 				528700552C16D6C6003BE337 /* DishesPickInteractor.swift */,
 			);
 			path = Picklist;
+			sourceTree = "<group>";
+		};
+		527E67F02C56987A001A0008 /* IsolatedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				527E67F52C56C780001A0008 /* Cache */,
+				52BF79052C042C250039202E /* Models */,
+				525917662BFF1B88005394DC /* EntityService */,
+				52A861452C09B80D001AA01D /* Restoration */,
+				527E67F32C569A52001A0008 /* IsolatedObjects.md */,
+			);
+			path = IsolatedObjects;
+			sourceTree = "<group>";
+		};
+		527E67F52C56C780001A0008 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */,
+				52BF790F2C0437CA0039202E /* EntityCacheServiceType.swift */,
+				52BF790B2C042D430039202E /* EntityCacheType.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		528700492C16D6C6003BE337 /* Picklist */ = {
@@ -779,6 +805,7 @@
 				52A8614A2C09B8FD001AA01D /* CoreDataRestorationStoreAssembly.swift */,
 				52A8614B2C09B8FD001AA01D /* CoreDataRestorationStore.swift */,
 				52A8614C2C09B8FD001AA01D /* CoreDataRestorationStoreType.swift */,
+				527E67F62C56CFBD001A0008 /* CoreDataRestorationItem.swift */,
 			);
 			path = CoreDataRestorationStore;
 			sourceTree = "<group>";
@@ -937,14 +964,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		52BF79052C042C250039202E /* Entities */ = {
+		52BF79052C042C250039202E /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				52BF79072C042C370039202E /* MealModel.swift */,
 				52A861522C0A423A001AA01D /* DishModel.swift */,
 				52A861542C0B3316001AA01D /* DishCategoryModel.swift */,
 			);
-			path = Entities;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		52BF790A2C042D170039202E /* Contracts */ = {
@@ -952,9 +979,7 @@
 			children = (
 				525917682BFF1B88005394DC /* EntityModelServiceType.swift */,
 				52BF79032C0391E50039202E /* EntityModelMappingType.swift */,
-				52BF790B2C042D430039202E /* EntityCacheType.swift */,
 				52BF790D2C042D780039202E /* EntityModelType.swift */,
-				52BF790F2C0437CA0039202E /* EntityCacheServiceType.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -1204,6 +1229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527E67F42C569A52001A0008 /* IsolatedObjects.md in Resources */,
 				5259172E2BF8C620005394DC /* LaunchScreen.storyboard in Resources */,
 				527E67ED2C569123001A0008 /* Assets.xcassets in Resources */,
 				52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */,
@@ -1300,6 +1326,7 @@
 				5287005D2C16D6C6003BE337 /* DishesPickInteractor.swift in Sources */,
 				52A8614D2C09B8FD001AA01D /* CoreDataRestorationStoreAssembly.swift in Sources */,
 				52A861592C0B4FFF001AA01D /* DishCategory.swift in Sources */,
+				527E67F72C56CFBD001A0008 /* CoreDataRestorationItem.swift in Sources */,
 				526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */,
 				52A861572C0B4FE2001AA01D /* Dish.swift in Sources */,
 				5220DBE52BEF864C00F095EE /* AssemblyFactory.swift in Sources */,
@@ -1310,6 +1337,7 @@
 				526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */,
 				528700582C16D6C6003BE337 /* PicklistAssembly.swift in Sources */,
 				5220DBEB2BEF864C00F095EE /* StrongBox.swift in Sources */,
+				527E67F22C569997001A0008 /* Array+Extension.swift in Sources */,
 				52C365462C4D635400C3AD99 /* UIColor+Hex.swift in Sources */,
 				52A861AB2C0CA0EA001AA01D /* DishesListPresenter.swift in Sources */,
 				525917602BF97353005394DC /* CoreDataEntityService.swift in Sources */,

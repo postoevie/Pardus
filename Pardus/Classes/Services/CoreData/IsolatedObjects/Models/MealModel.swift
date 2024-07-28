@@ -23,7 +23,7 @@ struct MealModel: EntityModelType, Identifiable {
     }
 }
 
-struct MealModelMapping: EntityModelMappingType {
+private struct MealModelMapping: EntityModelMappingType {
     
     func createObject(context: NSManagedObjectContext, model: EntityModelType) throws -> EntityModelType {
         guard let model = model as? MealModel else {

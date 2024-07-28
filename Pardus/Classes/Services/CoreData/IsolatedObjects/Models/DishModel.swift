@@ -18,7 +18,7 @@ struct DishModel: EntityModelType, Identifiable {
     let objectId: NSManagedObjectID?
 }
 
-struct DishModelMapping: EntityModelMappingType {
+private struct DishModelMapping: EntityModelMappingType {
     
     func createObject(context: NSManagedObjectContext, model: EntityModelType) throws -> EntityModelType {
         guard let model = model as? DishModel else {

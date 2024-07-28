@@ -11,23 +11,6 @@ import Foundation
 import CoreData
 import Combine
 
-struct CoreDataRestorationItem {
-    
-    let entityCaches: [String: any EntityCacheType]
-    let context: NSManagedObjectContext
-}
-
-class MockRestorationStore: CoreDataRestorationStoreType {
-    
-    func restore(key: Views) -> CoreDataRestorationItem? {
-        nil
-    }
-    
-    func store(key: Views, item: CoreDataRestorationItem) {
-
-    }
-}
-
 class CoreDataRestorationStore: CoreDataRestorationStoreType {
     
     var restorationItems: [Views: CoreDataRestorationItem] = [:]
