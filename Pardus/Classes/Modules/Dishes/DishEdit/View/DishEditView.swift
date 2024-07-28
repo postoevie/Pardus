@@ -95,54 +95,8 @@ private struct FieldSectionView<Content: View>: View {
 
 struct DishEditPreviews: PreviewProvider {
     static var previews: some View {
-        let viewState = DishEditViewState()
-        let presenter = DishEditPresenter(router: DishesListMockRouter(),
-                                          interactor: DishesListMockInteractor(),
-                                          viewState: viewState)
-        return DishEditView(viewState: viewState, presenter: presenter)
+        NavigationStack {
+            ApplicationViewBuilder.preview.build(view: .dishEdit(dishId: nil))
+        }
     }
 }
-
-class DishesListMockRouter: DishEditRouterProtocol {
-    func showPicklist(preselectedCategories: Set<UUID>, completion: @escaping (Set<UUID>) -> Void) {
-        
-    }
-    
-    func hideLast() {
-        
-    }
-    
-    func returnBack() {
-        
-    }
-    
-    
-  
-}
-
-class DishesListMockInteractor: DishEditInteractorProtocol {
-    func loadDish() async throws {
-        
-    }
-    
-    func updateDishWith(categoryId: UUID?) async throws {
-        
-    }
-    
-    var dish: DishModel?
-    
-    func loadInitialDish() async throws {
-        
-    }
-    
-    func update(model: DishModel) async throws {
-        
-    }
-    
-    func save() async throws {
-        
-    }
-}
-
-
-

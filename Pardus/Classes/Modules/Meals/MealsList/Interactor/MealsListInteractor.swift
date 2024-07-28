@@ -11,13 +11,27 @@ import Foundation
 
 final class MealsListInteractor: MealsListInteractorProtocol {
     
-    let modelService: EntityModelServiceType
-
-    var meals: [MealModel] = []
+    var startDate = Date()
+    
+    var endDate = Date()
+    
+    var dateFilterEnabled: Bool = false
     
     var mealModels: [MealModel] {
-        meals
+        if dateFilterEnabled {
+            meals.filter {
+                let startDateCondition = Calendar.current.compare(startDate, to: $0.date, toGranularity: .minute) == .orderedAscending
+                let endDateCondition = Calendar.current.compare(endDate, to: $0.date, toGranularity: .minute) == .orderedDescending
+                return startDateCondition && endDateCondition
+            }
+        } else {
+            meals
+        }
     }
+    
+    private var meals: [MealModel] = []
+    
+    private let modelService: EntityModelServiceType
     
     init(modelService: EntityModelServiceType) {
         self.modelService = modelService
@@ -27,8 +41,12 @@ final class MealsListInteractor: MealsListInteractorProtocol {
         meals = try await modelService.fetch(predicate: nil, sortParams: ((\Meal.date).propName, false))
     }
     
-    func deleteMeals(indexSet: IndexSet) async throws {
-        try await modelService.delete(models: indexSet.map { meals[$0] })
+    func delete(itemId: UUID) async throws {
+        guard let first = meals.first(where: { $0.id == itemId }) else {
+            assertionFailure()
+            return
+        }
+        try await modelService.delete(models: [first])
         try await modelService.save()
     }
     

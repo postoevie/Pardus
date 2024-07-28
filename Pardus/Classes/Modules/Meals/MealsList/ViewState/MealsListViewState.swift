@@ -7,37 +7,52 @@
 //
 
 import SwiftUI
+import Combine
 
 final class MealsListViewState: ObservableObject, MealsListViewStateProtocol {
-
-    private let id = UUID()
+    
+    @Published var sections: [MealsListSection] = []
+    @Published var startDate: Date = Date()
+    @Published var endDate: Date = Date()
+    @Published var dateSelectionVisible = false
+    
     private var presenter: MealsListPresenterProtocol?
+    private var subscriptions: [AnyCancellable] = []
     
-    @Published var mealsList: [MealModel] = []
-    
-    func set(presenter: MealsListPresenterProtocol) {
-        self.presenter = presenter
+    func set(sections: [MealsListSection]) {
+        self.sections = sections
     }
     
-    func set(items: [MealModel]) {
-        mealsList = items
+    func set(presenter: MealsListPresenterProtocol) {
+        guard self.presenter == nil else {
+            assertionFailure("Set presenter once")
+            return
+        }
+        self.presenter = presenter
+        $startDate
+            .sink {
+                self.presenter?.setStartDate($0)
+            }.store(in: &subscriptions)
+        $endDate
+            .sink {
+                self.presenter?.setEndDate($0)
+            }.store(in: &subscriptions)
+    }
+    
+    func setStartDateVisible(_ visible: Bool) {
+        dateSelectionVisible = visible
     }
 }
 
-struct MealViewModel: Identifiable {
-    let id: UUID
-    let date: Date
-    let dishNames: [String]
-
-    init(id: UUID, name: String) {
-        self.id = id
-        self.date = Date()
-        dishNames = []
-    }
+struct MealsListSection {
     
-    init(model: MealModel) {
-        self.id = model.id
-        self.date = model.date
-        self.dishNames = model.dishes.map { $0.name }
-    }
+    let title: String
+    let items: [MealsListItem]
+}
+
+struct MealsListItem: Identifiable {
+    
+    let id: UUID
+    let title: String
+    let subtitle: String
 }

@@ -18,6 +18,7 @@ public class NavigationService: NavigationServiceType  {
         lhs.id == rhs.id
     }
     
+    @Published var sheetView: Views?
     @Published var modalView: Views?
     @Published var items: [Views] = [.dishesSectionsList]
     @Published var alert: CustomAlert?
@@ -87,8 +88,10 @@ indirect enum Views: Equatable, Hashable {
 }
 
 class StubNavigation: NavigationServiceType, ObservableObject, Equatable  {
+    
     @Published var modalView: Views?
     @Published var alert: CustomAlert?
+    @Published var sheetView: Views?
     
     public let id = UUID()
     

@@ -50,6 +50,12 @@ struct RootView: View {
                 appViewBuilder.build(view: modal)
             }
         }
+        .sheet(isPresented: .constant($navigationService.sheetView.wrappedValue != nil),
+               onDismiss: { navigationService.sheetView = nil }) {
+            if let sheet = navigationService.sheetView {
+                appViewBuilder.build(view: sheet)
+            }
+        }
         .alert(isPresented: .constant($navigationService.alert.wrappedValue != nil)) {
             switch navigationService.alert {
             case .defaultAlert(let yesAction, let noAction):

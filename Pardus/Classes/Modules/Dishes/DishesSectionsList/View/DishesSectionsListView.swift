@@ -105,7 +105,7 @@ struct DishesSectionsListView: View {
 struct DishesSectionsListPreviews: PreviewProvider {
     
     static var previews: some View {
-        ApplicationViewBuilder.stub.build(view: .dishesSectionsList)
+        ApplicationViewBuilder.preview.build(view: .dishesSectionsList)
     }
 }
 

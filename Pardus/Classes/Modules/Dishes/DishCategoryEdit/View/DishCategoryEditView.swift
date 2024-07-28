@@ -55,6 +55,6 @@ struct DishCategoryEditView: View {
 struct DishCategoryEditPreviews: PreviewProvider {
     
     static var previews: some View {
-        ApplicationViewBuilder.stub.build(view: .dishCategoryEdit(dishCategoryId: nil))
+        ApplicationViewBuilder.preview.build(view: .dishCategoryEdit(dishCategoryId: nil))
     }
 }

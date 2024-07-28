@@ -19,22 +19,28 @@ protocol MealsListRouterProtocol: RouterProtocol {
 // Presenter
 protocol MealsListPresenterProtocol: PresenterProtocol {
     
-    func tapAddNewMeal()
+    func tapAddNewItem()
+    func tapToggleDateFilter()
+    func setStartDate(_ date: Date)
+    func setEndDate(_ date: Date)
     func didAppear()
-    func deleteMeals(indexSet: IndexSet)
-    func tapMeal(_ meal: MealModel)
+    func deleteitem(uid: UUID)
+    func tapItem(uid: UUID)
 }
 
 // Interactor
 protocol MealsListInteractorProtocol: InteractorProtocol {
     var mealModels: [MealModel] { get }
+    var startDate: Date { get set }
+    var endDate: Date { get set }
+    var dateFilterEnabled: Bool { get set }
     func loadMeals() async throws
-    func deleteMeals(indexSet: IndexSet) async throws
+    func delete(itemId: UUID) async throws
     func stashState()
 }
 
 // ViewState
 protocol MealsListViewStateProtocol: ViewStateProtocol {
-    func set(presenter: MealsListPresenterProtocol)
-    func set(items: [MealModel])
+    func set(sections: [MealsListSection])
+    func setStartDateVisible(_ visible: Bool)
 }
