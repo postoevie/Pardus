@@ -18,19 +18,19 @@ struct DishesListView: View {
             TextField("Name", text: $viewState.searchText)
                 .textFieldStyle(.roundedBorder)
                 .padding()
-            List(viewState.dishesList) { dish in
-                SubtitleCell(title: dish.name,
+            List(viewState.items) { item in
+                SubtitleCell(title: item.name,
                              subtitle: "200/200/200",
-                             color: dish.categoryColor ?? .clear)
+                             color: item.categoryColor ?? .clear)
                 .swipeActions {
                     Button {
-                        presenter.tapEditDish(dishId: dish.id)
+                        presenter.tapEditDish(dishId: item.id)
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
                     .tint(.orange)
                     Button {
-                        presenter.delete(dishId: dish.id)
+                        presenter.delete(dishId: item.id)
                     } label: {
                         Image(systemName: "trash")
                     }

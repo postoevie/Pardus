@@ -59,8 +59,9 @@ struct MealsListView: View {
                 }
             }
             .listStyle(.plain)
+            .scrollIndicators(.hidden)
         }
-        .padding()
+        .padding(8)
         .navigationTitle("Meals")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

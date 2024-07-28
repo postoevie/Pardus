@@ -8,26 +8,6 @@
 
 import SwiftUI
 
-
-enum PicklistDataItem {
-    
-    case dish(DishModel)
-    case dishCategory(DishCategoryModel)
-}
-
-struct PicklistViewItem: Hashable {
-    
-    let id: UUID
-    let isSelected: Bool
-    let type: PicklistViewItemType
-}
-
-enum PicklistViewItemType: Hashable {
-    
-    case onlyTitle(title: String, indicatorColor: UIColor)
-    case withSubtitle(title: String, subtitle: String, indicatorColor: UIColor)
-}
-
 // Router
 protocol PicklistRouterProtocol: RouterProtocol {
 

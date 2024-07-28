@@ -35,7 +35,9 @@ class CoreDataRestorationStore: CoreDataRestorationStoreType {
     
     init(navigationService: any NavigationServiceType) {
         // Releases context if a view is out of scope
-        navigationService.itemsPublisher.sink { items in
+        navigationService.itemsPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { items in
             print(items)
             for key in self.restorationItems.keys where !items.contains(key) {
                 self.restorationItems[key] = nil

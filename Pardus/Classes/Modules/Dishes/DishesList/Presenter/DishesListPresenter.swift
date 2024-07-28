@@ -63,7 +63,7 @@ final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
     }
     
     func reloadList() {
-        viewState?.set(dishesList: interactor.filteredDishes.map { DishViewModel(model: $0) })
+        viewState?.set(items: interactor.filteredDishes.map { DishesListItem(model: $0) })
     }
     
     func setSearchText(_ text: String) {

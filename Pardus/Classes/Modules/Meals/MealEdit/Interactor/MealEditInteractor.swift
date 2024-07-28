@@ -9,11 +9,7 @@
 
 import Foundation
 
-@globalActor actor StorageActor: GlobalActor {
-    static let shared = StorageActor()
-}
-
-actor MealEditInteractor: MealEditInteractorProtocol {
+class MealEditInteractor: MealEditInteractorProtocol {
     
     var meal: MealModel?
     private var lastSelectedDishesIds = [UUID]()
@@ -39,6 +35,19 @@ actor MealEditInteractor: MealEditInteractorProtocol {
                                                               dishes: []))
     }
     
+    func remove(dishId: UUID) async throws {
+        guard let meal else {
+            assertionFailure("No entity")
+            return
+        }
+        let filteredDishes = meal.dishes.filter {
+            $0.id != dishId
+        }
+        try await update(model: MealModel(id: meal.id,
+                                          date: meal.date,
+                                          dishes: filteredDishes))
+    }
+    
     func update(model: MealModel) async throws {
         try await modelService.update(models: [model])
         meal = try await modelService.fetch(entityIds: [model.id]).first
@@ -48,14 +57,13 @@ actor MealEditInteractor: MealEditInteractorProtocol {
         try await modelService.save()
     }
     
-    func setSelectedDishes(_ dishesIds: [UUID]) async throws {
+    func setSelectedDishes(_ dishesIds: Set<UUID>) async throws {
         guard let meal else {
             return
         }
-        lastSelectedDishesIds = dishesIds
         try await update(model: MealModel(id: meal.id,
                                           date: meal.date,
-                                          dishes: try await modelService.fetch(entityIds: dishesIds)))
+                                          dishes: try await modelService.fetch(entityIds: Array(dishesIds))))
     }
 }
 

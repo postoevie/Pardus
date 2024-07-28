@@ -20,8 +20,8 @@ final class MealEditRouter: MealEditRouterProtocol {
         _ = navigation.items.popLast()
     }
     
-    func showDishesPick(preselectedDishes: [UUID], completion: @escaping (Set<UUID>) -> Void) {
-        navigation.items.append(.picklist(callingView: .mealEdit(mealId: nil), // TODO: Consider nil as non-correct value
+    func showDishesPick(mealId: UUID, preselectedDishes: [UUID], completion: @escaping (Set<UUID>) -> Void) {
+        navigation.items.append(.picklist(callingView: .mealEdit(mealId: mealId), // TODO: Consider nil as non-correct value
                                           preselected: Set(preselectedDishes),
                                           completion: completion))
     }

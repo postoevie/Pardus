@@ -13,7 +13,7 @@ struct DishListSection {
     let categoryId: UUID?
     let title: String
     let color: UIColor?
-    let dishes: [DishViewModel]
+    let dishes: [DishesListItem]
 }
 
 final class DishesSectionsListViewState: ObservableObject, DishesSectionsListViewStateProtocol {

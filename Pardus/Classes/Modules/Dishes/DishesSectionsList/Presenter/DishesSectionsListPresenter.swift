@@ -42,13 +42,13 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
             DishListSection(categoryId: category.id,
                             title: category.name,
                             color: try? .init(hex: category.colorHex),
-                            dishes: groupedDishes[category.id]?.map { DishViewModel(model: $0) } ?? [])
+                            dishes: groupedDishes[category.id]?.map { DishesListItem(model: $0) } ?? [])
             
         }
         sections.append(DishListSection(categoryId: nil,
                                         title: "No category",
                                         color: .lightGray,
-                                        dishes: groupedDishes[nil]?.map { DishViewModel(model: $0) } ?? []))
+                                        dishes: groupedDishes[nil]?.map { DishesListItem(model: $0) } ?? []))
         viewState?.set(sections: sections)
     }
     

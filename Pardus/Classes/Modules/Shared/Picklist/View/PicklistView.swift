@@ -47,14 +47,16 @@ struct PicklistView: View {
             
             .listStyle(.plain)
         }
-        .navigationTitle("Select option")
+        .navigationTitle("Select items")
         .padding()
         .toolbar {
             ToolbarItem {
                 Button {
                     presenter.doneTapped()
                 } label: {
-                    Text("Save")
+                    Image(systemName: "externaldrive.badge.checkmark")
+                        .font(.title2)
+                        .foregroundStyle(.black)
                 }
             }
         }

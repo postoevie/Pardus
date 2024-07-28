@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
 final class DishCategoryEditInteractor: DishCategoryEditInteractorProtocol {
     

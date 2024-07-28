@@ -28,7 +28,10 @@ final class DishesPicklistInteractor: PicklistInteractorProtocol {
     var selectedItemIds: Set<UUID>
     
     func setSelected(itemId: UUID) {
-        selectedItemIds.remove(itemId)
+        if selectedItemIds.contains(itemId) {
+            selectedItemIds.remove(itemId)
+            return
+        }
         if let first = dishModels.first(where: { $0.id == itemId }) {
             selectedItemIds.insert(first.id)
         }

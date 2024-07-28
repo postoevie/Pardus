@@ -34,16 +34,18 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    func editTapped() {
+    func editDishesTapped() {
+        guard let meal = interactor.meal else {
+            assertionFailure("No entity")
+            return
+        }
         Task {
-            guard let meal = await interactor.meal else {
-                return
-            }
+            try await valueSubmitted()
             await MainActor.run {
-                router.showDishesPick(preselectedDishes: meal.dishes.map { $0.id }) { selectedDishes in
+                router.showDishesPick(mealId: meal.id, preselectedDishes: meal.dishes.map { $0.id }) { selectedDishes in
                     self.router.returnBack()
                     Task {
-                        try await self.interactor.setSelectedDishes(Array(selectedDishes)) //TODO: Fix on meal editing task
+                        try await self.interactor.setSelectedDishes(selectedDishes)
                         await MainActor.run {
                             self.updateViewState()
                         }
@@ -53,21 +55,11 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    func updateViewState() {
-        guard let viewState else {
-            return
-        }
+    func remove(dishId: UUID) {
         Task {
-            let meal = await self.interactor.meal
+            try await interactor.remove(dishId: dishId)
             await MainActor.run {
-                if let meal {
-                    viewState.error = nil
-                    viewState.date = meal.date
-                    viewState.dishes = meal.dishes.map { $0.name }
-                } else {
-                    viewState.dishes = []
-                    viewState.error = "No entity"
-                }
+                self.updateViewState()
             }
         }
     }
@@ -84,9 +76,25 @@ final class MealEditPresenter: MealEditPresenterProtocol {
     
     private func valueSubmitted() async throws {
         guard let viewState,
-              let meal = await self.interactor.meal else {
+              let meal = interactor.meal else {
+            assertionFailure("Prerequsites not accomplished")
             return
         }
         try await interactor.update(model: MealModel(id: meal.id, date: viewState.date, dishes: meal.dishes))
+    }
+    
+    private func updateViewState() {
+        guard let viewState else {
+            return
+        }
+        let meal = interactor.meal
+        if let meal {
+            viewState.error = nil
+            viewState.date = meal.date
+            viewState.dishItems = meal.dishes.map { DishesListItem(model: $0) }
+        } else {
+            viewState.dishItems = []
+            viewState.error = "No entity"
+        }
     }
 }

@@ -40,5 +40,5 @@ protocol DishesListInteractorProtocol: InteractorProtocol {
 // ViewState
 protocol DishesListViewStateProtocol: ViewStateProtocol {
     
-    func set(dishesList: [DishViewModel])
+    func set(items: [DishesListItem])
 }

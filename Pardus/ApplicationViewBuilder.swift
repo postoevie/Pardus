@@ -130,7 +130,7 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
     
     @ViewBuilder
     fileprivate func buildMealEdit(_ mealId: UUID?) -> some View {
-        container.resolve(MealEditAssembly.self).build(mealId: mealId)
+        container.resolve(MealEditAssembly.self).preview()
     }
     
     @ViewBuilder

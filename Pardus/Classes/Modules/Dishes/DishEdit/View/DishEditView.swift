@@ -23,6 +23,7 @@ struct DishEditView: View {
                     Text("Category")
                         .font(Font.custom("RussoOne", size: 20))
                         .foregroundStyle(Color(UIColor.lightGray))
+                    Spacer()
                     Button {
                         presenter.tapEditCategory()
                     } label: {
@@ -30,7 +31,6 @@ struct DishEditView: View {
                             .font(.title2)
                             .foregroundStyle(.black)
                     }
-                    Spacer()
                 }
                 if let category = viewState.category {
                     HStack {
