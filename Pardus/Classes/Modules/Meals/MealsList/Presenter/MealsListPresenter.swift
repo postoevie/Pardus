@@ -53,16 +53,19 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     }
     
     func tapAddNewItem() {
-        interactor.stashState()
         router.showAdd()
     }
     
     func deleteitem(uid: UUID) {
         Task {
-            try await interactor.delete(itemId: uid)
-            try await interactor.loadMeals()
-            await MainActor.run {
-                viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+            do {
+                try await interactor.delete(itemId: uid)
+                try await interactor.loadMeals()
+                await MainActor.run {
+                    viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+                }
+            } catch {
+                print(error)
             }
         }
     }

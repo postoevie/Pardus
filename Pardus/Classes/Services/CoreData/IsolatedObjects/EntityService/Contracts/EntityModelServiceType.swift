@@ -19,9 +19,6 @@ protocol EntityModelServiceType {
     
     /// Persists data
     func save() async throws
-    
-    /// Puts current View data to the restoration store
-    func stash(view: Views)
 }
 
 extension EntityModelServiceType {

@@ -67,7 +67,11 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         }
     }
     
-    func updateViewState() {
+    func navigateBackTapped() {
+        router.returnBack()
+    }
+    
+    private func updateViewState() {
         guard let viewState else {
             return
         }

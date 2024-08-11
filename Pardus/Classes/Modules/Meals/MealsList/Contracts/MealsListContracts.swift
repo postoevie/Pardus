@@ -36,7 +36,6 @@ protocol MealsListInteractorProtocol: InteractorProtocol {
     var dateFilterEnabled: Bool { get set }
     func loadMeals() async throws
     func delete(itemId: UUID) async throws
-    func stashState()
 }
 
 // ViewState

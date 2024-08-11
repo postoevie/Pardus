@@ -24,7 +24,6 @@ class RootApp: App {
         container.apply(CoreDataRestorationStoreAssembly.self)
     
         // Modules
-        container.apply(MainAssembly.self)
         container.apply(MealsListAssembly.self)
         container.apply(MealEditAssembly.self)
         container.apply(DishesListAssembly.self)
@@ -37,8 +36,7 @@ class RootApp: App {
     }()
 
     required init() {
-        navigationService = container.resolve(NavigationAssembly.self).build() as! NavigationService
-        
+        navigationService = NavigationAssembly.navigation
         appViewBuilder = ApplicationViewBuilder(container: container)
     }
     

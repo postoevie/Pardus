@@ -74,6 +74,10 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
+    func navigateBackTapped() {
+        
+    }
+    
     private func valueSubmitted() async throws {
         guard let viewState,
               let meal = interactor.meal else {

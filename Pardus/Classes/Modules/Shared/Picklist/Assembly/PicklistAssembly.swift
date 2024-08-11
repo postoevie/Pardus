@@ -13,18 +13,14 @@ final class PicklistAssembly: Assembly {
     
     func build(callingView: Views, _ preselected: Set<UUID>, _ completion: @escaping (Set<UUID>) -> Void) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: callingView.navigationStem)
         
         // Router
         let router = PicklistRouter(navigation: navigation)
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: callingView)
-        let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: [:],
-                                                    restoration: nil)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.getMainQueueContext())
         let interactor: PicklistInteractorProtocol = switch callingView {
         case .dishEdit:
             DishCategoriesPicklistInteractor(modelService: coreDataService, preselectedCategoryIds: preselected)
@@ -46,7 +42,7 @@ final class PicklistAssembly: Assembly {
     
     func preview(callingView: Views, _ preselected: Set<UUID>, _ completion: @escaping (Set<UUID>) -> Void) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: callingView.navigationStem)
         
         // Router
         let router = PicklistRouter(navigation: navigation)

@@ -16,62 +16,52 @@ struct DishesSectionsListView: View {
     var body: some View {
         List {
             ForEach(viewState.sections, id: (\.categoryId)) { section in
-                HStack {
-                    Spacer()
-                    Text(section.title)
-                        .foregroundStyle(Color(UIColor.white))
-                        .font(Font.custom("RussoOne", size: 24))
-                    Spacer()
-                }
-                .swipeActions {
-                    if let categoryId = section.categoryId {
-                        Button {
-                            presenter.tapEdit(categoryId: categoryId)
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                        }
-                        .tint(.orange)
-                        Button {
-                            presenter.delete(categoryId: categoryId)
-                        } label: {
-                            Image(systemName: "trash")
-                        }
-                        .tint(.red)
-                    }
-                }
-                .listRowInsets(.init(top: 16, leading: 8, bottom: 0, trailing: 8))
-                .listRowSeparator(.hidden)
-                .frame(minHeight: 60, alignment: .leading)
-                .background(Color(section.color ?? UIColor.clear))
-                .clipShape(.rect(cornerRadii: section.dishes.isEmpty ?
-                                 RectangleCornerRadii(topLeading: 16,
-                                                      bottomLeading: 16,
-                                                      bottomTrailing: 16,
-                                                      topTrailing: 16) :
-                                    RectangleCornerRadii(topLeading: 16, topTrailing: 16))
-                )
-                ForEach(section.dishes) { dish in
-                    SubtitleCell(title: dish.name,
-                                 subtitle: "300/150/200 1000",
-                                 color: .clear)
+                Section {
+                    SectionHeader(section: section)
+                    .clipped(all: section.dishes.isEmpty)
                     .swipeActions {
-                        Button {
-                            presenter.tapEditDish(dishId: dish.id)
-                        } label: {
-                            Image(systemName: "square.and.pencil")
+                        if let categoryId = section.categoryId {
+                            Button {
+                                presenter.tapEdit(categoryId: categoryId)
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .tint(.orange)
+                            Button {
+                                presenter.delete(categoryId: categoryId)
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .tint(.red)
                         }
-                        .tint(.orange)
-                        Button {
-                            presenter.delete(dishId: dish.id)
-                        } label: {
-                            Image(systemName: "trash")
+                    }
+                    ForEach(section.dishes) { dish in
+                        SubtitleCell(title: dish.name,
+                                     subtitle: "300/150/200 1000",
+                                     color: .clear)
+                        .defaultCellInsets()
+                        .padding(8)
+                        .swipeActions {
+                            Button {
+                                presenter.tapEditDish(dishId: dish.id)
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .tint(.orange)
+                            Button {
+                                presenter.delete(dishId: dish.id)
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .tint(.red)
                         }
-                        .tint(.red)
                     }
                 }
             }
         }
+        .listSectionSpacing(16)
         .listStyle(.plain)
+        .padding(8)
         .navigationTitle("Dishes")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -112,7 +102,50 @@ struct DishesSectionsListView: View {
 struct DishesSectionsListPreviews: PreviewProvider {
     
     static var previews: some View {
-        ApplicationViewBuilder.preview.build(view: .dishesSectionsList)
+        NavigationStack {
+            ApplicationViewBuilder.preview.build(view: .dishesSectionsList)
+        }
     }
 }
 
+private struct SectionHeader: View {
+    
+    let section: DishListSection
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            Text(section.title)
+                .foregroundStyle(Color(UIColor.white))
+                .font(Font.custom("RussoOne", size: 24))
+            Spacer()
+        }
+        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .listRowSeparator(.hidden)
+        .frame(minHeight: 60, alignment: .leading)
+        .background(Color(section.color ?? UIColor.clear))
+    }
+}
+
+private extension View {
+    
+    func clipped(all: Bool) -> some View {
+        modifier(ClipSide(clipAll: all))
+    }
+}
+
+private struct ClipSide: ViewModifier {
+    
+    let clipAll: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .clipShape(.rect(cornerRadii: clipAll ?
+                             RectangleCornerRadii(topLeading: 16,
+                                                  bottomLeading: 16,
+                                                  bottomTrailing: 16,
+                                                  topTrailing: 16):
+                             RectangleCornerRadii(topLeading: 16, topTrailing: 16))
+            )
+    }
+}

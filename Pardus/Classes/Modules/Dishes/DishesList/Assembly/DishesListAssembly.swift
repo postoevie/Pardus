@@ -13,15 +13,13 @@ final class DishesListAssembly: Assembly {
     
     func build() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
 
         // Router
         let router = DishesListRouter(navigation: navigation)
 
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: [:],
-                                                    restoration: nil)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.getMainQueueContext())
         // Interactor
         let interactor = DishesListInteractor(modelService: coreDataService)
 
@@ -39,7 +37,7 @@ final class DishesListAssembly: Assembly {
     }
     
     func preview() -> some View {
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
 
         // Router
         let router = DishesListRouter(navigation: navigation)
@@ -95,10 +93,6 @@ final class DishesListAssembly: Assembly {
         }
         
         func deleteDishes(indexSet: IndexSet) async throws {
-            
-        }
-        
-        func stashState() {
             
         }
     }

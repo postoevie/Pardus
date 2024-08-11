@@ -13,11 +13,18 @@ extension NSManagedObjectContext {
         guard hasChanges else {
             return
         }
-        try performAndWait {
-            try self.save()
-            if let parent {
-                try parent.persist()
+        do {
+            try performAndWait {
+                try self.save()
+                if let parent {
+                    try parent.persist()
+                }
             }
+        } catch let error as NSError where error.userInfo["NSValidationErrorObject"] != nil {
+            rollback()
+            throw error
+        } catch {
+            throw error
         }
     }
 }

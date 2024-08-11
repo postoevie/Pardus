@@ -12,16 +12,14 @@ final class DishCategoryEditAssembly: Assembly {
     
     func build(dishCategoryId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
 
         // Router
         let router = DishCategoryEditRouter(navigation: navigation)
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: [:],
-                                                    restoration: nil)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext())
         let interactor = DishCategoryEditInteractor(modelService: coreDataService, categoryId: dishCategoryId)
 
         //ViewState

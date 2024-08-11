@@ -14,19 +14,6 @@ import Combine
 class CoreDataRestorationStore: CoreDataRestorationStoreType {
     
     var restorationItems: [Views: CoreDataRestorationItem] = [:]
-    var subscriptions: [AnyCancellable] = []
-    
-    init(navigationService: any NavigationServiceType) {
-        // Releases context if a view is out of scope
-        navigationService.itemsPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { items in
-            print(items)
-            for key in self.restorationItems.keys where !items.contains(key) {
-                self.restorationItems[key] = nil
-            }
-        }.store(in: &subscriptions)
-    }
     
     func restore(key: Views) -> CoreDataRestorationItem? {
         restorationItems[key]
@@ -34,5 +21,9 @@ class CoreDataRestorationStore: CoreDataRestorationStoreType {
     
     func store(key: Views, item: CoreDataRestorationItem) {
         restorationItems[key] = item
+    }
+    
+    func clear(key: Views) {
+        restorationItems[key] = nil
     }
 }

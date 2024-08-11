@@ -33,7 +33,6 @@ protocol DishesListInteractorProtocol: InteractorProtocol {
     var filteredDishes: [DishModel] { get }
     func loadDishes() async throws
     func deleteDish(dishId: UUID) async throws
-    func stashState()
     func setFilterText(_ text: String)
 }
 

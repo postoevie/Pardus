@@ -14,13 +14,6 @@
 		5220DBBC2BEF864C00F095EE /* PresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBBB2BEF864C00F095EE /* PresenterProtocol.swift */; };
 		5220DBBE2BEF864C00F095EE /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBBD2BEF864C00F095EE /* RouterProtocol.swift */; };
 		5220DBC02BEF864C00F095EE /* ViewStateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBBF2BEF864C00F095EE /* ViewStateProtocol.swift */; };
-		5220DBC52BEF864C00F095EE /* MainContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBC42BEF864C00F095EE /* MainContracts.swift */; };
-		5220DBC82BEF864C00F095EE /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBC72BEF864C00F095EE /* MainAssembly.swift */; };
-		5220DBCB2BEF864C00F095EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBCA2BEF864C00F095EE /* MainView.swift */; };
-		5220DBCE2BEF864C00F095EE /* MainViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBCD2BEF864C00F095EE /* MainViewState.swift */; };
-		5220DBD12BEF864C00F095EE /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBD02BEF864C00F095EE /* MainInteractor.swift */; };
-		5220DBD42BEF864C00F095EE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBD32BEF864C00F095EE /* MainPresenter.swift */; };
-		5220DBD72BEF864C00F095EE /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBD62BEF864C00F095EE /* MainRouter.swift */; };
 		5220DBDB2BEF864C00F095EE /* NavigationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBDA2BEF864C00F095EE /* NavigationAssembly.swift */; };
 		5220DBDD2BEF864C00F095EE /* NavigationServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBDC2BEF864C00F095EE /* NavigationServiceType.swift */; };
 		5220DBDF2BEF864C00F095EE /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBDE2BEF864C00F095EE /* NavigationService.swift */; };
@@ -98,6 +91,7 @@
 		52A861AE2C0CA0EA001AA01D /* DishesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A8619F2C0CA0EA001AA01D /* DishesListInteractor.swift */; };
 		52A861AF2C0CA0EA001AA01D /* DishesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */; };
 		52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */; };
+		52BB17712C690D3300DC5D59 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB17702C690D3300DC5D59 /* View+Modifiers.swift */; };
 		52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79032C0391E50039202E /* EntityModelMappingType.swift */; };
 		52BF79082C042C370039202E /* MealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79072C042C370039202E /* MealModel.swift */; };
 		52BF790C2C042D430039202E /* EntityCacheType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF790B2C042D430039202E /* EntityCacheType.swift */; };
@@ -141,13 +135,6 @@
 		5220DBBB2BEF864C00F095EE /* PresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterProtocol.swift; sourceTree = "<group>"; };
 		5220DBBD2BEF864C00F095EE /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		5220DBBF2BEF864C00F095EE /* ViewStateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStateProtocol.swift; sourceTree = "<group>"; };
-		5220DBC42BEF864C00F095EE /* MainContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContracts.swift; sourceTree = "<group>"; };
-		5220DBC72BEF864C00F095EE /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
-		5220DBCA2BEF864C00F095EE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		5220DBCD2BEF864C00F095EE /* MainViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewState.swift; sourceTree = "<group>"; };
-		5220DBD02BEF864C00F095EE /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
-		5220DBD32BEF864C00F095EE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		5220DBD62BEF864C00F095EE /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		5220DBDA2BEF864C00F095EE /* NavigationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAssembly.swift; sourceTree = "<group>"; };
 		5220DBDC2BEF864C00F095EE /* NavigationServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationServiceType.swift; sourceTree = "<group>"; };
 		5220DBDE2BEF864C00F095EE /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
@@ -226,6 +213,7 @@
 		52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesListRouter.swift; sourceTree = "<group>"; };
 		52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		52BB176E2C68CE4C00DC5D59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		52BB17702C690D3300DC5D59 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		52BF79032C0391E50039202E /* EntityModelMappingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityModelMappingType.swift; sourceTree = "<group>"; };
 		52BF79072C042C370039202E /* MealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealModel.swift; sourceTree = "<group>"; };
 		52BF790B2C042D430039202E /* EntityCacheType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCacheType.swift; sourceTree = "<group>"; };
@@ -330,79 +318,8 @@
 				527E67E12C5653FF001A0008 /* Shared */,
 				52A861832C0CA0EA001AA01D /* Dishes */,
 				525917122BF8B099005394DC /* Meals */,
-				5220DBC22BEF864C00F095EE /* Main */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		5220DBC22BEF864C00F095EE /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBC32BEF864C00F095EE /* Contracts */,
-				5220DBC62BEF864C00F095EE /* Assembly */,
-				5220DBC92BEF864C00F095EE /* View */,
-				5220DBCC2BEF864C00F095EE /* ViewState */,
-				5220DBCF2BEF864C00F095EE /* Interactor */,
-				5220DBD22BEF864C00F095EE /* Presenter */,
-				5220DBD52BEF864C00F095EE /* Router */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		5220DBC32BEF864C00F095EE /* Contracts */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBC42BEF864C00F095EE /* MainContracts.swift */,
-			);
-			path = Contracts;
-			sourceTree = "<group>";
-		};
-		5220DBC62BEF864C00F095EE /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBC72BEF864C00F095EE /* MainAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
-		5220DBC92BEF864C00F095EE /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBCA2BEF864C00F095EE /* MainView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		5220DBCC2BEF864C00F095EE /* ViewState */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBCD2BEF864C00F095EE /* MainViewState.swift */,
-			);
-			path = ViewState;
-			sourceTree = "<group>";
-		};
-		5220DBCF2BEF864C00F095EE /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBD02BEF864C00F095EE /* MainInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		5220DBD22BEF864C00F095EE /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBD32BEF864C00F095EE /* MainPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		5220DBD52BEF864C00F095EE /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				5220DBD62BEF864C00F095EE /* MainRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		5220DBD82BEF864C00F095EE /* Services */ = {
@@ -673,6 +590,7 @@
 			children = (
 				526A83082C52AA82003480C4 /* SubtitleCell.swift */,
 				526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */,
+				52BB17702C690D3300DC5D59 /* View+Modifiers.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1258,8 +1176,6 @@
 				5259175D2BF97040005394DC /* NSManagedObjectContext+Extension.swift in Sources */,
 				525917582BF96DFA005394DC /* CoreDataStackServiceAssembly.swift in Sources */,
 				525917462BF8E63A005394DC /* MealEditView.swift in Sources */,
-				5220DBD72BEF864C00F095EE /* MainRouter.swift in Sources */,
-				5220DBC82BEF864C00F095EE /* MainAssembly.swift in Sources */,
 				52A8614E2C09B8FD001AA01D /* CoreDataRestorationStore.swift in Sources */,
 				525917742BFF1D85005394DC /* CoreDataInMemoryCache.swift in Sources */,
 				525917452BF8E63A005394DC /* MealEditPresenter.swift in Sources */,
@@ -1275,7 +1191,6 @@
 				525917212BF8B099005394DC /* MealsListAssembly.swift in Sources */,
 				525917222BF8B099005394DC /* MealsListContracts.swift in Sources */,
 				52A8614F2C09B8FD001AA01D /* CoreDataRestorationStoreType.swift in Sources */,
-				5220DBCE2BEF864C00F095EE /* MainViewState.swift in Sources */,
 				52C365A42C50372500C3AD99 /* DishesSectionsListInteractor.swift in Sources */,
 				52BF790C2C042D430039202E /* EntityCacheType.swift in Sources */,
 				52A861A42C0CA0EA001AA01D /* DishEditPresenter.swift in Sources */,
@@ -1283,7 +1198,6 @@
 				52A861AE2C0CA0EA001AA01D /* DishesListInteractor.swift in Sources */,
 				525917722BFF1CE4005394DC /* IdentifiedManagedObject.swift in Sources */,
 				5220DBE72BEF864C00F095EE /* DependencyContainer.swift in Sources */,
-				5220DBCB2BEF864C00F095EE /* MainView.swift in Sources */,
 				525917492BF8E63A005394DC /* MealEditRouter.swift in Sources */,
 				52C3659F2C50372500C3AD99 /* DishesSectionsListAssembly.swift in Sources */,
 				52A861A32C0CA0EA001AA01D /* DishEditContracts.swift in Sources */,
@@ -1298,7 +1212,6 @@
 				52C365A12C50372500C3AD99 /* DishesSectionsListPresenter.swift in Sources */,
 				527E67E42C565440001A0008 /* PicklistViewItem.swift in Sources */,
 				525917262BF8B099005394DC /* MealsListInteractor.swift in Sources */,
-				5220DBD42BEF864C00F095EE /* MainPresenter.swift in Sources */,
 				5259176B2BFF1B88005394DC /* EntityModelServiceType.swift in Sources */,
 				52A861AA2C0CA0EA001AA01D /* DishesListContracts.swift in Sources */,
 				52C3655B2C4EA65D00C3AD99 /* DishCategoryEditView.swift in Sources */,
@@ -1314,7 +1227,6 @@
 				5220DBE92BEF864C00F095EE /* ObjectKey.swift in Sources */,
 				525917592BF96DFA005394DC /* CoreDataStackService.swift in Sources */,
 				525917472BF8E63A005394DC /* MealEditViewState.swift in Sources */,
-				5220DBC52BEF864C00F095EE /* MainContracts.swift in Sources */,
 				5287005B2C16D6C6003BE337 /* PicklistView.swift in Sources */,
 				52A861A82C0CA0EA001AA01D /* DishEditRouter.swift in Sources */,
 				5220DBE32BEF864C00F095EE /* Assembly.swift in Sources */,
@@ -1344,6 +1256,7 @@
 				52C365462C4D635400C3AD99 /* UIColor+Hex.swift in Sources */,
 				52A861AB2C0CA0EA001AA01D /* DishesListPresenter.swift in Sources */,
 				525917602BF97353005394DC /* CoreDataEntityService.swift in Sources */,
+				52BB17712C690D3300DC5D59 /* View+Modifiers.swift in Sources */,
 				5287005E2C16D6C6003BE337 /* DishesPickRouter.swift in Sources */,
 				5220DBB62BEF864C00F095EE /* ApplicationViewBuilder.swift in Sources */,
 				527E67E02C563DBB001A0008 /* DishesListItem.swift in Sources */,
@@ -1357,7 +1270,6 @@
 				5259175A2BF96DFA005394DC /* CoreDataStackServiceType.swift in Sources */,
 				528700592C16D6C6003BE337 /* PicklistContracts.swift in Sources */,
 				52C365A02C50372500C3AD99 /* DishesSectionsListContracts.swift in Sources */,
-				5220DBD12BEF864C00F095EE /* MainInteractor.swift in Sources */,
 				52A861A22C0CA0EA001AA01D /* DishEditAssembly.swift in Sources */,
 				52A861A92C0CA0EA001AA01D /* DishesListAssembly.swift in Sources */,
 			);

@@ -22,6 +22,7 @@ protocol DishEditPresenterProtocol: PresenterProtocol {
 
     func didAppear()
     func doneTapped()
+    func navigateBackTapped()
 }
 
 // Interactor

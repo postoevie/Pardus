@@ -13,18 +13,14 @@ final class MealEditAssembly: Assembly {
     
     func build(mealId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
         
         // Router
         let router = MealEditRouter(navigation: navigation)
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: .mealEdit(mealId: mealId))
-        let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: restorated?.entityCaches ?? [:],
-                                                    restoration: restoration)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.makeChildMainQueueContext())
         let interactor = MealEditInteractor(modelService: coreDataService, mealId: mealId)
         
         //ViewState
@@ -40,7 +36,7 @@ final class MealEditAssembly: Assembly {
     
     func preview() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
         
         // Router
         let router = MealEditRouter(navigation: navigation)

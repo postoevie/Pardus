@@ -39,7 +39,6 @@ protocol DishesSectionsListInteractorProtocol: InteractorProtocol {
     func loadDishes() async throws
     func deleteDish(dishId: UUID) async throws
     func deleteDishCategory(categoryId: UUID) async throws
-    func stashState()
 }
 
 // ViewState

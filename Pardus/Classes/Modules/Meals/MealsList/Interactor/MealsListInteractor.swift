@@ -49,10 +49,6 @@ final class MealsListInteractor: MealsListInteractorProtocol {
         try await modelService.delete(models: [first])
         try await modelService.save()
     }
-    
-    func stashState() {
-        modelService.stash(view: .mealsList)
-    }
 }
 
 // MARK: Private

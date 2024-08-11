@@ -34,8 +34,8 @@ struct PicklistView: View {
                         }
                         Spacer()
                         if item.isSelected {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(Color(UIColor.green.withAlphaComponent(0.5)))
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color(UIColor(named: "picklist_checkmark_color") ?? .systemGreen))
                         }
                         
                     }

@@ -14,8 +14,8 @@ class CoreDataEntityService {
     private let restoration: CoreDataRestorationStoreType?
     
     init(context: NSManagedObjectContext,
-         caches: [String: any EntityCacheType],
-         restoration: CoreDataRestorationStoreType?) {
+         caches: [String: any EntityCacheType] = [:],
+         restoration: CoreDataRestorationStoreType? = nil) {
         self.context = context
         self.cachesMapping = caches
         self.restoration = restoration
@@ -86,13 +86,7 @@ extension CoreDataEntityService: EntityModelServiceType {
             }
         }
     }
-    
-    func stash(view: Views) {
-        restoration?.store(key: view,
-                          item: CoreDataRestorationItem(entityCaches: cachesMapping,
-                                                        context: context))
-    }
-    
+
     func save() async throws {
         try await context.perform {
             try self.context.persist()

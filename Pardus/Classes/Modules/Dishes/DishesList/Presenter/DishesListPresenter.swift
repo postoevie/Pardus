@@ -27,7 +27,6 @@ final class DishesListPresenter: ObservableObject, DishesListPresenterProtocol {
     }
     
     func tapNewDish() {
-        interactor.stashState()
         router.showAddDish()
     }
     

@@ -43,10 +43,6 @@ final class DishesSectionsListInteractor: DishesSectionsListInteractorProtocol {
         try await modelService.delete(models: [categoryToDelete])
         try await modelService.save()
     }
-    
-    func stashState() {
-        modelService.stash(view: .dishList)
-    }
 }
 
 // MARK: Private

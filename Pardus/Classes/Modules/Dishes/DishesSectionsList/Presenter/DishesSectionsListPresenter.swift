@@ -27,16 +27,11 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
     }
     
     func tapNewCategory() {
-        interactor.stashState()
         router.showAddCategory()
     }
     
     private func reloadSections() {
         let groupedDishes = Dictionary(grouping: interactor.dishes) { $0.category?.id }
-        if groupedDishes.isEmpty {
-            viewState?.set(sections: [])
-            return
-        }
         let categories = interactor.dishCategories
         var sections: [DishListSection] = categories.map { category in
             DishListSection(categoryId: category.id,
@@ -53,7 +48,6 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
     }
     
     func tapNewDish() {
-        interactor.stashState()
         router.showAddDish()
     }
     

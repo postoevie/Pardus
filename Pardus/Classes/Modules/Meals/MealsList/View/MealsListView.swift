@@ -35,10 +35,7 @@ struct MealsListView: View {
                                          subtitle: item.subtitle,
                                          color: .clear)
                         }
-                        .listRowInsets(.init(top: 8,
-                                             leading: 0,
-                                             bottom: 0,
-                                             trailing: 0))
+                        .defaultCellInsets()
                         .buttonStyle(CustomButtonStyle())
                         .listRowSeparator(.hidden)
                         .swipeActions {
@@ -63,7 +60,7 @@ struct MealsListView: View {
         }
         .padding(8)
         .navigationTitle("Meals")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup {

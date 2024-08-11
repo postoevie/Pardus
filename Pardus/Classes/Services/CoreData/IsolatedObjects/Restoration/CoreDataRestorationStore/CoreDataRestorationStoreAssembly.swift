@@ -12,7 +12,7 @@ class CoreDataRestorationStoreAssembly: Assembly {
     
     func build() -> CoreDataRestorationStoreType {
         strongBox {
-            CoreDataRestorationStore(navigationService: self.container.resolve(NavigationAssembly.self).build())
+            CoreDataRestorationStore()
         }
     }
 }

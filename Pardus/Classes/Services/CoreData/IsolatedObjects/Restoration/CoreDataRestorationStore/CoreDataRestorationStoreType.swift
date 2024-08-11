@@ -19,4 +19,7 @@ protocol CoreDataRestorationStoreType {
     
     /// Stores current view data
     func store(key: Views, item: CoreDataRestorationItem)
+    
+    /// Clears stored data for view
+    func clear(key: Views)
 }

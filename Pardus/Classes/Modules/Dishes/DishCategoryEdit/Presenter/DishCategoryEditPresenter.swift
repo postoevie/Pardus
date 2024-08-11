@@ -24,14 +24,18 @@ final class DishCategoryEditPresenter: ObservableObject, DishCategoryEditPresent
     
     func onAppear() {
         Task {
-            try await interactor.loadCategory()
-            guard let category = interactor.category else {
-                return // TODO: Error handling
-            }
-            let color = try UIColor(hex: category.colorHex)
-            await MainActor.run {
-                self.viewState?.name = category.name
-                self.viewState?.color = color.cgColor
+            do {
+                try await interactor.loadCategory()
+                guard let category = interactor.category else {
+                    return
+                }
+                let color = try UIColor(hex: category.colorHex)
+                await MainActor.run {
+                    self.viewState?.name = category.name
+                    self.viewState?.color = color.cgColor
+                }
+            } catch {
+                print(error)
             }
         }
     }
@@ -42,10 +46,14 @@ final class DishCategoryEditPresenter: ObservableObject, DishCategoryEditPresent
             return
         }
         Task {
-            try await interactor.update(name: viewState.name, color: UIColor(cgColor: viewState.color))
-            try await interactor.save()
-            await MainActor.run {
-                self.router.returnBack()
+            do {
+                try await interactor.update(name: viewState.name, color: UIColor(cgColor: viewState.color))
+                try await interactor.save()
+                await MainActor.run {
+                    self.router.returnBack()
+                }
+            } catch {
+                print(error)
             }
         }
     }

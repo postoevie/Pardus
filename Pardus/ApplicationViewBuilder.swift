@@ -17,8 +17,6 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     @ViewBuilder
     func build(view: Views) -> some View {
         switch view {
-        case .main:
-            buildMain()
         case .mealsList :
             buildMealsList()
         case .mealEdit(let mealId):
@@ -36,11 +34,6 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
         case .dishCategoryPick(let callingView, let preselected, let completion):
             buildDishCategoryPick(callingView, preselected, completion)
         }
-    }
-    
-    @ViewBuilder
-    fileprivate func buildMain() -> some View {
-        container.resolve(MainAssembly.self).build()
     }
     
     @ViewBuilder
@@ -97,8 +90,6 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
     @ViewBuilder
     func build(view: Views) -> some View {
         switch view {
-        case .main:
-            buildMain()
         case .mealsList :
             buildMealsList()
         case .mealEdit(let mealId):
@@ -116,11 +107,6 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
         case .dishCategoryPick(let callingView, let preselected, let completion):
             buildDishCategoryPick(callingView, preselected, completion)
         }
-    }
-    
-    @ViewBuilder
-    fileprivate func buildMain() -> some View {
-        container.resolve(MainAssembly.self).build()
     }
     
     @ViewBuilder
@@ -157,7 +143,7 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
     
     @ViewBuilder
     fileprivate func buildDishSectionList() -> some View {
-        container.resolve(DishesSectionsListAssembly.self).build()
+        container.resolve(DishesSectionsListAssembly.self).preview()
     }
     
     @ViewBuilder

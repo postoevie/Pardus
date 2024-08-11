@@ -3,14 +3,14 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 11.5.24.
-//  
+//
 //
 
 
 import SwiftUI
 import Combine
 
-public class NavigationService: NavigationServiceType  {
+public class NavigationService: ObservableObject, Identifiable  {
     
     public let id = UUID()
     
@@ -18,28 +18,11 @@ public class NavigationService: NavigationServiceType  {
         lhs.id == rhs.id
     }
     
+    @Published var mealsItems: [Views] = [.mealsList]
+    @Published var dishesItems: [Views] = [.dishesSectionsList]
     @Published var sheetView: Views?
     @Published var modalView: Views?
-    @Published var items: [Views] = [.dishesSectionsList]
     @Published var alert: CustomAlert?
-    @Published var selectedTab: String = "Dishes"
-    
-    var itemsPublisher: Published<[Views]>.Publisher {
-        $items
-    }
-    
-    private var subscription: AnyCancellable?
-    
-    init() {
-        subscription = $selectedTab.sink { output in
-            if output == "Dishes" {
-                self.items = [.dishesSectionsList]
-            }
-            if output == "Meals" {
-                self.items = [.mealsList]
-            }
-        }
-    }
 }
 
 
@@ -53,7 +36,6 @@ indirect enum Views: Equatable, Hashable {
         hasher.combine(self.stringKey)
     }
     
-    case main
     case mealsList
     case mealEdit(mealId: UUID?)
     case dishList
@@ -65,8 +47,6 @@ indirect enum Views: Equatable, Hashable {
     
     var stringKey: String {
         switch self {
-        case .main:
-            return "main"
         case .mealsList:
             return "mealsList"
         case .mealEdit:
@@ -85,28 +65,14 @@ indirect enum Views: Equatable, Hashable {
             return "dishCategoryPick"
         }
     }
-}
-
-class StubNavigation: NavigationServiceType, ObservableObject, Equatable  {
     
-    @Published var modalView: Views?
-    @Published var alert: CustomAlert?
-    @Published var sheetView: Views?
-    
-    public let id = UUID()
-    
-    public static func == (lhs: StubNavigation, rhs: StubNavigation) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    fileprivate init() {}
-    
-    static var stub: any NavigationServiceType { NavigationService() }
-    
-    @Published var items: [Views] = []
-    
-    var itemsPublisher: Published<[Views]>.Publisher {
-        $items
+    var navigationStem: NavigationStem {
+        switch self {
+        case .mealsList, .mealEdit:
+            return .meals
+        default:
+            return .dishes
+        }
     }
 }
 

@@ -35,10 +35,6 @@ final class DishesListInteractor: DishesListInteractorProtocol {
         try await modelService.save()
     }
     
-    func stashState() {
-        modelService.stash(view: .dishList)
-    }
-    
     func setFilterText(_ text: String) {
         filteredDishes = dishes.filter { $0.name.hasPrefix(text) }
     }

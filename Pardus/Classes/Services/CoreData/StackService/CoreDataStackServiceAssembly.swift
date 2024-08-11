@@ -10,9 +10,9 @@ import Foundation
 
 class CoreDataStackServiceAssembly: Assembly {
     
-    static let service: CoreDataStackServiceType = CoreDataStackService()
-    
     func build() -> CoreDataStackServiceType {
-        return CoreDataStackServiceAssembly.service
+        strongBox {
+            CoreDataStackService()
+        }
     }
 }

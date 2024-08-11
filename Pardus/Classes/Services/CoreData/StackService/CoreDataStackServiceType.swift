@@ -11,6 +11,9 @@ import CoreData
 
 protocol CoreDataStackServiceType {
     
+    /// Fetches app's main context on main thread
+    func getMainQueueContext() -> NSManagedObjectContext
+    
     /// Creates child context working with main queue
     func makeChildMainQueueContext() -> NSManagedObjectContext
 }

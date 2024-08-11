@@ -43,7 +43,7 @@ class CoreDataStack {
         return context
     }
     
-    func setup() {
+    func setup(inMemory: Bool) {
         let model = makeModel()
         let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
         
@@ -62,6 +62,7 @@ class CoreDataStack {
         }
         print("DBURL: \(url)")
         description.url = url
+        description.type = inMemory ? NSInMemoryStoreType : NSSQLiteStoreType
         container.loadPersistentStores { description, error in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
@@ -132,6 +133,7 @@ class CoreDataStack {
         mealToDishRel.name = "dishes"
         mealToDishRel.isOptional = true
         mealToDishRel.destinationEntity = dishDescription
+        mealToDishRel.deleteRule = .nullifyDeleteRule
         mealDescription.properties.append(mealToDishRel)
         
         let dishToMealRel = NSRelationshipDescription()
@@ -148,6 +150,7 @@ class CoreDataStack {
         dishToCatRel.name = "category"
         dishToCatRel.destinationEntity = dishCategoryDescription
         dishToCatRel.maxCount = 1
+        dishToCatRel.deleteRule = .nullifyDeleteRule
         dishToCatRel.isOptional = true
         
         let catToDishRel = NSRelationshipDescription()

@@ -3,7 +3,7 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 11.5.24.
-//  
+//
 //
 
 import SwiftUI
@@ -14,30 +14,22 @@ struct RootView: View {
     @ObservedObject var appViewBuilder: ApplicationViewBuilder
     
     var body: some View {
-
-        TabView(selection: $navigationService.selectedTab) {
-            NavigationStack(path: $navigationService.items) {
+        
+        TabView {
+            NavigationStack(path: $navigationService.mealsItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
-                        if navigationService.items.contains(.mealsList) {
-                            appViewBuilder.build(view: path)
-                        } else {
-                            Spacer()
-                        }
+                        appViewBuilder.build(view: path)
                     }
             }
             .tabItem {
                 Label("Meals", systemImage: "")
             }
             .tag("Meals")
-            NavigationStack(path: $navigationService.items) {
+            NavigationStack(path: $navigationService.dishesItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
-                        if navigationService.items.contains(.dishesSectionsList) {
-                            appViewBuilder.build(view: path)
-                        } else {
-                            Spacer()
-                        }
+                        appViewBuilder.build(view: path)
                     }
             }
             .tabItem {

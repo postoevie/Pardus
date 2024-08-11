@@ -13,18 +13,14 @@ final class MealsListAssembly: Assembly {
     
     func build() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
         
         // Router
         let router = MealsListRouter(navigation: navigation)
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let restoration = container.resolve(CoreDataRestorationStoreAssembly.self).build()
-        let restorated = restoration.restore(key: .mealsList)
-        let coreDataService = CoreDataEntityService(context: restorated?.context ?? coreDataStackService.makeChildMainQueueContext(),
-                                                    caches: restorated?.entityCaches ?? [:],
-                                                    restoration: restoration)
+        let coreDataService = CoreDataEntityService(context: coreDataStackService.getMainQueueContext())
         let interactor = MealsListInteractor(modelService: coreDataService)
         
         //ViewState
@@ -44,7 +40,7 @@ final class MealsListAssembly: Assembly {
     
     func preview() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build()
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
         
         // Router
         let router = MealsListRouter(navigation: navigation)
@@ -124,10 +120,6 @@ final class MealsListAssembly: Assembly {
         }
         
         func deleteMeals(indexSet: IndexSet) async throws {
-            
-        }
-        
-        func stashState() {
             
         }
     }
