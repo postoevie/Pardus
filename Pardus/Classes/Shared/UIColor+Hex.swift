@@ -18,7 +18,7 @@ extension UIColor {
         var rgb64: UInt64 = 0
         Scanner(string: hexNormalized).scanHexInt64(&rgb64)
         
-        var rgb = UInt32(truncatingIfNeeded: rgb64)
+        let rgb = UInt32(truncatingIfNeeded: rgb64)
         let length = hexNormalized.count
         var r: CGFloat = 0.0
         var g: CGFloat = 0.0

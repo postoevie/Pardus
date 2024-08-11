@@ -149,9 +149,18 @@ class CoreDataStack {
         dishToCatRel.destinationEntity = dishCategoryDescription
         dishToCatRel.maxCount = 1
         dishToCatRel.isOptional = true
+        
+        let catToDishRel = NSRelationshipDescription()
+        catToDishRel.name = "dishes"
+        catToDishRel.destinationEntity = dishDescription
+        catToDishRel.deleteRule = .denyDeleteRule
+        catToDishRel.isOptional = true
+        
+        dishToCatRel.inverseRelationship = catToDishRel
+        catToDishRel.inverseRelationship = dishToCatRel
     
-        // how obnject erases
         dishDescription.properties.append(dishToCatRel)
+        dishCategoryDescription.properties.append(catToDishRel)
 
         let model = NSManagedObjectModel()
         model.entities = [mealDescription,

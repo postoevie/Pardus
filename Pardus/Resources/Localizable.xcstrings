@@ -1,0 +1,74 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "CantDeleteDishesExist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot delete category due to existing dishes"
+          }
+        }
+      }
+    },
+    "Category" : {
+
+    },
+    "Category edit" : {
+
+    },
+    "Color" : {
+
+    },
+    "Create category" : {
+
+    },
+    "Create dish" : {
+
+    },
+    "Date" : {
+
+    },
+    "Dish editing" : {
+
+    },
+    "Dishes" : {
+
+    },
+    "EndDate" : {
+
+    },
+    "Meal editing" : {
+
+    },
+    "Meals" : {
+
+    },
+    "Name" : {
+
+    },
+    "No" : {
+
+    },
+    "OK" : {
+
+    },
+    "Select items" : {
+
+    },
+    "StartDate" : {
+
+    },
+    "Title" : {
+
+    },
+    "Yes" : {
+
+    }
+  },
+  "version" : "1.0"
+}

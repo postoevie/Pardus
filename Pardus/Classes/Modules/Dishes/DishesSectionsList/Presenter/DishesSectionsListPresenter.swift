@@ -85,12 +85,20 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
         }
     }
     
+    func okAlertTapped() {
+        viewState?.hideAlert()
+    }
     
     func delete(categoryId: UUID) {
         Task {
             do {
                 try await interactor.deleteDishCategory(categoryId: categoryId)
                 try await interactor.loadDishes()
+            } catch let error as NSError where error.userInfo["NSValidationErrorKey"] as? String == "dishes" {
+                await MainActor.run {
+                    viewState?.showAlert(title: String(localized: "CantDeleteDishesExist"))
+                }
+                return
             } catch {
                 print(error) // TODO: Make error handling (P-3)
             }

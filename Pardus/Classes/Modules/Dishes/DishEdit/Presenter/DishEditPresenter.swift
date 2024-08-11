@@ -80,6 +80,8 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         if let category = dish.category {
             let color = (try? UIColor(hex: category.colorHex)) ?? .clear
             viewState.category = DishCategoryViewModel(id: category.id, name: category.name, color: color)
+        } else {
+            viewState.category = nil
         }
         viewState.error = nil
     }

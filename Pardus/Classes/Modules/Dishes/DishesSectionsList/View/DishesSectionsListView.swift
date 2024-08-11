@@ -78,6 +78,13 @@ struct DishesSectionsListView: View {
         .onAppear {
             presenter.didAppear()
         }
+        .alert(viewState.alertTitle,
+               isPresented: $viewState.alertPresented,
+               actions: {
+            Button("OK") {
+                presenter.okAlertTapped()
+            }
+        })
         .toolbar {
             ToolbarItem {
                 Button {

@@ -97,6 +97,7 @@
 		52A861AD2C0CA0EA001AA01D /* DishesListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A8619D2C0CA0EA001AA01D /* DishesListViewState.swift */; };
 		52A861AE2C0CA0EA001AA01D /* DishesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A8619F2C0CA0EA001AA01D /* DishesListInteractor.swift */; };
 		52A861AF2C0CA0EA001AA01D /* DishesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */; };
+		52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */; };
 		52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79032C0391E50039202E /* EntityModelMappingType.swift */; };
 		52BF79082C042C370039202E /* MealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79072C042C370039202E /* MealModel.swift */; };
 		52BF790C2C042D430039202E /* EntityCacheType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF790B2C042D430039202E /* EntityCacheType.swift */; };
@@ -166,7 +167,6 @@
 		5259171C2BF8B099005394DC /* MealsListViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListViewState.swift; sourceTree = "<group>"; };
 		5259171E2BF8B099005394DC /* MealsListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListInteractor.swift; sourceTree = "<group>"; };
 		525917202BF8B099005394DC /* MealsListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListRouter.swift; sourceTree = "<group>"; };
-		5259172D2BF8C620005394DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		525917362BF8E63A005394DC /* MealEditAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealEditAssembly.swift; sourceTree = "<group>"; };
 		525917382BF8E63A005394DC /* MealEditContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealEditContracts.swift; sourceTree = "<group>"; };
 		5259173A2BF8E63A005394DC /* MealEditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealEditPresenter.swift; sourceTree = "<group>"; };
@@ -224,6 +224,8 @@
 		52A8619D2C0CA0EA001AA01D /* DishesListViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesListViewState.swift; sourceTree = "<group>"; };
 		52A8619F2C0CA0EA001AA01D /* DishesListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesListInteractor.swift; sourceTree = "<group>"; };
 		52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesListRouter.swift; sourceTree = "<group>"; };
+		52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		52BB176E2C68CE4C00DC5D59 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52BF79032C0391E50039202E /* EntityModelMappingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityModelMappingType.swift; sourceTree = "<group>"; };
 		52BF79072C042C370039202E /* MealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealModel.swift; sourceTree = "<group>"; };
 		52BF790B2C042D430039202E /* EntityCacheType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCacheType.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 			children = (
 				527E67EC2C569122001A0008 /* Assets.xcassets */,
 				52D708A62C4D24F200B64E0C /* Fonts */,
+				52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1211,7 +1214,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 5220DBA52BEF864C00F095EE;
 			productRefGroup = 5220DBAF2BEF864C00F095EE /* Products */;
@@ -1230,6 +1232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				527E67F42C569A52001A0008 /* IsolatedObjects.md in Resources */,
+				52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */,
 				5259172E2BF8C620005394DC /* LaunchScreen.storyboard in Resources */,
 				527E67ED2C569123001A0008 /* Assets.xcassets in Resources */,
 				52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */,
@@ -1382,7 +1385,7 @@
 		5259172C2BF8C620005394DC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5259172D2BF8C620005394DC /* Base */,
+				52BB176E2C68CE4C00DC5D59 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

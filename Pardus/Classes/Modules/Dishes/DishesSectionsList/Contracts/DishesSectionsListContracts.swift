@@ -46,4 +46,6 @@ protocol DishesSectionsListInteractorProtocol: InteractorProtocol {
 protocol DishesSectionsListViewStateProtocol: ViewStateProtocol {
     
     func set(sections: [DishListSection])
+    func showAlert(title: String)
+    func hideAlert()
 }
