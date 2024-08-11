@@ -15,6 +15,17 @@
         }
       }
     },
+    "CantDeleteMealsExist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot delete category due to existing meals"
+          }
+        }
+      }
+    },
     "Category" : {
 
     },

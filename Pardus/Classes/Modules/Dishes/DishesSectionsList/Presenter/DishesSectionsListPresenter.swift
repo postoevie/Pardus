@@ -67,8 +67,13 @@ final class DishesSectionsListPresenter: ObservableObject, DishesSectionsListPre
             do {
                 try await interactor.deleteDish(dishId: dishId)
                 try await interactor.loadDishes()
+            } catch let error as NSError where error.userInfo["NSValidationErrorKey"] as? String == "meals" {
+                await MainActor.run {
+                    viewState?.showAlert(title: String(localized: "CantDeleteMealsExist"))
+                }
+                return
             } catch {
-                print(error) // TODO: Make error handling (P-3)
+                print(error)
             }
             await MainActor.run {
                 reloadSections()
