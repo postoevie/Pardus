@@ -14,6 +14,10 @@ struct DishModel: EntityModelType, Identifiable {
     let id: UUID
     let name: String
     let category: DishCategoryModel?
+    let calories: Double
+    let proteins: Double
+    let fats: Double
+    let carbohydrates: Double
     
     let objectId: NSManagedObjectID?
 }
@@ -31,17 +35,29 @@ private struct DishModelMapping: EntityModelMappingType {
     }
     
     func createModel(managedObject: NSManagedObject) throws -> EntityModelType {
-        guard let entity = managedObject as? Dish else {
+        guard let context = managedObject.managedObjectContext,
+              let entity = managedObject as? Dish else {
             throw NSError()
         }
-        var category: DishCategoryModel? = nil
-        if let entityCategory = entity.category {
-            category = try DishCategoryModel.mapping.createModel(managedObject: entityCategory) as? DishCategoryModel
+        var dishModel: DishModel?
+        try context.performAndWait {
+            var category: DishCategoryModel?
+            if let entityCategory = entity.category {
+                category = try DishCategoryModel.mapping.createModel(managedObject: entityCategory) as? DishCategoryModel
+            }
+            dishModel = DishModel(id: entity.id,
+                                  name: entity.name,
+                                  category: category,
+                                  calories: entity.calories,
+                                  proteins: entity.proteins,
+                                  fats: entity.fats,
+                                  carbohydrates: entity.carbohydrates,
+                                  objectId: entity.objectID)
         }
-        return DishModel(id: entity.id,
-                         name: entity.name,
-                         category: category,
-                         objectId: entity.objectID)
+        guard let dishModel else {
+            throw NSError()
+        }
+        return dishModel
     }
     
     func fill(managedObject: NSManagedObject, with model: EntityModelType) throws {
@@ -51,6 +67,10 @@ private struct DishModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.name = model.name
+        entity.calories = model.calories
+        entity.proteins = model.proteins
+        entity.fats = model.fats
+        entity.carbohydrates = model.carbohydrates
         entity.category = if let categoryId = model.category?.objectId {
             context.object(with: categoryId) as? DishCategory
         } else {

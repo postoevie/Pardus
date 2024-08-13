@@ -28,19 +28,22 @@ protocol DishEditPresenterProtocol: PresenterProtocol {
 // Interactor
 protocol DishEditInteractorProtocol: InteractorProtocol {
 
-    var dish: DishModel? { get }
+    var data: DishEditData? { get }
+    var dishCategory: DishCategoryViewModel? { get }
     
     func loadDish() async throws
     func updateDishWith(categoryId: UUID?) async throws
-    func update(model: DishModel) async throws
+    func update(data: DishEditData) async throws
     func save() async throws
 }
 
 // ViewState
 protocol DishEditViewStateProtocol: ViewStateProtocol {
     var name: String { get set }
-    var error: String? { get set }
-    var kcalsPer100: String { get set }
-    var dishDescription: String { get set }
+    var calories: Double { get set }
+    var proteins: Double { get set }
+    var fats: Double { get set }
+    var carbohydrates: Double { get set }
     var category: DishCategoryViewModel? { get set }
+    var error: String? { get set }
 }

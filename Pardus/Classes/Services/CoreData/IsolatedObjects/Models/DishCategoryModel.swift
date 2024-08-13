@@ -32,10 +32,21 @@ private struct DishCategoryModelMapping: EntityModelMappingType {
     }
     
     func createModel(managedObject: NSManagedObject) throws -> EntityModelType {
-        guard let entity = managedObject as? DishCategory else {
+        guard let context = managedObject.managedObjectContext,
+              let entity = managedObject as? DishCategory else {
             throw NSError()
         }
-        return DishCategoryModel(id: entity.id, name: entity.name, colorHex: entity.colorHex, objectId: entity.objectID)
+        var model: DishCategoryModel?
+        context.performAndWait {
+            model = DishCategoryModel(id: entity.id,
+                                      name: entity.name,
+                                      colorHex: entity.colorHex,
+                                      objectId: entity.objectID)
+        }
+        guard let model else {
+            throw NSError()
+        }
+        return model
     }
     
     func fill(managedObject: NSManagedObject, with model: EntityModelType) throws {

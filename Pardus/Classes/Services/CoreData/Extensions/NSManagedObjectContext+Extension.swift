@@ -10,11 +10,11 @@ import CoreData
 extension NSManagedObjectContext {
     
     func persist() throws {
-        guard hasChanges else {
-            return
-        }
         do {
             try performAndWait {
+                guard hasChanges else {
+                    return
+                }
                 try self.save()
                 if let parent {
                     try parent.persist()

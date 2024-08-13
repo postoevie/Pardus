@@ -36,17 +36,25 @@ private struct MealModelMapping: EntityModelMappingType {
     }
     
     func createModel(managedObject: NSManagedObject) throws -> EntityModelType {
-        guard let entity = managedObject as? Meal else {
+        guard let context = managedObject.managedObjectContext,
+              let entity = managedObject as? Meal else {
             throw NSError()
         }
-        return MealModel(id: entity.id,
-                         date: entity.date,
-                         dishes: try entity.dishes.map {
-            guard let dish = $0 as? Dish else {
-                throw NSError()
-            }
-            return try DishModel.mapping.createModel(managedObject: dish) as! DishModel
-        })
+        var model: MealModel?
+        try context.performAndWait {
+            model = MealModel(id: entity.id,
+                              date: entity.date,
+                              dishes: try entity.dishes.map {
+                guard let dish = $0 as? Dish else {
+                    throw NSError()
+                }
+                return try DishModel.mapping.createModel(managedObject: dish) as! DishModel
+            })
+        }
+        guard let model else {
+            throw NSError()
+        }
+        return model
     }
     
     func fill(managedObject: NSManagedObject, with model: EntityModelType) throws {

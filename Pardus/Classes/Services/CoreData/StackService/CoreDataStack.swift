@@ -102,7 +102,34 @@ class CoreDataStack {
             nameAttr.attributeType = .stringAttributeType
             nameAttr.isOptional = true
             
-            desc.properties = [idAttr, nameAttr]
+            let caloriesAttr = NSAttributeDescription()
+            caloriesAttr.name = "calories"
+            caloriesAttr.attributeType = .doubleAttributeType
+            caloriesAttr.defaultValue = 0
+            
+            let proteinsAttr = NSAttributeDescription()
+            proteinsAttr.name = "proteins"
+            proteinsAttr.attributeType = .doubleAttributeType
+            proteinsAttr.defaultValue = 0
+            
+            let fatsAttr = NSAttributeDescription()
+            fatsAttr.name = "fats"
+            fatsAttr.attributeType = .doubleAttributeType
+            fatsAttr.defaultValue = 0
+            
+            let carbohydratesAttr = NSAttributeDescription()
+            carbohydratesAttr.name = "carbohydrates"
+            carbohydratesAttr.attributeType = .doubleAttributeType
+            carbohydratesAttr.defaultValue = 0
+            
+            
+            desc.properties = [idAttr,
+                               nameAttr,
+                               caloriesAttr,
+                               proteinsAttr,
+                               fatsAttr,
+                               carbohydratesAttr]
+            
             return desc
         }()
         

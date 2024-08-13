@@ -9,34 +9,65 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 final class DishEditInteractor: DishEditInteractorProtocol {
- 
-    private(set) var dish: DishModel?
     
-    private let modelService: EntityModelServiceType
+    private var dish: Dish?
     private var dishId: UUID?
+    private let coreDataService: CoreDataServiceType
     
-    init(modelService: EntityModelServiceType, dishId: UUID?) {
-        self.modelService = modelService
+    init(coreDataService: CoreDataServiceType, dishId: UUID?) {
+        self.coreDataService = coreDataService
         self.dishId = dishId
     }
     
-    func loadDish() async throws {
-        if let dishId {
-            dish = try await modelService.fetch(entityIds: [dishId]).first
-            return
+    var data: DishEditData? {
+        guard let dish else {
+            return nil
         }
-        dish = try await modelService.create(model: DishModel(id: UUID(),
-                                                              name: "",
-                                                              category: nil,
-                                                              objectId: nil))
-        dishId = dish?.id
+        return DishEditData(name: dish.name,
+                            calories: dish.calories,
+                            proteins: dish.proteins,
+                            fats: dish.fats,
+                            carbohydrates: dish.carbohydrates)
     }
     
-    func update(model: DishModel) async throws {
-        try await modelService.update(models: [model])
-        dish = try await modelService.fetch(entityIds: [model.id]).first
+    var dishCategory: DishCategoryViewModel? {
+        guard let dishCategory = dish?.category else {
+            return nil
+        }
+        return DishCategoryViewModel(id: dishCategory.id,
+                                     name: dishCategory.name,
+                                     color: try? UIColor(hex: dishCategory.colorHex))
+    }
+    
+    func update(data: DishEditData) async throws {
+        await coreDataService.perform { _ in
+            guard let dish = self.dish else {
+                assertionFailure()
+                return
+            }
+            dish.name = data.name
+            dish.calories = data.calories
+            dish.proteins = data.proteins
+            dish.fats = data.fats
+            dish.carbohydrates = data.carbohydrates
+        }
+    }
+
+    func loadDish() async throws {
+        if let dishId {
+            try await coreDataService.perform {
+                self.dish = try $0.fetchOne(type: Dish.self, predicate: .idIn(uids: [dishId]))
+            }
+            return
+        }
+        try await coreDataService.perform {
+            let newDish = try $0.create(type: Dish.self, id: UUID())
+            self.dish = newDish
+            self.dishId = newDish.id
+        }
     }
     
     func updateDishWith(categoryId: UUID?) async throws {
@@ -44,19 +75,20 @@ final class DishEditInteractor: DishEditInteractorProtocol {
             assertionFailure()
             return
         }
-        var dishCategory: DishCategoryModel? = nil
-        if let categoryId {
-            let categories: [DishCategoryModel] = try await modelService.fetch(entityIds: [categoryId])
-            dishCategory = categories.first
+        
+        try await coreDataService.perform {
+            if let categoryId {
+                dish.category = try $0.fetchOne(type: DishCategory.self, predicate: .idIn(uids: [categoryId]))
+            } else {
+                dish.category = nil
+            }
         }
-        try await modelService.update(models: [DishModel(id: dish.id,
-                                                         name: dish.name,
-                                                         category: dishCategory,
-                                                         objectId: dish.objectId)])
     }
     
     func save() async throws {
-        try await modelService.save()
+        try await coreDataService.perform {
+            try $0.persistChanges()
+        }
     }
 }
 

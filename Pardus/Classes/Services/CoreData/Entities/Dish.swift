@@ -12,4 +12,8 @@ class Dish: IdentifiedManagedObject {
     
     @NSManaged var name: String
     @NSManaged var category: DishCategory?
+    @NSManaged var calories: Double
+    @NSManaged var proteins: Double
+    @NSManaged var fats: Double
+    @NSManaged var carbohydrates: Double
 }

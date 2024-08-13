@@ -73,6 +73,10 @@ private class PreviewInteractor: MealEditInteractorProtocol {
                                                                 name: "",
                                                                 colorHex: "A0BCCF",
                                                                 objectId: nil),
+                                                calories: 0,
+                                                proteins: 0,
+                                                fats: 0,
+                                                carbohydrates: 0,
                                                 objectId: nil),
                                           .init(id: UUID(),
                                                 name: "Paela",
@@ -80,6 +84,10 @@ private class PreviewInteractor: MealEditInteractorProtocol {
                                                                 name: "",
                                                                 colorHex: "FBA011",
                                                                 objectId: nil),
+                                                calories: 0,
+                                                proteins: 0,
+                                                fats: 0,
+                                                carbohydrates: 0,
                                                 objectId: nil)])
     
     func loadInitialMeal() async throws {

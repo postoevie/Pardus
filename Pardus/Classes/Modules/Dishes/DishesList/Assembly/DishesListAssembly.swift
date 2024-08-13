@@ -77,10 +77,10 @@ final class DishesListAssembly: Assembly {
         var filteredDishes: [DishModel] = []
         
         init() {
-            dishes = [.init(id: UUID(), name: "Уха", category: dishCategories[0], objectId: nil),
-                      .init(id: UUID(), name: "Tuna sandwich", category: dishCategories[0], objectId: nil),
-                      .init(id: UUID(), name: "Meat balls", category: dishCategories[1], objectId: nil),
-                      .init(id: UUID(), name: "Fried chicken", category: dishCategories[1], objectId: nil),]
+            dishes = [.init(id: UUID(), name: "Уха", category: dishCategories[0], calories: 100, proteins: 50, fats: 50, carbohydrates: 50, objectId: nil),
+                      .init(id: UUID(), name: "Tuna sandwich", category: dishCategories[0], calories: 100, proteins: 50, fats: 50, carbohydrates: 50,  objectId: nil),
+                      .init(id: UUID(), name: "Meat balls", category: dishCategories[1], calories: 100, proteins: 50, fats: 50, carbohydrates: 50,  objectId: nil),
+                      .init(id: UUID(), name: "Fried chicken", category: dishCategories[1], calories: 100, proteins: 50, fats: 50, carbohydrates: 50,  objectId: nil),]
             filteredDishes = dishes
         }
         

@@ -19,8 +19,8 @@ struct DishesListView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding()
             List(viewState.items) { item in
-                SubtitleCell(title: item.name,
-                             subtitle: "200/200/200",
+                SubtitleCell(title: item.title,
+                             subtitle: item.subtitle,
                              color: item.categoryColor ?? .clear)
                 .swipeActions {
                     Button {

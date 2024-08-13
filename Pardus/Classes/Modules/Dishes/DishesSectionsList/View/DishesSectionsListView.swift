@@ -36,8 +36,8 @@ struct DishesSectionsListView: View {
                         }
                     }
                     ForEach(section.dishes) { dish in
-                        SubtitleCell(title: dish.name,
-                                     subtitle: "300/150/200 1000",
+                        SubtitleCell(title: dish.title,
+                                     subtitle: dish.subtitle,
                                      color: .clear)
                         .defaultCellInsets()
                         .padding(8)

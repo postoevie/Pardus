@@ -26,7 +26,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         Task {
             try await valueSubmitted()
             await MainActor.run {
-                let preselected: [UUID] = if let category = interactor.dish?.category {
+                let preselected: [UUID] = if let category = interactor.dishCategory {
                     [category.id]
                 } else {
                     []
@@ -75,15 +75,14 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         guard let viewState else {
             return
         }
-        guard let dish = self.interactor.dish else {
+        guard let data = interactor.data else {
             viewState.name = ""
             viewState.error = "No entity"
             return
         }
-        viewState.name = dish.name
-        if let category = dish.category {
-            let color = (try? UIColor(hex: category.colorHex)) ?? .clear
-            viewState.category = DishCategoryViewModel(id: category.id, name: category.name, color: color)
+        viewState.name = data.name
+        if let category = interactor.dishCategory {
+            viewState.category = category
         } else {
             viewState.category = nil
         }
@@ -91,13 +90,13 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
     }
     
     private func valueSubmitted() async throws {
-        guard let viewState,
-              let dish = self.interactor.dish else {
+        guard let viewState else {
             return
         }
-        try await interactor.update(model: DishModel(id: dish.id,
-                                                     name: viewState.name,
-                                                     category: dish.category,
-                                                     objectId: dish.objectId))
+        try await interactor.update(data: DishEditData(name: viewState.name,
+                                                       calories: viewState.calories,
+                                                       proteins: viewState.proteins,
+                                                       fats: viewState.fats,
+                                                       carbohydrates: viewState.carbohydrates))
     }
 }

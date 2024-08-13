@@ -42,13 +42,20 @@ struct DishEditView: View {
                     }
                 }
             }
-            FieldSectionView(title: "Calories in 0.1L") {
-                TextField("", text: $viewState.kcalsPer100)
-                    .disabled(true)
+            FieldSectionView(title: "Kilocalories per 100 grams") {
+                TextField("", value: $viewState.calories, formatter: .dishNumbers)
+            }
+            FieldSectionView(title: "Proteins per 100 grams") {
+                TextField("", value: $viewState.proteins, formatter: .dishNumbers)
+            }
+            FieldSectionView(title: "Fats per 100 grams") {
+                TextField("", value: $viewState.fats, formatter: .dishNumbers)
+            }
+            FieldSectionView(title: "Carbohydrates per 100 grams") {
+                TextField("", value: $viewState.carbohydrates, formatter: .dishNumbers)
             }
             FieldSectionView(title: "Description") {
-                TextField("", text: $viewState.dishDescription)
-                    .disabled(true)
+                TextField("", value: $viewState.dishDescription, formatter: .dishNumbers)
             }
             Spacer()
         }

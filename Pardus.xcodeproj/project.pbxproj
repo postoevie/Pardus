@@ -113,6 +113,13 @@
 		52C365A42C50372500C3AD99 /* DishesSectionsListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C3659C2C50372500C3AD99 /* DishesSectionsListInteractor.swift */; };
 		52C365A52C50372500C3AD99 /* DishesSectionsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C3659E2C50372500C3AD99 /* DishesSectionsListRouter.swift */; };
 		52C365A82C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C365A72C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift */; };
+		52D36EB22C6A9449001C0FCB /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EB12C6A9449001C0FCB /* CoreDataService.swift */; };
+		52D36EB52C6A9463001C0FCB /* CoreDataServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EB42C6A9463001C0FCB /* CoreDataServiceType.swift */; };
+		52D36EB82C6A99CB001C0FCB /* CoreDataExecutorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EB72C6A99CB001C0FCB /* CoreDataExecutorType.swift */; };
+		52D36EBA2C6A99E0001C0FCB /* CoreDataExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EB92C6A99E0001C0FCB /* CoreDataExecutor.swift */; };
+		52D36EBC2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */; };
+		52D36EC12C6BDDB3001C0FCB /* Formatter+DishFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EC02C6BDDB3001C0FCB /* Formatter+DishFormat.swift */; };
+		52D36EC42C6BEC2F001C0FCB /* DishEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EC32C6BEC2F001C0FCB /* DishEditData.swift */; };
 		52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D708A42C4D24DD00B64E0C /* RussoOne.ttf */; };
 /* End PBXBuildFile section */
 
@@ -235,6 +242,13 @@
 		52C3659C2C50372500C3AD99 /* DishesSectionsListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesSectionsListInteractor.swift; sourceTree = "<group>"; };
 		52C3659E2C50372500C3AD99 /* DishesSectionsListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesSectionsListRouter.swift; sourceTree = "<group>"; };
 		52C365A72C523A4900C3AD99 /* DishCategoriesPicklistInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishCategoriesPicklistInteractor.swift; sourceTree = "<group>"; };
+		52D36EB12C6A9449001C0FCB /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		52D36EB42C6A9463001C0FCB /* CoreDataServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceType.swift; sourceTree = "<group>"; };
+		52D36EB72C6A99CB001C0FCB /* CoreDataExecutorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExecutorType.swift; sourceTree = "<group>"; };
+		52D36EB92C6A99E0001C0FCB /* CoreDataExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExecutor.swift; sourceTree = "<group>"; };
+		52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceAssembly.swift; sourceTree = "<group>"; };
+		52D36EC02C6BDDB3001C0FCB /* Formatter+DishFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+DishFormat.swift"; sourceTree = "<group>"; };
+		52D36EC32C6BEC2F001C0FCB /* DishEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishEditData.swift; sourceTree = "<group>"; };
 		52D708A42C4D24DD00B64E0C /* RussoOne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RussoOne.ttf; sourceTree = "<group>"; };
 		52D708A92C4D284200B64E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -555,6 +569,7 @@
 		525917612BF9735C005394DC /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				52D36EB32C6A9459001C0FCB /* Service */,
 				527E67F02C56987A001A0008 /* IsolatedObjects */,
 				5259174E2BF96A65005394DC /* Entities */,
 				525917632BFF1973005394DC /* StackService */,
@@ -734,6 +749,7 @@
 		52A861832C0CA0EA001AA01D /* Dishes */ = {
 			isa = PBXGroup;
 			children = (
+				52D36EBF2C6BDD95001C0FCB /* Utils */,
 				527E67E52C56547B001A0008 /* Picklist */,
 				52C365A62C523A1600C3AD99 /* DishCategoryPicklist */,
 				52C365902C50372500C3AD99 /* DishesSectionsList */,
@@ -747,6 +763,7 @@
 		52A861842C0CA0EA001AA01D /* DishEdit */ = {
 			isa = PBXGroup;
 			children = (
+				52D36EC22C6BEC24001C0FCB /* Entity */,
 				52A861852C0CA0EA001AA01D /* Assembly */,
 				52A861872C0CA0EA001AA01D /* Contracts */,
 				52A861892C0CA0EA001AA01D /* Presenter */,
@@ -1061,6 +1078,42 @@
 			path = DishCategoryPicklist;
 			sourceTree = "<group>";
 		};
+		52D36EB32C6A9459001C0FCB /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				52D36EB12C6A9449001C0FCB /* CoreDataService.swift */,
+				52D36EB62C6A99A7001C0FCB /* Protocols */,
+				52D36EB92C6A99E0001C0FCB /* CoreDataExecutor.swift */,
+				52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		52D36EB62C6A99A7001C0FCB /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				52D36EB42C6A9463001C0FCB /* CoreDataServiceType.swift */,
+				52D36EB72C6A99CB001C0FCB /* CoreDataExecutorType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		52D36EBF2C6BDD95001C0FCB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				52D36EC02C6BDDB3001C0FCB /* Formatter+DishFormat.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		52D36EC22C6BEC24001C0FCB /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				52D36EC32C6BEC2F001C0FCB /* DishEditData.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		52D708A62C4D24F200B64E0C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,7 +1233,9 @@
 				525917742BFF1D85005394DC /* CoreDataInMemoryCache.swift in Sources */,
 				525917452BF8E63A005394DC /* MealEditPresenter.swift in Sources */,
 				5220DBBA2BEF864C00F095EE /* InteractorProtocol.swift in Sources */,
+				52D36EC42C6BEC2F001C0FCB /* DishEditData.swift in Sources */,
 				5259176E2BFF1C3E005394DC /* KeyPath+Extension.swift in Sources */,
+				52D36EC12C6BDDB3001C0FCB /* Formatter+DishFormat.swift in Sources */,
 				52A861532C0A423A001AA01D /* DishModel.swift in Sources */,
 				5259174D2BF96934005394DC /* CoreDataStack.swift in Sources */,
 				525917482BF8E63A005394DC /* MealEditInteractor.swift in Sources */,
@@ -1205,8 +1260,10 @@
 				52A861A62C0CA0EA001AA01D /* DishEditViewState.swift in Sources */,
 				525917242BF8B099005394DC /* MealsListView.swift in Sources */,
 				5220DBDB2BEF864C00F095EE /* NavigationAssembly.swift in Sources */,
+				52D36EB22C6A9449001C0FCB /* CoreDataService.swift in Sources */,
 				5259176A2BFF1B88005394DC /* EntityServiceAssembly.swift in Sources */,
 				52A861552C0B3316001AA01D /* DishCategoryModel.swift in Sources */,
+				52D36EB82C6A99CB001C0FCB /* CoreDataExecutorType.swift in Sources */,
 				52BF79082C042C370039202E /* MealModel.swift in Sources */,
 				5287005A2C16D6C6003BE337 /* PicklistPresenter.swift in Sources */,
 				52C365A12C50372500C3AD99 /* DishesSectionsListPresenter.swift in Sources */,
@@ -1235,6 +1292,7 @@
 				5287005C2C16D6C6003BE337 /* PicklistState.swift in Sources */,
 				52A861A52C0CA0EA001AA01D /* DishEditView.swift in Sources */,
 				5220DBEF2BEF864C00F095EE /* WeakContainer.swift in Sources */,
+				52D36EBC2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift in Sources */,
 				52A861AC2C0CA0EA001AA01D /* DishesListView.swift in Sources */,
 				52A861AD2C0CA0EA001AA01D /* DishesListViewState.swift in Sources */,
 				525917272BF8B099005394DC /* MealsListRouter.swift in Sources */,
@@ -1248,7 +1306,9 @@
 				52A861A72C0CA0EA001AA01D /* DishEditInteractor.swift in Sources */,
 				52C365582C4EA65D00C3AD99 /* DishCategoryEditAssembly.swift in Sources */,
 				52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */,
+				52D36EB52C6A9463001C0FCB /* CoreDataServiceType.swift in Sources */,
 				5220DBC02BEF864C00F095EE /* ViewStateProtocol.swift in Sources */,
+				52D36EBA2C6A99E0001C0FCB /* CoreDataExecutor.swift in Sources */,
 				526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */,
 				528700582C16D6C6003BE337 /* PicklistAssembly.swift in Sources */,
 				5220DBEB2BEF864C00F095EE /* StrongBox.swift in Sources */,

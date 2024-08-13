@@ -38,8 +38,8 @@ struct MealEditView: View {
             .font(Font.custom("RussoOne", size: 20))
             .foregroundStyle(Color(UIColor.lightGray))
             List(viewState.dishItems) { item in
-                SubtitleCell(title: item.name,
-                             subtitle: "200/200/200",
+                SubtitleCell(title: item.title,
+                             subtitle: item.subtitle,
                              color: item.categoryColor ?? .clear)
                 .swipeActions {
                     Button {
