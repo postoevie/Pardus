@@ -10,44 +10,56 @@
 import Foundation
 
 final class MealsListInteractor: MealsListInteractorProtocol {
-    
+
     var startDate = Date()
     
     var endDate = Date()
     
     var dateFilterEnabled: Bool = false
     
-    var mealModels: [MealModel] {
+    private let dataService: CoreDataServiceType
+    private var _meals: [Meal] = []
+    
+    init(dataService: CoreDataServiceType) {
+        self.dataService = dataService
+    }
+    
+    var meals: [Meal] {
         if dateFilterEnabled {
-            meals.filter {
+            _meals.filter {
                 let startDateCondition = Calendar.current.compare(startDate, to: $0.date, toGranularity: .minute) == .orderedAscending
                 let endDateCondition = Calendar.current.compare(endDate, to: $0.date, toGranularity: .minute) == .orderedDescending
                 return startDateCondition && endDateCondition
             }
         } else {
-            meals
+            _meals
         }
     }
     
-    private var meals: [MealModel] = []
-    
-    private let modelService: EntityModelServiceType
-    
-    init(modelService: EntityModelServiceType) {
-        self.modelService = modelService
+    func performWithMeals(action: @escaping ([Meal]) -> Void) async throws {
+        await dataService.perform { _ in
+            action(self.meals)
+        }
     }
     
     func loadMeals() async throws {
-        meals = try await modelService.fetch(predicate: nil, sortParams: ((\Meal.date).propName, false))
+        try await dataService.perform {
+            self._meals = try $0.fetchMany(type: Meal.self,
+                                           predicate: nil,
+                                           sortData: ((\Meal.date).propName, false))
+        }
     }
     
     func delete(itemId: UUID) async throws {
-        guard let first = meals.first(where: { $0.id == itemId }) else {
-            assertionFailure()
+        guard let index = _meals.firstIndex(where: { $0.id == itemId }) else {
+            assertionFailure("Entity with passed id should be in DB")
             return
         }
-        try await modelService.delete(models: [first])
-        try await modelService.save()
+        let mealToDelete = _meals.remove(at: index)
+        try await dataService.perform {
+            try $0.delete(objectId: mealToDelete.objectID)
+            try $0.persistChanges()
+        }
     }
 }
 

@@ -11,5 +11,5 @@ import CoreData
 class Meal: IdentifiedManagedObject {
     
     @NSManaged var date: Date
-    @NSManaged var dishes: NSSet
+    @NSManaged var dishes: Set<MealDish>
 }

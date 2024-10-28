@@ -35,7 +35,7 @@ class CoreDataStack {
     
     func makeStubMainQueueContext() -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.parent = privateQueueContext
+        context.parent = mainQueueContext
         context.automaticallyMergesChangesFromParent = true
         context.retainsRegisteredObjects = true
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -47,11 +47,6 @@ class CoreDataStack {
         let model = makeModel()
         let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
         
-//        try? FileManager.default.contentsOfDirectory(atPath: documentDir!.relativePath).forEach {
-//            let url = documentDir!.appending(path: $0)
-//            try? FileManager.default.removeItem(at: url)
-//        }
-//        
         let url = documentDir!.appending(path: "Pardus.sqlite")
         
         //let url = URL(filePath: "/Users/igorpostoev/tmp/Pardus.sqlite")
@@ -118,7 +113,7 @@ class CoreDataStack {
             fatsAttr.defaultValue = 0
             
             let carbohydratesAttr = NSAttributeDescription()
-            carbohydratesAttr.name = "carbohydrates"
+            carbohydratesAttr.name = "carbs"
             carbohydratesAttr.attributeType = .doubleAttributeType
             carbohydratesAttr.defaultValue = 0
             
@@ -156,23 +151,7 @@ class CoreDataStack {
             return desc
         }()
         
-        let mealToDishRel = NSRelationshipDescription()
-        mealToDishRel.name = "dishes"
-        mealToDishRel.isOptional = true
-        mealToDishRel.destinationEntity = dishDescription
-        mealToDishRel.deleteRule = .nullifyDeleteRule
-        mealDescription.properties.append(mealToDishRel)
-        
-        let dishToMealRel = NSRelationshipDescription()
-        dishToMealRel.name = "meals"
-        dishToMealRel.isOptional = true
-        dishToMealRel.destinationEntity = mealDescription
-        dishToMealRel.deleteRule = .denyDeleteRule
-        dishDescription.properties.append(dishToMealRel)
-        
-        mealToDishRel.inverseRelationship = dishToMealRel
-        dishToMealRel.inverseRelationship = mealToDishRel
-        
+        // Dish - DishCategory relationship
         let dishToCatRel = NSRelationshipDescription()
         dishToCatRel.name = "category"
         dishToCatRel.destinationEntity = dishCategoryDescription
@@ -191,11 +170,70 @@ class CoreDataStack {
     
         dishDescription.properties.append(dishToCatRel)
         dishCategoryDescription.properties.append(catToDishRel)
+        
+        // MealDish attributes and relationships
+        let mealDishDescription = {
+            let desc = NSEntityDescription()
+            desc.name = "MealDish"
+            desc.managedObjectClassName = String(describing: MealDish.self)
+            
+            let idAttr = NSAttributeDescription()
+            idAttr.name = "id"
+            idAttr.attributeType = .UUIDAttributeType
+            
+            let weightAttr = NSAttributeDescription()
+            weightAttr.name = "weight"
+            weightAttr.attributeType = .doubleAttributeType
+            
+            desc.properties = [idAttr, weightAttr]
+            return desc
+        }()
+        
+        // MealDish --> Meal
+        let mealDishToMealRel = NSRelationshipDescription()
+        mealDishToMealRel.name = "meal"
+        mealDishToMealRel.destinationEntity = mealDescription
+        mealDishToMealRel.deleteRule = .nullifyDeleteRule
+        mealDishToMealRel.maxCount = 1
+        mealDishToMealRel.minCount = 1
+        mealDishDescription.properties.append(mealDishToMealRel)
 
+        // Meal --> MealDish
+        let mealToMealDishRel = NSRelationshipDescription()
+        mealToMealDishRel.name = "dishes"
+        mealToMealDishRel.isOptional = true
+        mealToMealDishRel.destinationEntity = mealDishDescription
+        mealToMealDishRel.deleteRule = .cascadeDeleteRule
+        mealDescription.properties.append(mealToMealDishRel)
+        
+        mealDishToMealRel.inverseRelationship = mealToMealDishRel
+        mealToMealDishRel.inverseRelationship = mealDishToMealRel
+        
+        // MealDish --> Dish
+        let mealDishToDishRel = NSRelationshipDescription()
+        mealDishToDishRel.name = "dish"
+        mealDishToDishRel.destinationEntity = dishDescription
+        mealDishToDishRel.deleteRule = .nullifyDeleteRule
+        mealDishToDishRel.maxCount = 1
+        mealDishToDishRel.minCount = 1
+        mealDishDescription.properties.append(mealDishToDishRel)
+
+        // Dish --> MealDish
+        let dishToMealDishRel = NSRelationshipDescription()
+        dishToMealDishRel.name = "mealDishes"
+        dishToMealDishRel.isOptional = true
+        dishToMealDishRel.destinationEntity = mealDishDescription
+        dishToMealDishRel.deleteRule = .denyDeleteRule
+        dishDescription.properties.append(dishToMealDishRel)
+        
+        dishToMealDishRel.inverseRelationship = mealDishToMealRel
+        mealDishToMealRel.inverseRelationship = dishToMealDishRel
+        
         let model = NSManagedObjectModel()
         model.entities = [mealDescription,
                           dishDescription,
-                          dishCategoryDescription]
+                          dishCategoryDescription,
+                          mealDishDescription]
         return model
     }
 }

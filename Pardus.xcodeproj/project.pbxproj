@@ -25,6 +25,7 @@
 		5220DBED2BEF864C00F095EE /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEC2BEF864C00F095EE /* WeakBox.swift */; };
 		5220DBEF2BEF864C00F095EE /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEE2BEF864C00F095EE /* WeakContainer.swift */; };
 		5220DC002BEF864D00F095EE /* PardusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBFF2BEF864D00F095EE /* PardusTests.swift */; };
+		522795652CC04AAB00A7A36B /* MealDishesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522795642CC04AAB00A7A36B /* MealDishesListItem.swift */; };
 		525917212BF8B099005394DC /* MealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917142BF8B099005394DC /* MealsListAssembly.swift */; };
 		525917222BF8B099005394DC /* MealsListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917162BF8B099005394DC /* MealsListContracts.swift */; };
 		525917232BF8B099005394DC /* MealsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917182BF8B099005394DC /* MealsListPresenter.swift */; };
@@ -120,6 +121,7 @@
 		52D36EBC2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */; };
 		52D36EC12C6BDDB3001C0FCB /* Formatter+DishFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EC02C6BDDB3001C0FCB /* Formatter+DishFormat.swift */; };
 		52D36EC42C6BEC2F001C0FCB /* DishEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EC32C6BEC2F001C0FCB /* DishEditData.swift */; };
+		52D36EC62C6C0224001C0FCB /* MealDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D36EC52C6C0224001C0FCB /* MealDish.swift */; };
 		52D708A52C4D24DD00B64E0C /* RussoOne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D708A42C4D24DD00B64E0C /* RussoOne.ttf */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +156,7 @@
 		5220DBEE2BEF864C00F095EE /* WeakContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
 		5220DBFB2BEF864D00F095EE /* PardusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PardusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5220DBFF2BEF864D00F095EE /* PardusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardusTests.swift; sourceTree = "<group>"; };
+		522795642CC04AAB00A7A36B /* MealDishesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDishesListItem.swift; sourceTree = "<group>"; };
 		525917142BF8B099005394DC /* MealsListAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListAssembly.swift; sourceTree = "<group>"; };
 		525917162BF8B099005394DC /* MealsListContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListContracts.swift; sourceTree = "<group>"; };
 		525917182BF8B099005394DC /* MealsListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListPresenter.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 		52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceAssembly.swift; sourceTree = "<group>"; };
 		52D36EC02C6BDDB3001C0FCB /* Formatter+DishFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+DishFormat.swift"; sourceTree = "<group>"; };
 		52D36EC32C6BEC2F001C0FCB /* DishEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishEditData.swift; sourceTree = "<group>"; };
+		52D36EC52C6C0224001C0FCB /* MealDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDish.swift; sourceTree = "<group>"; };
 		52D708A42C4D24DD00B64E0C /* RussoOne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RussoOne.ttf; sourceTree = "<group>"; };
 		52D708A92C4D284200B64E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -477,6 +481,7 @@
 		525917342BF8E63A005394DC /* MealEdit */ = {
 			isa = PBXGroup;
 			children = (
+				52D36EC72C6C0578001C0FCB /* Entity */,
 				525917352BF8E63A005394DC /* Assembly */,
 				525917372BF8E63A005394DC /* Contracts */,
 				525917392BF8E63A005394DC /* Presenter */,
@@ -524,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				5259173E2BF8E63A005394DC /* MealEditViewState.swift */,
+				522795642CC04AAB00A7A36B /* MealDishesListItem.swift */,
 			);
 			path = ViewState;
 			sourceTree = "<group>";
@@ -551,6 +557,7 @@
 				5259174F2BF96A81005394DC /* Meal.swift */,
 				52A861562C0B4FE2001AA01D /* Dish.swift */,
 				52A861582C0B4FFF001AA01D /* DishCategory.swift */,
+				52D36EC52C6C0224001C0FCB /* MealDish.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1114,6 +1121,13 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		52D36EC72C6C0578001C0FCB /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		52D708A62C4D24F200B64E0C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1237,6 +1251,7 @@
 				5259176E2BFF1C3E005394DC /* KeyPath+Extension.swift in Sources */,
 				52D36EC12C6BDDB3001C0FCB /* Formatter+DishFormat.swift in Sources */,
 				52A861532C0A423A001AA01D /* DishModel.swift in Sources */,
+				52D36EC62C6C0224001C0FCB /* MealDish.swift in Sources */,
 				5259174D2BF96934005394DC /* CoreDataStack.swift in Sources */,
 				525917482BF8E63A005394DC /* MealEditInteractor.swift in Sources */,
 				52C365592C4EA65D00C3AD99 /* DishCategoryEditContracts.swift in Sources */,
@@ -1332,6 +1347,7 @@
 				52C365A02C50372500C3AD99 /* DishesSectionsListContracts.swift in Sources */,
 				52A861A22C0CA0EA001AA01D /* DishEditAssembly.swift in Sources */,
 				52A861A92C0CA0EA001AA01D /* DishesListAssembly.swift in Sources */,
+				522795652CC04AAB00A7A36B /* MealDishesListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

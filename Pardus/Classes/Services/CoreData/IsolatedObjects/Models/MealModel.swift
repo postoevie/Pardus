@@ -64,13 +64,6 @@ private struct MealModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.date = model.date
-        entity.dishes = NSSet(array: try model.dishes.map { dish in
-            guard let objectId = dish.objectId,
-                  let dish = context.object(with: objectId) as? Dish else {
-                throw NSError()
-            }
-            return dish
-        })
     }
     
     func getMOName() throws -> String {

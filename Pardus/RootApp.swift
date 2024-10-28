@@ -47,6 +47,4 @@ class RootApp: App {
                      appViewBuilder: appViewBuilder)
         }
     }
-    
-    
 }

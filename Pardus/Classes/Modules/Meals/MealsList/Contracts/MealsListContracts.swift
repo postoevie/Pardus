@@ -30,7 +30,7 @@ protocol MealsListPresenterProtocol: PresenterProtocol {
 
 // Interactor
 protocol MealsListInteractorProtocol: InteractorProtocol {
-    var mealModels: [MealModel] { get }
+    func performWithMeals(action: @escaping ([Meal]) -> Void) async throws
     var startDate: Date { get set }
     var endDate: Date { get set }
     var dateFilterEnabled: Bool { get set }

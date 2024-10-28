@@ -11,14 +11,14 @@ import Foundation
 
 class MealEditInteractor: MealEditInteractorProtocol {
     
-    var meal: MealModel?
+    var meal: Meal?
     private var lastSelectedDishesIds = [UUID]()
     
-    private let modelService: EntityModelServiceType
+    private let dataService: CoreDataServiceType
     private var mealId: UUID?
     
-    init(modelService: EntityModelServiceType, mealId: UUID?) {
-        self.modelService = modelService
+    init(dataService: CoreDataServiceType, mealId: UUID?) {
+        self.dataService = dataService
         self.mealId = mealId
     }
     
@@ -26,48 +26,79 @@ class MealEditInteractor: MealEditInteractorProtocol {
         guard meal == nil else {
             return
         }
-        if let mealId {
-            meal = try await modelService.fetch(entityIds: [mealId]).first
-            return
+        try await dataService.perform {
+            if let mealId = self.mealId {
+                self.meal = try $0.fetchOne(type: Meal.self, predicate: .idIn(uids: [mealId]))
+                return
+            }
+            let newMeal = try $0.create(type: Meal.self, id: UUID())
+            newMeal.date = Date()
+            newMeal.dishes = Set<MealDish>()
+            self.meal = newMeal
         }
-        meal = try await modelService.create(model: MealModel(id: UUID(),
-                                                              date: Date(),
-                                                              dishes: []))
     }
     
     func remove(dishId: UUID) async throws {
         guard let meal else {
-            assertionFailure("No entity")
+            assertionFailure()
             return
         }
-        let filteredDishes = meal.dishes.filter {
-            $0.id != dishId
+        try await dataService.perform {
+            if let mealDish = meal.dishes[dishId] {
+                try $0.delete(objectId: mealDish.objectID)
+            }
         }
-        try await update(model: MealModel(id: meal.id,
-                                          date: meal.date,
-                                          dishes: filteredDishes))
     }
     
-    func update(model: MealModel) async throws {
-        try await modelService.update(models: [model])
-        meal = try await modelService.fetch(entityIds: [model.id]).first
+    func performWithMeal(action: @escaping (Meal?) -> Void) async throws {
+        await dataService.perform { _ in
+            action(self.meal)
+        }
+    }
+    
+    func updateMealDish(dishId: UUID, action: @escaping (MealDish?) -> Void) async throws {
+        await dataService.perform { _ in
+            let mealDish = self.meal?.dishes[dishId]
+            action(mealDish)
+        }
     }
     
     func save() async throws {
-        try await modelService.save()
+        try await dataService.perform {
+            try $0.persistChanges()
+        }
     }
     
     func setSelectedDishes(_ dishesIds: Set<UUID>) async throws {
         guard let meal else {
             return
         }
-        try await update(model: MealModel(id: meal.id,
-                                          date: meal.date,
-                                          dishes: try await modelService.fetch(entityIds: Array(dishesIds))))
+        try await dataService.perform {
+            let mealDishesToDelete = meal.dishes.filter { !dishesIds.contains($0.dish.id) }
+            for mealDish in mealDishesToDelete {
+                try $0.delete(objectId: mealDish.objectID)
+            }
+            let existingMealDishesIds = meal.dishes.map { $0.dish.id }
+            let dishesIdsToAdd = Array(dishesIds.subtracting(existingMealDishesIds))
+            let dishesToAdd = try $0.fetchMany(type: Dish.self, predicate: NSPredicate.idIn(uids: dishesIdsToAdd))
+            for dish in dishesToAdd {
+                let mealDish = try $0.create(type: MealDish.self, id: UUID())
+                mealDish.dish = dish
+                mealDish.meal = meal
+                mealDish.weight = 0
+            }
+        }
     }
 }
 
 // MARK: Private
 extension MealEditInteractor {
     
+}
+
+extension Set where Element : Identifiable<UUID> {
+    
+    subscript(id: UUID) -> Element? {
+        self.first { $0.id == id }
+    }
 }

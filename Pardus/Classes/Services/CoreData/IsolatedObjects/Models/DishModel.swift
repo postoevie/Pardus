@@ -51,7 +51,7 @@ private struct DishModelMapping: EntityModelMappingType {
                                   calories: entity.calories,
                                   proteins: entity.proteins,
                                   fats: entity.fats,
-                                  carbohydrates: entity.carbohydrates,
+                                  carbohydrates: entity.carbs,
                                   objectId: entity.objectID)
         }
         guard let dishModel else {
@@ -70,7 +70,7 @@ private struct DishModelMapping: EntityModelMappingType {
         entity.calories = model.calories
         entity.proteins = model.proteins
         entity.fats = model.fats
-        entity.carbohydrates = model.carbohydrates
+        entity.carbs = model.carbohydrates
         entity.category = if let categoryId = model.category?.objectId {
             context.object(with: categoryId) as? DishCategory
         } else {

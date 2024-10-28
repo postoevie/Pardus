@@ -15,6 +15,27 @@ struct MealEditView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            HStack {
+                VStack {
+                    Text("kCal")
+                    Text(viewState.sumKcals)
+                }
+                Spacer()
+                VStack {
+                    Text("Proteins")
+                    Text(viewState.sumProteins)
+                }
+                Spacer()
+                VStack {
+                    Text("Fats")
+                    Text(viewState.sumFats)
+                }
+                Spacer()
+                VStack {
+                    Text("Carbs")
+                    Text(viewState.sumCarbs)
+                }
+            }
             Group {
                 DatePicker(
                     "Date",
@@ -38,9 +59,10 @@ struct MealEditView: View {
             .font(Font.custom("RussoOne", size: 20))
             .foregroundStyle(Color(UIColor.lightGray))
             List(viewState.dishItems) { item in
-                SubtitleCell(title: item.title,
-                             subtitle: item.subtitle,
-                             color: item.categoryColor ?? .clear)
+                MealDishRow(item: item,
+                            onSubmit: {
+                    presenter.updateDishMealWeight(mealDishId: item.id, weightString: $0)
+                })
                 .swipeActions {
                     Button {
                         presenter.remove(dishId: item.id)
@@ -69,6 +91,36 @@ struct MealEditView: View {
                         .foregroundStyle(.black)
                 }
             }
+        }
+    }
+}
+
+struct MealDishRow: View {
+
+    @State var weight: String
+    
+    private let item: MealDishesListItem
+    private let onSubmit: (String) -> Void
+    
+    init(item: MealDishesListItem, onSubmit: @escaping (String) -> Void) {
+        self.weight = item.weight
+        self.item = item
+        self.onSubmit = onSubmit
+    }
+    
+    var body: some View {
+        HStack {
+            SubtitleCell(title: item.title,
+                         subtitle: item.subtitle,
+                         color: item.categoryColor ?? .clear)
+            TextField("weight",
+                      text: $weight)
+            .submitLabel(.done)
+            .onSubmit {
+                onSubmit(weight)
+            }
+            .textFieldStyle(.roundedBorder)
+            .frame(width: 100)
         }
     }
 }

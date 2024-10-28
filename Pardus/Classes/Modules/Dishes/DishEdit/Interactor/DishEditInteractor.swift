@@ -30,7 +30,7 @@ final class DishEditInteractor: DishEditInteractorProtocol {
                             calories: dish.calories,
                             proteins: dish.proteins,
                             fats: dish.fats,
-                            carbohydrates: dish.carbohydrates)
+                            carbohydrates: dish.carbs)
     }
     
     var dishCategory: DishCategoryViewModel? {
@@ -52,7 +52,7 @@ final class DishEditInteractor: DishEditInteractorProtocol {
             dish.calories = data.calories
             dish.proteins = data.proteins
             dish.fats = data.fats
-            dish.carbohydrates = data.carbohydrates
+            dish.carbs = data.carbohydrates
         }
     }
 

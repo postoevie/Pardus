@@ -8,7 +8,7 @@
 import CoreData
 
 @objc
-class IdentifiedManagedObject: NSManagedObject {
+class IdentifiedManagedObject: NSManagedObject, Identifiable {
     
     @NSManaged var id: UUID
 }

@@ -10,7 +10,7 @@ import Foundation
 extension Formatter {
     
     // Opt for singleton instead of DI and service because here will be no business logic.
-    static let dishNumbers: Formatter = {
+    static let dishNumbers: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
         return formatter

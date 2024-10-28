@@ -12,9 +12,13 @@ final class MealEditViewState: ObservableObject, MealEditViewStateProtocol {
     
     @Published var date: Date = Date()
     @Published var error: String?
-    @Published var dishItems: [DishesListItem] = []
+    @Published var dishItems: [MealDishesListItem] = []
+    @Published var sumKcals: String = ""
+    @Published var sumProteins: String = ""
+    @Published var sumFats: String = ""
+    @Published var sumCarbs: String = ""
 
-    func set(items: [DishesListItem]) {
+    func set(items: [MealDishesListItem]) {
         self.dishItems = items
     }
 }

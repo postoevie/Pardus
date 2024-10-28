@@ -28,10 +28,11 @@ protocol MealEditPresenterProtocol: AnyObject, ObservableObject, PresenterProtoc
 // Interactor
 protocol MealEditInteractorProtocol: InteractorProtocol {
     
-    var meal: MealModel? { get }
+    var meal: Meal? { get }
     
     func loadInitialMeal() async throws
-    func update(model: MealModel) async throws
+    func performWithMeal(action: @escaping (Meal?) -> Void) async throws
+    func updateMealDish(dishId: UUID, action: @escaping (MealDish?) -> Void) async throws
     func setSelectedDishes(_ dishesIds: Set<UUID>) async throws
     func remove(dishId: UUID) async throws
     func save() async throws
@@ -42,5 +43,5 @@ protocol MealEditViewStateProtocol: ViewStateProtocol {
     
     var date: Date { get set }
     var error: String? { get set }
-    var dishItems: [DishesListItem] { get set }
+    var dishItems: [MealDishesListItem] { get set }
 }

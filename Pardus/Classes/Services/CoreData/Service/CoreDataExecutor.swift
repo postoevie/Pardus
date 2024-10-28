@@ -23,8 +23,19 @@ struct CoreDataExecutor: CoreDataExecutorType {
     }
     
     func fetchMany<Object>(type: Object.Type, predicate: NSPredicate?) throws -> [Object] where Object : NSManagedObject {
+        try fetchMany(type: type, predicate: predicate, sortData: nil)
+    }
+    
+    func fetchMany<Object>(type: Object.Type,
+                           predicate: NSPredicate?,
+                           sortData: (field: String, ascending: Bool)?) throws -> [Object] where Object : NSManagedObject {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.predicate = predicate
+        if let sortData {
+            request.sortDescriptors = [NSSortDescriptor(key: sortData.field,
+                                                        ascending: sortData.ascending,
+                                                        selector: nil)]
+        }
         return try context.fetch(request)
     }
     
@@ -43,6 +54,11 @@ struct CoreDataExecutor: CoreDataExecutorType {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.predicate = predicate
         return try context.count(for: request)
+    }
+    
+    func delete(objectId: NSManagedObjectID) throws {
+        let entityInContext = try context.existingObject(with: objectId)
+        context.delete(entityInContext)
     }
     
     func persistChanges() throws {

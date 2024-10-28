@@ -39,17 +39,17 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     func tapToggleDateFilter() {
         interactor.dateFilterEnabled.toggle()
         viewState?.setStartDateVisible(interactor.dateFilterEnabled)
-        viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+        updateViewState()
     }
     
     func setStartDate(_ date: Date) {
         interactor.startDate = date
-        viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+        updateViewState()
     }
     
     func setEndDate(_ date: Date) {
         interactor.endDate = date
-        viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+        updateViewState()
     }
     
     func tapAddNewItem() {
@@ -60,9 +60,11 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
         Task {
             do {
                 try await interactor.delete(itemId: uid)
-                try await interactor.loadMeals()
-                await MainActor.run {
-                    viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+                try await interactor.performWithMeals { meals in
+                    let sections = self.makeSortedSections(meals: meals)
+                    DispatchQueue.main.async {
+                        self.viewState?.set(sections: sections)
+                    }
                 }
             } catch {
                 print(error)
@@ -77,34 +79,43 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     func didAppear() {
         Task {
             try await interactor.loadMeals()
-            await MainActor.run {
-                viewState?.set(sections: makeSortedSections(models: interactor.mealModels))
+            updateViewState()
+        }
+    }
+    
+    private func updateViewState() {
+        Task {
+            try await interactor.performWithMeals { meals in
+                let sections = self.makeSortedSections(meals: meals)
+                DispatchQueue.main.async {
+                    self.viewState?.set(sections: sections)
+                }
             }
         }
     }
     
-    private func makeSortedSections(models: [MealModel]) -> [MealsListSection] {
-        let sortedModels = models.sorted { $0.date > $1.date }
+    private func makeSortedSections(meals: [Meal]) -> [MealsListSection] {
+        let sortedMeals = meals.sorted { $0.date > $1.date }
         var sections = [MealsListSection]()
-        for model in sortedModels {
-            let date = model.date
+        for meal in sortedMeals {
+            let date = meal.date
             let dateString = sectionDateFormatter.string(from: date)
             if let lastSection = sections.last,
                dateString == lastSection.title {
                 _ = sections.removeLast()
                 sections.append(MealsListSection(title: dateString,
-                                                 items: lastSection.items + [mapToItem(model: model)]))
+                                                 items: lastSection.items + [mapToItem(meal: meal)]))
                 continue
             }
             sections.append(MealsListSection(title: dateString,
-                                             items: [mapToItem(model: model)]))
+                                             items: [mapToItem(meal: meal)]))
         }
         return sections
     }
     
-    private func mapToItem(model: MealModel) -> MealsListItem {
-        MealsListItem(id: model.id,
-                      title: itemDateFormatter.string(from: model.date),
-                      subtitle: model.dishes.map { $0.name }.joined(separator: "; "))
+    private func mapToItem(meal: Meal) -> MealsListItem {
+        MealsListItem(id: meal.id,
+                      title: itemDateFormatter.string(from: meal.date),
+                      subtitle: meal.dishes.map { $0.dish.name }.joined(separator: "; "))
     }
 }

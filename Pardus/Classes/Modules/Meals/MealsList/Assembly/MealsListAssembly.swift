@@ -20,8 +20,8 @@ final class MealsListAssembly: Assembly {
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataEntityService(context: coreDataStackService.getMainQueueContext())
-        let interactor = MealsListInteractor(modelService: coreDataService)
+        let dataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
+        let interactor = MealsListInteractor(dataService: dataService)
         
         //ViewState
         let viewState = MealsListViewState()
@@ -63,6 +63,11 @@ final class MealsListAssembly: Assembly {
     }
     
     private class MockInteractor: MealsListInteractorProtocol {
+        
+        func performWithMeals(action: @escaping ([Meal]) -> Void) async throws {
+            
+        }
+        
         var endDate = Date()
         
         var dateFilterEnabled: Bool = false
