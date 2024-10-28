@@ -81,6 +81,10 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             return
         }
         viewState.name = data.name
+        viewState.calories = data.calories
+        viewState.proteins = data.proteins
+        viewState.carbohydrates = data.carbohydrates
+        viewState.fats = data.fats
         if let category = interactor.dishCategory {
             viewState.category = category
         } else {

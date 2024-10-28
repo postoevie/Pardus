@@ -23,6 +23,5 @@ final class DishEditViewState: ObservableObject, DishEditViewStateProtocol {
     @Published var proteins: Double = 0
     @Published var fats: Double = 0
     @Published var carbohydrates: Double = 0
-    @Published var dishDescription: String = ""
     @Published var error: String?
 }

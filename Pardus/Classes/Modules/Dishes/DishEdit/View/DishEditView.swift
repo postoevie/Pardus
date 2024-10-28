@@ -14,50 +14,51 @@ struct DishEditView: View {
     @StateObject var presenter: DishEditPresenter
     
     var body: some View {
-        VStack(spacing: 20) {
-            FieldSectionView(title: "Name") {
-                TextField("", text: $viewState.name)
-            }
-            VStack(spacing: 8) {
-                HStack(spacing: 16) {
-                    Text("Category")
-                        .font(Font.custom("RussoOne", size: 20))
-                        .foregroundStyle(Color(UIColor.lightGray))
-                    Spacer()
-                    Button {
-                        presenter.tapEditCategory()
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                            .font(.title2)
-                            .foregroundStyle(.black)
-                    }
+        ScrollView {
+            VStack(spacing: 20) {
+                FieldSectionView(title: "Name") {
+                    TextField("", text: $viewState.name)
                 }
-                if let category = viewState.category {
-                    HStack {
-                        Circle()
-                            .frame(width: 16)
-                            .foregroundStyle(Color(category.color ?? UIColor.clear))
-                        Text(category.name)
+                VStack(spacing: 8) {
+                    HStack(spacing: 16) {
+                        Text("Category")
+                            .font(Font.custom("RussoOne", size: 20))
+                            .foregroundStyle(Color(UIColor.lightGray))
                         Spacer()
+                        Button {
+                            presenter.tapEditCategory()
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                                .font(.title2)
+                                .foregroundStyle(.black)
+                        }
+                    }
+                    if let category = viewState.category {
+                        HStack {
+                            Circle()
+                                .frame(width: 16)
+                                .foregroundStyle(Color(category.color ?? UIColor.clear))
+                            Text(category.name)
+                            Spacer()
+                        }
                     }
                 }
+                Group {
+                    FieldSectionView(title: "Kilocalories per 100 grams") {
+                        TextField("", value: $viewState.calories, formatter: .dishNumbers)
+                    }
+                    FieldSectionView(title: "Proteins per 100 grams") {
+                        TextField("", value: $viewState.proteins, formatter: .dishNumbers)
+                    }
+                    FieldSectionView(title: "Fats per 100 grams") {
+                        TextField("", value: $viewState.fats, formatter: .dishNumbers)
+                    }
+                    FieldSectionView(title: "Carbohydrates per 100 grams") {
+                        TextField("", value: $viewState.carbohydrates, formatter: .dishNumbers)
+                    }
+                }.submitLabel(.done)
+                Spacer()
             }
-            FieldSectionView(title: "Kilocalories per 100 grams") {
-                TextField("", value: $viewState.calories, formatter: .dishNumbers)
-            }
-            FieldSectionView(title: "Proteins per 100 grams") {
-                TextField("", value: $viewState.proteins, formatter: .dishNumbers)
-            }
-            FieldSectionView(title: "Fats per 100 grams") {
-                TextField("", value: $viewState.fats, formatter: .dishNumbers)
-            }
-            FieldSectionView(title: "Carbohydrates per 100 grams") {
-                TextField("", value: $viewState.carbohydrates, formatter: .dishNumbers)
-            }
-            FieldSectionView(title: "Description") {
-                TextField("", value: $viewState.dishDescription, formatter: .dishNumbers)
-            }
-            Spacer()
         }
         .padding(8)
         .onAppear {
