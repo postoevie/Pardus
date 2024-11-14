@@ -42,14 +42,14 @@ private struct MealModelMapping: EntityModelMappingType {
         }
         var model: MealModel?
         try context.performAndWait {
-            model = MealModel(id: entity.id,
-                              date: entity.date,
-                              dishes: try entity.dishes.map {
-                guard let dish = $0 as? Dish else {
-                    throw NSError()
-                }
-                return try DishModel.mapping.createModel(managedObject: dish) as! DishModel
-            })
+//            model = MealModel(id: entity.id,
+//                              date: entity.date,
+//                              dishes: try entity.dishes.map {
+//                guard let dish = $0 as? Dish else {
+//                    throw NSError()
+//                }
+//                return try DishModel.mapping.createModel(managedObject: dish) as! DishModel
+//            })
         }
         guard let model else {
             throw NSError()

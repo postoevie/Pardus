@@ -40,7 +40,7 @@ struct MealsListView: View {
                         .listRowSeparator(.hidden)
                         .swipeActions {
                             Button {
-                                presenter.deleteitem(uid: item.id)
+                                presenter.deleteItem(uid: item.id)
                             } label: {
                                 Image(systemName: "trash")
                             }

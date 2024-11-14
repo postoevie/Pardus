@@ -13,6 +13,7 @@ final class MealEditViewState: ObservableObject, MealEditViewStateProtocol {
     @Published var date: Date = Date()
     @Published var error: String?
     @Published var dishItems: [MealDishesListItem] = []
+    @Published var weight: String = ""
     @Published var sumKcals: String = ""
     @Published var sumProteins: String = ""
     @Published var sumFats: String = ""

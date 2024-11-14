@@ -11,6 +11,7 @@ import Foundation
 enum NavigationStem {
     case meals
     case dishes
+    case ingridients
 }
 
 final class NavigationAssembly: Assembly {
@@ -24,6 +25,8 @@ final class NavigationAssembly: Assembly {
             MealsNavigationService(navigationService: NavigationAssembly.navigation)
         case .dishes:
             DishesNavigationService(navigationService: NavigationAssembly.navigation)
+        case .ingridients:
+            IngridientsNavigationService(navigationService: NavigationAssembly.navigation)
         }
     }
 }
@@ -87,6 +90,51 @@ fileprivate final class DishesNavigationService: NavigationServiceType {
         }
         set {
             navigationService.dishesItems = newValue
+        }
+    }
+    
+    var modalView: Views? {
+        get {
+            navigationService.modalView
+        }
+        set {
+            navigationService.modalView = newValue
+        }
+    }
+    
+    var alert: CustomAlert? {
+        get {
+            navigationService.alert
+        }
+        set {
+            navigationService.alert = newValue
+        }
+    }
+    
+    var sheetView: Views? {
+        get {
+            navigationService.sheetView
+        }
+        set {
+            navigationService.sheetView = newValue
+        }
+    }
+}
+
+fileprivate final class IngridientsNavigationService: NavigationServiceType {
+    
+    let navigationService: NavigationService
+    
+    init(navigationService: NavigationService) {
+        self.navigationService = navigationService
+    }
+    
+    var items: [Views] {
+        get {
+            navigationService.ingridientsItems
+        }
+        set {
+            navigationService.ingridientsItems = newValue
         }
     }
     

@@ -34,35 +34,30 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    func updateDishMealWeight(mealDishId: UUID, weightString: String) {
+    func tapEditDish(dishId: UUID) {
         Task {
-            let weight: NSNumber = NumberFormatter.dishNumbers.number(from: weightString) ?? .init(value: 0)
-            try await interactor.performWithMeal { meal in
-                let mealDish = meal?.dishes[mealDishId]
-                mealDish?.weight = weight.doubleValue
-                self.updateViewState(meal: meal)
+            try await valueSubmitted()
+            try await interactor.save()
+            await MainActor.run {
+                router.showEditDish(dishId: dishId)
             }
         }
     }
     
     func editDishesTapped() {
+        guard let mealId = self.interactor.mealId else {
+            return
+        }
         Task {
             try await valueSubmitted()
-            try await interactor.performWithMeal { meal in
-                guard let meal else {
-                    assertionFailure("Editing is enabled with no meal")
-                    self.updateViewState(meal: nil)
-                    return
-                }
-                let preselectedDishIds = meal.dishes.map { $0.dish.id }
-                DispatchQueue.main.async {
-                    self.router.showDishesPick(mealId: meal.id, preselectedDishes: preselectedDishIds) { selectedDishIds in
-                        self.router.returnBack()
-                        Task {
-                            try await self.interactor.setSelectedDishes(selectedDishIds)
-                            try await self.interactor.performWithMeal { meal in
-                                self.updateViewState(meal: meal)
-                            }
+            let filter = self.interactor.dishesFilter
+            await MainActor.run {
+                self.router.showDishesPick(mealId: mealId, filter: filter) { selectedDishIds in
+                    self.router.returnBack()
+                    Task {
+                        try await self.interactor.setSelectedDishes(selectedDishIds)
+                        try await self.interactor.performWithMeal { meal in
+                            self.updateViewState(meal: meal)
                         }
                     }
                 }
@@ -115,22 +110,17 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
         let mealDate = meal.date
         let dishItems = meal.dishes.map(self.mapToListItem)
-        let sumProteins = meal.dishes.reduce(0, { sum, mealDish in
-            return sum + mealDish.weight / 100 * mealDish.dish.proteins
-        })
-        let sumFats = meal.dishes.reduce(0, { sum, mealDish in
-            return sum + mealDish.weight / 100 * mealDish.dish.fats
-        })
-        let sumCarbs = meal.dishes.reduce(0, { sum, mealDish in
-            return sum + mealDish.weight / 100 * mealDish.dish.carbs
-        })
-        let sumKcals = meal.dishes.reduce(0, { sum, mealDish in
-            return sum + mealDish.weight / 100 * mealDish.dish.calories
-        })
+        let weight = meal.weight
+        let sumProteins = String(meal.proteins)
+        let sumFats = String(meal.fats)
+        let sumCarbs = String(meal.carbs)
+        let sumKcals = String(meal.calories)
+        
         DispatchQueue.main.async {
             viewState.error = nil
             viewState.date = mealDate
             viewState.dishItems = dishItems
+            viewState.weight = String(weight)
             viewState.sumProteins = String(sumProteins)
             viewState.sumFats = String(sumFats)
             viewState.sumCarbs = String(sumCarbs)
@@ -140,20 +130,20 @@ final class MealEditPresenter: MealEditPresenterProtocol {
     
     private func mapToListItem(_ mealDish: MealDish) -> MealDishesListItem {
         let dish = mealDish.dish
-        let formatter = Formatter.dishNumbers
-        let calString = formatter.string(for: dish.calories) ?? "0"
-        let proteinsString = formatter.string(for: dish.proteins) ?? "0"
-        let fatsString = formatter.string(for: dish.fats) ?? "0"
-        let carbsString = formatter.string(for: dish.carbs) ?? "0"
-        let categoryColor: UIColor? = if let category = dish.category {
-            try? .init(hex: category.colorHex)
-        } else {
-            nil
+        let formatter = Formatter.nutrients
+        let weightString = formatter.string(for: mealDish.weight) ?? "0"
+        let calString = formatter.string(for: mealDish.calories) ?? "0"
+        let proteinsString = formatter.string(for: mealDish.proteins) ?? "0"
+        let fatsString = formatter.string(for: mealDish.fats) ?? "0"
+        let carbsString = formatter.string(for: mealDish.carbs) ?? "0"
+        var categoryColor: UIColor?
+        if let colorHex = dish.category?.colorHex {
+            categoryColor = try? .init(hex: colorHex)
         }
         let item = MealDishesListItem(id: mealDish.id,
-                                      name: dish.name,
-                                      subtitle: "\(calString) kcal \(proteinsString)/\(fatsString)/\(carbsString)",
-                                      weight: NumberFormatter.dishNumbers.string(for: mealDish.weight) ?? "0",
+                                      title: dish.name,
+                                      subtitle: "вес: \(weightString) kcal: \(calString) б: \(proteinsString) ж: \(fatsString) у: \(carbsString)",
+                                      weight: NumberFormatter.nutrients.string(for: mealDish.weight) ?? "0",
                                       categoryColor: categoryColor)
         return item
     }

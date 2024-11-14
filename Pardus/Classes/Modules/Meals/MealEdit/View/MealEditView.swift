@@ -16,6 +16,11 @@ struct MealEditView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
+                Text("Weight")
+                Text(viewState.weight)
+                Spacer()
+            }
+            HStack {
                 VStack {
                     Text("kCal")
                     Text(viewState.sumKcals)
@@ -46,10 +51,11 @@ struct MealEditView: View {
                     Text("Dishes")
                         .padding(.top)
                     Spacer()
-                    Button {
-                        presenter.editDishesTapped()
+                    Menu {
+                        //Button("Create new", action: presenter.tapNewDish)
+                        Button("Add from catalog", action: presenter.editDishesTapped)
                     } label: {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: "plus.circle")
                             .font(.title2)
                             .foregroundStyle(.black)
                     }
@@ -59,11 +65,16 @@ struct MealEditView: View {
             .font(Font.custom("RussoOne", size: 20))
             .foregroundStyle(Color(UIColor.lightGray))
             List(viewState.dishItems) { item in
-                MealDishRow(item: item,
-                            onSubmit: {
-                    presenter.updateDishMealWeight(mealDishId: item.id, weightString: $0)
-                })
+                SubtitleCell(title: item.title,
+                             subtitle: item.subtitle,
+                             color: item.categoryColor ?? .clear)
                 .swipeActions {
+                    Button {
+                        presenter.tapEditDish(dishId: item.id)
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .tint(.orange)
                     Button {
                         presenter.remove(dishId: item.id)
                     } label: {
@@ -91,36 +102,6 @@ struct MealEditView: View {
                         .foregroundStyle(.black)
                 }
             }
-        }
-    }
-}
-
-struct MealDishRow: View {
-
-    @State var weight: String
-    
-    private let item: MealDishesListItem
-    private let onSubmit: (String) -> Void
-    
-    init(item: MealDishesListItem, onSubmit: @escaping (String) -> Void) {
-        self.weight = item.weight
-        self.item = item
-        self.onSubmit = onSubmit
-    }
-    
-    var body: some View {
-        HStack {
-            SubtitleCell(title: item.title,
-                         subtitle: item.subtitle,
-                         color: item.categoryColor ?? .clear)
-            TextField("weight",
-                      text: $weight)
-            .submitLabel(.done)
-            .onSubmit {
-                onSubmit(weight)
-            }
-            .textFieldStyle(.roundedBorder)
-            .frame(width: 100)
         }
     }
 }

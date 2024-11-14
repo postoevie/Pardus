@@ -11,11 +11,18 @@ import Foundation
 
 class MealEditInteractor: MealEditInteractorProtocol {
     
-    var meal: Meal?
-    private var lastSelectedDishesIds = [UUID]()
+    var mealId: UUID?
+    
+    private var meal: Meal?
     
     private let dataService: CoreDataServiceType
-    private var mealId: UUID?
+    
+    var dishesFilter: Predicate? {
+        guard let dishes = meal?.dishes else {
+            return nil
+        }
+        return .idNotIn(uids: dishes.map { $0.dish.id })
+    }
     
     init(dataService: CoreDataServiceType, mealId: UUID?) {
         self.dataService = dataService
@@ -34,6 +41,7 @@ class MealEditInteractor: MealEditInteractorProtocol {
             let newMeal = try $0.create(type: Meal.self, id: UUID())
             newMeal.date = Date()
             newMeal.dishes = Set<MealDish>()
+            self.mealId = newMeal.id
             self.meal = newMeal
         }
     }
@@ -56,9 +64,9 @@ class MealEditInteractor: MealEditInteractorProtocol {
         }
     }
     
-    func updateMealDish(dishId: UUID, action: @escaping (MealDish?) -> Void) async throws {
+    func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws {
         await dataService.perform { _ in
-            let mealDish = self.meal?.dishes[dishId]
+            let mealDish = self.meal?.dishes[uid]
             action(mealDish)
         }
     }
@@ -74,18 +82,19 @@ class MealEditInteractor: MealEditInteractorProtocol {
             return
         }
         try await dataService.perform {
-            let mealDishesToDelete = meal.dishes.filter { !dishesIds.contains($0.dish.id) }
-            for mealDish in mealDishesToDelete {
-                try $0.delete(objectId: mealDish.objectID)
-            }
-            let existingMealDishesIds = meal.dishes.map { $0.dish.id }
-            let dishesIdsToAdd = Array(dishesIds.subtracting(existingMealDishesIds))
-            let dishesToAdd = try $0.fetchMany(type: Dish.self, predicate: NSPredicate.idIn(uids: dishesIdsToAdd))
+            let dishesToAdd = try $0.fetchMany(type: Dish.self, predicate: NSPredicate.idIn(uids: Array(dishesIds)))
             for dish in dishesToAdd {
                 let mealDish = try $0.create(type: MealDish.self, id: UUID())
                 mealDish.dish = dish
                 mealDish.meal = meal
-                mealDish.weight = 0
+                
+                let ingridientsIds = (dish.ingridients ?? []).map { $0.id }
+                let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: ingridientsIds))
+                for ingridient in ingridientsToAdd {
+                    let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
+                    mealIngridient.dish = mealDish
+                    mealIngridient.ingridient = ingridient
+                }
             }
         }
     }

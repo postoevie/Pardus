@@ -69,7 +69,10 @@ struct PicklistView: View {
 struct DishesPickPreviews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .picklist(callingView: .dishList, preselected: Set(), completion: {_ in }))
+            ApplicationViewBuilder.preview.build(view: .dishPicklist(callingView: .mealEdit(mealId: nil),
+                                                                     type: .singular,
+                                                                     filter: nil,
+                                                                     completion: { _ in }))
         }
     }
 }

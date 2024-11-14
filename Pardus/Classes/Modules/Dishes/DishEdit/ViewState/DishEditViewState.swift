@@ -19,9 +19,6 @@ final class DishEditViewState: ObservableObject, DishEditViewStateProtocol {
     
     @Published var name: String = ""
     @Published var category: DishCategoryViewModel?
-    @Published var calories: Double = 0
-    @Published var proteins: Double = 0
-    @Published var fats: Double = 0
-    @Published var carbohydrates: Double = 0
+    @Published var ingridients: [DishIngridientsListItem] = []
     @Published var error: String?
 }

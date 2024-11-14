@@ -24,7 +24,7 @@ protocol MealsListPresenterProtocol: PresenterProtocol {
     func setStartDate(_ date: Date)
     func setEndDate(_ date: Date)
     func didAppear()
-    func deleteitem(uid: UUID)
+    func deleteItem(uid: UUID)
     func tapItem(uid: UUID)
 }
 

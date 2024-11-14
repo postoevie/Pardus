@@ -7,19 +7,11 @@
 
 import SwiftUI
 
-class MealDishesListItem: Identifiable {
+struct MealDishesListItem: Identifiable {
     
     let id: UUID
     let title: String
     let subtitle: String
+    let weight: String
     let categoryColor: UIColor?
-    var weight: String
-    
-    init(id: UUID, name: String, subtitle: String, weight: String, categoryColor: UIColor?) {
-        self.id = id
-        self.title = name
-        self.subtitle = subtitle
-        self.categoryColor = categoryColor
-        self.weight = weight
-    }
 }

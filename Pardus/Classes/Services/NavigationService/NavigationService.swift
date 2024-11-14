@@ -19,7 +19,9 @@ public class NavigationService: ObservableObject, Identifiable  {
     }
     
     @Published var mealsItems: [Views] = [.mealsList]
-    @Published var dishesItems: [Views] = [.dishesSectionsList]
+    @Published var dishesItems: [Views] = [.dishList]
+    @Published var ingridientsItems: [Views] = [.ingridientsList]
+    
     @Published var sheetView: Views?
     @Published var modalView: Views?
     @Published var alert: CustomAlert?
@@ -38,31 +40,52 @@ indirect enum Views: Equatable, Hashable {
     
     case mealsList
     case mealEdit(mealId: UUID?)
+    case mealDishEdit(mealDishId: UUID?)
     case dishList
+    case dishCategoriesList
     case dishEdit(dishId: UUID?)
-    case picklist(callingView: Views, preselected: Set<UUID>, completion: (Set<UUID>) -> Void)
-    case dishCategoryPick(callingView: Views, preselected: Set<UUID>, completion: (Set<UUID>) -> Void)
+    case dishPicklist(callingView: Views, type: PicklistType, filter: Predicate?, completion: (Set<UUID>) -> Void)
+    case dishCategoryPicklist(callingView: Views, type: PicklistType, filter: Predicate?, completion: (Set<UUID>) -> Void)
+    case dishIngridientsPicklist(callingView: Views, type: PicklistType, filter: Predicate?, completion: (Set<UUID>) -> Void)
     case dishCategoryEdit(dishCategoryId: UUID?)
-    case dishesSectionsList
+    case ingridientsList
+    case ingridientCategoriesList
+    case ingridientEdit(ingridientId: UUID?)
+    case ingridientCategoryPicklist(callingView: Views, type: PicklistType, filter: Predicate?, completion: (Set<UUID>) -> Void)
+    case ingridientCategoryEdit(categoryId: UUID?)
     
     var stringKey: String {
         switch self {
         case .mealsList:
             return "mealsList"
         case .mealEdit:
-            return "mealEditing"
+            return "mealEdit"
+        case .mealDishEdit:
+            return "mealDishEdit"
         case .dishList:
             return "dishList"
         case .dishEdit:
             return "dishEdit"
-        case .picklist:
-            return "picklist"
+        case .dishPicklist:
+            return "dishPicklist"
         case .dishCategoryEdit:
             return "dishCategoryEdit"
-        case .dishesSectionsList:
-            return "dishesSectionsList"
-        case .dishCategoryPick:
-            return "dishCategoryPick"
+        case .dishCategoriesList:
+            return "dishCategoriesList"
+        case .dishCategoryPicklist:
+            return "dishCategoryPicklist"
+        case .dishIngridientsPicklist:
+            return "dishIngridientsPicklist"
+        case .ingridientsList:
+            return "ingridientsList"
+        case .ingridientCategoriesList:
+            return "ingridientCategoriesList"
+        case .ingridientEdit:
+            return "ingridientEdit"
+        case .ingridientCategoryPicklist:
+            return "ingridientCategoryPicklist"
+        case .ingridientCategoryEdit:
+            return "ingridientCategoryEdit"
         }
     }
     
@@ -73,6 +96,10 @@ indirect enum Views: Equatable, Hashable {
         default:
             return .dishes
         }
+    }
+    
+    func isTypeIn(_ views: [Views]) -> Bool {
+        views.contains(where: { $0.stringKey == stringKey })
     }
 }
 

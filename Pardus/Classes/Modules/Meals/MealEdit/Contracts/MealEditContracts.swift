@@ -13,7 +13,8 @@ import SwiftUI
 protocol MealEditRouterProtocol: RouterProtocol {
 
     func returnBack()
-    func showDishesPick(mealId: UUID, preselectedDishes: [UUID], completion: @escaping (Set<UUID>) -> Void)
+    func showEditDish(dishId: UUID)
+    func showDishesPick(mealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
 }
 
 // Presenter
@@ -28,11 +29,12 @@ protocol MealEditPresenterProtocol: AnyObject, ObservableObject, PresenterProtoc
 // Interactor
 protocol MealEditInteractorProtocol: InteractorProtocol {
     
-    var meal: Meal? { get }
+    var mealId: UUID? { get  }
+    var dishesFilter: Predicate? { get }
     
     func loadInitialMeal() async throws
     func performWithMeal(action: @escaping (Meal?) -> Void) async throws
-    func updateMealDish(dishId: UUID, action: @escaping (MealDish?) -> Void) async throws
+    func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws
     func setSelectedDishes(_ dishesIds: Set<UUID>) async throws
     func remove(dishId: UUID) async throws
     func save() async throws

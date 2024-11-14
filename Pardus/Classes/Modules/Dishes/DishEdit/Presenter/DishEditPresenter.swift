@@ -22,25 +22,32 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         self.viewState = viewState
     }
     
-    func tapEditCategory() {
+    func didAppear() {
+        Task {
+            try await interactor.loadInitialDish()
+            try await interactor.performWithDish { dish in
+                self.updateViewState(dish: dish)
+            }
+        }
+    }
+    
+    func editCategoryTapped() {
+        guard let dishId = interactor.dishId else {
+            return
+        }
         Task {
             try await valueSubmitted()
+            let predicate = self.interactor.categoriesFilter
             await MainActor.run {
-                let preselected: [UUID] = if let category = interactor.dishCategory {
-                    [category.id]
-                } else {
-                    []
-                }
-                router.showPicklist(preselectedCategories: Set(preselected)) { [weak self ] selected in
+                router.showCategoriesPicklist(dishId: dishId, filter: predicate) { [weak self] selected in
                     guard let self else {
                         return
                     }
                     self.router.hideLast()
                     Task {
-                        try await self.interactor.updateDishWith(categoryId: selected.first )
-                        try await self.interactor.loadDish()
-                        await MainActor.run {
-                            self.updateViewState()
+                        try await self.interactor.setCategory(uid: selected.first )
+                        try await self.interactor.performWithDish { dish in
+                            self.updateViewState(dish: dish)
                         }
                     }
                 }
@@ -48,11 +55,53 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         }
     }
     
-    func didAppear() {
+    func createIngridientTapped() {
+        guard let dishId = interactor.dishId else {
+            return
+        }
         Task {
-            try await interactor.loadDish()
+            try await valueSubmitted()
+            let predicate = self.interactor.ingridientsFilter
             await MainActor.run {
-                self.updateViewState()
+                router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
+                    self.router.hideLast()
+                    Task {
+                        try await self.interactor.setSelectedIngridients(uids: selectedIds)
+                        try await self.interactor.performWithDish { dish in
+                            self.updateViewState(dish: dish)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func editIngridientsTapped() {
+        guard let dishId = interactor.dishId else {
+            return
+        }
+        Task {
+            try await valueSubmitted()
+            let predicate = self.interactor.ingridientsFilter
+            await MainActor.run {
+                router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
+                    self.router.hideLast()
+                    Task {
+                        try await self.interactor.setSelectedIngridients(uids: selectedIds)
+                        try await self.interactor.performWithDish { dish in
+                            self.updateViewState(dish: dish)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func remove(ingridientId: UUID) {
+        Task {
+            try await interactor.remove(ingridientId: ingridientId)
+            try await interactor.performWithDish { dish in
+                self.updateViewState(dish: dish)
             }
         }
     }
@@ -71,36 +120,47 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         router.returnBack()
     }
     
-    private func updateViewState() {
+    private func updateViewState(dish: Dish?) {
         guard let viewState else {
             return
         }
-        guard let data = interactor.data else {
-            viewState.name = ""
+        guard let dish else {
             viewState.error = "No entity"
             return
         }
-        viewState.name = data.name
-        viewState.calories = data.calories
-        viewState.proteins = data.proteins
-        viewState.carbohydrates = data.carbohydrates
-        viewState.fats = data.fats
-        if let category = interactor.dishCategory {
-            viewState.category = category
+        viewState.name = dish.name
+        if let category = dish.category {
+            var categoryColor: UIColor?
+            if let colorHex = category.colorHex {
+                categoryColor = try? UIColor(hex: colorHex)
+            }
+            viewState.category = DishCategoryViewModel(id: category.id,
+                                                       name: category.name,
+                                                       color: categoryColor)
         } else {
             viewState.category = nil
         }
-        viewState.error = nil
+        viewState.ingridients = if let ingridients = dish.ingridients {
+            ingridients.map { ingridient in
+                DishIngridientsListItem(id: ingridient.id,
+                                        title: ingridient.name,
+                                        subtitle: NumberFormatter.nutrientsDefaultString(calories: ingridient.calories,
+                                                                                         proteins: ingridient.proteins,
+                                                                                         fats: ingridient.fats,
+                                                                                         carbs: ingridient.carbs),
+                                        categoryColor: nil)
+            }
+        } else {
+            []
+        }
     }
     
     private func valueSubmitted() async throws {
         guard let viewState else {
             return
         }
-        try await interactor.update(data: DishEditData(name: viewState.name,
-                                                       calories: viewState.calories,
-                                                       proteins: viewState.proteins,
-                                                       fats: viewState.fats,
-                                                       carbohydrates: viewState.carbohydrates))
+        try await interactor.performWithDish { dish in
+            dish?.name = viewState.name
+        }
     }
 }

@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "Add from catalog" : {
+
+    },
     "CantDeleteDishesExist" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -41,7 +44,7 @@
     "Create category" : {
 
     },
-    "Create dish" : {
+    "Create item" : {
 
     },
     "Date" : {
@@ -59,7 +62,16 @@
     "Fats" : {
 
     },
+    "Ingridient editing" : {
+
+    },
+    "Ingridients" : {
+
+    },
     "kCal" : {
+
+    },
+    "Meal dish editing" : {
 
     },
     "Meal editing" : {
@@ -90,6 +102,9 @@
 
     },
     "weight" : {
+
+    },
+    "Weight" : {
 
     },
     "Yes" : {

@@ -24,13 +24,21 @@ class RootApp: App {
         container.apply(CoreDataRestorationStoreAssembly.self)
     
         // Modules
+        container.apply(DishCategoryEditAssembly.self)
+        container.apply(DishCategoriesPicklistAssembly.self)
+        container.apply(DishEditAssembly.self)
+        container.apply(DishesListAssembly.self)
+        container.apply(DishPicklistAssembly.self)
+        container.apply(DishCategoriesListAssembly.self)
+        container.apply(MealDishEditAssembly.self)
         container.apply(MealsListAssembly.self)
         container.apply(MealEditAssembly.self)
-        container.apply(DishesListAssembly.self)
-        container.apply(DishEditAssembly.self)
-        container.apply(PicklistAssembly.self)
-        container.apply(DishCategoryEditAssembly.self)
-        container.apply(DishesSectionsListAssembly.self)
+        container.apply(IngridientsListAssembly.self)
+        container.apply(IngridientEditAssembly.self)
+        container.apply(IngridientCategoriesListAssembly.self)
+        container.apply(IngridientCategoriesPicklistAssembly.self)
+        container.apply(IngridientsPicklistAssembly.self)
+        container.apply(IngridientCategoryEditAssembly.self)
         
         return container
     }()

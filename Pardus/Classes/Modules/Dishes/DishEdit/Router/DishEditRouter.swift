@@ -24,9 +24,17 @@ final class DishEditRouter: DishEditRouterProtocol {
         _ = navigation.items.popLast()
     }
     
-    func showPicklist(preselectedCategories: Set<UUID>, completion: @escaping (Set<UUID>) -> Void) {
-        navigation.items.append(.picklist(callingView: .dishEdit(dishId: nil), // TODO: Consider nil as non-correct value
-                                          preselected: preselectedCategories,
-                                          completion: completion))
+    func entityshowIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
+        navigation.items.append(.dishIngridientsPicklist(callingView: .dishEdit(dishId: dishId),
+                                                         type: .multiple,
+                                                         filter: filter,
+                                                         completion: completion))
+    }
+    
+    func showCategoriesPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
+        navigation.items.append(.dishCategoryPicklist(callingView: .dishEdit(dishId: dishId),
+                                                      type: .singular,
+                                                      filter: filter,
+                                                      completion: completion))
     }
 }

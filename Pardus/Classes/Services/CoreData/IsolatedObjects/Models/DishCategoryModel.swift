@@ -40,7 +40,7 @@ private struct DishCategoryModelMapping: EntityModelMappingType {
         context.performAndWait {
             model = DishCategoryModel(id: entity.id,
                                       name: entity.name,
-                                      colorHex: entity.colorHex,
+                                      colorHex: entity.colorHex ?? "",
                                       objectId: entity.objectID)
         }
         guard let model else {

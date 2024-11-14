@@ -14,7 +14,6 @@ struct RootView: View {
     @ObservedObject var appViewBuilder: ApplicationViewBuilder
     
     var body: some View {
-        
         TabView {
             NavigationStack(path: $navigationService.mealsItems) {
                 Spacer()
@@ -25,7 +24,7 @@ struct RootView: View {
             .tabItem {
                 Label("Meals", systemImage: "")
             }
-            .tag("Meals")
+            .tag("meals")
             NavigationStack(path: $navigationService.dishesItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
@@ -35,7 +34,17 @@ struct RootView: View {
             .tabItem {
                 Label("Dishes", systemImage: "")
             }
-            .tag("Dishes")
+            .tag("dishes")
+            NavigationStack(path: $navigationService.ingridientsItems) {
+                Spacer()
+                    .navigationDestination(for: Views.self) { path in
+                        appViewBuilder.build(view: path)
+                    }
+            }
+            .tabItem {
+                Label("Ingridients", systemImage: "")
+            }
+            .tag("ingridients")
         }
         .fullScreenCover(isPresented: .constant($navigationService.modalView.wrappedValue != nil)) {
             if let modal = navigationService.modalView {

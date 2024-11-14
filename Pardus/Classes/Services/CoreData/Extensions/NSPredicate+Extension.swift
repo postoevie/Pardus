@@ -21,3 +21,48 @@ extension NSPredicate {
         NSPredicate(format: "id == %@", argument)
     }
 }
+
+enum PredicateError: Error {
+    
+    case incompatibleArgument
+}
+
+enum Predicate {
+    
+    case idIn(uids: [UUID])
+    case idNotIn(uids: [UUID])
+    case `in`(fieldName: String, argument: Any?)
+    case notIn(fieldName: String, argument: Any?)
+    case equal(fieldName: String, argument: Any?)
+}
+
+extension NSPredicate {
+    
+    static func map(predicate: Predicate?) throws -> NSPredicate? {
+        guard let predicate else {
+            return nil
+        }
+        switch predicate {
+        case .idIn(uids: let uids):
+            return NSPredicate(format: "id in %@", uids)
+        case .idNotIn(uids: let uids):
+            return NSPredicate(format: "not (id in %@)", uids)
+        case .in(let fieldName, let argument):
+            return NSPredicate(format: "\(fieldName) in %@", try mapToVarArg(argument))
+        case .notIn(let fieldName, let argument):
+            return NSPredicate(format: "not (\(fieldName) in %@)", try mapToVarArg(argument))
+        case .equal(let fieldName, let argument):
+            return NSPredicate(format: "\(fieldName) == %@", try mapToVarArg(argument))
+        }
+    }
+    
+    static private func mapToVarArg(_ value: Any?) throws -> CVarArg {
+        if value == nil {
+            return "nil"
+        }
+        if let argument = value as? CVarArg {
+            return argument
+        }
+        throw PredicateError.incompatibleArgument
+    }
+}

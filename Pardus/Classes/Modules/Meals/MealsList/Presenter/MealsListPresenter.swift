@@ -56,16 +56,11 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
         router.showAdd()
     }
     
-    func deleteitem(uid: UUID) {
+    func deleteItem(uid: UUID) {
         Task {
             do {
                 try await interactor.delete(itemId: uid)
-                try await interactor.performWithMeals { meals in
-                    let sections = self.makeSortedSections(meals: meals)
-                    DispatchQueue.main.async {
-                        self.viewState?.set(sections: sections)
-                    }
-                }
+                updateViewState()
             } catch {
                 print(error)
             }
@@ -116,6 +111,6 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     private func mapToItem(meal: Meal) -> MealsListItem {
         MealsListItem(id: meal.id,
                       title: itemDateFormatter.string(from: meal.date),
-                      subtitle: meal.dishes.map { $0.dish.name }.joined(separator: "; "))
+                      subtitle: (meal.dishes).map { $0.dish.name }.joined(separator: ", "))
     }
 }

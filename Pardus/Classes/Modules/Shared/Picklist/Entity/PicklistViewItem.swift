@@ -14,12 +14,6 @@ struct PicklistViewItem: Hashable {
     let type: PicklistViewItemType
 }
 
-enum PicklistDataItem {
-    
-    case dish(DishModel)
-    case dishCategory(DishCategoryModel)
-}
-
 enum PicklistViewItemType: Hashable {
     
     case onlyTitle(title: String, indicatorColor: UIColor)

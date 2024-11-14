@@ -45,14 +45,14 @@ private struct DishModelMapping: EntityModelMappingType {
             if let entityCategory = entity.category {
                 category = try DishCategoryModel.mapping.createModel(managedObject: entityCategory) as? DishCategoryModel
             }
-            dishModel = DishModel(id: entity.id,
-                                  name: entity.name,
-                                  category: category,
-                                  calories: entity.calories,
-                                  proteins: entity.proteins,
-                                  fats: entity.fats,
-                                  carbohydrates: entity.carbs,
-                                  objectId: entity.objectID)
+//            dishModel = DishModel(id: entity.id,
+//                                  name: entity.name,
+//                                  category: category,
+//                                  calories: entity.calories,
+//                                  proteins: entity.proteins,
+//                                  fats: entity.fats,
+//                                  carbohydrates: entity.carbs,
+//                                  objectId: entity.objectID)
         }
         guard let dishModel else {
             throw NSError()
@@ -67,10 +67,6 @@ private struct DishModelMapping: EntityModelMappingType {
             throw NSError()
         }
         entity.name = model.name
-        entity.calories = model.calories
-        entity.proteins = model.proteins
-        entity.fats = model.fats
-        entity.carbs = model.carbohydrates
         entity.category = if let categoryId = model.category?.objectId {
             context.object(with: categoryId) as? DishCategory
         } else {

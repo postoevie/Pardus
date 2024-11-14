@@ -3,68 +3,79 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 2.6.24.
-//  
+//
 //
 
 import SwiftUI
 
 struct DishEditView: View {
-           
+    
     @StateObject var viewState: DishEditViewState
     @StateObject var presenter: DishEditPresenter
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                FieldSectionView(title: "Name") {
-                    TextField("", text: $viewState.name)
-                }
-                VStack(spacing: 8) {
-                    HStack(spacing: 16) {
-                        Text("Category")
-                            .font(Font.custom("RussoOne", size: 20))
-                            .foregroundStyle(Color(UIColor.lightGray))
-                        Spacer()
-                        Button {
-                            presenter.tapEditCategory()
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                                .font(.title2)
-                                .foregroundStyle(.black)
-                        }
-                    }
-                    if let category = viewState.category {
-                        HStack {
-                            Circle()
-                                .frame(width: 16)
-                                .foregroundStyle(Color(category.color ?? UIColor.clear))
-                            Text(category.name)
-                            Spacer()
-                        }
-                    }
-                }
-                Group {
-                    FieldSectionView(title: "Kilocalories per 100 grams") {
-                        TextField("", value: $viewState.calories, formatter: .dishNumbers)
-                    }
-                    FieldSectionView(title: "Proteins per 100 grams") {
-                        TextField("", value: $viewState.proteins, formatter: .dishNumbers)
-                    }
-                    FieldSectionView(title: "Fats per 100 grams") {
-                        TextField("", value: $viewState.fats, formatter: .dishNumbers)
-                    }
-                    FieldSectionView(title: "Carbohydrates per 100 grams") {
-                        TextField("", value: $viewState.carbohydrates, formatter: .dishNumbers)
-                    }
-                }.submitLabel(.done)
+        VStack(spacing: 20) {
+            HStack(spacing: 8) {
+                Text("Name")
+                    .font(Font.custom("RussoOne", size: 20))
+                    .foregroundStyle(Color(UIColor.lightGray))
                 Spacer()
+                TextField("", text: $viewState.name)
             }
+            HStack {
+                Text("Category")
+                    .font(Font.custom("RussoOne", size: 20))
+                    .foregroundStyle(Color(UIColor.lightGray))
+                Spacer()
+                Button {
+                    presenter.editCategoryTapped()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .font(.title2)
+                        .foregroundStyle(.black)
+                }
+            }
+            if let category = viewState.category {
+                HStack {
+                    Circle()
+                        .frame(width: 16)
+                        .foregroundStyle(Color(category.color ?? UIColor.clear))
+                    Text(category.name)
+                    Spacer()
+                }
+            }
+            HStack {
+                Text("Ingridients")
+                    .padding(.top)
+                Spacer()
+                Button {
+                    presenter.editIngridientsTapped()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .font(.title2)
+                        .foregroundStyle(.black)
+                }
+            }
+            .font(Font.custom("RussoOne", size: 20))
+            .foregroundStyle(Color(UIColor.lightGray))
+            List(viewState.ingridients) { item in
+                DishIngredientRow(item: item)
+                .swipeActions {
+                    Button {
+                        presenter.remove(ingridientId: item.id)
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                    .tint(.red)
+                }
+            }
+            .listStyle(.plain)
+            Spacer()
         }
-        .padding(8)
         .onAppear {
             presenter.didAppear()
         }
-        .padding(16)
+        .padding()
         .font(Font.custom("RussoOne", size: 16))
         .foregroundStyle(Color(UIColor.black))
         .textFieldStyle(.roundedBorder)
@@ -83,20 +94,21 @@ struct DishEditView: View {
     }
 }
 
-private struct FieldSectionView<Content: View>: View {
+fileprivate struct DishIngredientRow: View {
     
-    var title: String
-    @ViewBuilder var content: () -> Content
+    private let item: DishIngridientsListItem
+    
+    init(item: DishIngridientsListItem) {
+        self.item = item
+    }
     
     var body: some View {
-        VStack(spacing: 8) {
-            HStack(spacing: 8) {
-                Text(title)
-                    .font(Font.custom("RussoOne", size: 20))
-                    .foregroundStyle(Color(UIColor.lightGray))
-                Spacer()
-            }
-            content()
+        HStack {
+            SubtitleCell(title: item.title,
+                         subtitle: item.subtitle,
+                         color: item.categoryColor ?? .clear)
+            .textFieldStyle(.roundedBorder)
+            .frame(width: 100)
         }
     }
 }

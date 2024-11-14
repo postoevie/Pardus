@@ -21,18 +21,32 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
             buildMealsList()
         case .mealEdit(let mealId):
             buildMealEdit(mealId)
+        case .mealDishEdit(let mealDishId):
+            buildMealDishEdit(mealDishId)
         case .dishList:
             buildDishList()
         case .dishEdit(let dishId):
             buildDishEdit(dishId)
-        case .picklist(let caller, let preselected, let completion):
-            buildDishPick(caller, preselected, completion)
         case .dishCategoryEdit(dishCategoryId: let dishCategoryId):
             buildDishCategoryEdit(dishCategoryId)
-        case .dishesSectionsList:
-            buildDishSectionList()
-        case .dishCategoryPick(let callingView, let preselected, let completion):
-            buildDishCategoryPick(callingView, preselected, completion)
+        case .dishCategoriesList:
+            buildDishCategoriesList()
+        case .dishCategoryPicklist(let callingView, let type, let filter, let completion):
+            buildDishCategoryPick(callingView, type, filter, completion)
+        case .dishIngridientsPicklist(let callingView, let type, let filter, let completion):
+            buildIngridientPicklist(callingView, type, filter, completion)
+        case .dishPicklist(let callingView, let type, let filter, let completion):
+            buildDishPicklist(callingView, type, filter, completion)
+        case .ingridientsList:
+            buildIngridientsList()
+        case .ingridientCategoriesList:
+            buildIngridientsCategoryList()
+        case .ingridientEdit(ingridientId: let ingridientId):
+            buildIngridientEdit(ingridientId)
+        case .ingridientCategoryPicklist(let callingView, let type, let filter, let completion):
+            buildIngridientCategoryPicklist(callingView, type, filter, completion)
+        case .ingridientCategoryEdit(categoryId: let categoryId):
+            buildIngridientCategoryEdit(categoryId)
         }
     }
     
@@ -47,6 +61,11 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
+    fileprivate func buildMealDishEdit(_ mealDishId: UUID?) -> some View {
+        container.resolve(MealDishEditAssembly.self).build(mealDishId: mealDishId)
+    }
+    
+    @ViewBuilder
     fileprivate func buildDishList() -> some View {
         container.resolve(DishesListAssembly.self).build()
     }
@@ -57,10 +76,14 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
-    fileprivate func buildDishPick(_ caller: Views,
-                                   _ preselected: Set<UUID>,
-                                   _ completion: @escaping (Set<UUID>) -> Void) -> some View {
-        container.resolve(PicklistAssembly.self).build(callingView: caller, preselected, completion)
+    fileprivate func buildDishPicklist(_ caller: Views,
+                                       _ type: PicklistType,
+                                       _ filter: Predicate?,
+                                       _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
     }
     
     @ViewBuilder
@@ -69,15 +92,62 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
-    fileprivate func buildDishSectionList() -> some View {
-        container.resolve(DishesSectionsListAssembly.self).build()
+    fileprivate func buildDishCategoriesList() -> some View {
+        container.resolve(DishCategoriesListAssembly.self).build()
     }
     
     @ViewBuilder
     fileprivate func buildDishCategoryPick(_ caller: Views,
-                                           _ preselected: Set<UUID>,
+                                           _ type: PicklistType,
+                                           _ filter: Predicate?,
                                            _ completion: @escaping (Set<UUID>) -> Void) -> some View {
-        container.resolve(PicklistAssembly.self).build(callingView: caller, preselected, completion)
+        container.resolve(DishCategoriesPicklistAssembly.self).build(callingView: caller,
+                                                                     type: type,
+                                                                     filter: filter,
+                                                                     completion: completion)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientsList() -> some View {
+        container.resolve(IngridientsListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientsCategoryList() -> some View {
+        container.resolve(IngridientCategoriesListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientEdit(_ ingridientId: UUID?) -> some View {
+        container.resolve(IngridientEditAssembly.self).build(ingridientId: ingridientId)
+    }
+    
+    
+    @ViewBuilder
+    fileprivate func buildIngridientPicklist(_ caller: Views,
+                                             _ type: PicklistType,
+                                             _ filter: Predicate?,
+                                             _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientCategoryEdit(_ categoryId: UUID?) -> some View {
+        container.resolve(IngridientCategoryEditAssembly.self).build(categoryId: categoryId)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientCategoryPicklist(_ caller: Views,
+                                                     _ type: PicklistType,
+                                                     _ filter: Predicate?,
+                                                     _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(IngridientCategoriesPicklistAssembly.self).build(callingView: caller,
+                                                                           type: type,
+                                                                           filter: filter,
+                                                                           completion: completion)
     }
 }
 
@@ -94,18 +164,32 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
             buildMealsList()
         case .mealEdit(let mealId):
             buildMealEdit(mealId)
+        case .mealDishEdit(let mealDishId):
+            buildMealDishEdit(mealDishId)
         case .dishList:
             buildDishList()
         case .dishEdit(let dishId):
             buildDishEdit(dishId)
-        case .picklist(let caller, let preselected, let completion):
-            buildPicklist(caller, preselected, completion)
         case .dishCategoryEdit(dishCategoryId: let dishCategoryId):
             buildDishCategoryEdit(dishCategoryId)
-        case .dishesSectionsList:
-            buildDishSectionList()
-        case .dishCategoryPick(let callingView, let preselected, let completion):
-            buildDishCategoryPick(callingView, preselected, completion)
+        case .dishCategoriesList:
+            buildDishCategoriesList()
+        case .dishCategoryPicklist(let callingView, let type, let filter, let completion):
+            buildDishCategoryPick(callingView, type, filter, completion)
+        case .dishIngridientsPicklist(let callingView, let type, let filter, let completion):
+            buildIngridientPicklist(callingView, type, filter, completion)
+        case .dishPicklist(let callingView, let type, let filter, let completion):
+            buildDishPicklist(callingView, type, filter, completion)
+        case .ingridientsList:
+            buildDishList()
+        case .ingridientCategoriesList:
+            buildIngridientCategoryList()
+        case .ingridientEdit(ingridientId: let ingridientId):
+            buildDishEdit(ingridientId)
+        case .ingridientCategoryPicklist(let callingView, let type, let filter, let completion):
+            buildIngridientCategoryPick(callingView, type, filter, completion)
+        case .ingridientCategoryEdit(categoryId: let categoryId):
+            buildDishCategoryEdit(categoryId)
         }
     }
     
@@ -120,6 +204,11 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
+    fileprivate func buildMealDishEdit(_ mealDishId: UUID?) -> some View {
+        container.resolve(MealDishEditAssembly.self).build(mealDishId: mealDishId)
+    }
+    
+    @ViewBuilder
     fileprivate func buildDishList() -> some View {
         container.resolve(DishesListAssembly.self).preview()
     }
@@ -130,27 +219,62 @@ final class ApplicationPreviewBuilder : Assembly, ObservableObject {
     }
     
     @ViewBuilder
-    fileprivate func buildPicklist(_ caller: Views,
-                                   _ preselected: Set<UUID>,
-                                   _ completion: @escaping (Set<UUID>) -> Void) -> some View {
-        container.resolve(PicklistAssembly.self).preview(callingView: caller, preselected, completion)
-    }
-    
-    @ViewBuilder
     fileprivate func buildDishCategoryEdit(_ dishCategoryId: UUID?) -> some View {
         container.resolve(DishCategoryEditAssembly.self).build(dishCategoryId: dishCategoryId)
     }
     
     @ViewBuilder
-    fileprivate func buildDishSectionList() -> some View {
-        container.resolve(DishesSectionsListAssembly.self).preview()
+    fileprivate func buildDishCategoriesList() -> some View {
+        container.resolve(DishCategoriesListAssembly.self).build()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientCategoryList() -> some View {
+        container.resolve(IngridientCategoriesListAssembly.self).preview()
+    }
+    
+    @ViewBuilder
+    fileprivate func buildDishPicklist(_ caller: Views,
+                                       _ type: PicklistType,
+                                       _ filter: Predicate?,
+                                       _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientPicklist(_ caller: Views,
+                                             _ type: PicklistType,
+                                             _ filter: Predicate?,
+                                             _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
     }
     
     @ViewBuilder
     fileprivate func buildDishCategoryPick(_ caller: Views,
-                                           _ preselected: Set<UUID>,
+                                           _ type: PicklistType,
+                                           _ filter: Predicate?,
                                            _ completion: @escaping (Set<UUID>) -> Void) -> some View {
-        container.resolve(PicklistAssembly.self).build(callingView: caller, preselected, completion)
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
+    }
+    
+    @ViewBuilder
+    fileprivate func buildIngridientCategoryPick(_ caller: Views,
+                                                 _ type: PicklistType,
+                                                 _ filter: Predicate?,
+                                                 _ completion: @escaping (Set<UUID>) -> Void) -> some View {
+        container.resolve(DishPicklistAssembly.self).build(callingView: caller,
+                                                           type: type,
+                                                           filter: filter,
+                                                           completion: completion)
     }
 }
 

@@ -57,19 +57,11 @@ final class MealEditAssembly: Assembly {
         dish.id = UUID()
         dish.name = "Carrot salad 🥕"
         dish.category = dishCategory
-        dish.proteins = 30
-        dish.fats = 50
-        dish.carbs = 20
-        dish.calories = 130
         
         let soup = Dish(context: context)
         soup.id = UUID()
         soup.name = "Soup 🍜"
         soup.category = dishCategory
-        soup.proteins = 50
-        soup.fats = 30
-        soup.carbs = 15
-        soup.calories = 200
         
         let meal = Meal(context: context)
         meal.id = UUID()
@@ -78,11 +70,9 @@ final class MealEditAssembly: Assembly {
     
         let mealDish = MealDish(context: context)
         mealDish.id = UUID()
-        mealDish.weight = 100
         
         let soupMealDish = MealDish(context: context)
         soupMealDish.id = UUID()
-        soupMealDish.weight = 300
         
         mealDish.meal = meal
         mealDish.dish = dish
@@ -109,6 +99,9 @@ final class MealEditAssembly: Assembly {
 }
 
 private class PreviewInteractor: MealEditInteractorProtocol {
+    var mealId: UUID?
+    
+    var dishesFilter: Predicate?
     
     var meal: Meal?
     
@@ -116,10 +109,9 @@ private class PreviewInteractor: MealEditInteractorProtocol {
         action(self.meal)
     }
     
-    func updateMealDish(dishId: UUID, action: @escaping (MealDish?) -> Void) async throws {
+    func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws {
         guard let meal,
-              let mealDish = meal.dishes[dishId] else {
-            print("no meal")
+              let mealDish = meal.dishes[uid] else {
             return
         }
         action(mealDish)
