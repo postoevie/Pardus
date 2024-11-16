@@ -12,10 +12,10 @@ final class IngridientsListAssembly: Assembly {
     
     func build() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
+        let navigation = container.resolve(NavigationAssembly.self).build(stem: .ingridients)
         
         // Router
-        let router = DishesListRouter(navigation: navigation)
+        let router = IngridientsListRouter(navigation: navigation)
         
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
