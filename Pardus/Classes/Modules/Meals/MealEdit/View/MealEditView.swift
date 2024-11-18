@@ -8,59 +8,44 @@
 
 import SwiftUI
 
-struct MealEditView: View {
+struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPresenterProtocol>: View {
     
-    @StateObject var viewState: MealEditViewState
-    @StateObject var presenter: MealEditPresenter
+    @StateObject var viewState: ViewState
+    @StateObject var presenter: Presenter
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack {
+            DatePicker(
+                "Date",
+                selection: $viewState.date,
+                displayedComponents: [.date, .hourAndMinute]
+            )
+            .font(Font.custom("RussoOne", size: 20))
+            .foregroundStyle(Color(UIColor.lightGray))
+            Spacer()
+                .frame(height: 16)
             HStack {
-                Text("Weight")
-                Text(viewState.weight)
-                Spacer()
+                MealParameterCell(title: "kCal", value: viewState.sumKcals)
+                MealParameterCell(title: "Weight", value: viewState.weight)
             }
             HStack {
-                VStack {
-                    Text("kCal")
-                    Text(viewState.sumKcals)
-                }
-                Spacer()
-                VStack {
-                    Text("Proteins")
-                    Text(viewState.sumProteins)
-                }
-                Spacer()
-                VStack {
-                    Text("Fats")
-                    Text(viewState.sumFats)
-                }
-                Spacer()
-                VStack {
-                    Text("Carbs")
-                    Text(viewState.sumCarbs)
-                }
+                MealParameterCell(title: "Proteins", value: viewState.sumProteins)
+                MealParameterCell(title: "Fats", value: viewState.sumFats)
+                MealParameterCell(title: "Carbs", value: viewState.sumCarbs)
             }
-            Group {
-                DatePicker(
-                    "Date",
-                    selection: $viewState.date,
-                    displayedComponents: [.date, .hourAndMinute]
-                )
-                HStack {
-                    Text("Dishes")
-                        .padding(.top)
-                    Spacer()
-                    Menu {
-                        //Button("Create new", action: presenter.tapNewDish)
-                        Button("Add from catalog", action: presenter.editDishesTapped)
-                    } label: {
-                        Image(systemName: "plus.circle")
-                            .font(.title2)
-                            .foregroundStyle(.black)
-                    }
-                    
+            HStack {
+                Text("Dishes")
+                    .padding(.top)
+                Spacer()
+                Menu {
+                    //Button("Create new", action: presenter.tapNewDish)
+                    Button("Add from catalog", action: presenter.editDishesTapped)
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .font(.title2)
+                        .foregroundStyle(.black)
                 }
+                
             }
             .font(Font.custom("RussoOne", size: 20))
             .foregroundStyle(Color(UIColor.lightGray))
@@ -68,19 +53,20 @@ struct MealEditView: View {
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
                              color: item.categoryColor ?? .clear)
+                .defaultCellInsets()
                 .swipeActions {
-                    Button {
-                        presenter.tapEditDish(dishId: item.id)
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                    .tint(.orange)
                     Button {
                         presenter.remove(dishId: item.id)
                     } label: {
                         Image(systemName: "trash")
                     }
                     .tint(.red)
+                    Button {
+                        presenter.tapEditDish(dishId: item.id)
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .tint(.orange)
                 }
             }
             .listStyle(.plain)
@@ -91,7 +77,7 @@ struct MealEditView: View {
         }
         .padding()
         .navigationTitle("Meal editing")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
                 Button {
@@ -107,10 +93,61 @@ struct MealEditView: View {
 }
 
 struct MealEditPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        ApplicationViewBuilder(container: RootApp().container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .mealEdit(mealId: UUID()))
+            viewBuilder.build(view: .mealEdit(mealId: makeMockData()))
         }
+    }
+    
+    private static func makeMockData() -> UUID {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let dishCategory = DishCategory(context: context)
+        dishCategory.name = "Salads"
+        dishCategory.colorHex = "#00AA00"
+        dishCategory.id = UUID()
+        
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Carrot salad 🥕"
+        dish.category = dishCategory
+        
+        let soup = Dish(context: context)
+        soup.id = UUID()
+        soup.name = "Soup 🍜"
+        soup.category = dishCategory
+        
+        let meal = Meal(context: context)
+        meal.id = UUID()
+        meal.date = Date()
+        meal.dishes = Set()
+    
+        let mealDish = MealDish(context: context)
+        mealDish.id = UUID()
+        
+        let soupMealDish = MealDish(context: context)
+        soupMealDish.id = UUID()
+        
+        mealDish.meal = meal
+        mealDish.dish = dish
+        
+        soupMealDish.meal = meal
+        soupMealDish.dish = soup
+        
+        try? context.save()
+        
+        return meal.id
     }
 }
 

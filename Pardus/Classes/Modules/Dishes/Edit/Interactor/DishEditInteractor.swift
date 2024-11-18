@@ -25,17 +25,25 @@ final class DishEditInteractor: DishEditInteractorProtocol {
     }
     
     var categoriesFilter: Predicate? {
-        guard let categoryId = dish?.category?.id else {
+        var categoryId: UUID?
+        coreDataService.syncPerform { _ in
+            categoryId = dish?.category?.id
+        }
+        guard let categoryId else {
             return nil
         }
         return .idNotIn(uids: [categoryId])
     }
     
     var ingridientsFilter: Predicate? {
-        guard let ingridients = dish?.ingridients else {
-            return nil
+        var ingridientIds = [UUID]()
+        coreDataService.syncPerform { _ in
+            guard let ingridients = self.dish?.ingridients else {
+                return
+            }
+            ingridientIds = ingridients.map { $0.id }
         }
-        return .idNotIn(uids: ingridients.map { $0.id })
+        return .idNotIn(uids: ingridientIds)
     }
     
     func loadInitialDish() async throws {

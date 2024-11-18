@@ -17,29 +17,31 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
         VStack {
             TextField("Name", text: $viewState.searchText)
                 .textFieldStyle(.roundedBorder)
-                .padding()
+            Spacer()
+                .frame(height: 20)
             List(viewState.items) { item in
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
                              color: item.categoryColor)
+                .defaultCellInsets()
                 .swipeActions {
-                    Button {
-                        presenter.tapEditEntity(entityId: item.id)
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                    .tint(.orange)
                     Button {
                         presenter.delete(entityId: item.id)
                     } label: {
                         Image(systemName: "trash")
                     }
                     .tint(.red)
+                    Button {
+                        presenter.tapEditEntity(entityId: item.id)
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .tint(.orange)
                 }
             }
             .listStyle(.plain)
-            .padding(.trailing)
         }
+        .padding()
         .toolbar {
             ToolbarItemGroup {
                 Button {
@@ -58,7 +60,7 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
                 }
             }
         }
-        .navigationTitle("Dishes")
+        .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .onAppear {
@@ -67,12 +69,44 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
     }
 }
 
-struct DishesListPreviews: PreviewProvider {
+struct SearchListPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        let container = RootApp().container
+        makeMockData(container: container)
+        return ApplicationViewBuilder(container: container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .dishList)
+            viewBuilder.build(view: .dishList)
         }
+    }
+    
+    private static func makeMockData(container: Container) {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let dishCategory = DishCategory(context: context)
+        dishCategory.id = UUID()
+        dishCategory.name = "Salads"
+        dishCategory.colorHex = "#00AA00"
+        
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Caesar salad"
+        dish.category = dishCategory
+        
+        let ingridient = Ingridient(context: context)
+        ingridient.id = UUID()
+        ingridient.name = "Chicken"
+        dish.ingridients?.insert(ingridient)
+
+        try? context.save()
     }
 }
 

@@ -11,5 +11,5 @@ import SwiftUI
 final class CategoryEditViewState: ObservableObject, CategoryEditViewStateProtocol {    
     
     @Published var name: String = ""
-    @Published var color: CGColor = .init(gray: 1, alpha: 1)
+    @Published var color: CGColor = UIColor.lightGray.cgColor
 }

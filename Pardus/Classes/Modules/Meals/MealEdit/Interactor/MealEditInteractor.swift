@@ -15,17 +15,22 @@ class MealEditInteractor: MealEditInteractorProtocol {
     
     private var meal: Meal?
     
-    private let dataService: CoreDataServiceType
+    private let coreDataService: CoreDataServiceType
     
     var dishesFilter: Predicate? {
-        guard let dishes = meal?.dishes else {
-            return nil
+        var dishesIds = [UUID]()
+        coreDataService.syncPerform { _ in
+            guard let dishes = meal?.dishes else {
+                return
+            }
+            dishesIds = dishes.map { $0.dish.id }
         }
-        return .idNotIn(uids: dishes.map { $0.dish.id })
+        
+        return .idNotIn(uids: dishesIds)
     }
     
-    init(dataService: CoreDataServiceType, mealId: UUID?) {
-        self.dataService = dataService
+    init(coreDataService: CoreDataServiceType, mealId: UUID?) {
+        self.coreDataService = coreDataService
         self.mealId = mealId
     }
     
@@ -33,7 +38,7 @@ class MealEditInteractor: MealEditInteractorProtocol {
         guard meal == nil else {
             return
         }
-        try await dataService.perform {
+        try await coreDataService.perform {
             if let mealId = self.mealId {
                 self.meal = try $0.fetchOne(type: Meal.self, predicate: .idIn(uids: [mealId]))
                 return
@@ -51,7 +56,7 @@ class MealEditInteractor: MealEditInteractorProtocol {
             assertionFailure()
             return
         }
-        try await dataService.perform {
+        try await coreDataService.perform {
             if let mealDish = meal.dishes[dishId] {
                 try $0.delete(objectId: mealDish.objectID)
             }
@@ -59,20 +64,20 @@ class MealEditInteractor: MealEditInteractorProtocol {
     }
     
     func performWithMeal(action: @escaping (Meal?) -> Void) async throws {
-        await dataService.perform { _ in
+        await coreDataService.perform { _ in
             action(self.meal)
         }
     }
     
     func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws {
-        await dataService.perform { _ in
+        await coreDataService.perform { _ in
             let mealDish = self.meal?.dishes[uid]
             action(mealDish)
         }
     }
     
     func save() async throws {
-        try await dataService.perform {
+        try await coreDataService.perform {
             try $0.persistChanges()
         }
     }
@@ -81,15 +86,14 @@ class MealEditInteractor: MealEditInteractorProtocol {
         guard let meal else {
             return
         }
-        try await dataService.perform {
+        try await coreDataService.perform {
             let dishesToAdd = try $0.fetchMany(type: Dish.self, predicate: NSPredicate.idIn(uids: Array(dishesIds)))
             for dish in dishesToAdd {
                 let mealDish = try $0.create(type: MealDish.self, id: UUID())
                 mealDish.dish = dish
                 mealDish.meal = meal
                 
-                let ingridientsIds = (dish.ingridients ?? []).map { $0.id }
-                let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: ingridientsIds))
+                let ingridientsToAdd = dish.ingridients ?? []
                 for ingridient in ingridientsToAdd {
                     let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
                     mealIngridient.dish = mealDish

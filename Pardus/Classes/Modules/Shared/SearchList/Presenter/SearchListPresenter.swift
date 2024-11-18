@@ -9,21 +9,22 @@
 import SwiftUI
 
 final class SearchListPresenter<Entity,
-                                Interactor: SearchListInteractorProtocol>: ObservableObject, SearchListPresenterProtocol where Interactor.Entity == Entity {
+                                Interactor: SearchListInteractorProtocol,
+                                Customizer: SearchListPresenterCustomizerProtocol>: ObservableObject, SearchListPresenterProtocol where Interactor.Entity == Entity, Customizer.Entity == Entity {
     
     private let router: SearchListRouterProtocol
     private weak var viewState: SearchListViewStateProtocol?
     private let interactor: Interactor
-    private let entityToListItemMapper: (Entity) -> SearchListItem
+    private let customizer: Customizer
     
     init(router: SearchListRouterProtocol,
          viewState: SearchListViewStateProtocol,
          interactor: Interactor,
-         entityToListItemMapper: @escaping (Entity) -> SearchListItem) {
+         customizer: Customizer) {
         self.router = router
         self.viewState = viewState
         self.interactor = interactor
-        self.entityToListItemMapper = entityToListItemMapper
+        self.customizer = customizer
     }
     
     func tapCategories() {
@@ -50,6 +51,7 @@ final class SearchListPresenter<Entity,
     }
     
     func didAppear() {
+        viewState?.setNavigationtitle(text: customizer.navigationTitle)
         Task {
             do {
                 try await interactor.loadEntities()
@@ -69,7 +71,7 @@ final class SearchListPresenter<Entity,
     
     private func reloadList() async {
         await interactor.performWithFilteredEntities { entities in
-            let items = entities.map(self.entityToListItemMapper)
+            let items = entities.map(self.customizer.mapToItem)
             DispatchQueue.main.async {
                 self.viewState?.set(items: items)
             }

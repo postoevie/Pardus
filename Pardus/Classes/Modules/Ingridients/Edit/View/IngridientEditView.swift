@@ -15,7 +15,7 @@ struct IngridientEditView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 HStack(spacing: 8) {
                     Text("Name")
                         .font(Font.custom("RussoOne", size: 20))
@@ -64,15 +64,15 @@ struct IngridientEditView: View {
                 Spacer()
             }
         }
-        .padding(8)
+        .padding()
         .onAppear {
             presenter.didAppear()
         }
-        .padding(16)
         .font(Font.custom("RussoOne", size: 16))
         .foregroundStyle(Color(UIColor.black))
         .textFieldStyle(.roundedBorder)
         .navigationTitle("Ingridient editing")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
                 Button {
@@ -106,9 +106,38 @@ private struct FieldSectionView<Content: View>: View {
 }
 
 struct IngridientEditPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        ApplicationViewBuilder(container: RootApp().container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .ingridientEdit(ingridientId: nil))
+            viewBuilder.build(view: .ingridientEdit(ingridientId: makeMockData()))
         }
+    }
+    
+    private static func makeMockData() -> UUID {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let category = IngridientCategory(context: context)
+        category.name = "Vegs"
+        category.colorHex = "#00AA00"
+        category.id = UUID()
+        
+        let ingridient = Ingridient(context: context)
+        ingridient.id = UUID()
+        ingridient.name = "Potato"
+        ingridient.category = category
+        
+        try? context.save()
+        
+        return ingridient.id
     }
 }

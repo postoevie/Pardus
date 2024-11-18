@@ -24,6 +24,7 @@ protocol MealEditPresenterProtocol: AnyObject, ObservableObject, PresenterProtoc
     func doneTapped()
     func editDishesTapped()
     func remove(dishId: UUID)
+    func tapEditDish(dishId: UUID)
 }
 
 // Interactor
@@ -41,9 +42,14 @@ protocol MealEditInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol MealEditViewStateProtocol: ViewStateProtocol {
+protocol MealEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var date: Date { get set }
     var error: String? { get set }
+    var weight: String { get set }
+    var sumKcals: String { get set }
+    var sumProteins: String { get set }
+    var sumFats: String { get set }
+    var sumCarbs: String { get set }
     var dishItems: [MealDishesListItem] { get set }
 }

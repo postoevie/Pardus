@@ -337,7 +337,7 @@ class CoreDataStack {
         let mealDishToMealIngridient = NSRelationshipDescription()
         mealDishToMealIngridient.name = "ingridients"
         mealDishToMealIngridient.destinationEntity = mealIngridientDescription
-        mealDishToMealIngridient.deleteRule = .denyDeleteRule
+        mealDishToMealIngridient.deleteRule = .cascadeDeleteRule
         mealDishToMealIngridient.isOptional = true
         
         mealIngridientToMealDishRel.inverseRelationship = mealDishToMealIngridient

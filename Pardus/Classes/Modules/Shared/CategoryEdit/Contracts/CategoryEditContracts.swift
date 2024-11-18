@@ -15,8 +15,10 @@ protocol CategoryEditRouterProtocol: RouterProtocol {
 }
 
 // Presenter
-protocol CategoryEditPresenterProtocol: PresenterProtocol {
+protocol CategoryEditPresenterProtocol: ObservableObject, PresenterProtocol {
 
+    func onAppear()
+    func tapSave()
 }
 
 // Interactor
@@ -32,7 +34,7 @@ protocol CategoryEditInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol CategoryEditViewStateProtocol: ViewStateProtocol {
+protocol CategoryEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var name: String { get set }
     var color: CGColor { get set }

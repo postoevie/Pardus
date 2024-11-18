@@ -8,13 +8,14 @@
 
 import SwiftUI
 
-struct DishEditView: View {
+struct DishEditView<ViewState: DishEditViewStateProtocol,
+                    Presenter: DishEditPresenterProtocol>: View {
     
-    @StateObject var viewState: DishEditViewState
-    @StateObject var presenter: DishEditPresenter
+    @StateObject var viewState: ViewState
+    @StateObject var presenter: Presenter
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 16) {
             HStack(spacing: 8) {
                 Text("Name")
                     .font(Font.custom("RussoOne", size: 20))
@@ -60,6 +61,7 @@ struct DishEditView: View {
             .foregroundStyle(Color(UIColor.lightGray))
             List(viewState.ingridients) { item in
                 DishIngredientRow(item: item)
+                    .defaultCellInsets()
                 .swipeActions {
                     Button {
                         presenter.remove(ingridientId: item.id)
@@ -80,6 +82,7 @@ struct DishEditView: View {
         .foregroundStyle(Color(UIColor.black))
         .textFieldStyle(.roundedBorder)
         .navigationTitle("Dish editing")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
                 Button {
@@ -114,9 +117,50 @@ fileprivate struct DishIngredientRow: View {
 }
 
 struct DishEditPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        ApplicationViewBuilder(container: RootApp().container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .dishEdit(dishId: nil))
+            viewBuilder.build(view: .dishEdit(dishId: makeMockData()))
         }
+    }
+    
+    private static func makeMockData() -> UUID {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let dishCategory = DishCategory(context: context)
+        dishCategory.name = "Salads"
+        dishCategory.colorHex = "#00AA00"
+        dishCategory.id = UUID()
+        
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Carrot salad 🥕"
+        dish.category = dishCategory
+        
+        
+        let vegs = IngridientCategory(context: context)
+        vegs.name = "Vegs"
+        vegs.colorHex = "#00AA00"
+        
+        let carrot = Ingridient(context: context)
+        carrot.id = UUID()
+        carrot.name = "Carrot"
+        carrot.category = vegs
+        
+        dish.ingridients?.insert(carrot)
+        
+        try? context.save()
+        
+        return dish.id
     }
 }

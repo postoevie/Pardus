@@ -28,6 +28,14 @@ protocol SearchListPresenterProtocol: ObservableObject, PresenterProtocol {
     func setSearchText(_ text: String)
 }
 
+protocol SearchListPresenterCustomizerProtocol {
+    
+    associatedtype Entity
+    
+    var navigationTitle: String { get }
+    func mapToItem(entity: Entity) -> SearchListItem
+}
+
 // Interactor
 protocol SearchListInteractorProtocol: InteractorProtocol {
     

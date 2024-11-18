@@ -15,30 +15,32 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
     
     private var mealDish: MealDish?
     
-    private let dataService: CoreDataServiceType
+    private let coreDataService: CoreDataServiceType
     
     var ingridientsFilter: Predicate? {
-        guard let ingridients = mealDish?.ingridients else {
-            return nil
+        var ingridientIds = [UUID]()
+        coreDataService.syncPerform { _ in
+            guard let ingridients = self.mealDish?.ingridients else {
+                return
+            }
+            ingridientIds = ingridients.map { $0.ingridient.id }
         }
-        return .idNotIn(uids: ingridients.map { $0.ingridient.id })
+        return .idNotIn(uids: ingridientIds)
     }
     
-    init(dataService: CoreDataServiceType, mealDishId: UUID?) {
-        self.dataService = dataService
+    init(coreDataService: CoreDataServiceType, mealDishId: UUID?) {
+        self.coreDataService = coreDataService
         self.mealDishId = mealDishId
     }
     
     func loadInitialMealDish() async throws {
-        guard mealDish == nil else {
+        guard mealDish == nil,
+              let mealDishId else {
+            assertionFailure()
             return
         }
-        try await dataService.perform {
-            if let dishId = self.mealDishId {
-                self.mealDish = try $0.fetchOne(type: MealDish.self, predicate: .idIn(uids: [dishId]))
-                return
-            }
-            assertionFailure()
+        try await coreDataService.perform { executor in
+            self.mealDish = try executor.fetchOne(type: MealDish.self, predicate: .idIn(uids: [mealDishId]))
         }
     }
     
@@ -46,7 +48,7 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
         guard let mealDish else {
             return
         }
-        try await dataService.perform {
+        try await coreDataService.perform {
             let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: Array(ingridientIds)))
             for ingridient in ingridientsToAdd {
                 let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
@@ -61,7 +63,7 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
             assertionFailure()
             return
         }
-        await dataService.perform { _ in
+        await coreDataService.perform { _ in
             if let ingridientToRemove = mealDish.ingridients?[ingridientId] {
                 self.mealDish?.ingridients?.remove(ingridientToRemove)
             }
@@ -69,20 +71,20 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
     }
     
     func performWithMealDish(action: @escaping (MealDish?) -> Void) async throws {
-        await dataService.perform { _ in
+        await coreDataService.perform { _ in
             action(self.mealDish)
         }
     }
     
     func performWithIngridient(uid: UUID, action: @escaping (MealIngridient?) -> Void) async throws {
-        await dataService.perform { _ in
+        await coreDataService.perform { _ in
             let ingridient = self.mealDish?.ingridients?[uid]
             action(ingridient)
         }
     }
     
     func save() async throws {
-        try await dataService.perform {
+        try await coreDataService.perform {
             try $0.persistChanges()
         }
     }

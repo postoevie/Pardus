@@ -19,11 +19,10 @@ protocol DishEditRouterProtocol: RouterProtocol {
 }
 
 // Presenter
-protocol DishEditPresenterProtocol: PresenterProtocol {
+protocol DishEditPresenterProtocol: ObservableObject, PresenterProtocol {
 
     func didAppear()
     func doneTapped()
-    func navigateBackTapped()
     func editCategoryTapped()
     func editIngridientsTapped()
     func remove(ingridientId: UUID)
@@ -45,7 +44,7 @@ protocol DishEditInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol DishEditViewStateProtocol: ViewStateProtocol {
+protocol DishEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var name: String { get set }
     var category: DishCategoryViewModel? { get set }

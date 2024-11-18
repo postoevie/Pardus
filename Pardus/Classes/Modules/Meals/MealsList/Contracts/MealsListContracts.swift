@@ -17,7 +17,7 @@ protocol MealsListRouterProtocol: RouterProtocol {
 }
 
 // Presenter
-protocol MealsListPresenterProtocol: PresenterProtocol {
+protocol MealsListPresenterProtocol: ObservableObject, PresenterProtocol {
     
     func tapAddNewItem()
     func tapToggleDateFilter()
@@ -39,7 +39,13 @@ protocol MealsListInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol MealsListViewStateProtocol: ViewStateProtocol {
+protocol MealsListViewStateProtocol: ObservableObject, ViewStateProtocol {
+    
+    var startDate: Date { get set }
+    var endDate: Date { get set }
+    var dateSelectionVisible: Bool { get set }
+    var sections: [MealsListSection] { get }
+    
     func set(sections: [MealsListSection])
     func setStartDateVisible(_ visible: Bool)
 }

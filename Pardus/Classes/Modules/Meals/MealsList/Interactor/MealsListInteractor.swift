@@ -51,12 +51,12 @@ final class MealsListInteractor: MealsListInteractorProtocol {
     }
     
     func delete(itemId: UUID) async throws {
-        guard let index = meals.firstIndex(where: { $0.id == itemId }) else {
-            assertionFailure("Entity with passed id should be in DB")
-            return
-        }
-        let mealToDelete = meals.remove(at: index)
         try await dataService.perform {
+            guard let index = self.meals.firstIndex(where: { $0.id == itemId }) else {
+                assertionFailure("Entity with passed id should be in DB")
+                return
+            }
+            let mealToDelete = self.meals.remove(at: index)
             try $0.delete(objectId: mealToDelete.objectID)
             try $0.persistChanges()
         }

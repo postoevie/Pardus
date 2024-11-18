@@ -55,21 +55,15 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
     }
     
     private func setWithSingularType(itemId: UUID) {
-        if selectedItemIds.contains(itemId) {
-            selectedItemIds = Set<UUID>()
-            return
-        }
         selectedItemIds = [itemId]
     }
     
     private func setWithMultipleType(itemId: UUID) {
-        if selectedItemIds.contains(itemId) {
-            selectedItemIds = Set()
+        if selectedItemIds .contains(itemId) {
+            selectedItemIds.remove(itemId)
             return
         }
-        if let first = entities.first(where: { $0.id == itemId }) {
-            selectedItemIds = selectedItemIds.union(Set([first.id]))
-        }
+        selectedItemIds = selectedItemIds.union([itemId])
     }
     
     func loadItems() async throws {

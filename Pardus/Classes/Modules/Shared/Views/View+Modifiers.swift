@@ -18,9 +18,9 @@ private struct DefaultCellInsets: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .listRowInsets(.init(top: 4,
+            .listRowInsets(.init(top: 8,
                                  leading: 0,
-                                 bottom: 4,
+                                 bottom: 8,
                                  trailing: 0))
     }
 }

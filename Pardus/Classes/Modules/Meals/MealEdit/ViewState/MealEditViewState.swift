@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-final class MealEditViewState: ObservableObject, MealEditViewStateProtocol {
+final class MealEditViewState: MealEditViewStateProtocol {
     
     @Published var date: Date = Date()
     @Published var error: String?

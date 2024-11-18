@@ -47,12 +47,12 @@ final class SearchListInteractor<Entity: SearchListEntityType>: SearchListIntera
     }
     
     func deleteEntity(entityId: UUID) async throws {
-        guard let entityIndexToDelete = entities.firstIndex(where: { $0.id == entityId }) else {
-            assertionFailure()
-            return
-        }
-        let entityToDelete = entities.remove(at: entityIndexToDelete)
         try await coreDataService.perform {
+            guard let entityIndexToDelete = self.entities.firstIndex(where: { $0.id == entityId }) else {
+                assertionFailure()
+                return
+            }
+            let entityToDelete = self.entities.remove(at: entityIndexToDelete)
             try $0.delete(objectId: entityToDelete.objectID)
             try $0.persistChanges()
         }

@@ -13,13 +13,13 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
   
     private let router: MealDishEditRouterProtocol
     private let interactor: MealDishEditInteractorProtocol
-    private weak var viewState: MealDishEditViewState?
+    private weak var viewState: (any MealDishEditViewStateProtocol)?
     
     var subscriptions = [AnyCancellable]()
     
     init(router: MealDishEditRouterProtocol,
          interactor: MealDishEditInteractorProtocol,
-         viewState: MealDishEditViewState) {
+         viewState: (any MealDishEditViewStateProtocol)?) {
         self.router = router
         self.interactor = interactor
         self.viewState = viewState
@@ -33,7 +33,6 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             }
         }
     }
-    
     
     func updateIngridientWeight(ingridientId: UUID, weightString: String) {
         Task {
@@ -51,7 +50,6 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             return
         }
         Task {
-            try await valueSubmitted()
             let filter = self.interactor.ingridientsFilter
             await MainActor.run {
                 self.router.showIngidientsPicklist(dishMealId: mealDishId, filter: filter) { selectedIngridientsIds in
@@ -78,26 +76,11 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
 
     func doneTapped() {
         Task {
-            try await valueSubmitted()
             try await interactor.save()
             await MainActor.run {
                 router.returnBack()
             }
         }
-    }
-    
-    func navigateBackTapped() {
-        
-    }
-    
-    private func valueSubmitted() async throws {
-//        guard let viewState else {
-//            assertionFailure("Prerequsites not accomplished")
-//            return
-//        }
-//        try await interactor.performWithMealDish { meal in
-//            meal?.date = viewState.date
-//        }
     }
     
     private func updateViewState(mealDish: MealDish?) {
@@ -111,14 +94,16 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             return
         }
         
-        let ingridients = (mealDish.ingridients ?? []).map(self.mapToListItem)
+        let title = String(mealDish.dish.name)
         let sumProteins = String(mealDish.proteins)
         let sumFats = String(mealDish.fats)
         let sumCarbs = String(mealDish.carbs)
         let sumKcals = String(mealDish.calories)
+        let ingridients = (mealDish.ingridients ?? []).map(self.mapToListItem)
         
         DispatchQueue.main.async {
             viewState.error = nil
+            viewState.navigationTitle = title
             viewState.ingridients = ingridients
             viewState.sumProteins = String(sumProteins)
             viewState.sumFats = String(sumFats)

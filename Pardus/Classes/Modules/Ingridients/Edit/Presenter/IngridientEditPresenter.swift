@@ -66,10 +66,6 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
         }
     }
     
-    func navigateBackTapped() {
-        router.returnBack()
-    }
-    
     private func updateViewState() {
         guard let viewState else {
             return

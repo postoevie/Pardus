@@ -11,12 +11,12 @@ import SwiftUI
 final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
     
     private let router: DishEditRouterProtocol
-    private weak var viewState: DishEditViewStateProtocol?
+    private weak var viewState: (any DishEditViewStateProtocol)?
     private let interactor: DishEditInteractorProtocol
     
     init(router: DishEditRouterProtocol,
          interactor: DishEditInteractorProtocol,
-         viewState: DishEditViewStateProtocol) {
+         viewState: (any DishEditViewStateProtocol)?) {
         self.router = router
         self.interactor = interactor
         self.viewState = viewState
@@ -114,10 +114,6 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                 router.returnBack()
             }
         }
-    }
-    
-    func navigateBackTapped() {
-        router.returnBack()
     }
     
     private func updateViewState(dish: Dish?) {

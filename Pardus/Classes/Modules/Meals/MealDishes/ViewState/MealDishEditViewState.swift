@@ -16,6 +16,7 @@ final class MealDishEditViewState: ObservableObject, MealDishEditViewStateProtoc
     @Published var sumProteins: String = ""
     @Published var sumFats: String = ""
     @Published var sumCarbs: String = ""
+    @Published var navigationTitle: String = ""
 
     func set(ingridients: [MealDishesIngridientsListItem]) {
         self.ingridients = ingridients

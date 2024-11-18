@@ -40,51 +40,6 @@ final class DishCategoriesListAssembly: Assembly {
         let view = CategoriesListView(viewState: viewState, presenter: presenter)
         return view
     }
-    
-    func preview() -> some View {
-        
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
-        
-        // Router
-        let router = DishCategoriesListRouter(navigation: navigation)
-        
-        // Interactor
-        let coreDataStackService = CoreDataStackInMemoryService()
-        
-        let context = coreDataStackService.getMainQueueContext()
-        
-        let dishCategory = DishCategory(context: context)
-        dishCategory.name = "Salads"
-        dishCategory.colorHex = "#00AA00"
-        dishCategory.id = UUID()
-        
-        let dish = Dish(context: context)
-        dish.name = "Grcka salata"
-        dish.category = dishCategory
-        dish.id = UUID()
-        
-        try? context.save()
-        
-        let coreDataService = CoreDataService(context: context)
-        let interactor = CategoriesListInteractor<DishCategory, Dish, CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
-                                                                                                          customizer: CategoriesListInteractorCustomizer())
-        
-        //ViewState
-        let viewState = CategoriesListViewState()
-        
-        // Presenter
-        let presenter = CategoriesListPresenter<DishCategory,
-                                                Dish,
-                                                CategoriesListInteractor,
-                                                CategoriesListPresenterCustomizer>(router: router,
-                                                                                   interactor: interactor,
-                                                                                   viewState: viewState,
-                                                                                   customizer: CategoriesListPresenterCustomizer())
-        
-        // View
-        let view = CategoriesListView(viewState: viewState, presenter: presenter)
-        return view
-    }
 }
 
 fileprivate struct CategoriesListInteractorCustomizer: CategoriesListInteractorCustomizerProtocol {
@@ -104,7 +59,7 @@ fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCus
     typealias DetailEntity = Dish
     
     func getNavigationTitle() -> String {
-        "Dish categories"
+        "Categories"
     }
     
     func makeListSections(data: [CategoriesListDataItem<MainEntity, DetailEntity>]) -> [CategoriesListSection] {

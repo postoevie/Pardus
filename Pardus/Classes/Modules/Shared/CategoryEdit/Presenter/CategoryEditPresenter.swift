@@ -11,12 +11,12 @@ import SwiftUI
 final class CategoryEditPresenter: ObservableObject, CategoryEditPresenterProtocol {
     
     private let router: CategoryEditRouterProtocol
-    private weak var viewState: CategoryEditViewStateProtocol?
     private let interactor: CategoryEditInteractorProtocol
+    private weak var viewState: (any CategoryEditViewStateProtocol)?
     
     init(router: CategoryEditRouterProtocol,
          interactor: CategoryEditInteractorProtocol,
-         viewState: CategoryEditViewStateProtocol) {
+         viewState: (any CategoryEditViewStateProtocol)?) {
         self.router = router
         self.interactor = interactor
         self.viewState = viewState

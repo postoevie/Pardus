@@ -84,10 +84,6 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    func navigateBackTapped() {
-        
-    }
-    
     private func valueSubmitted() async throws {
         guard let viewState else {
             assertionFailure("Prerequsites not accomplished")

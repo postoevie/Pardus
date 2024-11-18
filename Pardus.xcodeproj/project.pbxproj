@@ -67,6 +67,8 @@
 		525917742BFF1D85005394DC /* CoreDataInMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */; };
 		525EABA02CDB589800684083 /* IngridientCategoriesPicklistAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525EAB9F2CDB589800684083 /* IngridientCategoriesPicklistAssembly.swift */; };
 		525EABA22CDB58F400684083 /* IngridientCategory+Picklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525EABA12CDB58F400684083 /* IngridientCategory+Picklist.swift */; };
+		526935F52CEA6BC1009838D8 /* EnvironmentUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */; };
+		526935F82CEABFCA009838D8 /* MealParameterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526935F72CEABFCA009838D8 /* MealParameterCell.swift */; };
 		526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A83082C52AA82003480C4 /* SubtitleCell.swift */; };
 		526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */; };
 		527E67E02C563DBB001A0008 /* CategoriesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67DF2C563DBB001A0008 /* CategoriesListItem.swift */; };
@@ -248,6 +250,8 @@
 		525917732BFF1D85005394DC /* CoreDataInMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInMemoryCache.swift; sourceTree = "<group>"; };
 		525EAB9F2CDB589800684083 /* IngridientCategoriesPicklistAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientCategoriesPicklistAssembly.swift; sourceTree = "<group>"; };
 		525EABA12CDB58F400684083 /* IngridientCategory+Picklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngridientCategory+Picklist.swift"; sourceTree = "<group>"; };
+		526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentUtils.swift; sourceTree = "<group>"; };
+		526935F72CEABFCA009838D8 /* MealParameterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealParameterCell.swift; sourceTree = "<group>"; };
 		526A83082C52AA82003480C4 /* SubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleCell.swift; sourceTree = "<group>"; };
 		526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyTitleCell.swift; sourceTree = "<group>"; };
 		527E67DF2C563DBB001A0008 /* CategoriesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListItem.swift; sourceTree = "<group>"; };
@@ -818,6 +822,14 @@
 			path = Picklist;
 			sourceTree = "<group>";
 		};
+		526935F62CEABFC1009838D8 /* MealEdit */ = {
+			isa = PBXGroup;
+			children = (
+				526935F72CEABFCA009838D8 /* MealParameterCell.swift */,
+			);
+			path = MealEdit;
+			sourceTree = "<group>";
+		};
 		526A83072C52AA75003480C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,6 +843,7 @@
 		527E67E12C5653FF001A0008 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				526935F62CEABFC1009838D8 /* MealEdit */,
 				522D9D932CE6AC2C0029A921 /* SearchList */,
 				522D9D7F2CE689CF0029A921 /* CategoryEdit */,
 				52C365902C50372500C3AD99 /* CategoriesList */,
@@ -879,7 +892,7 @@
 				525EAB9D2CDB586D00684083 /* Category */,
 				52969A972CD4E1DD0060A1C4 /* Picklist */,
 				5294B9EC2CD3F4DD0021458A /* Edit */,
-				52830A032CD1839C009F903F /* List */,
+				52830A032CD1839C009F903F /* Search */,
 			);
 			path = Ingridients;
 			sourceTree = "<group>";
@@ -900,14 +913,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		52830A032CD1839C009F903F /* List */ = {
+		52830A032CD1839C009F903F /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				52FEF1532CE145430078FE5A /* Entity */,
 				528309F62CD1839C009F903F /* Assembly */,
 				528309FE2CD1839C009F903F /* Router */,
 			);
-			path = List;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		528700492C16D6C6003BE337 /* Picklist */ = {
@@ -1171,13 +1184,13 @@
 			children = (
 				522D9D792CE636CF0029A921 /* Category */,
 				52D36EBF2C6BDD95001C0FCB /* Utils */,
-				52A861842C0CA0EA001AA01D /* DishEdit */,
-				52A861932C0CA0EA001AA01D /* SearchList */,
+				52A861842C0CA0EA001AA01D /* Edit */,
+				52A861932C0CA0EA001AA01D /* Search */,
 			);
 			path = Dishes;
 			sourceTree = "<group>";
 		};
-		52A861842C0CA0EA001AA01D /* DishEdit */ = {
+		52A861842C0CA0EA001AA01D /* Edit */ = {
 			isa = PBXGroup;
 			children = (
 				52D36EC22C6BEC24001C0FCB /* Entity */,
@@ -1189,7 +1202,7 @@
 				52A8618F2C0CA0EA001AA01D /* Interactor */,
 				52A861912C0CA0EA001AA01D /* Router */,
 			);
-			path = DishEdit;
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		52A861852C0CA0EA001AA01D /* Assembly */ = {
@@ -1248,14 +1261,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		52A861932C0CA0EA001AA01D /* SearchList */ = {
+		52A861932C0CA0EA001AA01D /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				522D9D942CE6ACB80029A921 /* Entity */,
 				52A861942C0CA0EA001AA01D /* Assembly */,
 				52A861A02C0CA0EA001AA01D /* Router */,
 			);
-			path = SearchList;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		52A861942C0CA0EA001AA01D /* Assembly */ = {
@@ -1338,6 +1351,7 @@
 			isa = PBXGroup;
 			children = (
 				52C365452C4D635400C3AD99 /* UIColor+Hex.swift */,
+				526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1680,6 +1694,7 @@
 				5220DBDB2BEF864C00F095EE /* NavigationAssembly.swift in Sources */,
 				52D36EB22C6A9449001C0FCB /* CoreDataService.swift in Sources */,
 				5259176A2BFF1B88005394DC /* EntityServiceAssembly.swift in Sources */,
+				526935F52CEA6BC1009838D8 /* EnvironmentUtils.swift in Sources */,
 				52A861552C0B3316001AA01D /* DishCategoryModel.swift in Sources */,
 				52969AB52CD789380060A1C4 /* MealDishEditContracts.swift in Sources */,
 				52D36EB82C6A99CB001C0FCB /* CoreDataExecutorType.swift in Sources */,
@@ -1764,6 +1779,7 @@
 				52C3655A2C4EA65D00C3AD99 /* CategoryEditPresenter.swift in Sources */,
 				525917232BF8B099005394DC /* MealsListPresenter.swift in Sources */,
 				5259175A2BF96DFA005394DC /* CoreDataStackServiceType.swift in Sources */,
+				526935F82CEABFCA009838D8 /* MealParameterCell.swift in Sources */,
 				528700592C16D6C6003BE337 /* PicklistContracts.swift in Sources */,
 				52C365A02C50372500C3AD99 /* CategoriesListContracts.swift in Sources */,
 				52A861A22C0CA0EA001AA01D /* DishEditAssembly.swift in Sources */,

@@ -29,9 +29,6 @@
         }
       }
     },
-    "Carbs" : {
-
-    },
     "Category" : {
 
     },
@@ -59,19 +56,10 @@
     "EndDate" : {
 
     },
-    "Fats" : {
-
-    },
     "Ingridient editing" : {
 
     },
     "Ingridients" : {
-
-    },
-    "kCal" : {
-
-    },
-    "Meal dish editing" : {
 
     },
     "Meal editing" : {
@@ -89,9 +77,6 @@
     "OK" : {
 
     },
-    "Proteins" : {
-
-    },
     "Select items" : {
 
     },
@@ -102,9 +87,6 @@
 
     },
     "weight" : {
-
-    },
-    "Weight" : {
 
     },
     "Yes" : {

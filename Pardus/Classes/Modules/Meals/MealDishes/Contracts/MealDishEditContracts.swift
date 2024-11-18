@@ -41,8 +41,14 @@ protocol MealDishEditInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol MealDishEditViewStateProtocol: ViewStateProtocol {
+protocol MealDishEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var error: String? { get set }
+    var sumKcals: String { get set }
+    var sumProteins: String { get set }
+    var sumFats: String { get set }
+    var sumCarbs: String { get set }
+    var navigationTitle: String { get set }
+    
     var ingridients: [MealDishesIngridientsListItem] { get set }
 }

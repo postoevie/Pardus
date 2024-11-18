@@ -24,7 +24,11 @@ final class IngridientEditInteractor: IngridientEditInteractorProtocol {
     }
     
     var categoryFilter: Predicate? {
-        guard let categoryId = ingridient?.category?.id else {
+        var categoryId: UUID?
+        coreDataService.syncPerform { _ in
+            categoryId = ingridient?.category?.id
+        }
+        guard let categoryId else {
             return nil
         }
         return .idNotIn(uids: [categoryId])

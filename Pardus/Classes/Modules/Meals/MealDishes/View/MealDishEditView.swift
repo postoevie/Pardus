@@ -8,33 +8,21 @@
 
 import SwiftUI
 
-struct MealDishEditView: View {
+struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: MealDishEditPresenterProtocol>: View {
     
-    @StateObject var viewState: MealDishEditViewState
-    @StateObject var presenter: MealDishEditPresenter
+    @StateObject var viewState: ViewState
+    @StateObject var presenter: Presenter
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack {
+            
             HStack {
-                VStack {
-                    Text("kCal")
-                    Text(viewState.sumKcals)
-                }
-                Spacer()
-                VStack {
-                    Text("Proteins")
-                    Text(viewState.sumProteins)
-                }
-                Spacer()
-                VStack {
-                    Text("Fats")
-                    Text(viewState.sumFats)
-                }
-                Spacer()
-                VStack {
-                    Text("Carbs")
-                    Text(viewState.sumCarbs)
-                }
+                MealParameterCell(title: "kCal", value: viewState.sumKcals)
+            }
+            HStack {
+                MealParameterCell(title: "Proteins", value: viewState.sumProteins)
+                MealParameterCell(title: "Fats", value: viewState.sumFats)
+                MealParameterCell(title: "Carbs", value: viewState.sumCarbs)
             }
             HStack {
                 Text("Ingridients")
@@ -56,6 +44,7 @@ struct MealDishEditView: View {
                                       onSubmit: {
                     presenter.updateIngridientWeight(ingridientId: item.id, weightString: $0)
                 })
+                .defaultCellInsets()
                 .swipeActions {
                     Button {
                         presenter.remove(ingridientId: item.id)
@@ -72,8 +61,8 @@ struct MealDishEditView: View {
             presenter.didAppear()
         }
         .padding()
-        .navigationTitle("Meal dish editing")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle(viewState.navigationTitle)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
                 Button {
@@ -119,10 +108,58 @@ fileprivate struct MealDishIngridientRow: View {
 }
 
 struct MealDishEditPreviews: PreviewProvider {
+    
+    static var mealDishId: UUID?
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        let container = RootApp().container
+        mealDishId = makeMockData(container)
+        return ApplicationViewBuilder(container: container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .mealEdit(mealId: UUID()))
+            viewBuilder.build(view: .mealDishEdit(mealDishId: mealDishId))
         }
+    }
+    
+    private static func makeMockData(_ container: Container) -> UUID {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Carrot salad 🥕"
+        
+        let meal = Meal(context: context)
+        meal.id = UUID()
+        meal.date = Date()
+    
+        let mealDish = MealDish(context: context)
+        mealDish.id = UUID()
+        mealDish.meal = meal
+        mealDish.dish = dish
+        
+        let carrot = Ingridient(context: context)
+        carrot.id = UUID()
+        carrot.name = "Carrot"
+        carrot.calories = 50
+        dish.ingridients?.insert(carrot)
+        
+        let carrotInMeal = MealIngridient(context: context)
+        carrotInMeal.id = UUID()
+        carrotInMeal.ingridient = carrot
+        carrotInMeal.dish = mealDish
+        carrotInMeal.weight = 200
+        
+        try? context.save()
+        
+        return mealDish.id
     }
 }
 

@@ -39,7 +39,7 @@ protocol CategoriesListInteractorProtocol: InteractorProtocol {
     associatedtype MainEntity
     associatedtype DetailEntity
     
-    func performWithDishData(_ action: ([CategoriesListDataItem<MainEntity, DetailEntity>]) -> Void) async
+    func performWithDishData(_ action: @escaping ([CategoriesListDataItem<MainEntity, DetailEntity>]) -> Void) async
     func loadDishes() async throws
     func deleteDetailEntity(entityId: UUID) async throws
     func deleteMainEntity(entityId: UUID) async throws

@@ -23,17 +23,19 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
         self.customizer = customizer
     }
     
-    func performWithDishData(_ action: ([CategoriesListDataItem<MainEntity, DetailEntity>]) -> Void) async {
-        var data = [CategoriesListDataItem<MainEntity, DetailEntity>]()
-        for entity in mainEntities {
-            let item = CategoriesListDataItem(mainEntity: entity, detailEntities: getDetailEntities(for: entity))
-            data.append(item)
+    func performWithDishData(_ action: @escaping ([CategoriesListDataItem<MainEntity, DetailEntity>]) -> Void) async {
+        await coreDataService.perform { _ in
+            var data = [CategoriesListDataItem<MainEntity, DetailEntity>]()
+            for entity in self.mainEntities {
+                let item = CategoriesListDataItem(mainEntity: entity, detailEntities: self.getDetailEntities(for: entity))
+                data.append(item)
+            }
+            let orphanDetails = self.customizer.getOrphanEntities(detailEntities: self.detailEntities)
+            if !orphanDetails.isEmpty {
+                data.append(CategoriesListDataItem(mainEntity: nil, detailEntities: orphanDetails))
+            }
+            action(data)
         }
-        let orphanDetails = customizer.getOrphanEntities(detailEntities: detailEntities)
-        if !orphanDetails.isEmpty {
-            data.append(CategoriesListDataItem(mainEntity: nil, detailEntities: orphanDetails))
-        }
-        action(data)
     }
     
     func loadDishes() async throws {
@@ -44,26 +46,26 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
     }
     
     func deleteDetailEntity(entityId: UUID) async throws {
-        guard let entityIndex = detailEntities.firstIndex(where: { $0.id == entityId }) else {
-            assertionFailure()
-            return
-        }
-        let entityToDelete = detailEntities.remove(at: entityIndex)
         try await coreDataService.perform {
+            guard let entityIndex = self.detailEntities.firstIndex(where: { $0.id == entityId }) else {
+                assertionFailure()
+                return
+            }
+            let entityToDelete = self.detailEntities.remove(at: entityIndex)
             try $0.delete(objectId: entityToDelete.objectID)
             try $0.persistChanges()
         }
     }
     
     func deleteMainEntity(entityId: UUID) async throws {
-        guard let entityIndex = mainEntities.firstIndex(where: { $0.id == entityId }) else {
-            assertionFailure()
-            return
-        }
-        let entityToDelete = mainEntities.remove(at: entityIndex)
-        let detailIdsToDelete = getDetailEntities(for: entityToDelete).map { $0.id }
-        detailEntities = detailEntities.filter { !detailIdsToDelete.contains($0.id) }
         try await coreDataService.perform {
+            guard let entityIndex = self.mainEntities.firstIndex(where: { $0.id == entityId }) else {
+                assertionFailure()
+                return
+            }
+            let entityToDelete = self.mainEntities.remove(at: entityIndex)
+            let detailIdsToDelete = self.getDetailEntities(for: entityToDelete).map { $0.id }
+            self.detailEntities = self.detailEntities.filter { !detailIdsToDelete.contains($0.id) }
             try $0.delete(objectId: entityToDelete.objectID)
             try $0.persistChanges()
         }

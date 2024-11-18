@@ -11,8 +11,8 @@ import SwiftUI
 final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     
     private let router: MealsListRouterProtocol
-    private weak var viewState: MealsListViewStateProtocol?
     private let interactor: MealsListInteractorProtocol
+    private weak var viewState: (any MealsListViewStateProtocol)?
     
     let sectionDateFormatter = {
         let formatter = DateFormatter()
@@ -30,7 +30,7 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     
     init(router: MealsListRouterProtocol,
          interactor: MealsListInteractorProtocol,
-         viewState: MealsListViewStateProtocol) {
+         viewState: (any MealsListViewStateProtocol)?) {
         self.router = router
         self.interactor = interactor
         self.viewState = viewState

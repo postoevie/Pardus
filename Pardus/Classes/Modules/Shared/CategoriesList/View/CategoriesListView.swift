@@ -22,17 +22,17 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                     .swipeActions {
                         if let categoryId = section.categoryId {
                             Button {
-                                presenter.tapEdit(categoryId: categoryId)
-                            } label: {
-                                Image(systemName: "square.and.pencil")
-                            }
-                            .tint(.orange)
-                            Button {
                                 presenter.delete(categoryId: categoryId)
                             } label: {
                                 Image(systemName: "trash")
                             }
                             .tint(.red)
+                            Button {
+                                presenter.tapEdit(categoryId: categoryId)
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .tint(.orange)
                         }
                     }
                     ForEach(section.dishes) { dish in
@@ -40,20 +40,19 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                                      subtitle: dish.subtitle,
                                      color: .clear)
                         .defaultCellInsets()
-                        .padding(8)
                         .swipeActions {
-                            Button {
-                                presenter.tapEditDish(dishId: dish.id)
-                            } label: {
-                                Image(systemName: "square.and.pencil")
-                            }
-                            .tint(.orange)
                             Button {
                                 presenter.delete(dishId: dish.id)
                             } label: {
                                 Image(systemName: "trash")
                             }
                             .tint(.red)
+                            Button {
+                                presenter.tapEditDish(dishId: dish.id)
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .tint(.orange)
                         }
                     }
                 }
@@ -61,7 +60,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
         }
         .listSectionSpacing(16)
         .listStyle(.plain)
-        .padding(8)
+        .padding()
         .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -101,10 +100,43 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
 
 struct CategoriesListPreviews: PreviewProvider {
     
+    static let viewBuilder: ApplicationViewBuilder = {
+        let container = RootApp().container
+        makeMockData(container: container)
+        return ApplicationViewBuilder(container: container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .dishCategoriesList)
+            viewBuilder.build(view: .dishCategoriesList)
         }
+    }
+    
+    private static func makeMockData(container: Container) {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let dishCategory = DishCategory(context: context)
+        dishCategory.name = "Salads"
+        dishCategory.colorHex = "#00AA00"
+        dishCategory.id = UUID()
+        
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Carrot salad 🥕"
+        dish.category = dishCategory
+        
+        let soup = Dish(context: context)
+        soup.id = UUID()
+        soup.name = "Soup 🍜"
+        soup.category = dishCategory
+        
+        try? context.save()
     }
 }
 

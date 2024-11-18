@@ -48,6 +48,7 @@ struct PicklistView: View {
             .listStyle(.plain)
         }
         .navigationTitle("Select items")
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
         .toolbar {
             ToolbarItem {
@@ -67,13 +68,52 @@ struct PicklistView: View {
 }
 
 struct DishesPickPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        ApplicationViewBuilder(container: RootApp().container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
     static var previews: some View {
         NavigationStack {
-            ApplicationViewBuilder.preview.build(view: .dishPicklist(callingView: .mealEdit(mealId: nil),
+            viewBuilder.build(view: .dishPicklist(callingView: .mealEdit(mealId: makeMockData()),
                                                                      type: .singular,
                                                                      filter: nil,
                                                                      completion: { _ in }))
         }
+    }
+    
+    private static func makeMockData() -> UUID {
+        let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
+        
+        let context = coreDataStackService.getMainQueueContext()
+        
+        let dishCategory = DishCategory(context: context)
+        dishCategory.name = "Salads"
+        dishCategory.colorHex = "#00AA00"
+        dishCategory.id = UUID()
+        
+        let dish = Dish(context: context)
+        dish.id = UUID()
+        dish.name = "Carrot salad 🥕"
+        dish.category = dishCategory
+        
+        let soup = Dish(context: context)
+        soup.id = UUID()
+        soup.name = "Soup 🍜"
+        soup.category = dishCategory
+        
+        let meal = Meal(context: context)
+        meal.id = UUID()
+        meal.date = Date()
+        meal.dishes = Set()
+        
+        try? context.save()
+        
+        return meal.id
     }
 }
 

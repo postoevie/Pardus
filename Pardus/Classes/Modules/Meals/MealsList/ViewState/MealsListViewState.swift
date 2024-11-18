@@ -14,16 +14,16 @@ final class MealsListViewState: ObservableObject, MealsListViewStateProtocol {
     @Published var sections: [MealsListSection] = []
     @Published var startDate: Date = Date()
     @Published var endDate: Date = Date()
-    @Published var dateSelectionVisible = false
+    @Published var dateSelectionVisible: Bool = false
     
-    private var presenter: MealsListPresenterProtocol?
+    private var presenter: (any MealsListPresenterProtocol)?
     private var subscriptions: [AnyCancellable] = []
     
     func set(sections: [MealsListSection]) {
         self.sections = sections
     }
     
-    func set(presenter: MealsListPresenterProtocol) {
+    func set(presenter: (any MealsListPresenterProtocol)?) {
         guard self.presenter == nil else {
             assertionFailure("Set presenter once")
             return
