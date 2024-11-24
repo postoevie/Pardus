@@ -37,6 +37,7 @@
 		522D9D8E2CE6A59C0029A921 /* Ingridient+SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D8D2CE6A59C0029A921 /* Ingridient+SearchView.swift */; };
 		522D9D922CE6A9110029A921 /* SearchListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D912CE6A9110029A921 /* SearchListPresenter.swift */; };
 		522D9D972CE6AF9A0029A921 /* Dish+SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D962CE6AF9A0029A921 /* Dish+SearchView.swift */; };
+		52563C202CF1C0D400691C02 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52563C1F2CF1C0D400691C02 /* Typography.swift */; };
 		525917212BF8B099005394DC /* MealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917142BF8B099005394DC /* MealsListAssembly.swift */; };
 		525917222BF8B099005394DC /* MealsListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917162BF8B099005394DC /* MealsListContracts.swift */; };
 		525917232BF8B099005394DC /* MealsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525917182BF8B099005394DC /* MealsListPresenter.swift */; };
@@ -221,6 +222,7 @@
 		522D9D912CE6A9110029A921 /* SearchListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListPresenter.swift; sourceTree = "<group>"; };
 		522D9D952CE6AF110029A921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		522D9D962CE6AF9A0029A921 /* Dish+SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+SearchView.swift"; sourceTree = "<group>"; };
+		52563C1F2CF1C0D400691C02 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		525917142BF8B099005394DC /* MealsListAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListAssembly.swift; sourceTree = "<group>"; };
 		525917162BF8B099005394DC /* MealsListContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListContracts.swift; sourceTree = "<group>"; };
 		525917182BF8B099005394DC /* MealsListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsListPresenter.swift; sourceTree = "<group>"; };
@@ -1352,6 +1354,7 @@
 			children = (
 				52C365452C4D635400C3AD99 /* UIColor+Hex.swift */,
 				526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */,
+				52563C1F2CF1C0D400691C02 /* Typography.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1599,6 +1602,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 5220DBA52BEF864C00F095EE;
 			productRefGroup = 5220DBAF2BEF864C00F095EE /* Products */;
@@ -1768,6 +1772,7 @@
 				52BB17712C690D3300DC5D59 /* View+Modifiers.swift in Sources */,
 				5287005E2C16D6C6003BE337 /* DishesPickRouter.swift in Sources */,
 				5220DBB62BEF864C00F095EE /* ApplicationViewBuilder.swift in Sources */,
+				52563C202CF1C0D400691C02 /* Typography.swift in Sources */,
 				527E67E02C563DBB001A0008 /* CategoriesListItem.swift in Sources */,
 				52830A082CD1839C009F903F /* IngridientsListRouter.swift in Sources */,
 				52830A042CD1839C009F903F /* IngridientsListAssembly.swift in Sources */,

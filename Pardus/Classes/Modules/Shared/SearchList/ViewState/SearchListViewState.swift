@@ -15,7 +15,7 @@ final class SearchListViewState: ObservableObject, SearchListViewStateProtocol {
     private var presenter: (any SearchListPresenterProtocol)?
     
     @Published var searchText: String = ""
-    @Published var navigationTitle: String = ""
+    @Published var navigationTitle: LocalizedStringKey = ""
     @Published var items: [SearchListItem] = []
     
     var subscription: AnyCancellable? = nil
@@ -31,7 +31,7 @@ final class SearchListViewState: ObservableObject, SearchListViewStateProtocol {
         self.items = items
     }
     
-    func setNavigationtitle(text: String) {
-        navigationTitle = text
+    func setNavigationTitle(key: LocalizedStringKey) {
+        navigationTitle = key
     }
 }

@@ -37,7 +37,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                     }
                     ForEach(section.dishes) { dish in
                         SubtitleCell(title: dish.title,
-                                     subtitle: dish.subtitle,
+                                     subtitle: "dish.subtitle",
                                      color: .clear)
                         .defaultCellInsets()
                         .swipeActions {
@@ -70,7 +70,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
         .alert(viewState.alertTitle,
                isPresented: $viewState.alertPresented,
                actions: {
-            Button("OK") {
+            Button("app.ok") {
                 presenter.okAlertTapped()
             }
         })
@@ -81,22 +81,68 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
             ToolbarItem {
                 Menu {
-                    Button("Create item", action: presenter.tapNewDetail)
-                    Button("Create category", action: presenter.tapNewCategory)
+                    Button("categorieslist.button.createitem", action: presenter.tapNewDetail)
+                    Button("categorieslist.button.createcategory", action: presenter.tapNewCategory)
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }
     }
 }
+
+private struct SectionHeader: View {
+    
+    let section: CategoriesListSection
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            Text(section.title)
+                .foregroundStyle(Color(UIColor.white))
+                .font(.bodyLarge)
+            Spacer()
+        }
+        .listRowInsets(.init(top: 0,
+                             leading: 0,
+                             bottom: 0,
+                             trailing: 0))
+        .listRowSeparator(.hidden)
+        .frame(minHeight: 60, alignment: .leading)
+        .background(Color(section.color ?? .lightGray))
+    }
+}
+
+private extension View {
+    
+    func clipped(all: Bool) -> some View {
+        modifier(ClipSide(clipAll: all))
+    }
+}
+
+private struct ClipSide: ViewModifier {
+    
+    let clipAll: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .clipShape(.rect(cornerRadii: clipAll ?
+                             RectangleCornerRadii(topLeading: 16,
+                                                  bottomLeading: 16,
+                                                  bottomTrailing: 16,
+                                                  topTrailing: 16):
+                             RectangleCornerRadii(topLeading: 16, topTrailing: 16))
+            )
+    }
+}
+
 
 struct CategoriesListPreviews: PreviewProvider {
     
@@ -111,8 +157,15 @@ struct CategoriesListPreviews: PreviewProvider {
     }
     
     static var previews: some View {
-        NavigationStack {
-            viewBuilder.build(view: .dishCategoriesList)
+        Group {
+            NavigationStack {
+                viewBuilder.build(view: .dishCategoriesList)
+            }
+            
+            NavigationStack {
+                viewBuilder.build(view: .dishCategoriesList)
+            }
+            .preferredColorScheme(.dark)
         }
     }
     
@@ -137,47 +190,5 @@ struct CategoriesListPreviews: PreviewProvider {
         soup.category = dishCategory
         
         try? context.save()
-    }
-}
-
-private struct SectionHeader: View {
-    
-    let section: CategoriesListSection
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Text(section.title)
-                .foregroundStyle(Color(UIColor.white))
-                .font(Font.custom("RussoOne", size: 24))
-            Spacer()
-        }
-        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-        .listRowSeparator(.hidden)
-        .frame(minHeight: 60, alignment: .leading)
-        .background(Color(section.color ?? UIColor.clear))
-    }
-}
-
-private extension View {
-    
-    func clipped(all: Bool) -> some View {
-        modifier(ClipSide(clipAll: all))
-    }
-}
-
-private struct ClipSide: ViewModifier {
-    
-    let clipAll: Bool
-    
-    func body(content: Content) -> some View {
-        content
-            .clipShape(.rect(cornerRadii: clipAll ?
-                             RectangleCornerRadii(topLeading: 16,
-                                                  bottomLeading: 16,
-                                                  bottomTrailing: 16,
-                                                  topTrailing: 16):
-                             RectangleCornerRadii(topLeading: 16, topTrailing: 16))
-            )
     }
 }

@@ -16,8 +16,8 @@ struct OnlyTitleCell: View {
         VStack {
             HStack {
                 Text(title)
-                    .foregroundStyle(Color(UIColor.black))
-                    .font(Font.custom("RussoOne", size: 14))
+                    .foregroundStyle(.primaryText)
+                    .font(.bodySmall)
                 Circle()
                     .frame(width: 16)
                     .foregroundStyle(Color(color))

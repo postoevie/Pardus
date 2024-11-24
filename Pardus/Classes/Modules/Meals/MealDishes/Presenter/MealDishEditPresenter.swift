@@ -89,26 +89,28 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         }
         guard let mealDish else {
             DispatchQueue.main.async {
-                viewState.error = "No entity"
+                viewState.error = "errors.absendentity"
             }
             return
         }
         
         let title = String(mealDish.dish.name)
+        let sumKcals = String(mealDish.calories)
+        let weight = String(mealDish.weight)
         let sumProteins = String(mealDish.proteins)
         let sumFats = String(mealDish.fats)
         let sumCarbs = String(mealDish.carbs)
-        let sumKcals = String(mealDish.calories)
         let ingridients = (mealDish.ingridients ?? []).map(self.mapToListItem)
         
         DispatchQueue.main.async {
             viewState.error = nil
             viewState.navigationTitle = title
             viewState.ingridients = ingridients
+            viewState.weight = String(weight)
+            viewState.sumKcals = String(sumKcals)
             viewState.sumProteins = String(sumProteins)
             viewState.sumFats = String(sumFats)
             viewState.sumCarbs = String(sumCarbs)
-            viewState.sumKcals = String(sumKcals)
         }
     }
     

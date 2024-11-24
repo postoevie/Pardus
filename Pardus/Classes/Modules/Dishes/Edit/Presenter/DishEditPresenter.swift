@@ -121,7 +121,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             return
         }
         guard let dish else {
-            viewState.error = "No entity"
+            viewState.error = "errors.absendentity"
             return
         }
         viewState.name = dish.name

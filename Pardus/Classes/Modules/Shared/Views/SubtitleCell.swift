@@ -17,8 +17,8 @@ struct SubtitleCell: View {
         VStack {
             HStack {
                 Text(title)
-                    .foregroundStyle(Color(UIColor.black))
-                    .font(Font.custom("RussoOne", size: 14))
+                    .foregroundStyle(.primaryText)
+                    .font(.bodySmall)
                 Circle()
                     .frame(width: 16)
                     .foregroundStyle(Color(color))
@@ -28,8 +28,8 @@ struct SubtitleCell: View {
                 .frame(height: 10)
             HStack {
                 Text(subtitle)
-                    .foregroundStyle(Color(UIColor.lightGray))
-                    .font(Font.custom("RussoOne", size: 10))
+                    .foregroundStyle(.secondaryText)
+                    .font(.bodySmall2)
                 Spacer()
             }
         }

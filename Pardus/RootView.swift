@@ -22,7 +22,7 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label("Meals", systemImage: "")
+                Label("rootview.tabs.meals", systemImage: "")
             }
             .tag("meals")
             NavigationStack(path: $navigationService.dishesItems) {
@@ -32,7 +32,7 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label("Dishes", systemImage: "")
+                Label("rootview.tabs.dishes", systemImage: "")
             }
             .tag("dishes")
             NavigationStack(path: $navigationService.ingridientsItems) {
@@ -42,7 +42,7 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label("Ingridients", systemImage: "")
+                Label("rootview.tabs.ingridients", systemImage: "")
             }
             .tag("ingridients")
         }
@@ -60,9 +60,9 @@ struct RootView: View {
         .alert(isPresented: .constant($navigationService.alert.wrappedValue != nil)) {
             switch navigationService.alert {
             case .defaultAlert(let yesAction, let noAction):
-                return Alert(title: Text("Title"),
-                             primaryButton: .default(Text("Yes"), action: yesAction),
-                             secondaryButton: .destructive(Text("No"), action: noAction))
+                return Alert(title: Text("app.alert.acceptAction"),
+                             primaryButton: .default(Text("app.yes"), action: yesAction),
+                             secondaryButton: .destructive(Text("app.no"), action: noAction))
             case .none:
                 fatalError()
             }

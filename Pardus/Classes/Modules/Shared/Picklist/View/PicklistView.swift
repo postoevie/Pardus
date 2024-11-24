@@ -15,7 +15,7 @@ struct PicklistView: View {
     
     var body: some View {
         VStack {
-            TextField("Name", text: $viewState.searchText)
+            TextField("picklistview.search.placeholder", text: $viewState.searchText)
                 .textFieldStyle(.roundedBorder)
             List(viewState.items, id: \.id) { item in
                 Button {
@@ -35,7 +35,7 @@ struct PicklistView: View {
                         Spacer()
                         if item.isSelected {
                             Image(systemName: "checkmark")
-                                .foregroundStyle(Color(UIColor(named: "picklist_checkmark_color") ?? .systemGreen))
+                                .foregroundStyle(.picklistCheckmark)
                         }
                         
                     }
@@ -47,7 +47,7 @@ struct PicklistView: View {
             
             .listStyle(.plain)
         }
-        .navigationTitle("Select items")
+        .navigationTitle("picklistview.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .padding()
         .toolbar {
@@ -57,7 +57,7 @@ struct PicklistView: View {
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }

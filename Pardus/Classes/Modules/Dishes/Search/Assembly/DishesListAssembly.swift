@@ -43,7 +43,7 @@ final class DishesListAssembly: Assembly {
     
     fileprivate struct SearchListPresenterCustomizer: SearchListPresenterCustomizerProtocol {
         
-        var navigationTitle: String { "Dishes" }
+        var navigationTitle: LocalizedStringKey { LocalizedStringKey("disheslist.navigation.title") }
         
         func mapToItem(entity: Dish) -> SearchListItem {
             var categoryColor: UIColor?

@@ -43,26 +43,3 @@ final class PicklistPresenter: ObservableObject, DishesPickPresenterProtocol {
         viewState?.items = interactor.items
     }
 }
-
-//case .dish(let model):
-//    let color: UIColor =
-//    if let colorHex = model.category?.colorHex,
-//       let color = try? UIColor(hex: colorHex) {
-//        color
-//    } else {
-//        .clear
-//    }
-//    let formatter = Formatter.nutrients
-//    let calString = formatter.string(for: model.calories) ?? "0"
-//    let proteinsString = formatter.string(for: model.proteins) ?? "0"
-//    let fatsString = formatter.string(for: model.fats) ?? "0"
-//    let carbohydratesString = formatter.string(for: model.carbohydrates) ?? "0"
-//    let subtitle = "\(calString) kcal \(proteinsString)/\(fatsString)/\(carbohydratesString)"
-//    return PicklistViewItem(id: model.id,
-//                            isSelected: selectedIds.contains(model.id),
-//                            type: .withSubtitle(title: model.name,
-//                                                subtitle: subtitle,
-//                                                indicatorColor: color))
-//case .dishCategory(let model):
-
-//}

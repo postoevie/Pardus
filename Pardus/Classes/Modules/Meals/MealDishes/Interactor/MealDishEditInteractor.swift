@@ -36,7 +36,6 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
     func loadInitialMealDish() async throws {
         guard mealDish == nil,
               let mealDishId else {
-            assertionFailure()
             return
         }
         try await coreDataService.perform { executor in

@@ -15,30 +15,36 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
     
     var body: some View {
         VStack {
-            
             HStack {
-                MealParameterCell(title: "kCal", value: viewState.sumKcals)
+                MealParameterCell(title: "dishparameter.kcal",
+                                  value: viewState.sumKcals)
+                MealParameterCell(title: "dishparameter.weight",
+                                  value: viewState.weight)
             }
             HStack {
-                MealParameterCell(title: "Proteins", value: viewState.sumProteins)
-                MealParameterCell(title: "Fats", value: viewState.sumFats)
-                MealParameterCell(title: "Carbs", value: viewState.sumCarbs)
+                MealParameterCell(title: "dishparameter.proteins",
+                                  value: viewState.sumProteins)
+                MealParameterCell(title: "dishparameter.fats",
+                                  value: viewState.sumFats)
+                MealParameterCell(title: "dishparameter.carbs",
+                                  value: viewState.sumCarbs)
             }
             HStack {
-                Text("Ingridients")
-                    .padding(.top)
+                Text("mealdishedit.ingridients.title")
                 Spacer()
                 Menu {
                     //Button("Create new", action: presenter.editDishesTapped)
-                    Button("Add from catalog") { presenter.editIngridientsTapped() }
+                    Button("mealdishedit.ingridients.button.addfromcatalog") { presenter.editIngridientsTapped()
+                    }
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
-            .font(Font.custom("RussoOne", size: 20))
-            .foregroundStyle(Color(UIColor.lightGray))
+            .padding(.top)
+            .font(.bodyLarge)
+            .foregroundStyle(.secondaryText)
             List(viewState.ingridients) { item in
                 MealDishIngridientRow(item: item,
                                       onSubmit: {
@@ -70,7 +76,7 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }
@@ -95,7 +101,7 @@ fileprivate struct MealDishIngridientRow: View {
             SubtitleCell(title: item.title,
                          subtitle: item.subtitle,
                          color: item.categoryColor ?? .clear)
-            TextField("weight",
+            TextField("mealdishedit.ingridients.placeholder.weight",
                       text: $weight)
             .submitLabel(.done)
             .onSubmit {

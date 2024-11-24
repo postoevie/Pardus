@@ -19,12 +19,12 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
             if viewState.dateSelectionVisible {
                 HStack {
                     VStack {
-                        DatePicker("StartDate", selection: $viewState.startDate)
-                        DatePicker("EndDate", selection: $viewState.endDate)
+                        DatePicker("mealslist.datepicker.startdate", selection: $viewState.startDate)
+                        DatePicker("mealslist.datepicker.enddate", selection: $viewState.endDate)
                     }
                 }
-                .font(Font.custom("RussoOne", size: 16))
-                .foregroundStyle(Color(UIColor.lightGray))
+                .font(.bodyRegular)
+                .foregroundStyle(.secondaryText)
             }
             List(viewState.sections, id: \.title) { section in
                 Section {
@@ -36,7 +36,7 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                                          subtitle: item.subtitle,
                                          color: .clear)
                         }
-                        .listRowInsets(.init(top: 0,
+                        .listRowInsets(.init(top: 8,
                                              leading: 0,
                                              bottom: 0,
                                              trailing: 0))
@@ -54,8 +54,8 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                 } header: {
                     VStack {
                         Text(section.title)
-                            .foregroundStyle(Color(UIColor.lightGray))
-                            .font(Font.custom("RussoOne", size: 16))
+                            .foregroundStyle(.secondaryText)
+                            .font(.bodyRegular)
                     }
                     .defaultCellInsets()
                 }
@@ -64,7 +64,7 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
             .scrollIndicators(.hidden)
         }
         .padding()
-        .navigationTitle("Meals")
+        .navigationTitle("mealslist.navigation.title")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -74,14 +74,14 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                 } label: {
                     Image(systemName: viewState.dateSelectionVisible ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
                 Button {
                     presenter.tapAddNewItem()
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }
@@ -95,9 +95,8 @@ private struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(8)
-            .background(Color(UIColor.green.withAlphaComponent(0.2)))
+            .background(.dishListCell)
             .cornerRadius(8)
-            .foregroundColor(.white)
             .opacity(configuration.isPressed ? 0.5 : 1)
     }
 }
@@ -115,8 +114,10 @@ struct MealsListPreviews: PreviewProvider {
     }
     
     static var previews: some View {
-        NavigationStack {
-            viewBuilder.build(view: .mealsList)
+        Group {
+            NavigationStack {
+                viewBuilder.build(view: .mealsList)
+            }
         }
     }
 
@@ -156,6 +157,11 @@ struct MealsListPreviews: PreviewProvider {
         
         soupMealDish.meal = meal
         soupMealDish.dish = soup
+        
+        let meal2 = Meal(context: context)
+        meal2.id = UUID()
+        meal2.date = Date()
+        meal2.dishes = Set()
         
         try? context.save()
     }

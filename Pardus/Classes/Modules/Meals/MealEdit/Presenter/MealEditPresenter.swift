@@ -100,7 +100,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
         guard let meal else {
             DispatchQueue.main.async {
-                viewState.error = "No entity"
+                viewState.error = "errors.absendentity"
             }
             return
         }

@@ -72,7 +72,7 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
         }
         guard let data = interactor.data else {
             viewState.name = ""
-            viewState.error = "No entity"
+            viewState.error = "errors.absendentity"
             return
         }
         viewState.name = data.name

@@ -17,24 +17,24 @@ struct IngridientEditView: View {
         ScrollView {
             VStack(spacing: 16) {
                 HStack(spacing: 8) {
-                    Text("Name")
-                        .font(Font.custom("RussoOne", size: 20))
-                        .foregroundStyle(Color(UIColor.lightGray))
+                    Text("ingridientedit.label.name")
+                        .font(.bodyLarge)
+                        .foregroundStyle(.secondaryText)
                     Spacer()
                     TextField("", text: $viewState.name)
                 }
                 VStack(spacing: 8) {
                     HStack(spacing: 16) {
-                        Text("Category")
-                            .font(Font.custom("RussoOne", size: 20))
-                            .foregroundStyle(Color(UIColor.lightGray))
+                        Text("ingridientedit.label.category")
+                            .font(.bodyLarge)
+                            .foregroundStyle(.secondaryText)
                         Spacer()
                         Button {
                             presenter.tapEditCategory()
                         } label: {
                             Image(systemName: "square.and.pencil")
                                 .font(.title2)
-                                .foregroundStyle(.black)
+                                .foregroundStyle(.primaryText)
                         }
                     }
                     if let category = viewState.category {
@@ -68,10 +68,9 @@ struct IngridientEditView: View {
         .onAppear {
             presenter.didAppear()
         }
-        .font(Font.custom("RussoOne", size: 16))
-        .foregroundStyle(Color(UIColor.black))
+        .font(.bodyRegular)
         .textFieldStyle(.roundedBorder)
-        .navigationTitle("Ingridient editing")
+        .navigationTitle("ingridientedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
@@ -80,7 +79,7 @@ struct IngridientEditView: View {
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }
@@ -96,8 +95,8 @@ private struct FieldSectionView<Content: View>: View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
                 Text(title)
-                    .font(Font.custom("RussoOne", size: 20))
-                    .foregroundStyle(Color(UIColor.lightGray))
+                    .font(.bodyLarge)
+                    .foregroundStyle(.secondaryText)
                 Spacer()
             }
             content()

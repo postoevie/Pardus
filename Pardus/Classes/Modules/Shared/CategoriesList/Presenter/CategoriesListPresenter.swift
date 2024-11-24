@@ -56,7 +56,7 @@ final class CategoriesListPresenter<MainEntity,
                 reloadSections()
             } catch let error as NSError where error.userInfo["NSValidationErrorKey"] as? String == "meals" {
                 await MainActor.run {
-                    viewState?.showAlert(title: String(localized: "CantDeleteMealsExist"))
+                    viewState?.showAlert(title: String(localized: "categorieslist.alerts.refexist"))
                 }
                 return
             } catch {
@@ -86,7 +86,7 @@ final class CategoriesListPresenter<MainEntity,
                 reloadSections()
             } catch let error as NSError where error.userInfo["NSValidationErrorKey"] as? String == "dishes" {
                 await MainActor.run {
-                    viewState?.showAlert(title: String(localized: "CantDeleteDishesExist"))
+                    viewState?.showAlert(title: String(localized: "categorieslist.alerts.refexist"))
                 }
                 return
             } catch {

@@ -16,39 +16,44 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
     var body: some View {
         VStack {
             DatePicker(
-                "Date",
+                "mealedit.datepicker.date",
                 selection: $viewState.date,
                 displayedComponents: [.date, .hourAndMinute]
             )
-            .font(Font.custom("RussoOne", size: 20))
-            .foregroundStyle(Color(UIColor.lightGray))
+            .font(.bodyLarge)
+            .foregroundStyle(.secondaryText)
             Spacer()
                 .frame(height: 16)
             HStack {
-                MealParameterCell(title: "kCal", value: viewState.sumKcals)
-                MealParameterCell(title: "Weight", value: viewState.weight)
+                MealParameterCell(title: "dishparameter.kcal",
+                                  value: viewState.sumKcals)
+                MealParameterCell(title: "dishparameter.weight",
+                                  value: viewState.weight)
             }
             HStack {
-                MealParameterCell(title: "Proteins", value: viewState.sumProteins)
-                MealParameterCell(title: "Fats", value: viewState.sumFats)
-                MealParameterCell(title: "Carbs", value: viewState.sumCarbs)
+                MealParameterCell(title: "dishparameter.proteins",
+                                  value: viewState.sumProteins)
+                MealParameterCell(title: "dishparameter.fats",
+                                  value: viewState.sumFats)
+                MealParameterCell(title: "dishparameter.carbs",
+                                  value: viewState.sumCarbs)
             }
             HStack {
-                Text("Dishes")
+                Text("mealedit.disheslist.title")
                     .padding(.top)
                 Spacer()
                 Menu {
                     //Button("Create new", action: presenter.tapNewDish)
-                    Button("Add from catalog", action: presenter.editDishesTapped)
+                    Button("mealedit.disheslist.button.addfromcatalog", action: presenter.editDishesTapped)
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
                 
             }
-            .font(Font.custom("RussoOne", size: 20))
-            .foregroundStyle(Color(UIColor.lightGray))
+            .font(.bodyLarge)
+            .foregroundStyle(.secondaryText)
             List(viewState.dishItems) { item in
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
@@ -76,7 +81,7 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
             presenter.didAppear()
         }
         .padding()
-        .navigationTitle("Meal editing")
+        .navigationTitle("mealedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
@@ -85,7 +90,7 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }

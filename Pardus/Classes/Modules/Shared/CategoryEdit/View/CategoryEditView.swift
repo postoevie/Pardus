@@ -20,22 +20,21 @@ struct CategoryEditView<ViewState: CategoryEditViewStateProtocol,
                 TextField(text: $viewState.name,
                           axis: .horizontal,
                           label: {
-                    Text("Name")
+                    Text("categoryedit.label.name")
                 })
                 .textFieldStyle(.roundedBorder)
             }
             HStack {
                 ColorPicker(selection: $viewState.color, label: {
-                    Text("Color")
-                        .foregroundStyle(Color(UIColor.systemGray3))
+                    Text("categoryedit.label.color")
+                        .foregroundStyle(.secondaryText)
                 })
             }
             Spacer()
         }
         .padding(16)
-        .font(Font.custom("RussoOne", size: 20))
-        .foregroundStyle(Color(UIColor.black))
-        .navigationTitle("Category edit")
+        .font(.bodyLarge)
+        .navigationTitle("categoryedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             presenter.onAppear()
@@ -47,7 +46,7 @@ struct CategoryEditView<ViewState: CategoryEditViewStateProtocol,
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }

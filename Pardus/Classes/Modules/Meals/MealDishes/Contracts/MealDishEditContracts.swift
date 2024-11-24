@@ -45,6 +45,7 @@ protocol MealDishEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var error: String? { get set }
     var sumKcals: String { get set }
+    var weight: String { get set }
     var sumProteins: String { get set }
     var sumFats: String { get set }
     var sumCarbs: String { get set }

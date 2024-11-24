@@ -13,6 +13,7 @@ final class MealDishEditViewState: ObservableObject, MealDishEditViewStateProtoc
     @Published var error: String?
     @Published var ingridients: [MealDishesIngridientsListItem] = []
     @Published var sumKcals: String = ""
+    @Published var weight: String = ""
     @Published var sumProteins: String = ""
     @Published var sumFats: String = ""
     @Published var sumCarbs: String = ""

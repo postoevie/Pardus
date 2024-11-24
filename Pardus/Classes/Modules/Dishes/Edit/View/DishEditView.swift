@@ -17,23 +17,23 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 8) {
-                Text("Name")
-                    .font(Font.custom("RussoOne", size: 20))
-                    .foregroundStyle(Color(UIColor.lightGray))
+                Text("dishedit.label.name")
+                    .font(.bodyLarge)
+                    .foregroundStyle(.secondaryText)
                 Spacer()
                 TextField("", text: $viewState.name)
             }
             HStack {
-                Text("Category")
-                    .font(Font.custom("RussoOne", size: 20))
-                    .foregroundStyle(Color(UIColor.lightGray))
+                Text("dishedit.label.category")
+                    .font(.bodyLarge)
+                    .foregroundStyle(.secondaryText)
                 Spacer()
                 Button {
                     presenter.editCategoryTapped()
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.secondaryText)
                 }
             }
             if let category = viewState.category {
@@ -46,7 +46,7 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
                 }
             }
             HStack {
-                Text("Ingridients")
+                Text("dishedit.ingridients.label")
                     .padding(.top)
                 Spacer()
                 Button {
@@ -54,11 +54,11 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
                 } label: {
                     Image(systemName: "square.and.pencil")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.secondaryText)
                 }
             }
-            .font(Font.custom("RussoOne", size: 20))
-            .foregroundStyle(Color(UIColor.lightGray))
+            .font(.bodyLarge)
+            .foregroundStyle(.secondaryText)
             List(viewState.ingridients) { item in
                 DishIngredientRow(item: item)
                     .defaultCellInsets()
@@ -78,10 +78,9 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
             presenter.didAppear()
         }
         .padding()
-        .font(Font.custom("RussoOne", size: 16))
-        .foregroundStyle(Color(UIColor.black))
+        .font(.bodyRegular)
         .textFieldStyle(.roundedBorder)
-        .navigationTitle("Dish editing")
+        .navigationTitle("dishedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
@@ -90,7 +89,7 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }

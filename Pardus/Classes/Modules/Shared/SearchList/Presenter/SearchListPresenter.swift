@@ -51,7 +51,7 @@ final class SearchListPresenter<Entity,
     }
     
     func didAppear() {
-        viewState?.setNavigationtitle(text: customizer.navigationTitle)
+        viewState?.setNavigationTitle(key: customizer.navigationTitle)
         Task {
             do {
                 try await interactor.loadEntities()

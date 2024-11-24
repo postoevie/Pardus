@@ -32,7 +32,7 @@ protocol SearchListPresenterCustomizerProtocol {
     
     associatedtype Entity
     
-    var navigationTitle: String { get }
+    var navigationTitle: LocalizedStringKey { get }
     func mapToItem(entity: Entity) -> SearchListItem
 }
 
@@ -51,5 +51,5 @@ protocol SearchListInteractorProtocol: InteractorProtocol {
 protocol SearchListViewStateProtocol: ViewStateProtocol {
     
     func set(items: [SearchListItem])
-    func setNavigationtitle(text: String)
+    func setNavigationTitle(key: LocalizedStringKey)
 }

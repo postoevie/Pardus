@@ -43,7 +43,7 @@ final class IngridientsListAssembly: Assembly {
     
     fileprivate struct SearchListPresenterCustomizer: SearchListPresenterCustomizerProtocol {
     
-        var navigationTitle: String { "Ingridients" }
+        var navigationTitle: LocalizedStringKey { LocalizedStringKey("ingridientslist.navigation.title") }
         
         func mapToItem(entity: Ingridient) -> SearchListItem {
             var categoryColor: UIColor?

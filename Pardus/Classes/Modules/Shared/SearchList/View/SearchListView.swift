@@ -15,8 +15,10 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
     
     var body: some View {
         VStack {
-            TextField("Name", text: $viewState.searchText)
+            TextField("searchview.search.placeholder",
+                      text: $viewState.searchText)
                 .textFieldStyle(.roundedBorder)
+                .font(.bodySmall)
             Spacer()
                 .frame(height: 20)
             List(viewState.items) { item in
@@ -49,14 +51,14 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
                 } label: {
                     Image(systemName: "list.bullet")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
                 Button {
                     presenter.tapNewEntity()
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primaryText)
                 }
             }
         }
@@ -82,8 +84,15 @@ struct SearchListPreviews: PreviewProvider {
     }
    
     static var previews: some View {
-        NavigationStack {
-            viewBuilder.build(view: .dishList)
+        Group {
+            NavigationStack {
+                viewBuilder.build(view: .dishList)
+            }
+            
+            NavigationStack {
+                viewBuilder.build(view: .dishList)
+            }
+            .preferredColorScheme(.dark)
         }
     }
     
