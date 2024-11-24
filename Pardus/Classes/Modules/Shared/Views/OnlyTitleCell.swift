@@ -10,7 +10,7 @@ import SwiftUI
 struct OnlyTitleCell: View {
     
     let title: String
-    let color: UIColor
+    let color: Color
     
     var body: some View {
         VStack {
@@ -19,8 +19,8 @@ struct OnlyTitleCell: View {
                     .foregroundStyle(.primaryText)
                     .font(.bodySmall)
                 Circle()
-                    .frame(width: 16)
-                    .foregroundStyle(Color(color))
+                    .frame(width: Styles.listBadgeSize)
+                    .foregroundStyle(color)
                 Spacer()
             }
         }

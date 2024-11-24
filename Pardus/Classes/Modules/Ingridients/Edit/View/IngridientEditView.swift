@@ -14,17 +14,20 @@ struct IngridientEditView: View {
     @StateObject var presenter: IngridientEditPresenter
     
     var body: some View {
-        ScrollView {
+        VStack {
             VStack(spacing: 16) {
-                HStack(spacing: 8) {
-                    Text("ingridientedit.label.name")
-                        .font(.bodyLarge)
-                        .foregroundStyle(.secondaryText)
-                    Spacer()
+                VStack(spacing: 8) {
+                    HStack {
+                        Text("ingridientedit.label.name")
+                            .font(.bodyLarge)
+                            .foregroundStyle(.secondaryText)
+                        Spacer()
+                    }
                     TextField("", text: $viewState.name)
+                        .defaultTextField()
                 }
                 VStack(spacing: 8) {
-                    HStack(spacing: 16) {
+                    HStack {
                         Text("ingridientedit.label.category")
                             .font(.bodyLarge)
                             .foregroundStyle(.secondaryText)
@@ -33,43 +36,48 @@ struct IngridientEditView: View {
                             presenter.tapEditCategory()
                         } label: {
                             Image(systemName: "square.and.pencil")
-                                .font(.title2)
+                                .font(.icon)
                                 .foregroundStyle(.primaryText)
                         }
+                        Spacer()
+                            .frame(width: Styles.listActionPadding)
                     }
                     if let category = viewState.category {
                         HStack {
-                            Circle()
-                                .frame(width: 16)
-                                .foregroundStyle(Color(category.color ?? UIColor.clear))
                             Text(category.name)
+                            Circle()
+                                .frame(width: Styles.listBadgeSize)
+                                .foregroundStyle(category.color)
                             Spacer()
                         }
                     }
                 }
-                Group {
-                    FieldSectionView(title: "Kilocalories per 100 grams") {
-                        TextField("", value: $viewState.calories, formatter: .nutrients)
-                    }
-                    FieldSectionView(title: "Proteins per 100 grams") {
-                        TextField("", value: $viewState.proteins, formatter: .nutrients)
-                    }
-                    FieldSectionView(title: "Fats per 100 grams") {
-                        TextField("", value: $viewState.fats, formatter: .nutrients)
-                    }
-                    FieldSectionView(title: "Carbohydrates per 100 grams") {
-                        TextField("", value: $viewState.carbohydrates, formatter: .nutrients)
-                    }
-                }.submitLabel(.done)
+                FieldSectionView(titleKey: "dishparameter.kcalsper100") {
+                    TextField("", value: $viewState.calories,
+                              formatter: .nutrients)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.proteinsper100") {
+                    TextField("", value: $viewState.proteins,
+                              formatter: .nutrients)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.fatsper100") {
+                    TextField("", value: $viewState.fats,
+                              formatter: .nutrients)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.carbsper100") {
+                    TextField("", value: $viewState.carbohydrates, formatter: .nutrients)
+                        .defaultTextField()
+                }
                 Spacer()
             }
         }
-        .padding()
         .onAppear {
             presenter.didAppear()
         }
         .font(.bodyRegular)
-        .textFieldStyle(.roundedBorder)
         .navigationTitle("ingridientedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -78,7 +86,7 @@ struct IngridientEditView: View {
                     presenter.doneTapped()
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -88,13 +96,18 @@ struct IngridientEditView: View {
 
 private struct FieldSectionView<Content: View>: View {
     
-    var title: String
+    var titleKey: LocalizedStringKey
     @ViewBuilder var content: () -> Content
+    
+    init(titleKey: String, content: @escaping () -> Content) {
+        self.titleKey = LocalizedStringKey(titleKey)
+        self.content = content
+    }
     
     var body: some View {
         VStack(spacing: 8) {
-            HStack(spacing: 8) {
-                Text(title)
+            HStack {
+                Text(titleKey)
                     .font(.bodyLarge)
                     .foregroundStyle(.secondaryText)
                 Spacer()

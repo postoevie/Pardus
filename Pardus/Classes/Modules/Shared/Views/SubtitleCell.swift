@@ -11,24 +11,38 @@ struct SubtitleCell: View {
     
     let title: String
     let subtitle: String
-    let color: UIColor
+    let badgeColor: Color
+    let titleColor: Color
+    let subtitleColor: Color
+    
+    init(title: String,
+         subtitle: String,
+         badgeColor: Color = .clear,
+         titleColor: Color = .primaryText,
+         subtitleColor: Color = .secondaryText) {
+        self.title = title
+        self.subtitle = subtitle
+        self.badgeColor = badgeColor
+        self.titleColor = titleColor
+        self.subtitleColor = subtitleColor
+    }
     
     var body: some View {
         VStack {
             HStack {
                 Text(title)
-                    .foregroundStyle(.primaryText)
+                    .foregroundStyle(titleColor)
                     .font(.bodySmall)
                 Circle()
-                    .frame(width: 16)
-                    .foregroundStyle(Color(color))
+                    .frame(width: Styles.listBadgeSize)
+                    .foregroundStyle(badgeColor)
                 Spacer()
             }
             Spacer()
-                .frame(height: 10)
+                .frame(height: 12)
             HStack {
                 Text(subtitle)
-                    .foregroundStyle(.secondaryText)
+                    .foregroundStyle(subtitleColor)
                     .font(.bodySmall2)
                 Spacer()
             }

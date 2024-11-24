@@ -16,7 +16,7 @@ struct PicklistViewItem: Hashable {
 
 enum PicklistViewItemType: Hashable {
     
-    case onlyTitle(title: String, indicatorColor: UIColor)
-    case withSubtitle(title: String, subtitle: String, indicatorColor: UIColor)
+    case onlyTitle(title: String, badgeColor: Color)
+    case withSubtitle(title: String, subtitle: String, badgeColor: Color)
 }
 

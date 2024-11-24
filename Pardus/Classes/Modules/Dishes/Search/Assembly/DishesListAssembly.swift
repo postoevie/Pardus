@@ -46,9 +46,10 @@ final class DishesListAssembly: Assembly {
         var navigationTitle: LocalizedStringKey { LocalizedStringKey("disheslist.navigation.title") }
         
         func mapToItem(entity: Dish) -> SearchListItem {
-            var categoryColor: UIColor?
-            if let colorHex = entity.category?.colorHex {
-                categoryColor = try? .init(hex: colorHex)
+            var categoryColor: Color = .clear
+            if let colorHex = entity.category?.colorHex,
+               let color = try? UIColor.init(hex: colorHex) {
+                categoryColor = Color(color)
             }
             let ingridientNames = (entity.ingridients ?? []).map {
                 $0.name
@@ -56,7 +57,7 @@ final class DishesListAssembly: Assembly {
             return SearchListItem(id: entity.id,
                                   title: entity.name,
                                   subtitle: ingridientNames.joined(separator: ", "),
-                                  categoryColor: categoryColor ?? .clear)
+                                  categoryColor: categoryColor)
         }
     }
 }

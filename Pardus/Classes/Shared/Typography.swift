@@ -14,6 +14,8 @@ extension Font {
     static let bodyRegular = AppTypography.Body.regular
     static let bodySmall = AppTypography.Body.small
     static let bodySmall2 = AppTypography.Body.small2
+    static let icon = AppTypography.Icon.icon
+    static let icon2 = AppTypography.Icon.icon2
 }
 
 private struct AppTypography {
@@ -27,7 +29,13 @@ private struct AppTypography {
         
         static let large = Font.custom("RussoOne", size: 20, relativeTo: .body)
         static let regular = Font.custom("RussoOne", size: 16, relativeTo: .body)
-        static let small = Font.custom("RussoOne", size: 14, relativeTo: .body)
+        static let small = Font.custom("RussoOne", size: 16, relativeTo: .body)
         static let small2 = Font.custom("RussoOne", size: 12, relativeTo: .body)
+    }
+    
+    struct Icon {
+        
+        static let icon = Font.title
+        static let icon2 = Font.title2
     }
 }

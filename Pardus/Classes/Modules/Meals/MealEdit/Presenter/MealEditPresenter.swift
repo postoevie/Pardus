@@ -132,9 +132,10 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         let proteinsString = formatter.string(for: mealDish.proteins) ?? "0"
         let fatsString = formatter.string(for: mealDish.fats) ?? "0"
         let carbsString = formatter.string(for: mealDish.carbs) ?? "0"
-        var categoryColor: UIColor?
-        if let colorHex = dish.category?.colorHex {
-            categoryColor = try? .init(hex: colorHex)
+        var categoryColor: Color = .clear
+        if let colorHex = dish.category?.colorHex,
+           let color = try? UIColor.init(hex: colorHex) {
+            categoryColor = Color(color)
         }
         let item = MealDishesListItem(id: mealDish.id,
                                       title: dish.name,

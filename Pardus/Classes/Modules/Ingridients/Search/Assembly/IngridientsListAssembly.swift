@@ -46,9 +46,10 @@ final class IngridientsListAssembly: Assembly {
         var navigationTitle: LocalizedStringKey { LocalizedStringKey("ingridientslist.navigation.title") }
         
         func mapToItem(entity: Ingridient) -> SearchListItem {
-            var categoryColor: UIColor?
-            if let colorHex = entity.category?.colorHex {
-                categoryColor = try? .init(hex: colorHex)
+            var categoryColor: Color = .clear
+            if let colorHex = entity.category?.colorHex,
+               let color = try? UIColor.init(hex: colorHex) {
+                categoryColor = Color(color)
             }
             let nutrientsString = NumberFormatter.nutrientsDefaultString(calories: entity.calories,
                                                                          proteins: entity.proteins,
@@ -57,7 +58,7 @@ final class IngridientsListAssembly: Assembly {
             return SearchListItem(id: entity.id,
                                   title: entity.name,
                                   subtitle: nutrientsString,
-                                  categoryColor: categoryColor ?? .clear)
+                                  categoryColor: categoryColor)
         }
     }
 }

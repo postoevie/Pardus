@@ -11,7 +11,7 @@ extension IngridientCategory: PicklistItemEntityType {
         name
     }
     
-    var indicatorColorHex: String? {
+    var badgeColorHex: String? {
         colorHex
     }
 }

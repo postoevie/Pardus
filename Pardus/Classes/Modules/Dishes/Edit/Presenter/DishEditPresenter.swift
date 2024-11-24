@@ -126,9 +126,10 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         }
         viewState.name = dish.name
         if let category = dish.category {
-            var categoryColor: UIColor?
-            if let colorHex = category.colorHex {
-                categoryColor = try? UIColor(hex: colorHex)
+            var categoryColor: Color = .clear
+            if let colorHex = category.colorHex,
+               let color = try? UIColor.init(hex: colorHex) {
+                categoryColor = Color(color)
             }
             viewState.category = DishCategoryViewModel(id: category.id,
                                                        name: category.name,
@@ -144,7 +145,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                                                                                          proteins: ingridient.proteins,
                                                                                          fats: ingridient.fats,
                                                                                          carbs: ingridient.carbs),
-                                        categoryColor: nil)
+                                        categoryColor: .clear)
             }
         } else {
             []

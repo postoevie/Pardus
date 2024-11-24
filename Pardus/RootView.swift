@@ -19,30 +19,40 @@ struct RootView: View {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
+                            .padding(Styles.defaultAppPadding)
                     }
             }
             .tabItem {
-                Label("rootview.tabs.meals", systemImage: "")
+                Label("rootview.tabs.meals", systemImage: "fork.knife")
             }
             .tag("meals")
             NavigationStack(path: $navigationService.dishesItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
+                            .padding(Styles.defaultAppPadding)
                     }
             }
             .tabItem {
-                Label("rootview.tabs.dishes", systemImage: "")
+                Label {
+                    Text("rootview.tabs.dishes")
+                } icon: {
+                    Image("dish")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                }
             }
             .tag("dishes")
             NavigationStack(path: $navigationService.ingridientsItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
+                            .padding(Styles.defaultAppPadding)
                     }
             }
             .tabItem {
-                Label("rootview.tabs.ingridients", systemImage: "")
+                Label("rootview.tabs.ingridients", systemImage: "carrot")
             }
             .tag("ingridients")
         }
@@ -67,5 +77,23 @@ struct RootView: View {
                 fatalError()
             }
         }
+    }
+}
+
+
+struct RootViewPreviews: PreviewProvider {
+    
+    static let viewBuilder: ApplicationViewBuilder = {
+        let container = RootApp().container
+        return ApplicationViewBuilder(container: container)
+    }()
+    
+    static var container: Container {
+        viewBuilder.container
+    }
+    
+    static var previews: some View {
+        RootView(navigationService: NavigationAssembly.navigation,
+                 appViewBuilder: viewBuilder)
     }
 }

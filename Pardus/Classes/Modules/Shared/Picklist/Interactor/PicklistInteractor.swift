@@ -31,17 +31,15 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
     //MARK: -PicklistInteractorProtocol
     var items: [PicklistViewItem] {
         entities.map { entity in
-            let color: UIColor =
-            if let colorHex = entity.indicatorColorHex,
+            var badgeColor: Color = .clear
+            if let colorHex = entity.badgeColorHex,
                let color = try? UIColor(hex: colorHex) {
-                color
-            } else {
-                .clear
+                badgeColor = Color(color)
             }
             return PicklistViewItem(id: entity.id,
                                     isSelected: selectedItemIds.contains(entity.id),
                                     type: .onlyTitle(title: entity.picklistItemTitle,
-                                                     indicatorColor: color))
+                                                     badgeColor: badgeColor))
         }
     }
     

@@ -12,5 +12,5 @@ struct DishIngridientsListItem: Identifiable {
     let id: UUID
     let title: String
     let subtitle: String
-    let categoryColor: UIColor?
+    let categoryColor: Color
 }

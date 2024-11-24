@@ -13,5 +13,5 @@ struct MealDishesIngridientsListItem: Identifiable {
     let title: String
     let subtitle: String
     let weight: String
-    let categoryColor: UIColor?
+    let categoryColor: Color
 }

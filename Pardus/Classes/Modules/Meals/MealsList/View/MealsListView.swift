@@ -34,9 +34,10 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                         } label: {
                             SubtitleCell(title: item.title,
                                          subtitle: item.subtitle,
-                                         color: .clear)
+                                         titleColor: .tertiaryText,
+                                         subtitleColor: .tertiaryText)
                         }
-                        .listRowInsets(.init(top: 8,
+                        .listRowInsets(.init(top: 0,
                                              leading: 0,
                                              bottom: 0,
                                              trailing: 0))
@@ -60,10 +61,10 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                     .defaultCellInsets()
                 }
             }
+            .listRowSpacing(8)
             .listStyle(.plain)
             .scrollIndicators(.hidden)
         }
-        .padding()
         .navigationTitle("mealslist.navigation.title")
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -73,14 +74,14 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                     presenter.tapToggleDateFilter()
                 } label: {
                     Image(systemName: viewState.dateSelectionVisible ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
                 Button {
                     presenter.tapAddNewItem()
                 } label: {
                     Image(systemName: "plus.circle")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -118,6 +119,9 @@ struct MealsListPreviews: PreviewProvider {
             NavigationStack {
                 viewBuilder.build(view: .mealsList)
             }
+            NavigationStack {
+                viewBuilder.build(view: .mealsList)
+            }.preferredColorScheme(.dark)
         }
     }
 
@@ -160,8 +164,15 @@ struct MealsListPreviews: PreviewProvider {
         
         let meal2 = Meal(context: context)
         meal2.id = UUID()
-        meal2.date = Date()
+        meal2.date = Calendar.current.date(byAdding: .day,
+                                           value: 1,
+                                           to: Date()) ?? Date()
         meal2.dishes = Set()
+        
+        let meal3 = Meal(context: context)
+        meal3.id = UUID()
+        meal3.date = Date()
+        meal3.dishes = Set()
         
         try? context.save()
     }

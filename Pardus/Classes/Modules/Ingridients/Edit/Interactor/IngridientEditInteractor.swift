@@ -35,13 +35,17 @@ final class IngridientEditInteractor: IngridientEditInteractorProtocol {
     }
     
     var ingridientCategory: IngridientCategoryViewModel? {
-        guard let category = ingridient?.category,
-              let colorHex = category.colorHex else {
+        guard let category = ingridient?.category else {
             return nil
+        }
+        var categoryColor: Color = .clear
+        if let colorHex = category.colorHex,
+           let color = try? UIColor.init(hex: colorHex) {
+            categoryColor = Color(color)
         }
         return IngridientCategoryViewModel(id: category.id,
                                            name: category.name,
-                                           color: try? UIColor(hex: colorHex))
+                                           color: categoryColor)
     }
     
     var data: IngridientEditData? {

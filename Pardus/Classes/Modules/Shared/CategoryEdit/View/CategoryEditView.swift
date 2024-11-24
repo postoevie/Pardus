@@ -22,7 +22,7 @@ struct CategoryEditView<ViewState: CategoryEditViewStateProtocol,
                           label: {
                     Text("categoryedit.label.name")
                 })
-                .textFieldStyle(.roundedBorder)
+                .defaultTextField()
             }
             HStack {
                 ColorPicker(selection: $viewState.color, label: {
@@ -45,7 +45,7 @@ struct CategoryEditView<ViewState: CategoryEditViewStateProtocol,
                     presenter.tapSave()
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }

@@ -19,8 +19,26 @@ private struct DefaultCellInsets: ViewModifier {
     func body(content: Content) -> some View {
         content
             .listRowInsets(.init(top: 8,
-                                 leading: 0,
+                                 leading: 8,
                                  bottom: 8,
                                  trailing: 0))
     }
 }
+
+extension View {
+    
+    func defaultTextField() -> some View {
+        modifier(DefaultTextField())
+    }
+}
+
+private struct DefaultTextField: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.bodySmall)
+            .submitLabel(.return)
+            .textFieldStyle(.roundedBorder)
+    }
+}
+    

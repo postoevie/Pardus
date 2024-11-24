@@ -12,7 +12,7 @@ struct DishCategoryViewModel {
     
     let id: UUID
     let name: String
-    let color: UIColor?
+    let color: Color
 }
 
 final class DishEditViewState: ObservableObject, DishEditViewStateProtocol {

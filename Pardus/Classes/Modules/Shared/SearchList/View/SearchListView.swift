@@ -17,14 +17,13 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
         VStack {
             TextField("searchview.search.placeholder",
                       text: $viewState.searchText)
-                .textFieldStyle(.roundedBorder)
-                .font(.bodySmall)
+                .defaultTextField()
             Spacer()
                 .frame(height: 20)
             List(viewState.items) { item in
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
-                             color: item.categoryColor)
+                             badgeColor: item.categoryColor)
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
@@ -43,21 +42,20 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
             }
             .listStyle(.plain)
         }
-        .padding()
         .toolbar {
             ToolbarItemGroup {
                 Button {
                     presenter.tapCategories()
                 } label: {
                     Image(systemName: "list.bullet")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
                 Button {
                     presenter.tapNewEntity()
                 } label: {
                     Image(systemName: "plus.circle")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }

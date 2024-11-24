@@ -40,24 +40,25 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
             }
             HStack {
                 Text("mealedit.disheslist.title")
-                    .padding(.top)
                 Spacer()
                 Menu {
                     //Button("Create new", action: presenter.tapNewDish)
                     Button("mealedit.disheslist.button.addfromcatalog", action: presenter.editDishesTapped)
                 } label: {
                     Image(systemName: "plus.circle")
-                        .font(.title2)
+                        .font(.icon)
                         .foregroundStyle(.primaryText)
                 }
-                
+                Spacer()
+                    .frame(width: Styles.listActionPadding)
             }
+            .padding(.top)
             .font(.bodyLarge)
             .foregroundStyle(.secondaryText)
             List(viewState.dishItems) { item in
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
-                             color: item.categoryColor ?? .clear)
+                             badgeColor: item.categoryColor)
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
@@ -80,7 +81,6 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
         .onAppear {
             presenter.didAppear()
         }
-        .padding()
         .navigationTitle("mealedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -89,7 +89,7 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
                     presenter.doneTapped()
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }

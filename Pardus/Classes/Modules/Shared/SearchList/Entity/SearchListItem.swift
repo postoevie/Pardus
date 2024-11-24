@@ -11,9 +11,9 @@ struct SearchListItem: Identifiable {
     let id: UUID
     let title: String
     let subtitle: String
-    let categoryColor: UIColor
+    let categoryColor: Color
     
-    init(id: UUID, title: String, subtitle: String, categoryColor: UIColor) {
+    init(id: UUID, title: String, subtitle: String, categoryColor: Color) {
         self.id = id
         self.title = title
         self.subtitle = subtitle

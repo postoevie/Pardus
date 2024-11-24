@@ -132,6 +132,7 @@
 		52A861AD2C0CA0EA001AA01D /* SearchListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A8619D2C0CA0EA001AA01D /* SearchListViewState.swift */; };
 		52A861AE2C0CA0EA001AA01D /* SearchListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A8619F2C0CA0EA001AA01D /* SearchListInteractor.swift */; };
 		52A861AF2C0CA0EA001AA01D /* DishesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */; };
+		52B35CA12CF3437E006D0EC8 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B35CA02CF3437E006D0EC8 /* Styles.swift */; };
 		52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */; };
 		52BB17712C690D3300DC5D59 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB17702C690D3300DC5D59 /* View+Modifiers.swift */; };
 		52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79032C0391E50039202E /* EntityModelMappingType.swift */; };
@@ -316,6 +317,7 @@
 		52A8619D2C0CA0EA001AA01D /* SearchListViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListViewState.swift; sourceTree = "<group>"; };
 		52A8619F2C0CA0EA001AA01D /* SearchListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListInteractor.swift; sourceTree = "<group>"; };
 		52A861A12C0CA0EA001AA01D /* DishesListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishesListRouter.swift; sourceTree = "<group>"; };
+		52B35CA02CF3437E006D0EC8 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		52BB17702C690D3300DC5D59 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		52BF79032C0391E50039202E /* EntityModelMappingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityModelMappingType.swift; sourceTree = "<group>"; };
@@ -1355,6 +1357,7 @@
 				52C365452C4D635400C3AD99 /* UIColor+Hex.swift */,
 				526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */,
 				52563C1F2CF1C0D400691C02 /* Typography.swift */,
+				52B35CA02CF3437E006D0EC8 /* Styles.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1712,6 +1715,7 @@
 				5259176B2BFF1B88005394DC /* EntityModelServiceType.swift in Sources */,
 				52A861AA2C0CA0EA001AA01D /* SearchListContracts.swift in Sources */,
 				52C3655B2C4EA65D00C3AD99 /* CategoryEditView.swift in Sources */,
+				52B35CA12CF3437E006D0EC8 /* Styles.swift in Sources */,
 				525917502BF96A81005394DC /* Meal.swift in Sources */,
 				525917252BF8B099005394DC /* MealsListViewState.swift in Sources */,
 				52969AB42CD789380060A1C4 /* MealDishEditPresenter.swift in Sources */,

@@ -38,9 +38,11 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
                     }
                 } label: {
                     Image(systemName: "plus.circle")
-                        .font(.title2)
+                        .font(.icon)
                         .foregroundStyle(.primaryText)
                 }
+                Spacer()
+                    .frame(width: Styles.listActionPadding)
             }
             .padding(.top)
             .font(.bodyLarge)
@@ -66,7 +68,6 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
         .onAppear {
             presenter.didAppear()
         }
-        .padding()
         .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -75,7 +76,7 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
                     presenter.doneTapped()
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -100,14 +101,13 @@ fileprivate struct MealDishIngridientRow: View {
         HStack {
             SubtitleCell(title: item.title,
                          subtitle: item.subtitle,
-                         color: item.categoryColor ?? .clear)
+                         badgeColor: item.categoryColor)
             TextField("mealdishedit.ingridients.placeholder.weight",
                       text: $weight)
-            .submitLabel(.done)
+            .defaultTextField()
             .onSubmit {
                 onSubmit(weight)
             }
-            .textFieldStyle(.roundedBorder)
             .frame(width: 100)
         }
     }

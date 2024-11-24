@@ -15,102 +15,94 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
     @StateObject var presenter: Presenter
     
     var body: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 8) {
-                Text("dishedit.label.name")
-                    .font(.bodyLarge)
-                    .foregroundStyle(.secondaryText)
-                Spacer()
-                TextField("", text: $viewState.name)
-            }
-            HStack {
-                Text("dishedit.label.category")
-                    .font(.bodyLarge)
-                    .foregroundStyle(.secondaryText)
-                Spacer()
-                Button {
-                    presenter.editCategoryTapped()
-                } label: {
-                    Image(systemName: "square.and.pencil")
-                        .font(.title2)
-                        .foregroundStyle(.secondaryText)
-                }
-            }
-            if let category = viewState.category {
-                HStack {
-                    Circle()
-                        .frame(width: 16)
-                        .foregroundStyle(Color(category.color ?? UIColor.clear))
-                    Text(category.name)
-                    Spacer()
-                }
-            }
-            HStack {
-                Text("dishedit.ingridients.label")
-                    .padding(.top)
-                Spacer()
-                Button {
-                    presenter.editIngridientsTapped()
-                } label: {
-                    Image(systemName: "square.and.pencil")
-                        .font(.title2)
-                        .foregroundStyle(.secondaryText)
-                }
-            }
-            .font(.bodyLarge)
-            .foregroundStyle(.secondaryText)
-            List(viewState.ingridients) { item in
-                DishIngredientRow(item: item)
-                    .defaultCellInsets()
-                .swipeActions {
-                    Button {
-                        presenter.remove(ingridientId: item.id)
-                    } label: {
-                        Image(systemName: "trash")
+        VStack {
+            VStack(spacing: 16) {
+                VStack (spacing: 8) {
+                    HStack {
+                        Text("ingridientedit.label.name")
+                            .font(.bodyLarge)
+                            .foregroundStyle(.secondaryText)
+                        Spacer()
                     }
-                    .tint(.red)
+                    TextField("", text: $viewState.name)
+                        .defaultTextField()
+                }
+                VStack(spacing: 8) {
+                    HStack {
+                        Text("dishedit.label.category")
+                            .font(.bodyLarge)
+                            .foregroundStyle(.secondaryText)
+                        Spacer()
+                        Button {
+                            presenter.editCategoryTapped()
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                                .font(.icon)
+                                .foregroundStyle(.primaryText)
+                        }
+                        Spacer()
+                            .frame(width: Styles.listActionPadding)
+                    }
+                    if let category = viewState.category {
+                        HStack {
+                            Text(category.name)
+                            Circle()
+                                .frame(width: Styles.listBadgeSize)
+                                .foregroundStyle(category.color)
+                            Spacer()
+                        }
+                    }
+                }
+                HStack {
+                    Text("dishedit.ingridients.label")
+                        .padding(.top)
+                    Spacer()
+                    Button {
+                        presenter.editIngridientsTapped()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                            .font(.icon)
+                            .foregroundStyle(.primaryText)
+                    }
+                    Spacer()
+                        .frame(width: Styles.listActionPadding)
+                }
+                .font(.bodyLarge)
+                .foregroundStyle(.secondaryText)
+                List(viewState.ingridients) { item in
+                    SubtitleCell(title: item.title,
+                                 subtitle: item.subtitle,
+                                 badgeColor: item.categoryColor)
+                    .defaultCellInsets()
+                    .swipeActions {
+                        Button {
+                            presenter.remove(ingridientId: item.id)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
+                }
+                .listStyle(.plain)
+                Spacer()
+            }
+            .onAppear {
+                presenter.didAppear()
+            }
+            .font(.bodyRegular)
+            .navigationTitle("dishedit.navigation.title")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        presenter.doneTapped()
+                    } label: {
+                        Image(systemName: "externaldrive.badge.checkmark")
+                            .font(.icon2)
+                            .foregroundStyle(.primaryText)
+                    }
                 }
             }
-            .listStyle(.plain)
-            Spacer()
-        }
-        .onAppear {
-            presenter.didAppear()
-        }
-        .padding()
-        .font(.bodyRegular)
-        .textFieldStyle(.roundedBorder)
-        .navigationTitle("dishedit.navigation.title")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    presenter.doneTapped()
-                } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
-                        .foregroundStyle(.primaryText)
-                }
-            }
-        }
-    }
-}
-
-fileprivate struct DishIngredientRow: View {
-    
-    private let item: DishIngridientsListItem
-    
-    init(item: DishIngridientsListItem) {
-        self.item = item
-    }
-    
-    var body: some View {
-        HStack {
-            SubtitleCell(title: item.title,
-                         subtitle: item.subtitle,
-                         color: item.categoryColor ?? .clear)
-            .textFieldStyle(.roundedBorder)
-            .frame(width: 100)
         }
     }
 }

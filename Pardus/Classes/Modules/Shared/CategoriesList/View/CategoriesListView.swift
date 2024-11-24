@@ -18,7 +18,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
             ForEach(viewState.sections, id: (\.categoryId)) { section in
                 Section {
                     SectionHeader(section: section)
-                    .clipped(all: section.dishes.isEmpty)
+                    .clipped(all: section.items.isEmpty)
                     .swipeActions {
                         if let categoryId = section.categoryId {
                             Button {
@@ -35,20 +35,20 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                             .tint(.orange)
                         }
                     }
-                    ForEach(section.dishes) { dish in
-                        SubtitleCell(title: dish.title,
-                                     subtitle: "dish.subtitle",
-                                     color: .clear)
+                    ForEach(section.items) { item in
+                        SubtitleCell(title: item.title,
+                                     subtitle: item.subtitle,
+                                     badgeColor: .clear)
                         .defaultCellInsets()
                         .swipeActions {
                             Button {
-                                presenter.delete(dishId: dish.id)
+                                presenter.delete(dishId: item.id)
                             } label: {
                                 Image(systemName: "trash")
                             }
                             .tint(.red)
                             Button {
-                                presenter.tapEditDish(dishId: dish.id)
+                                presenter.tapEditDish(dishId: item.id)
                             } label: {
                                 Image(systemName: "square.and.pencil")
                             }
@@ -60,7 +60,6 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
         }
         .listSectionSpacing(16)
         .listStyle(.plain)
-        .padding()
         .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -80,7 +79,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                     presenter.tapSearch()
                 } label: {
                     Image(systemName: "magnifyingglass")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -90,7 +89,7 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
                     Button("categorieslist.button.createcategory", action: presenter.tapNewCategory)
                 } label: {
                     Image(systemName: "plus.circle")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -116,7 +115,7 @@ private struct SectionHeader: View {
                              trailing: 0))
         .listRowSeparator(.hidden)
         .frame(minHeight: 60, alignment: .leading)
-        .background(Color(section.color ?? .lightGray))
+        .background(section.color)
     }
 }
 

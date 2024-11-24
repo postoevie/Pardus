@@ -63,12 +63,12 @@ fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCus
         data.map { item in
             let category = item.mainEntity
             let ingridients = item.detailEntities
-            let color: UIColor? = if let colorHex = category?.colorHex {
-                try? .init(hex: colorHex)
-            } else {
-                nil
+            var badgeColor: Color = Color(UIColor.lightGray)
+            if let colorHex = category?.colorHex,
+               let color = try? UIColor.init(hex: colorHex) {
+                badgeColor = Color(color)
             }
-            let dishItems = ingridients.map { ingridient in
+            let items = ingridients.map { ingridient in
                 let subtitle = Formatter.nutrientsDefaultString(calories: ingridient.calories,
                                                                 proteins: ingridient.proteins,
                                                                 fats: ingridient.fats,
@@ -80,8 +80,8 @@ fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCus
             }
             return CategoriesListSection(categoryId: category?.id,
                                          title: category?.name ?? "No Category",
-                                         color: color ?? .lightGray,
-                                         dishes: dishItems)
+                                         color: badgeColor,
+                                         items: items)
         }
     }
 }

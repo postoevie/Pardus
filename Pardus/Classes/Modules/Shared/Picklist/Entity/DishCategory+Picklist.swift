@@ -7,7 +7,7 @@
 
 extension DishCategory: PicklistItemEntityType {
     
-    var indicatorColorHex: String? {
+    var badgeColorHex: String? {
         colorHex
     }
     

@@ -16,21 +16,21 @@ struct PicklistView: View {
     var body: some View {
         VStack {
             TextField("picklistview.search.placeholder", text: $viewState.searchText)
-                .textFieldStyle(.roundedBorder)
+                .defaultTextField()
             List(viewState.items, id: \.id) { item in
                 Button {
                     presenter.setSelected(item: item)
                 } label: {
                     HStack {
                         switch item.type {
-                        case .onlyTitle(let title, let indicatorColor):
-                            OnlyTitleCell(title: title, color: indicatorColor)
+                        case .onlyTitle(let title, let badgeColor):
+                            OnlyTitleCell(title: title, color: badgeColor)
                         case .withSubtitle(let title,
                                            let subtitle,
-                                           let indicatorColor):
+                                           let badgeColor):
                             SubtitleCell(title: title,
                                          subtitle: subtitle,
-                                         color: indicatorColor)
+                                         badgeColor: badgeColor)
                         }
                         Spacer()
                         if item.isSelected {
@@ -39,9 +39,11 @@ struct PicklistView: View {
                         }
                         
                     }
-                    .padding(.leading)
                 }
-                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowInsets(.init(top: 0,
+                                     leading: 0,
+                                     bottom: 0,
+                                     trailing: 0))
                 .frame(minHeight: 60)
             }
             
@@ -49,14 +51,13 @@ struct PicklistView: View {
         }
         .navigationTitle("picklistview.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
-        .padding()
         .toolbar {
             ToolbarItem {
                 Button {
                     presenter.doneTapped()
                 } label: {
                     Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.title2)
+                        .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }
             }

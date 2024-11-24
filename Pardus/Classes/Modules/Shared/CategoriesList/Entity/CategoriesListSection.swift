@@ -11,6 +11,6 @@ struct CategoriesListSection {
     
     let categoryId: UUID?
     let title: String
-    let color: UIColor?
-    let dishes: [CategoriesListItem]
+    let color: Color
+    let items: [CategoriesListItem]
 }

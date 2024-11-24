@@ -124,16 +124,6 @@
         }
       }
     },
-    "dishedit.label.name" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Name"
-          }
-        }
-      }
-    },
     "dishedit.navigation.title" : {
       "localizations" : {
         "en" : {
@@ -166,6 +156,17 @@
         }
       }
     },
+    "dishparameter.carbsper100" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbohydrates per 100 grams"
+          }
+        }
+      }
+    },
     "dishparameter.fats" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -173,6 +174,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fats"
+          }
+        }
+      }
+    },
+    "dishparameter.fatsper100" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fats per 100 grams"
           }
         }
       }
@@ -188,6 +200,17 @@
         }
       }
     },
+    "dishparameter.kcalsper100" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilocalories per 100 grams"
+          }
+        }
+      }
+    },
     "dishparameter.proteins" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -195,6 +218,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Proteins"
+          }
+        }
+      }
+    },
+    "dishparameter.proteinsper100\n" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proteins per 100 grams"
           }
         }
       }
@@ -325,6 +359,7 @@
       }
     },
     "mealslist.datepicker.enddate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -335,6 +370,7 @@
       }
     },
     "mealslist.datepicker.startdate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

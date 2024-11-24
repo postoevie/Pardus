@@ -35,5 +35,5 @@ protocol DishesPicklistStateProtocol: ViewStateProtocol {
 protocol PicklistItemEntityType: IdentifiedManagedObject {
     
     var picklistItemTitle: String { get }
-    var indicatorColorHex: String? { get }
+    var badgeColorHex: String? { get }
 }
