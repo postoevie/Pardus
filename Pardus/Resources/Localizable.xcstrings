@@ -222,7 +222,7 @@
         }
       }
     },
-    "dishparameter.proteinsper100\n" : {
+    "dishparameter.proteinsper100" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -359,7 +359,6 @@
       }
     },
     "mealslist.datepicker.enddate" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -370,7 +369,6 @@
       }
     },
     "mealslist.datepicker.startdate" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
