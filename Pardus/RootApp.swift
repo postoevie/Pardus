@@ -53,6 +53,13 @@ class RootApp: App {
         WindowGroup {
             RootView(navigationService: navigationService,
                      appViewBuilder: appViewBuilder)
+                .onOpenURL { url in
+                    if url.scheme == "pardus" {
+                        // Handle the deep link here
+                        print("App opened via deep link: \(url)")
+                        // Navigate to specific view if needed
+                    }
+                }
         }
     }
 }

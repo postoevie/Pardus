@@ -72,6 +72,12 @@
 		526935F82CEABFCA009838D8 /* MealParameterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526935F72CEABFCA009838D8 /* MealParameterCell.swift */; };
 		526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A83082C52AA82003480C4 /* SubtitleCell.swift */; };
 		526A830B2C52ABAA003480C4 /* OnlyTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */; };
+		5272C19D2CFA22B900A33CA3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F18DF42CDCCFEA00E27F3E /* WidgetKit.framework */; };
+		5272C19E2CFA22B900A33CA3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F18DF62CDCCFEA00E27F3E /* SwiftUI.framework */; };
+		5272C1A12CFA22B900A33CA3 /* PardusWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272C1A02CFA22B900A33CA3 /* PardusWidgetBundle.swift */; };
+		5272C1A32CFA22B900A33CA3 /* PardusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272C1A22CFA22B900A33CA3 /* PardusWidget.swift */; };
+		5272C1A52CFA22BB00A33CA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5272C1A42CFA22BB00A33CA3 /* Assets.xcassets */; };
+		5272C1A92CFA22BB00A33CA3 /* PardusWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5272C19C2CFA22B900A33CA3 /* PardusWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		527E67E02C563DBB001A0008 /* CategoriesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67DF2C563DBB001A0008 /* CategoriesListItem.swift */; };
 		527E67E42C565440001A0008 /* PicklistViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527E67E32C565440001A0008 /* PicklistViewItem.swift */; };
 		527E67ED2C569123001A0008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527E67EC2C569122001A0008 /* Assets.xcassets */; };
@@ -174,6 +180,13 @@
 			remoteGlobalIDString = 5220DBAD2BEF864C00F095EE;
 			remoteInfo = Pardus;
 		};
+		5272C1A72CFA22BB00A33CA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5220DBA62BEF864C00F095EE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5272C19B2CFA22B900A33CA3;
+			remoteInfo = PardusWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -183,6 +196,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				5272C1A92CFA22BB00A33CA3 /* PardusWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +271,11 @@
 		526935F72CEABFCA009838D8 /* MealParameterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealParameterCell.swift; sourceTree = "<group>"; };
 		526A83082C52AA82003480C4 /* SubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleCell.swift; sourceTree = "<group>"; };
 		526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyTitleCell.swift; sourceTree = "<group>"; };
+		5272C19C2CFA22B900A33CA3 /* PardusWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PardusWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5272C1A02CFA22B900A33CA3 /* PardusWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardusWidgetBundle.swift; sourceTree = "<group>"; };
+		5272C1A22CFA22B900A33CA3 /* PardusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardusWidget.swift; sourceTree = "<group>"; };
+		5272C1A42CFA22BB00A33CA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5272C1A62CFA22BB00A33CA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		527E67DF2C563DBB001A0008 /* CategoriesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListItem.swift; sourceTree = "<group>"; };
 		527E67E32C565440001A0008 /* PicklistViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicklistViewItem.swift; sourceTree = "<group>"; };
 		527E67EC2C569122001A0008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -369,6 +388,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5272C1992CFA22B900A33CA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5272C19E2CFA22B900A33CA3 /* SwiftUI.framework in Frameworks */,
+				5272C19D2CFA22B900A33CA3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -377,6 +405,7 @@
 			children = (
 				5220DBB02BEF864C00F095EE /* Pardus */,
 				5220DBFE2BEF864D00F095EE /* PardusTests */,
+				5272C19F2CFA22B900A33CA3 /* PardusWidget */,
 				52F18DF32CDCCFEA00E27F3E /* Frameworks */,
 				5220DBAF2BEF864C00F095EE /* Products */,
 			);
@@ -387,6 +416,7 @@
 			children = (
 				5220DBAE2BEF864C00F095EE /* Pardus.app */,
 				5220DBFB2BEF864D00F095EE /* PardusTests.xctest */,
+				5272C19C2CFA22B900A33CA3 /* PardusWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -842,6 +872,17 @@
 				52BB17702C690D3300DC5D59 /* View+Modifiers.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5272C19F2CFA22B900A33CA3 /* PardusWidget */ = {
+			isa = PBXGroup;
+			children = (
+				5272C1A02CFA22B900A33CA3 /* PardusWidgetBundle.swift */,
+				5272C1A22CFA22B900A33CA3 /* PardusWidget.swift */,
+				5272C1A42CFA22BB00A33CA3 /* Assets.xcassets */,
+				5272C1A62CFA22BB00A33CA3 /* Info.plist */,
+			);
+			path = PardusWidget;
 			sourceTree = "<group>";
 		};
 		527E67E12C5653FF001A0008 /* Shared */ = {
@@ -1555,6 +1596,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5272C1A82CFA22BB00A33CA3 /* PBXTargetDependency */,
 			);
 			name = Pardus;
 			productName = Pardus;
@@ -1579,6 +1621,23 @@
 			productReference = 5220DBFB2BEF864D00F095EE /* PardusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5272C19B2CFA22B900A33CA3 /* PardusWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5272C1AC2CFA22BB00A33CA3 /* Build configuration list for PBXNativeTarget "PardusWidgetExtension" */;
+			buildPhases = (
+				5272C1982CFA22B900A33CA3 /* Sources */,
+				5272C1992CFA22B900A33CA3 /* Frameworks */,
+				5272C19A2CFA22B900A33CA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PardusWidgetExtension;
+			productName = PardusWidgetExtension;
+			productReference = 5272C19C2CFA22B900A33CA3 /* PardusWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1595,6 +1654,9 @@
 					5220DBFA2BEF864D00F095EE = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 5220DBAD2BEF864C00F095EE;
+					};
+					5272C19B2CFA22B900A33CA3 = {
+						CreatedOnToolsVersion = 15.4;
 					};
 				};
 			};
@@ -1614,6 +1676,7 @@
 			targets = (
 				5220DBAD2BEF864C00F095EE /* Pardus */,
 				5220DBFA2BEF864D00F095EE /* PardusTests */,
+				5272C19B2CFA22B900A33CA3 /* PardusWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1635,6 +1698,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5272C19A2CFA22B900A33CA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5272C1A52CFA22BB00A33CA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,6 +1878,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5272C1982CFA22B900A33CA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5272C1A32CFA22B900A33CA3 /* PardusWidget.swift in Sources */,
+				5272C1A12CFA22B900A33CA3 /* PardusWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1814,6 +1894,11 @@
 			isa = PBXTargetDependency;
 			target = 5220DBAD2BEF864C00F095EE /* Pardus */;
 			targetProxy = 5220DBFC2BEF864D00F095EE /* PBXContainerItemProxy */;
+		};
+		5272C1A82CFA22BB00A33CA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5272C19B2CFA22B900A33CA3 /* PardusWidgetExtension */;
+			targetProxy = 5272C1A72CFA22BB00A33CA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1953,6 +2038,7 @@
 		5220DC042BEF864D00F095EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1976,6 +2062,7 @@
 		5220DC052BEF864D00F095EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2036,6 +2123,62 @@
 			};
 			name = Release;
 		};
+		5272C1AA2CFA22BB00A33CA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JGSX8P77CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PardusWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PardusWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = postoev.Pardus.PardusWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5272C1AB2CFA22BB00A33CA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JGSX8P77CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PardusWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PardusWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = postoev.Pardus.PardusWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2062,6 +2205,15 @@
 			buildConfigurations = (
 				5220DC072BEF864D00F095EE /* Debug */,
 				5220DC082BEF864D00F095EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5272C1AC2CFA22BB00A33CA3 /* Build configuration list for PBXNativeTarget "PardusWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5272C1AA2CFA22BB00A33CA3 /* Debug */,
+				5272C1AB2CFA22BB00A33CA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
