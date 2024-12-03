@@ -10,13 +10,19 @@ import Pardus
 
 final class PardusUITests: XCTestCase {
     
-    let dishesStates = [(UUID(), DishState(name: "Mashed potato", categoryId: nil)),
-                        (UUID(), DishState(name: "Cabbage salad", categoryId: nil)),
-                        (UUID(), DishState(name: "French fries", categoryId: nil)),
-                        (UUID(), DishState(name: "Cake", categoryId: nil))]
+    var dishesStates: [(UUID, DishState)] = []
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        
+        let potato = (UUID(), IngridientState(name: "Potato", calories: 10, proteins: 10, fats: 20, carbs: 10, categoryId: nil))
+        let egg = (UUID(), IngridientState(name: "Eggs", calories: 1, proteins: 20, fats: 30, carbs: 10, categoryId: nil))
+        let ingridientStates = [potato, egg]
+        
+        dishesStates = [(UUID(), DishState(name: "Mashed potato", categoryId: nil, ingridientIds: Set([potato.0]))),
+                        (UUID(), DishState(name: "Cabbage salad", categoryId: nil, ingridientIds: Set([egg.0]))),
+                        (UUID(), DishState(name: "French fries", categoryId: nil, ingridientIds: Set([potato.0]))),
+                        (UUID(), DishState(name: "Cake", categoryId: nil, ingridientIds: Set([egg.0])))]
         
         if let path = EnvironmentUtils.uiTestsViewSnapshotPath {
             let snapshot = ViewsStateSnapshot(tab: .dishes,
@@ -28,8 +34,10 @@ final class PardusUITests: XCTestCase {
         }
         
         if let path = EnvironmentUtils.uiTestsDataSnapshotPath {
-            let state = RecordsStateSnapshot(dishes: Dictionary(uniqueKeysWithValues: dishesStates),
-                                             dishCategories: [:])
+            let state = RecordsStateSnapshot(dishCategories: [:],
+                                             dishes: Dictionary(uniqueKeysWithValues: dishesStates),
+                                             ingridientCategories: [:],
+                                             ingridients: Dictionary(uniqueKeysWithValues: ingridientStates))
             let encoded = try JSONEncoder().encode(state)
             FileManager.default.createFile(atPath: path, contents: encoded)
         }

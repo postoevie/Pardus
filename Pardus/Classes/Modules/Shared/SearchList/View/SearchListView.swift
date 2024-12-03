@@ -43,7 +43,6 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
             .accessibilityIdentifier("searchlist.list")
             .listStyle(.plain)
         }
-        //.accessibilityIdentifier("searchlist")
         .toolbar {
             ToolbarItemGroup {
                 Button {

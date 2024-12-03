@@ -18,9 +18,10 @@ final class RecordsRestoreService: RecordsRestoreServiceType {
             try coreDataService.syncPerform { executor in
                 
                 // Restore records attributes
-                try snapshot.dishCategories.forEach { uid, data in
+                let dishCategories = try snapshot.dishCategories.map { uid, data in
                     let category = try executor.create(type: DishCategory.self, id: uid)
                     category.name = data.name
+                    return category
                 }
                 
                 let dishes = try snapshot.dishes.map { uid, data in
@@ -29,13 +30,40 @@ final class RecordsRestoreService: RecordsRestoreServiceType {
                     return dish
                 }
                 
+                let ingridientCategories = try snapshot.ingridientCategories.map { uid, data in
+                    let category = try executor.create(type: IngridientCategory.self, id: uid)
+                    category.name = data.name
+                    return category
+                }
+                
+                let ingridients = try snapshot.ingridients.map { uid, data in
+                    let ingridient = try executor.create(type: Ingridient.self, id: uid)
+                    ingridient.name = data.name
+                    ingridient.calories = data.calories
+                    ingridient.proteins = data.proteins
+                    ingridient.fats = data.fats
+                    ingridient.carbs = data.carbs
+                    return ingridient
+                }
+                
                 // Restore records relations
                 for dish in dishes {
-                    guard let categoryId = snapshot.dishes[dish.id]?.categoryId,
-                          let category = try executor.fetchOne(type: DishCategory.self, predicate: .idIn(uids: [categoryId])) else {
+                    if let categoryId = snapshot.dishes[dish.id]?.categoryId,
+                       let category = dishCategories.first(where: { $0.id == categoryId }) {
+                        dish.category = category
+                    }
+                    if let ingridientIds = snapshot.dishes[dish.id]?.ingridientIds {
+                        let ingridients = ingridients.filter { ingridientIds.contains($0.id) }
+                        dish.ingridients = Set(ingridients)
+                    }
+                }
+                
+                for ingridient in ingridients {
+                    guard let categoryId = snapshot.ingridients[ingridient.id]?.categoryId,
+                          let category = ingridientCategories.first(where: { $0.id == categoryId }) else {
                         continue
                     }
-                    dish.category = category
+                    ingridient.category = category
                 }
                 
                 try executor.persistChanges()
