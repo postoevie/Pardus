@@ -17,10 +17,10 @@ final class MealsListRouter: MealsListRouterProtocol {
     }
     
     func showAdd() {
-        navigation.items.append(.mealEdit(mealId: nil))
+        navigation.mealsItems.append(.mealEdit(mealId: nil))
     }
     
     func showEdit(mealId: UUID) {
-        navigation.items.append(.mealEdit(mealId: mealId))
+        navigation.mealsItems.append(.mealEdit(mealId: mealId))
     }
 }

@@ -17,18 +17,18 @@ final class IngridientsListRouter: SearchListRouterProtocol {
     }
     
     func showAddEntity() {
-        navigation.items.append(.ingridientEdit(ingridientId: nil))
+        navigation.ingridientsItems.append(.ingridientEdit(ingridientId: nil))
     }
     
     func showEditEntity(entityId: UUID) {
-        navigation.items.append(.ingridientEdit(ingridientId: entityId))
+        navigation.ingridientsItems.append(.ingridientEdit(ingridientId: entityId))
     }
     
     func showCategories() {
-        if Views.ingridientCategoriesList.isTypeIn(navigation.items) {
-            _ = navigation.items.popLast()
+        if Views.ingridientCategoriesList.isTypeIn(navigation.ingridientsItems) {
+            _ = navigation.ingridientsItems.popLast()
             return
         }
-        navigation.items.append(.ingridientCategoriesList)
+        navigation.ingridientsItems.append(.ingridientCategoriesList)
     }
 }

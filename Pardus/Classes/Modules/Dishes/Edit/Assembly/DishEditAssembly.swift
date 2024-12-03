@@ -13,7 +13,7 @@ final class DishEditAssembly: Assembly {
     
     func build(dishId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
+        let navigation = container.resolve(NavigationAssembly.self).build()
 
         // Router
         let router = DishEditRouter(navigation: navigation)

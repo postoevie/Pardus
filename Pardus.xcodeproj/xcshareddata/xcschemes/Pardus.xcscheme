@@ -41,6 +41,17 @@
                ReferencedContainer = "container:Pardus.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "52D5FC522CFB2257000179BA"
+               BuildableName = "PardusUITests.xctest"
+               BlueprintName = "PardusUITests"
+               ReferencedContainer = "container:Pardus.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -73,6 +84,18 @@
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "UITEST_VIEW_PATH"
+            value = "/Users/igorpostoev/Projects/other/pardus_data_snaphot.data"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "UITEST_DATA_PATH"
+            value = "/Users/igorpostoev/Projects/other/pardus_view_snaphot.data"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

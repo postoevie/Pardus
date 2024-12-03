@@ -17,13 +17,16 @@ final class MealDishEditRouter: MealDishEditRouterProtocol {
     }
     
     func returnBack() {
-        _ = navigation.items.popLast()
+        _ = navigation.mealsItems.popLast()
     }
     
     func showIngidientsPicklist(dishMealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
-        navigation.items.append(.dishIngridientsPicklist(callingView: .mealDishEdit(mealDishId: dishMealId),
-                                                         type: .multiple,
-                                                         filter: filter,
-                                                         completion: completion))
+        navigation.modalView = .dishIngridientsPicklist(type: .multiple,
+                                                        filter: filter,
+                                                        completion: completion)
+    }
+    
+    func hidePicklist() {
+        navigation.modalView = nil
     }
 }

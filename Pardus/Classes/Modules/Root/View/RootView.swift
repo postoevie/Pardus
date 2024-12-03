@@ -12,9 +12,10 @@ struct RootView: View {
     
     @ObservedObject var navigationService: NavigationService
     @ObservedObject var appViewBuilder: ApplicationViewBuilder
+    @ObservedObject var presenter: RootPresenter
     
     var body: some View {
-        TabView {
+        TabView(selection: $navigationService.tab) {
             NavigationStack(path: $navigationService.mealsItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
@@ -25,7 +26,7 @@ struct RootView: View {
             .tabItem {
                 Label("rootview.tabs.meals", systemImage: "fork.knife")
             }
-            .tag("meals")
+            .tag(Tabs.meals)
             NavigationStack(path: $navigationService.dishesItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
@@ -43,7 +44,7 @@ struct RootView: View {
                         .frame(width: 20, height: 20)
                 }
             }
-            .tag("dishes")
+            .tag(Tabs.dishes)
             NavigationStack(path: $navigationService.ingridientsItems) {
                 Spacer()
                     .navigationDestination(for: Views.self) { path in
@@ -54,7 +55,10 @@ struct RootView: View {
             .tabItem {
                 Label("rootview.tabs.ingridients", systemImage: "carrot")
             }
-            .tag("ingridients")
+            .tag(Tabs.ingridients)
+        }
+        .onAppear {
+            presenter.onAppear()
         }
         .fullScreenCover(isPresented: .constant($navigationService.modalView.wrappedValue != nil)) {
             if let modal = navigationService.modalView {
@@ -93,7 +97,6 @@ struct RootViewPreviews: PreviewProvider {
     }
     
     static var previews: some View {
-        RootView(navigationService: NavigationAssembly.navigation,
-                 appViewBuilder: viewBuilder)
+        container.resolve(RootAssembly.self).build(appViewBuilder: viewBuilder)
     }
 }

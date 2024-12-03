@@ -12,7 +12,7 @@ final class IngridientsListAssembly: Assembly {
     
     func build() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .ingridients)
+        let navigation = container.resolve(NavigationAssembly.self).build()
         
         // Router
         let router = IngridientsListRouter(navigation: navigation)

@@ -13,7 +13,7 @@ import SwiftUI
 protocol IngridientEditRouterProtocol: RouterProtocol {
 
     func returnBack()
-    func hideLast()
+    func hidePicklist()
     func showPicklist(ingridientId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
 }
 

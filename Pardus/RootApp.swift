@@ -12,7 +12,6 @@ import SwiftUI
 class RootApp: App {
     
     @ObservedObject var appViewBuilder: ApplicationViewBuilder
-    @ObservedObject var navigationService: NavigationService
     
     let container: DependencyContainer = {
         let factory = AssemblyFactory()
@@ -21,9 +20,10 @@ class RootApp: App {
         // Services
         container.apply(NavigationAssembly.self)
         container.apply(CoreDataStackServiceAssembly.self)
-        container.apply(CoreDataRestorationStoreAssembly.self)
-    
+        container.apply(RecordsRestoreServiceAssembly.self)
+        
         // Modules
+        container.apply(RootAssembly.self)
         container.apply(DishCategoryEditAssembly.self)
         container.apply(DishCategoriesPicklistAssembly.self)
         container.apply(DishEditAssembly.self)
@@ -44,15 +44,14 @@ class RootApp: App {
     }()
 
     required init() {
-        navigationService = NavigationAssembly.navigation
         appViewBuilder = ApplicationViewBuilder(container: container)
     }
     
     
     var body: some Scene {
         WindowGroup {
-            RootView(navigationService: navigationService,
-                     appViewBuilder: appViewBuilder)
+            container.resolve(RootAssembly.self).build(appViewBuilder: appViewBuilder)
+                .accessibilityIdentifier("pardus.root")
         }
     }
 }

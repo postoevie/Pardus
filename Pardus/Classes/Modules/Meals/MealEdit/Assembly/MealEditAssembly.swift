@@ -13,7 +13,7 @@ final class MealEditAssembly: Assembly {
     
     func build(mealId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
+        let navigation = container.resolve(NavigationAssembly.self).build()
         
         // Router
         let router = MealEditRouter(navigation: navigation)

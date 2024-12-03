@@ -9,12 +9,11 @@ import SwiftUI
 
 final class DishCategoriesPicklistAssembly: Assembly {
     
-    func build(callingView: Views,
-               type: PicklistType,
+    func build(type: PicklistType,
                filter: Predicate?,
                completion: @escaping (Set<UUID>) -> Void) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: callingView.navigationStem)
+        let navigation = container.resolve(NavigationAssembly.self).build()
         
         // Router
         let router = PicklistRouter(navigation: navigation)

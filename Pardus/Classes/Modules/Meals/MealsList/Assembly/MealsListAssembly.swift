@@ -13,7 +13,7 @@ final class MealsListAssembly: Assembly {
     
     func build() -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .meals)
+        let navigation = container.resolve(NavigationAssembly.self).build()
         
         // Router
         let router = MealsListRouter(navigation: navigation)

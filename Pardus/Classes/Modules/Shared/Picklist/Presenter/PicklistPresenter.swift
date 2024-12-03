@@ -34,6 +34,10 @@ final class PicklistPresenter: ObservableObject, DishesPickPresenterProtocol {
         }
     }
     
+    func cancelTapped() {
+        router.dismiss()
+    }
+    
     func doneTapped() {
         completion(interactor.selectedItemIds)
     }

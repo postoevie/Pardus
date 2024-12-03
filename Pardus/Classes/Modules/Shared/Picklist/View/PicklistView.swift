@@ -14,56 +14,70 @@ struct PicklistView: View {
     @StateObject var presenter: PicklistPresenter
     
     var body: some View {
-        VStack {
-            TextField("picklistview.search.placeholder", text: $viewState.searchText)
-                .defaultTextField()
-            List(viewState.items, id: \.id) { item in
-                Button {
-                    presenter.setSelected(item: item)
-                } label: {
-                    HStack {
-                        switch item.type {
-                        case .onlyTitle(let title, let badgeColor):
-                            OnlyTitleCell(title: title, color: badgeColor)
-                        case .withSubtitle(let title,
-                                           let subtitle,
-                                           let badgeColor):
-                            SubtitleCell(title: title,
-                                         subtitle: subtitle,
-                                         badgeColor: badgeColor)
+        NavigationView {
+            VStack {
+                TextField("picklistview.search.placeholder", text: $viewState.searchText)
+                    .defaultTextField()
+                List(viewState.items, id: \.id) { item in
+                    Button {
+                        presenter.setSelected(item: item)
+                    } label: {
+                        HStack {
+                            switch item.type {
+                            case .onlyTitle(let title, let badgeColor):
+                                OnlyTitleCell(title: title, color: badgeColor)
+                            case .withSubtitle(let title,
+                                               let subtitle,
+                                               let badgeColor):
+                                SubtitleCell(title: title,
+                                             subtitle: subtitle,
+                                             badgeColor: badgeColor)
+                            }
+                            Spacer()
+                            if item.isSelected {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.picklistCheckmark)
+                            }
+                            Spacer()
+                                .frame(width: Styles.listActionPadding)
+                            
                         }
-                        Spacer()
-                        if item.isSelected {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.picklistCheckmark)
-                        }
-                        
+                    }
+                    .listRowInsets(.init(top: 0,
+                                         leading: 8,
+                                         bottom: 0,
+                                         trailing: 0))
+                    .frame(minHeight: 60)
+                }
+                
+                .listStyle(.plain)
+            }
+            .navigationTitle("picklistview.navigation.title")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presenter.cancelTapped()
+                    }) {
+                        Text("app.cancel")
+                            .font(.bodyRegular)
+                            .foregroundStyle(.primaryText)
                     }
                 }
-                .listRowInsets(.init(top: 0,
-                                     leading: 0,
-                                     bottom: 0,
-                                     trailing: 0))
-                .frame(minHeight: 60)
-            }
-            
-            .listStyle(.plain)
-        }
-        .navigationTitle("picklistview.navigation.title")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    presenter.doneTapped()
-                } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.icon2)
-                        .foregroundStyle(.primaryText)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presenter.doneTapped()
+                    }) {
+                        Text("app.done")
+                            .font(.bodyRegular)
+                            .foregroundStyle(.primaryText)
+                    }
                 }
             }
-        }
-        .onAppear {
-            presenter.didAppear()
+            .onAppear {
+                presenter.didAppear()
+            }
+            .padding(Styles.defaultAppPadding)
         }
     }
 }
@@ -80,10 +94,9 @@ struct DishesPickPreviews: PreviewProvider {
     
     static var previews: some View {
         NavigationStack {
-            viewBuilder.build(view: .dishPicklist(callingView: .mealEdit(mealId: makeMockData()),
-                                                                     type: .singular,
-                                                                     filter: nil,
-                                                                     completion: { _ in }))
+            viewBuilder.build(view: .dishPicklist(type: .singular,
+                                                  filter: nil,
+                                                  completion: { _ in }))
         }
     }
     

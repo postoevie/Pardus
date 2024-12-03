@@ -17,17 +17,21 @@ final class MealEditRouter: MealEditRouterProtocol {
     }
     
     func returnBack() {
-        _ = navigation.items.popLast()
-    }
-    
-    func showDishesPick(mealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
-        navigation.items.append(.dishPicklist(callingView: .mealEdit(mealId: mealId),
-                                              type: .multiple,
-                                              filter: filter,
-                                              completion: completion))
+        _ = navigation.mealsItems.popLast()
     }
     
     func showEditDish(dishId: UUID) {
-        navigation.items.append(.mealDishEdit(mealDishId: dishId))
+        navigation.mealsItems.append(.mealDishEdit(mealDishId: dishId))
+    }
+    
+    
+    func showDishesPick(mealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
+        navigation.modalView = .dishPicklist(type: .multiple,
+                                             filter: filter,
+                                             completion: completion)
+    }
+    
+    func hidePicklist() {
+        navigation.modalView = nil
     }
 }

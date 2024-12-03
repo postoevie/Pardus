@@ -53,7 +53,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
             let filter = self.interactor.dishesFilter
             await MainActor.run {
                 self.router.showDishesPick(mealId: mealId, filter: filter) { selectedDishIds in
-                    self.router.returnBack()
+                    self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedDishes(selectedDishIds)
                         try await self.interactor.performWithMeal { meal in

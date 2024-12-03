@@ -11,6 +11,7 @@ import SwiftUI
 // Router
 protocol PicklistRouterProtocol: RouterProtocol {
 
+    func dismiss()
 }
 
 // Presenter

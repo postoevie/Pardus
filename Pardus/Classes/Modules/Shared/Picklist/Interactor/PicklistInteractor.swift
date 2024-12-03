@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-enum PicklistType {
-    
-    case singular
-    case multiple
-}
-
 final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteractorProtocol {
     
     var selectedItemIds = Set<UUID>()

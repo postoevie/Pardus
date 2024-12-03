@@ -16,27 +16,27 @@ final class IngridientCategoriesListRouter: CategoriesListRouterProtocol {
     }
     
     func showAddDetail() {
-        navigation.items.append(.ingridientEdit(ingridientId: nil))
+        navigation.ingridientsItems.append(.ingridientEdit(ingridientId: nil))
     }
     
     func showAddCategory() {
-        navigation.items.append(.ingridientCategoryEdit(categoryId: nil))
+        navigation.ingridientsItems.append(.ingridientCategoryEdit(categoryId: nil))
     }
     
     func showEditCategory(categoryId: UUID) {
-        navigation.items.append(.ingridientCategoryEdit(categoryId: categoryId))
+        navigation.ingridientsItems.append(.ingridientCategoryEdit(categoryId: categoryId))
     }
     
     func showEditDetail(detailEntityId: UUID) {
-        navigation.items.append(.ingridientEdit(ingridientId: detailEntityId))
+        navigation.ingridientsItems.append(.ingridientEdit(ingridientId: detailEntityId))
     }
     
     func showSearchList() {
-        if Views.ingridientsList.isTypeIn(navigation.items) {
-            _ = navigation.items.popLast()
+        if Views.ingridientsList.isTypeIn(navigation.ingridientsItems) {
+            _ = navigation.ingridientsItems.popLast()
             return
         }
-        navigation.items.append(.ingridientsList)
+        navigation.ingridientsItems.append(.ingridientsList)
     }
 }
 

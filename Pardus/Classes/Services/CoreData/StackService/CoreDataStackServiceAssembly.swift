@@ -12,7 +12,7 @@ class CoreDataStackServiceAssembly: Assembly {
     
     func build() -> CoreDataStackServiceType {
         strongBox {
-            CoreDataStackService(inMemory: EnvironmentUtils.isInPreview)
+            CoreDataStackService(inMemory: EnvironmentUtils.isInPreview || EnvironmentUtils.isInUITests)
         }
     }
 }

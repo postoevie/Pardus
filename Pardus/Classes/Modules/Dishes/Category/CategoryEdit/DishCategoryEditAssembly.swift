@@ -12,10 +12,10 @@ final class DishCategoryEditAssembly: Assembly {
     
     func build(dishCategoryId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .dishes)
+        let navigation = container.resolve(NavigationAssembly.self).build()
 
         // Router
-        let router = CategoryEditRouter(navigation: navigation)
+        let router = DishCategoryEditRouter(navigation: navigation)
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()

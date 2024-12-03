@@ -9,9 +9,14 @@
 import Foundation
 
 final class PicklistRouter: PicklistRouterProtocol {
+    
     private var navigation: any NavigationServiceType
     
     init(navigation: any NavigationServiceType){
         self.navigation = navigation
+    }
+    
+    func dismiss() {
+        navigation.modalView = nil
     }
 }

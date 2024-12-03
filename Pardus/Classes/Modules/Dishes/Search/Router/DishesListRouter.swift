@@ -17,26 +17,26 @@ final class DishesListRouter: SearchListRouterProtocol {
     }
     
     func showAddEntity() {
-        navigation.items.append(.dishEdit(dishId: nil))
+        navigation.dishesItems.append(.dishEdit(dishId: nil))
     }
     
     func showAddCategory() {
-        navigation.items.append(.dishCategoryEdit(dishCategoryId: nil))
+        navigation.dishesItems.append(.dishCategoryEdit(dishCategoryId: nil))
     }
     
     func showEditCategory(dishCategoryId: UUID) {
-        navigation.items.append(.dishCategoryEdit(dishCategoryId: dishCategoryId))
+        navigation.dishesItems.append(.dishCategoryEdit(dishCategoryId: dishCategoryId))
     }
     
     func showEditEntity(entityId: UUID) {
-        navigation.items.append(.dishEdit(dishId: entityId))
+        navigation.dishesItems.append(.dishEdit(dishId: entityId))
     }
     
     func showCategories() {
-        if Views.dishCategoriesList.isTypeIn(navigation.items) {
-            _ = navigation.items.popLast()
+        if Views.dishCategoriesList.isTypeIn(navigation.dishesItems) {
+            _ = navigation.dishesItems.popLast()
             return
         }
-        navigation.items.append(.dishCategoriesList)
+        navigation.dishesItems.append(.dishCategoriesList)
     }
 }

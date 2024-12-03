@@ -13,9 +13,9 @@ import SwiftUI
 protocol DishEditRouterProtocol: RouterProtocol {
 
     func returnBack()
-    func hideLast()
     func entityshowIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
     func showCategoriesPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
+    func hidePicklist()
 }
 
 // Presenter

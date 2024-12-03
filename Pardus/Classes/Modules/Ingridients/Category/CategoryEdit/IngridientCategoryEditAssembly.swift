@@ -11,10 +11,10 @@ final class IngridientCategoryEditAssembly: Assembly {
     
     func build(categoryId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .ingridients)
+        let navigation = container.resolve(NavigationAssembly.self).build()
 
         // Router
-        let router = CategoryEditRouter(navigation: navigation)
+        let router = IngridientCategoryEditRouter(navigation: navigation)
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()

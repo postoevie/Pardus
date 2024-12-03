@@ -13,7 +13,7 @@ final class IngridientEditAssembly: Assembly {
     
     func build(ingridientId: UUID?) -> some View {
         
-        let navigation = container.resolve(NavigationAssembly.self).build(stem: .ingridients)
+        let navigation = container.resolve(NavigationAssembly.self).build()
 
         // Router
         let router = IngridientEditRouter(navigation: navigation)

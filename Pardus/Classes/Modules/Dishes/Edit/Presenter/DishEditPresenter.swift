@@ -43,7 +43,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                     guard let self else {
                         return
                     }
-                    self.router.hideLast()
+                    self.router.hidePicklist()
                     Task {
                         try await self.interactor.setCategory(uid: selected.first )
                         try await self.interactor.performWithDish { dish in
@@ -64,7 +64,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             let predicate = self.interactor.ingridientsFilter
             await MainActor.run {
                 router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
-                    self.router.hideLast()
+                    self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
                         try await self.interactor.performWithDish { dish in
@@ -85,7 +85,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             let predicate = self.interactor.ingridientsFilter
             await MainActor.run {
                 router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
-                    self.router.hideLast()
+                    self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
                         try await self.interactor.performWithDish { dish in

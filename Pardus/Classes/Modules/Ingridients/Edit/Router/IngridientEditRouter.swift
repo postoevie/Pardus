@@ -17,17 +17,16 @@ final class IngridientEditRouter: IngridientEditRouterProtocol {
     }
     
     func returnBack() {
-        _ = navigation.items.popLast()
+        _ = navigation.ingridientsItems.popLast()
     }
     
-    func hideLast() {
-        _ = navigation.items.popLast()
+    func hidePicklist() {
+        _ = navigation.modalView = nil
     }
     
     func showPicklist(ingridientId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
-        navigation.items.append(.ingridientCategoryPicklist(callingView: .ingridientEdit(ingridientId: ingridientId),
-                                                            type: .singular,
-                                                            filter: filter,
-                                                            completion: completion))
+        navigation.modalView = .ingridientCategoryPicklist(type: .singular,
+                                                           filter: filter,
+                                                           completion: completion)
     }
 }

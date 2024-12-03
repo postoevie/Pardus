@@ -15,6 +15,7 @@ protocol MealEditRouterProtocol: RouterProtocol {
     func returnBack()
     func showEditDish(dishId: UUID)
     func showDishesPick(mealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
+    func hidePicklist()
 }
 
 // Presenter

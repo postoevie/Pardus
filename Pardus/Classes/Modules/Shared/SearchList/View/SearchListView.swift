@@ -17,13 +17,13 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
         VStack {
             TextField("searchview.search.placeholder",
                       text: $viewState.searchText)
+                .accessibilityIdentifier("searchlist.searchview")
                 .defaultTextField()
-            Spacer()
-                .frame(height: 20)
             List(viewState.items) { item in
                 SubtitleCell(title: item.title,
                              subtitle: item.subtitle,
-                             badgeColor: item.categoryColor)
+                             badgeColor: item.categoryColor,
+                             accessibilityId: "searchlist.cell.\(item.id)")
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
@@ -40,8 +40,10 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
                     .tint(.orange)
                 }
             }
+            .accessibilityIdentifier("searchlist.list")
             .listStyle(.plain)
         }
+        //.accessibilityIdentifier("searchlist")
         .toolbar {
             ToolbarItemGroup {
                 Button {

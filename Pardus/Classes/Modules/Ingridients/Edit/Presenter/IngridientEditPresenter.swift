@@ -34,7 +34,7 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
                     guard let self else {
                         return
                     }
-                    self.router.hideLast()
+                    self.router.hidePicklist()
                     Task {
                         try await self.interactor.updateIngridientWith(categoryId: selected.first )
                         try await self.interactor.loadIngridient()
