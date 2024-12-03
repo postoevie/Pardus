@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		521673C22CFF25F600974FE6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 521673C12CFF25F600974FE6 /* README.md */; };
 		5220DBB22BEF864C00F095EE /* RootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB12BEF864C00F095EE /* RootApp.swift */; };
 		5220DBB42BEF864C00F095EE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB32BEF864C00F095EE /* RootView.swift */; };
 		5220DBB62BEF864C00F095EE /* ApplicationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB52BEF864C00F095EE /* ApplicationViewBuilder.swift */; };
@@ -220,6 +221,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		521673C12CFF25F600974FE6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		521673C32CFF260800974FE6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		5220DBAE2BEF864C00F095EE /* Pardus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pardus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5220DBB12BEF864C00F095EE /* RootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootApp.swift; sourceTree = "<group>"; };
 		5220DBB32BEF864C00F095EE /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 		5220DBA52BEF864C00F095EE = {
 			isa = PBXGroup;
 			children = (
+				521673C32CFF260800974FE6 /* LICENSE.md */,
+				521673C12CFF25F600974FE6 /* README.md */,
 				5220DBB02BEF864C00F095EE /* Pardus */,
 				5220DBFE2BEF864D00F095EE /* PardusTests */,
 				52D5FC542CFB2257000179BA /* PardusUITests */,
@@ -1789,6 +1794,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				521673C22CFF25F600974FE6 /* README.md in Resources */,
 				527E67F42C569A52001A0008 /* IsolatedObjects.md in Resources */,
 				52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */,
 				5259172E2BF8C620005394DC /* LaunchScreen.storyboard in Resources */,
