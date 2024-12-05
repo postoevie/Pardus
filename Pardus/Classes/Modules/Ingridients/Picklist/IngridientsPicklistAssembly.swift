@@ -23,7 +23,8 @@ final class IngridientsPicklistAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = PicklistInteractor<Ingridient>(coreDataService: coreDataService,
                                                         type: type,
-                                                        filterPredicate: filter)
+                                                        filterPredicate: filter,
+                                                        sortParams: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
         
         // Presenter
         let presenter = PicklistPresenter(router: router, interactor: interactor, completion: completion)

@@ -20,10 +20,16 @@ final class DishCategoriesListAssembly: Assembly {
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
+        
+        let mainSorting = SortParams(fieldName: (\DishCategory.name).fieldName, ascending: true)
+        let detailSorting = SortParams(fieldName: (\Dish.name).fieldName, ascending: true)
+        
         let interactor = CategoriesListInteractor<DishCategory,
                                                   Dish,
-                                                  CategoriesListInteractorCustomizer>(coreDataService: coreDataService, customizer: CategoriesListInteractorCustomizer())
-        
+                                                  CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
+                                                                                      customizer: CategoriesListInteractorCustomizer(),
+                                                                                      mainEntitySortParams: mainSorting,
+                                                                                      detailEntitySortParams: detailSorting)
         //ViewState
         let viewState = CategoriesListViewState()
         

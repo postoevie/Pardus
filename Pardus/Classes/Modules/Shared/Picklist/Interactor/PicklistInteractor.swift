@@ -15,11 +15,13 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
     private let coreDataService: CoreDataServiceType
     private let type: PicklistType
     private let filterPredicate: Predicate?
+    private let sortParams: SortParams?
     
-    init(coreDataService: CoreDataService, type: PicklistType, filterPredicate: Predicate?) {
+    init(coreDataService: CoreDataService, type: PicklistType, filterPredicate: Predicate?, sortParams: SortParams?) {
         self.coreDataService = coreDataService
         self.type = type
         self.filterPredicate = filterPredicate
+        self.sortParams = sortParams
     }
     
     //MARK: -PicklistInteractorProtocol
@@ -60,7 +62,9 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
     
     func loadItems() async throws {
         try await coreDataService.perform {
-            self.entities = try $0.fetchMany(type: Entity.self, predicate: try NSPredicate.map(predicate: self.filterPredicate))
+            self.entities = try $0.fetchMany(type: Entity.self,
+                                             predicate: try NSPredicate.map(predicate: self.filterPredicate),
+                                             sortBy: self.sortParams)
         }
     }
 }

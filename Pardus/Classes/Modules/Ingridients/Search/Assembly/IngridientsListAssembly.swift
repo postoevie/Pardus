@@ -21,7 +21,8 @@ final class IngridientsListAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         
         // Interactor
-        let interactor = SearchListInteractor<Ingridient>(coreDataService: coreDataService)
+        let interactor = SearchListInteractor<Ingridient>(coreDataService: coreDataService,
+                                                          sortParams: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
         
         //ViewState
         let viewState = SearchListViewState()

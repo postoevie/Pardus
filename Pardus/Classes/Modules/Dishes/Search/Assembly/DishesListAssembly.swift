@@ -21,7 +21,8 @@ final class DishesListAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         
         // Interactor
-        let interactor = SearchListInteractor<Dish>(coreDataService: coreDataService)
+        let interactor = SearchListInteractor<Dish>(coreDataService: coreDataService,
+                                                    sortParams: SortParams(fieldName: (\Dish.name).fieldName, ascending: true))
         
         //ViewState
         let viewState = SearchListViewState()

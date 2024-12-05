@@ -7,6 +7,12 @@
 
 import CoreData
 
+struct SortParams {
+    
+    let fieldName: String
+    let ascending: Bool
+}
+
 struct CoreDataExecutor: CoreDataExecutorType {
 
     let context: NSManagedObjectContext
@@ -23,16 +29,16 @@ struct CoreDataExecutor: CoreDataExecutorType {
     }
     
     func fetchMany<Object>(type: Object.Type, predicate: NSPredicate?) throws -> [Object] where Object : NSManagedObject {
-        try fetchMany(type: type, predicate: predicate, sortData: nil)
+        try fetchMany(type: type, predicate: predicate, sortBy: nil)
     }
     
     func fetchMany<Object>(type: Object.Type,
                            predicate: NSPredicate?,
-                           sortData: (field: String, ascending: Bool)?) throws -> [Object] where Object : NSManagedObject {
+                           sortBy sortData: SortParams?) throws -> [Object] where Object : NSManagedObject {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.predicate = predicate
         if let sortData {
-            request.sortDescriptors = [NSSortDescriptor(key: sortData.field,
+            request.sortDescriptors = [NSSortDescriptor(key: sortData.fieldName,
                                                         ascending: sortData.ascending,
                                                         selector: nil)]
         }

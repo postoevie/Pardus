@@ -14,7 +14,7 @@ protocol CoreDataExecutorType {
     func fetchMany<Object>(type: Object.Type, predicate: NSPredicate?) throws -> [Object] where Object : NSManagedObject
     func fetchMany<Object>(type: Object.Type,
                            predicate: NSPredicate?,
-                           sortData: (field: String, ascending: Bool)?) throws -> [Object] where Object : NSManagedObject
+                           sortBy: SortParams?) throws -> [Object] where Object : NSManagedObject
     func fetchOne<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Object? where Object : NSManagedObject
     func fetch(objectID: NSManagedObjectID) throws -> NSManagedObject
     func count<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Int where Object : NSManagedObject

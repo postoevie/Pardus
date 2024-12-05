@@ -45,8 +45,8 @@ final class MealsListInteractor: MealsListInteractorProtocol {
     func loadMeals() async throws {
         try await dataService.perform {
             self.meals = try $0.fetchMany(type: Meal.self,
-                                           predicate: nil,
-                                           sortData: ((\Meal.date).propName, false))
+                                          predicate: nil,
+                                          sortBy: SortParams(fieldName: (\Meal.date).fieldName, ascending: false))
         }
     }
     

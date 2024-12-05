@@ -16,11 +16,17 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
     private var detailEntities: [DetailEntity] = []
     private let coreDataService: CoreDataServiceType
     private let customizer: Customizer
+    private let mainEntitySortParams: SortParams
+    private let detailEntitySortParams: SortParams
     
     init(coreDataService: CoreDataServiceType,
-         customizer: Customizer){
+         customizer: Customizer,
+         mainEntitySortParams: SortParams,
+         detailEntitySortParams: SortParams) {
         self.coreDataService = coreDataService
         self.customizer = customizer
+        self.mainEntitySortParams = mainEntitySortParams
+        self.detailEntitySortParams = detailEntitySortParams
     }
     
     func performWithDishData(_ action: @escaping ([CategoriesListDataItem<MainEntity, DetailEntity>]) -> Void) async {
@@ -40,8 +46,8 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
     
     func loadDishes() async throws {
         try await coreDataService.perform {
-            self.mainEntities = try $0.fetchMany(type: MainEntity.self, predicate: nil)
-            self.detailEntities = try $0.fetchMany(type: DetailEntity.self, predicate: nil)
+            self.mainEntities = try $0.fetchMany(type: MainEntity.self, predicate: nil, sortBy: self.mainEntitySortParams)
+            self.detailEntities = try $0.fetchMany(type: DetailEntity.self, predicate: nil, sortBy: self.detailEntitySortParams)
         }
     }
     

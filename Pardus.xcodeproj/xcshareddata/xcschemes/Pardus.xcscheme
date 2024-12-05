@@ -87,12 +87,12 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "UITEST_VIEW_PATH"
-            value = "/Users/igorpostoev/Projects/other/pardus_data_snaphot.data"
+            value = ""
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "UITEST_DATA_PATH"
-            value = "/Users/igorpostoev/Projects/other/pardus_view_snaphot.data"
+            value = ""
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

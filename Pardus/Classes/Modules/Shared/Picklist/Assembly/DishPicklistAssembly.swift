@@ -25,7 +25,8 @@ final class DishPicklistAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = PicklistInteractor<Dish>(coreDataService: coreDataService,
                                                   type: type,
-                                                  filterPredicate: filter)
+                                                  filterPredicate: filter,
+                                                  sortParams: SortParams(fieldName: (\Dish.name).fieldName, ascending: true))
         
         // Presenter
         let presenter = PicklistPresenter(router: router, interactor: interactor, completion: completion)

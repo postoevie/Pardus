@@ -19,10 +19,16 @@ final class IngridientCategoriesListAssembly: Assembly {
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
+        
+        let mainSorting = SortParams(fieldName: (\IngridientCategory.name).fieldName, ascending: true)
+        let detailSorting = SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true)
+        
         let interactor = CategoriesListInteractor<IngridientCategory,
                                                   Ingridient,
                                                   CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
-                                                                                      customizer: CategoriesListInteractorCustomizer())
+                                                                                      customizer: CategoriesListInteractorCustomizer(),
+                                                                                      mainEntitySortParams: mainSorting,
+                                                                                      detailEntitySortParams: detailSorting)
         
         //ViewState
         let viewState = CategoriesListViewState()

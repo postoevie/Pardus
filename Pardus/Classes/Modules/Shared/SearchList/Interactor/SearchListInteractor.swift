@@ -30,13 +30,17 @@ final class SearchListInteractor<Entity: SearchListEntityType>: SearchListIntera
     
     let coreDataService: CoreDataServiceType
     
-    init(coreDataService: CoreDataServiceType) {
+    let sortParams: SortParams
+    
+    init(coreDataService: CoreDataServiceType,
+         sortParams: SortParams) {
         self.coreDataService = coreDataService
+        self.sortParams = sortParams
     }
     
     func loadEntities() async throws {
         try await coreDataService.perform {
-            self.entities = try $0.fetchMany(type: Entity.self, predicate: nil)
+            self.entities = try $0.fetchMany(type: Entity.self, predicate: nil, sortBy: self.sortParams)
         }
     }
     

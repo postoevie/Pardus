@@ -48,7 +48,9 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
             return
         }
         try await coreDataService.perform {
-            let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: Array(ingridientIds)))
+            let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self,
+                                                    predicate: NSPredicate.idIn(uids: Array(ingridientIds)),
+                                                    sortBy: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
             for ingridient in ingridientsToAdd {
                 let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
                 mealIngridient.dish = mealDish

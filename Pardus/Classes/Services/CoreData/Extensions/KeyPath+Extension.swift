@@ -9,7 +9,7 @@ import CoreData
 
 extension KeyPath where Root: NSManagedObject {
     
-    var propName: String {
+    var fieldName: String {
         let propName = NSExpression(forKeyPath: self).keyPath
         guard let prop = Root.entity().propertiesByName[propName] else {
             return propName
