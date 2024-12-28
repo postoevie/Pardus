@@ -11,23 +11,28 @@ import CoreData
 class MealIngridient: IdentifiedManagedObject {
     
     @NSManaged var dish: MealDish
-    @NSManaged var ingridient: Ingridient
+    @NSManaged var name: String
     @NSManaged var weight: Double
+    @NSManaged var caloriesPer100: Double
+    @NSManaged var proteinsPer100: Double
+    @NSManaged var fatsPer100: Double
+    @NSManaged var carbsPer100: Double
+    @NSManaged var ingridient: Ingridient?
     
     var calories: Double {
-        ingridient.calories * weight / 100
+        caloriesPer100 * weight / 100
     }
     
     var proteins: Double {
-        ingridient.proteins * weight / 100
+        proteinsPer100 * weight / 100
     }
     
     var fats: Double {
-        ingridient.fats * weight / 100
+        fatsPer100 * weight / 100
     }
     
     var carbs: Double {
-        ingridient.carbs * weight / 100
+        carbsPer100 * weight / 100
     }
 }
 

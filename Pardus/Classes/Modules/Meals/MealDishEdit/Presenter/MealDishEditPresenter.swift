@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 final class MealDishEditPresenter: MealDishEditPresenterProtocol {
-  
+    
     private let router: MealDishEditRouterProtocol
     private let interactor: MealDishEditInteractorProtocol
     private weak var viewState: (any MealDishEditViewStateProtocol)?
@@ -34,6 +34,18 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         }
     }
     
+    func submitValues() {
+        guard let viewState else {
+            return
+        }
+        Task {
+            try await interactor.performWithMealDish { mealDish in
+                mealDish?.name = viewState.name
+            }
+            try await interactor.save()
+        }
+    }
+    
     func updateIngridientWeight(ingridientId: UUID, weightString: String) {
         Task {
             let weight: NSNumber = NumberFormatter.nutrients.number(from: weightString) ?? .init(value: 0)
@@ -45,7 +57,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         }
     }
     
-    func editIngridientsTapped() {
+    func addCatalogIngridientsTapped() {
         guard let mealDishId = self.interactor.mealDishId else {
             return
         }
@@ -56,6 +68,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
                     self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(selectedIngridientsIds)
+                        try await self.interactor.save()
                         try await self.interactor.performWithMealDish { mealDish in
                             self.updateViewState(mealDish: mealDish)
                         }
@@ -64,14 +77,29 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             }
         }
     }
-
-    func remove(ingridientId: UUID) {
+    
+    func createIngridientTapped() {
+        Task {
+            let ingridientId = try await interactor.createMealIngridient()
+            try await interactor.save()
+            await MainActor.run {
+                router.showMealIngridient(ingridientId: ingridientId)
+            }
+        }
+    }
+    
+    func removeIngridientTapped(ingridientId: UUID) {
         Task {
             try await interactor.remove(ingridientId: ingridientId)
+            try await interactor.save()
             try await interactor.performWithMealDish { mealDish in
                 self.updateViewState(mealDish: mealDish)
             }
         }
+    }
+    
+    func editIngridientTapped(ingridientId: UUID) {
+        router.showMealIngridient(ingridientId: ingridientId)
     }
 
     func doneTapped() {
@@ -94,7 +122,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             return
         }
         
-        let title = String(mealDish.dish.name)
+        let name = String(mealDish.name)
         let sumKcals = String(mealDish.calories)
         let weight = String(mealDish.weight)
         let sumProteins = String(mealDish.proteins)
@@ -104,7 +132,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         
         DispatchQueue.main.async {
             viewState.error = nil
-            viewState.navigationTitle = title
+            viewState.name = name
             viewState.ingridients = ingridients
             viewState.weight = String(weight)
             viewState.sumKcals = String(sumKcals)
@@ -121,12 +149,12 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         let fatsString = formatter.string(for: ingridient.fats) ?? "0"
         let carbsString = formatter.string(for: ingridient.carbs) ?? "0"
         var categoryColor: Color = .clear
-        if let colorHex = ingridient.ingridient.category?.colorHex,
+        if let colorHex = ingridient.ingridient?.category?.colorHex,
            let color = try? UIColor.init(hex: colorHex) {
             categoryColor = Color(color)
         }
         let item = MealDishesIngridientsListItem(id: ingridient.id,
-                                                 title: ingridient.ingridient.name,
+                                                 title: ingridient.name,
                                                  subtitle: "\(calString) kcal \(proteinsString)/\(fatsString)/\(carbsString)",
                                                  weight: NumberFormatter.nutrients.string(for: ingridient.weight) ?? "0",
                                                  categoryColor: categoryColor)

@@ -13,7 +13,7 @@ import SwiftUI
 protocol DishEditRouterProtocol: RouterProtocol {
 
     func returnBack()
-    func entityshowIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
+    func showIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
     func showCategoriesPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
     func hidePicklist()
 }

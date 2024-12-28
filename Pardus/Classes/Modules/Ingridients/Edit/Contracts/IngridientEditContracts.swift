@@ -18,9 +18,10 @@ protocol IngridientEditRouterProtocol: RouterProtocol {
 }
 
 // Presenter
-protocol IngridientEditPresenterProtocol: PresenterProtocol {
+protocol IngridientEditPresenterProtocol: ObservableObject, PresenterProtocol {
 
     func didAppear()
+    func tapEditCategory()
     func doneTapped()
 }
 
@@ -39,12 +40,12 @@ protocol IngridientEditInteractorProtocol: InteractorProtocol {
 }
 
 // ViewState
-protocol IngridientEditViewStateProtocol: ViewStateProtocol {
+protocol IngridientEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     var name: String { get set }
-    var calories: Double { get set }
-    var proteins: Double { get set }
-    var fats: Double { get set }
-    var carbohydrates: Double { get set }
+    var calories: String { get set }
+    var proteins: String { get set }
+    var fats: String { get set }
+    var carbohydrates: String { get set }
     var category: IngridientCategoryViewModel? { get set }
     var error: String? { get set }
 }

@@ -25,7 +25,7 @@ public class NavigationService: NavigationServiceType, ObservableObject, Identif
     
     @Published var sheetView: Views?
     @Published var modalView: Views?
-    @Published var alert: CustomAlert?
+    @Published var alert: Alerts?
 }
 
 enum Tabs: Hashable, Codable {
@@ -53,6 +53,8 @@ enum Views: Codable, Equatable, Hashable {
                 .mealEdit(mealId: mealId)
         case .mealDishEdit(let mealDishId):
                 .mealDishEdit(mealDishId: mealDishId)
+        case .mealIngridientEdit(ingridientId: let ingridientId):
+                .mealIngridientEdit(ingridientId: ingridientId)
         case .dishList:
                 .dishList
         case .dishCategoriesList:
@@ -81,13 +83,15 @@ enum Views: Codable, Equatable, Hashable {
     }
     
     private func makeCode() -> Codes {
-        return switch self {
+        switch self {
         case .mealsList:
             Codes.mealsList
         case .mealEdit(let mealId):
             Codes.mealEdit(mealId: mealId)
         case .mealDishEdit(let mealDishId):
             Codes.mealDishEdit(mealDishId: mealDishId)
+        case .mealIngridientEdit(ingridientId: let ingridientId):
+            Codes.mealIngridientEdit(ingridientId: ingridientId)
         case .dishList:
             Codes.dishList
         case .dishCategoriesList:
@@ -119,6 +123,7 @@ enum Views: Codable, Equatable, Hashable {
          case mealsList
          case mealEdit(mealId: UUID?)
          case mealDishEdit(mealDishId: UUID?)
+         case mealIngridientEdit(ingridientId: UUID?)
          case dishList
          case dishCategoriesList
          case dishEdit(dishId: UUID?)
@@ -144,6 +149,7 @@ enum Views: Codable, Equatable, Hashable {
     case mealsList
     case mealEdit(mealId: UUID?)
     case mealDishEdit(mealDishId: UUID?)
+    case mealIngridientEdit(ingridientId: UUID?)
     case dishList
     case dishCategoriesList
     case dishEdit(dishId: UUID?)
@@ -160,35 +166,37 @@ enum Views: Codable, Equatable, Hashable {
     var stringKey: String {
         switch self {
         case .mealsList:
-            return "mealsList"
+            "mealsList"
         case .mealEdit:
-            return "mealEdit"
+            "mealEdit"
         case .mealDishEdit:
-            return "mealDishEdit"
+            "mealDishEdit"
+        case .mealIngridientEdit:
+            "mealIngridientEdit"
         case .dishList:
-            return "dishList"
+            "dishList"
         case .dishEdit:
-            return "dishEdit"
+            "dishEdit"
         case .dishPicklist:
-            return "dishPicklist"
+            "dishPicklist"
         case .dishCategoryEdit:
-            return "dishCategoryEdit"
+            "dishCategoryEdit"
         case .dishCategoriesList:
-            return "dishCategoriesList"
+            "dishCategoriesList"
         case .dishCategoryPicklist:
-            return "dishCategoryPicklist"
+            "dishCategoryPicklist"
         case .dishIngridientsPicklist:
-            return "dishIngridientsPicklist"
+            "dishIngridientsPicklist"
         case .ingridientsList:
-            return "ingridientsList"
+            "ingridientsList"
         case .ingridientCategoriesList:
-            return "ingridientCategoriesList"
+            "ingridientCategoriesList"
         case .ingridientEdit:
-            return "ingridientEdit"
+            "ingridientEdit"
         case .ingridientCategoryPicklist:
-            return "ingridientCategoryPicklist"
+            "ingridientCategoryPicklist"
         case .ingridientCategoryEdit:
-            return "ingridientCategoryEdit"
+            "ingridientCategoryEdit"
         }
     }
     
@@ -197,17 +205,20 @@ enum Views: Codable, Equatable, Hashable {
     }
 }
 
-enum CustomAlert: Equatable, Hashable {
-    static func == (lhs: CustomAlert, rhs: CustomAlert) -> Bool {
+enum Alerts: Equatable, Hashable {
+    static func == (lhs: Alerts, rhs: Alerts) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
     
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .defaultAlert:
-            hasher.combine("defaultAlert")
+        case .confirmAlert:
+            hasher.combine("confirmAlert")
+        case .errorAlert:
+            hasher.combine("errorAlert")
         }
     }
     
-    case defaultAlert(yesAction: (() -> Void)?, noAction: (() -> Void)?)
+    case confirmAlert(messageKey: String, confirmAction: (() -> Void)?, cancelAction: (() -> Void)?)
+    case errorAlert(messageKey: String)
 }

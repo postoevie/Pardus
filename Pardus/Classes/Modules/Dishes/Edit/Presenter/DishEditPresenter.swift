@@ -45,7 +45,8 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                     }
                     self.router.hidePicklist()
                     Task {
-                        try await self.interactor.setCategory(uid: selected.first )
+                        try await self.interactor.setCategory(uid: selected.first)
+                        try await self.interactor.save()
                         try await self.interactor.performWithDish { dish in
                             self.updateViewState(dish: dish)
                         }
@@ -63,7 +64,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             try await valueSubmitted()
             let predicate = self.interactor.ingridientsFilter
             await MainActor.run {
-                router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
+                router.showIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
                     self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
@@ -84,10 +85,11 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             try await valueSubmitted()
             let predicate = self.interactor.ingridientsFilter
             await MainActor.run {
-                router.entityshowIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
+                router.showIngridientsPicklist(dishId: dishId, filter: predicate) { selectedIds in
                     self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
+                        try await self.interactor.save()
                         try await self.interactor.performWithDish { dish in
                             self.updateViewState(dish: dish)
                         }
@@ -100,6 +102,7 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
     func remove(ingridientId: UUID) {
         Task {
             try await interactor.remove(ingridientId: ingridientId)
+            try await self.interactor.save()
             try await interactor.performWithDish { dish in
                 self.updateViewState(dish: dish)
             }

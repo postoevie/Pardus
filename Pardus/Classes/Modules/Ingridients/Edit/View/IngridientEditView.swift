@@ -8,22 +8,32 @@
 
 import SwiftUI
 
-struct IngridientEditView: View {
+struct IngridientEditView<ViewState: IngridientEditViewStateProtocol, Presenter: IngridientEditPresenterProtocol>: View {
            
-    @StateObject var viewState: IngridientEditViewState
-    @StateObject var presenter: IngridientEditPresenter
+    @StateObject var viewState: ViewState
+    @StateObject var presenter: Presenter
     
     var body: some View {
-        VStack {
+        ScrollView {
             VStack(spacing: 16) {
-                VStack(spacing: 8) {
-                    HStack {
-                        Text("ingridientedit.label.name")
-                            .font(.bodyLarge)
-                            .foregroundStyle(.secondaryText)
-                        Spacer()
-                    }
+                FieldSectionView(titleKey: "itemEdit.label.name") {
                     TextField("", text: $viewState.name)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.kcalsper100") {
+                    TextField("", text: $viewState.calories)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.proteinsper100") {
+                    TextField("", text: $viewState.proteins)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.fatsper100") {
+                    TextField("", text: $viewState.fats)
+                        .defaultTextField()
+                }
+                FieldSectionView(titleKey: "dishparameter.carbsper100") {
+                    TextField("", text: $viewState.carbohydrates)
                         .defaultTextField()
                 }
                 VStack(spacing: 8) {
@@ -52,25 +62,6 @@ struct IngridientEditView: View {
                         }
                     }
                 }
-                FieldSectionView(titleKey: "dishparameter.kcalsper100") {
-                    TextField("", value: $viewState.calories,
-                              formatter: .nutrients)
-                        .defaultTextField()
-                }
-                FieldSectionView(titleKey: "dishparameter.proteinsper100") {
-                    TextField("", value: $viewState.proteins,
-                              formatter: .nutrients)
-                        .defaultTextField()
-                }
-                FieldSectionView(titleKey: "dishparameter.fatsper100") {
-                    TextField("", value: $viewState.fats,
-                              formatter: .nutrients)
-                        .defaultTextField()
-                }
-                FieldSectionView(titleKey: "dishparameter.carbsper100") {
-                    TextField("", value: $viewState.carbohydrates, formatter: .nutrients)
-                        .defaultTextField()
-                }
                 Spacer()
             }
         }
@@ -80,39 +71,17 @@ struct IngridientEditView: View {
         .font(.bodyRegular)
         .navigationTitle("ingridientedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     presenter.doneTapped()
                 } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.icon2)
+                    Text("app.done")
+                        .font(.titleRegular)
                         .foregroundStyle(.primaryText)
                 }
             }
-        }
-    }
-}
-
-private struct FieldSectionView<Content: View>: View {
-    
-    var titleKey: LocalizedStringKey
-    @ViewBuilder var content: () -> Content
-    
-    init(titleKey: String, content: @escaping () -> Content) {
-        self.titleKey = LocalizedStringKey(titleKey)
-        self.content = content
-    }
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Text(titleKey)
-                    .font(.bodyLarge)
-                    .foregroundStyle(.secondaryText)
-                Spacer()
-            }
-            content()
         }
     }
 }

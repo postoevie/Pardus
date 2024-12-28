@@ -44,8 +44,10 @@ final class SearchListPresenter<Entity,
             do {
                 try await interactor.deleteEntity(entityId: entityId)
                 await reloadList()
-            } catch {
-                print(error) // TODO: Make error handling (P-3)
+            } catch SearchListError.delete(let key) {
+                await MainActor.run {
+                    router.showError(messageKey: key)
+                }
             }
         }
     }

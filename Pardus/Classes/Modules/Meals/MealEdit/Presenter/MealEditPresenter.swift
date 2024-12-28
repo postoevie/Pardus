@@ -34,17 +34,16 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    func tapEditDish(dishId: UUID) {
+    func createDishTapped() {
         Task {
-            try await valueSubmitted()
-            try await interactor.save()
+            let dishId = try await interactor.createMealDish()
             await MainActor.run {
                 router.showEditDish(dishId: dishId)
             }
         }
     }
     
-    func editDishesTapped() {
+    func addCatalogDishTapped() {
         guard let mealId = self.interactor.mealId else {
             return
         }
@@ -56,6 +55,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
                     self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedDishes(selectedDishIds)
+                        try await self.interactor.save()
                         try await self.interactor.performWithMeal { meal in
                             self.updateViewState(meal: meal)
                         }
@@ -65,9 +65,20 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
+    func editDish(dishId: UUID) {
+        Task {
+            try await valueSubmitted()
+            try await interactor.save()
+            await MainActor.run {
+                router.showEditDish(dishId: dishId)
+            }
+        }
+    }
+    
     func remove(dishId: UUID) {
         Task {
             try await interactor.remove(dishId: dishId)
+            try await interactor.save()
             try await interactor.performWithMeal { meal in
                 self.updateViewState(meal: meal)
             }
@@ -92,6 +103,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         try await interactor.performWithMeal { meal in
             meal?.date = viewState.date
         }
+        try await self.interactor.save()
     }
     
     private func updateViewState(meal: Meal?) {
@@ -133,13 +145,13 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         let fatsString = formatter.string(for: mealDish.fats) ?? "0"
         let carbsString = formatter.string(for: mealDish.carbs) ?? "0"
         var categoryColor: Color = .clear
-        if let colorHex = dish.category?.colorHex,
+        if let colorHex = dish?.category?.colorHex,
            let color = try? UIColor.init(hex: colorHex) {
             categoryColor = Color(color)
         }
         let item = MealDishesListItem(id: mealDish.id,
-                                      title: dish.name,
-                                      subtitle: "вес: \(weightString) kcal: \(calString) б: \(proteinsString) ж: \(fatsString) у: \(carbsString)",
+                                      title: mealDish.name,
+                                      subtitle: "w: \(weightString) kcal: \(calString) p: \(proteinsString) f: \(fatsString) c: \(carbsString)",
                                       weight: NumberFormatter.nutrients.string(for: mealDish.weight) ?? "0",
                                       categoryColor: categoryColor)
         return item

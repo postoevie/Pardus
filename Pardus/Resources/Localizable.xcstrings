@@ -4,16 +4,6 @@
     "" : {
 
     },
-    "app.alert.acceptAction" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accept"
-          }
-        }
-      }
-    },
     "app.cancel" : {
       "localizations" : {
         "en" : {
@@ -30,6 +20,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        }
+      }
+    },
+    "app.invalidState" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Action can't be implemented.  Sorry for inconvenience."
           }
         }
       }
@@ -275,6 +275,7 @@
       }
     },
     "ingridientedit.label.name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -305,6 +306,16 @@
         }
       }
     },
+    "itemEdit.label.name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
     "Key" : {
       "extractionState" : "manual"
     },
@@ -314,6 +325,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add from catalog"
+          }
+        }
+      }
+    },
+    "mealdishedit.ingridients.button.createNew" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create new"
           }
         }
       }
@@ -349,6 +371,7 @@
       }
     },
     "mealedit.disheslist.button.addfromcatalog" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -369,6 +392,7 @@
       }
     },
     "mealedit.navigation.title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

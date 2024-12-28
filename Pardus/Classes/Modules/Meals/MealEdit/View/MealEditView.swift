@@ -42,8 +42,12 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
                 Text("mealedit.disheslist.title")
                 Spacer()
                 Menu {
-                    //Button("Create new", action: presenter.tapNewDish)
-                    Button("mealedit.disheslist.button.addfromcatalog", action: presenter.editDishesTapped)
+                    Button("mealdishedit.ingridients.button.createNew") {
+                        presenter.createDishTapped()
+                    }
+                    Button("mealdishedit.ingridients.button.addfromcatalog") {
+                        presenter.addCatalogDishTapped()
+                    }
                 } label: {
                     Image(systemName: "plus.circle")
                         .font(.icon)
@@ -68,7 +72,7 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
                     }
                     .tint(.red)
                     Button {
-                        presenter.tapEditDish(dishId: item.id)
+                        presenter.editDish(dishId: item.id)
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
@@ -81,15 +85,15 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
         .onAppear {
             presenter.didAppear()
         }
-        .navigationTitle("mealedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     presenter.doneTapped()
                 } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.icon2)
+                    Text("app.done")
+                        .font(.titleRegular)
                         .foregroundStyle(.primaryText)
                 }
             }

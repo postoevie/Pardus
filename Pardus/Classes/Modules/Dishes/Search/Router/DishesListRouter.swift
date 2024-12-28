@@ -39,4 +39,8 @@ final class DishesListRouter: SearchListRouterProtocol {
         }
         navigation.dishesItems.append(.dishCategoriesList)
     }
+    
+    func showError(messageKey: String) {
+        navigation.alert = .errorAlert(messageKey: messageKey)
+    }
 }

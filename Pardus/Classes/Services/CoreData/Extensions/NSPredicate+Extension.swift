@@ -13,12 +13,16 @@ extension NSPredicate {
         NSPredicate(format: "id in %@", uids)
     }
     
-    static func valIn(fieldName: String, argument: CVarArg) -> NSPredicate {
+    static func `in`(fieldName: String, argument: CVarArg) -> NSPredicate {
         NSPredicate(format: "\(fieldName) in %@", argument)
     }
     
+    static func contains(fieldName: String, argument: CVarArg) -> NSPredicate {
+        NSPredicate(format: "\(fieldName) contains %@", argument)
+    }
+    
     static func equal(fieldName: String, argument: CVarArg) -> NSPredicate {
-        NSPredicate(format: "id == %@", argument)
+        NSPredicate(format: "\(fieldName) = %@", argument)
     }
 }
 

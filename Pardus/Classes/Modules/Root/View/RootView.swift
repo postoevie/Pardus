@@ -72,14 +72,7 @@ struct RootView: View {
             }
         }
         .alert(isPresented: .constant($navigationService.alert.wrappedValue != nil)) {
-            switch navigationService.alert {
-            case .defaultAlert(let yesAction, let noAction):
-                return Alert(title: Text("app.alert.acceptAction"),
-                             primaryButton: .default(Text("app.yes"), action: yesAction),
-                             secondaryButton: .destructive(Text("app.no"), action: noAction))
-            case .none:
-                fatalError()
-            }
+            appViewBuilder.build(alert: navigationService.alert)
         }
     }
 }

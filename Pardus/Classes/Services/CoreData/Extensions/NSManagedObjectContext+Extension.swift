@@ -22,9 +22,9 @@ extension NSManagedObjectContext {
             }
         } catch let error as NSError where error.userInfo["NSValidationErrorObject"] != nil {
             rollback()
-            throw error
+            throw CoreDataError.databaseError(error.localizedDescription)
         } catch {
-            throw error
+            throw CoreDataError.databaseError(error.localizedDescription)
         }
     }
 }

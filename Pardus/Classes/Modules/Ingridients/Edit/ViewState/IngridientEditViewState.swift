@@ -19,9 +19,9 @@ final class IngridientEditViewState: ObservableObject, IngridientEditViewStatePr
     
     @Published var name: String = ""
     @Published var category: IngridientCategoryViewModel?
-    @Published var calories: Double = 0
-    @Published var proteins: Double = 0
-    @Published var fats: Double = 0
-    @Published var carbohydrates: Double = 0
+    @Published var calories: String = ""
+    @Published var proteins: String = ""
+    @Published var fats: String = ""
+    @Published var carbohydrates: String = ""
     @Published var error: String?
 }

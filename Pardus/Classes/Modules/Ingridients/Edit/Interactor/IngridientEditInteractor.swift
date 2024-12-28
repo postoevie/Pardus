@@ -6,7 +6,6 @@
 //  
 //
 
-
 import Foundation
 import CoreData
 import SwiftUI
@@ -121,9 +120,4 @@ final class IngridientEditInteractor: IngridientEditInteractorProtocol {
             try $0.persistChanges()
         }
     }
-}
-
-// MARK: Private
-extension IngridientEditInteractor {
-    
 }

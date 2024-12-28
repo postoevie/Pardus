@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 
 // Router
@@ -15,6 +16,7 @@ protocol SearchListRouterProtocol: RouterProtocol {
     func showAddEntity()
     func showEditEntity(entityId: UUID)
     func showCategories()
+    func showError(messageKey: String)
 }
 
 // Presenter
@@ -52,4 +54,9 @@ protocol SearchListViewStateProtocol: ViewStateProtocol {
     
     func set(items: [SearchListItem])
     func setNavigationTitle(key: LocalizedStringKey)
+}
+
+protocol SearchListEntityType: IdentifiedManagedObject {
+    
+    var name: String { get set }
 }

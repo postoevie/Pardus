@@ -24,7 +24,7 @@ final class IngridientEditAssembly: Assembly {
         let interactor = IngridientEditInteractor(coreDataService: coreDataService, ingridientId: ingridientId)
 
         //ViewState
-        let viewState =  IngridientEditViewState()
+        let viewState = IngridientEditViewState()
 
         // Presenter
         let presenter = IngridientEditPresenter(router: router, interactor: interactor, viewState: viewState)

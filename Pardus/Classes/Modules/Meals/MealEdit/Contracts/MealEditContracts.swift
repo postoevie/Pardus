@@ -23,9 +23,10 @@ protocol MealEditPresenterProtocol: AnyObject, ObservableObject, PresenterProtoc
 
     func didAppear()
     func doneTapped()
-    func editDishesTapped()
+    func createDishTapped()
+    func addCatalogDishTapped()
     func remove(dishId: UUID)
-    func tapEditDish(dishId: UUID)
+    func editDish(dishId: UUID)
 }
 
 // Interactor
@@ -36,7 +37,7 @@ protocol MealEditInteractorProtocol: InteractorProtocol {
     
     func loadInitialMeal() async throws
     func performWithMeal(action: @escaping (Meal?) -> Void) async throws
-    func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws
+    func createMealDish() async throws -> UUID
     func setSelectedDishes(_ dishesIds: Set<UUID>) async throws
     func remove(dishId: UUID) async throws
     func save() async throws

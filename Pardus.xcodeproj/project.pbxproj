@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		521673C22CFF25F600974FE6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 521673C12CFF25F600974FE6 /* README.md */; };
+		521673DD2D02732400974FE6 /* SearchListErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521673DC2D02732400974FE6 /* SearchListErrors.swift */; };
 		5220DBB22BEF864C00F095EE /* RootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB12BEF864C00F095EE /* RootApp.swift */; };
 		5220DBB42BEF864C00F095EE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB32BEF864C00F095EE /* RootView.swift */; };
 		5220DBB62BEF864C00F095EE /* ApplicationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBB52BEF864C00F095EE /* ApplicationViewBuilder.swift */; };
@@ -27,6 +28,7 @@
 		5220DBEF2BEF864C00F095EE /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBEE2BEF864C00F095EE /* WeakContainer.swift */; };
 		5220DC002BEF864D00F095EE /* PardusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220DBFF2BEF864D00F095EE /* PardusTests.swift */; };
 		522795652CC04AAB00A7A36B /* MealDishesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522795642CC04AAB00A7A36B /* MealDishesListItem.swift */; };
+		522BA7812D203E3300D6FCC4 /* FieldSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522BA7802D203E3300D6FCC4 /* FieldSectionView.swift */; };
 		522D9D772CE5520F0029A921 /* CategoriesListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D762CE5520F0029A921 /* CategoriesListDataItem.swift */; };
 		522D9D7C2CE637AE0029A921 /* IngridientCategoriesListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D7B2CE637AE0029A921 /* IngridientCategoriesListAssembly.swift */; };
 		522D9D7E2CE649A00029A921 /* IngridientCategoriesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D9D7D2CE649A00029A921 /* IngridientCategoriesListRouter.swift */; };
@@ -109,7 +111,18 @@
 		528BC5922CFE14F9008A5861 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528BC5872CFE0C3F008A5861 /* Const.swift */; };
 		528BC5942CFE5B8A008A5861 /* RecordsStateSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528BC57C2CFE0082008A5861 /* RecordsStateSnapshot.swift */; };
 		528BC5952CFE6333008A5861 /* EnvironmentUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526935F42CEA6BC1009838D8 /* EnvironmentUtils.swift */; };
-		5294B9ED2CD3F4DD0021458A /* IngridientEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294B9DC2CD3F4DD0021458A /* IngridientEditAssembly.swift */; };
+		528DCD5C2D1CAE300013220E /* MealIngridientEditViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD4C2D1CAE300013220E /* MealIngridientEditViewState.swift */; };
+		528DCD5D2D1CAE300013220E /* MealIngridientEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD4E2D1CAE300013220E /* MealIngridientEditInteractor.swift */; };
+		528DCD5E2D1CAE300013220E /* MealIngridientEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD502D1CAE300013220E /* MealIngridientEditPresenter.swift */; };
+		528DCD5F2D1CAE300013220E /* MealIngridientEditContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD522D1CAE300013220E /* MealIngridientEditContracts.swift */; };
+		528DCD602D1CAE300013220E /* MealIngridientEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD542D1CAE300013220E /* MealIngridientEditRouter.swift */; };
+		528DCD612D1CAE300013220E /* IngridientEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD562D1CAE300013220E /* IngridientEditAssembly.swift */; };
+		528DCD622D1CAE300013220E /* MealIngridientEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD582D1CAE300013220E /* MealIngridientEditView.swift */; };
+		528DCD632D1CAE300013220E /* MealIngridientEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD5A2D1CAE300013220E /* MealIngridientEditData.swift */; };
+		528DCD6A2D1DF5860013220E /* MealDishError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD692D1DF5860013220E /* MealDishError.swift */; };
+		528DCD6D2D1E04D10013220E /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD6C2D1E04D10013220E /* CoreDataError.swift */; };
+		528DCD712D1E0F620013220E /* BackNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DCD702D1E0F620013220E /* BackNavigationButton.swift */; };
+		5294B9ED2CD3F4DD0021458A /* MealIngridientEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294B9DC2CD3F4DD0021458A /* MealIngridientEditAssembly.swift */; };
 		5294B9EE2CD3F4DD0021458A /* IngridientEditContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294B9DE2CD3F4DD0021458A /* IngridientEditContracts.swift */; };
 		5294B9EF2CD3F4DD0021458A /* IngridientEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294B9E02CD3F4DD0021458A /* IngridientEditData.swift */; };
 		5294B9F02CD3F4DD0021458A /* IngridientEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294B9E22CD3F4DD0021458A /* IngridientEditInteractor.swift */; };
@@ -223,6 +236,7 @@
 /* Begin PBXFileReference section */
 		521673C12CFF25F600974FE6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		521673C32CFF260800974FE6 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		521673DC2D02732400974FE6 /* SearchListErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListErrors.swift; sourceTree = "<group>"; };
 		5220DBAE2BEF864C00F095EE /* Pardus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pardus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5220DBB12BEF864C00F095EE /* RootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootApp.swift; sourceTree = "<group>"; };
 		5220DBB32BEF864C00F095EE /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -244,6 +258,7 @@
 		5220DBFB2BEF864D00F095EE /* PardusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PardusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5220DBFF2BEF864D00F095EE /* PardusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PardusTests.swift; sourceTree = "<group>"; };
 		522795642CC04AAB00A7A36B /* MealDishesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDishesListItem.swift; sourceTree = "<group>"; };
+		522BA7802D203E3300D6FCC4 /* FieldSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldSectionView.swift; sourceTree = "<group>"; };
 		522D9D762CE5520F0029A921 /* CategoriesListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListDataItem.swift; sourceTree = "<group>"; };
 		522D9D7B2CE637AE0029A921 /* IngridientCategoriesListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientCategoriesListAssembly.swift; sourceTree = "<group>"; };
 		522D9D7D2CE649A00029A921 /* IngridientCategoriesListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientCategoriesListRouter.swift; sourceTree = "<group>"; };
@@ -319,7 +334,18 @@
 		528BC5872CFE0C3F008A5861 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		528BC58E2CFE14A2008A5861 /* PicklistType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicklistType.swift; sourceTree = "<group>"; };
 		528BC5932CFE520B008A5861 /* Pardus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pardus.entitlements; sourceTree = "<group>"; };
-		5294B9DC2CD3F4DD0021458A /* IngridientEditAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngridientEditAssembly.swift; sourceTree = "<group>"; };
+		528DCD4C2D1CAE300013220E /* MealIngridientEditViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditViewState.swift; sourceTree = "<group>"; };
+		528DCD4E2D1CAE300013220E /* MealIngridientEditInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditInteractor.swift; sourceTree = "<group>"; };
+		528DCD502D1CAE300013220E /* MealIngridientEditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditPresenter.swift; sourceTree = "<group>"; };
+		528DCD522D1CAE300013220E /* MealIngridientEditContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditContracts.swift; sourceTree = "<group>"; };
+		528DCD542D1CAE300013220E /* MealIngridientEditRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditRouter.swift; sourceTree = "<group>"; };
+		528DCD562D1CAE300013220E /* IngridientEditAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngridientEditAssembly.swift; sourceTree = "<group>"; };
+		528DCD582D1CAE300013220E /* MealIngridientEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditView.swift; sourceTree = "<group>"; };
+		528DCD5A2D1CAE300013220E /* MealIngridientEditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditData.swift; sourceTree = "<group>"; };
+		528DCD692D1DF5860013220E /* MealDishError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDishError.swift; sourceTree = "<group>"; };
+		528DCD6C2D1E04D10013220E /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		528DCD702D1E0F620013220E /* BackNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigationButton.swift; sourceTree = "<group>"; };
+		5294B9DC2CD3F4DD0021458A /* MealIngridientEditAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealIngridientEditAssembly.swift; sourceTree = "<group>"; };
 		5294B9DE2CD3F4DD0021458A /* IngridientEditContracts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngridientEditContracts.swift; sourceTree = "<group>"; };
 		5294B9E02CD3F4DD0021458A /* IngridientEditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngridientEditData.swift; sourceTree = "<group>"; };
 		5294B9E22CD3F4DD0021458A /* IngridientEditInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngridientEditInteractor.swift; sourceTree = "<group>"; };
@@ -429,6 +455,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		521673DB2D02731300974FE6 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				521673DC2D02732400974FE6 /* SearchListErrors.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		5220DBA52BEF864C00F095EE = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +665,7 @@
 		522D9D932CE6AC2C0029A921 /* SearchList */ = {
 			isa = PBXGroup;
 			children = (
+				521673DB2D02731300974FE6 /* Errors */,
 				522D9D8A2CE6A08E0029A921 /* Entity */,
 				52A861962C0CA0EA001AA01D /* Contracts */,
 				52A861982C0CA0EA001AA01D /* Presenter */,
@@ -652,7 +687,9 @@
 		525917122BF8B099005394DC /* Meals */ = {
 			isa = PBXGroup;
 			children = (
-				52969AA32CD789070060A1C4 /* MealDishes */,
+				528DCD6F2D1E0F330013220E /* Shared */,
+				528DCD442D1CAB0D0013220E /* MealIngridientEdit */,
+				52969AA32CD789070060A1C4 /* MealDishEdit */,
 				525917342BF8E63A005394DC /* MealEdit */,
 				525917302BF8E5E3005394DC /* MealsList */,
 			);
@@ -732,7 +769,6 @@
 		525917342BF8E63A005394DC /* MealEdit */ = {
 			isa = PBXGroup;
 			children = (
-				52D36EC72C6C0578001C0FCB /* Entity */,
 				525917352BF8E63A005394DC /* Assembly */,
 				525917372BF8E63A005394DC /* Contracts */,
 				525917392BF8E63A005394DC /* Presenter */,
@@ -881,17 +917,10 @@
 			path = Picklist;
 			sourceTree = "<group>";
 		};
-		526935F62CEABFC1009838D8 /* MealEdit */ = {
-			isa = PBXGroup;
-			children = (
-				526935F72CEABFCA009838D8 /* MealParameterCell.swift */,
-			);
-			path = MealEdit;
-			sourceTree = "<group>";
-		};
 		526A83072C52AA75003480C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				522BA7802D203E3300D6FCC4 /* FieldSectionView.swift */,
 				526A83082C52AA82003480C4 /* SubtitleCell.swift */,
 				526A830A2C52ABAA003480C4 /* OnlyTitleCell.swift */,
 				52BB17702C690D3300DC5D59 /* View+Modifiers.swift */,
@@ -902,7 +931,7 @@
 		527E67E12C5653FF001A0008 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				526935F62CEABFC1009838D8 /* MealEdit */,
+				528DCD6E2D1E0F0C0013220E /* Navigation */,
 				522D9D932CE6AC2C0029A921 /* SearchList */,
 				522D9D7F2CE689CF0029A921 /* CategoryEdit */,
 				52C365902C50372500C3AD99 /* CategoriesList */,
@@ -1127,10 +1156,121 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		528DCD442D1CAB0D0013220E /* MealIngridientEdit */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD572D1CAE300013220E /* Assembly */,
+				528DCD532D1CAE300013220E /* Contracts */,
+				528DCD5B2D1CAE300013220E /* Entity */,
+				528DCD4F2D1CAE300013220E /* Interactor */,
+				528DCD512D1CAE300013220E /* Presenter */,
+				528DCD552D1CAE300013220E /* Router */,
+				528DCD592D1CAE300013220E /* View */,
+				528DCD4D2D1CAE300013220E /* ViewState */,
+			);
+			path = MealIngridientEdit;
+			sourceTree = "<group>";
+		};
+		528DCD4D2D1CAE300013220E /* ViewState */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD4C2D1CAE300013220E /* MealIngridientEditViewState.swift */,
+			);
+			path = ViewState;
+			sourceTree = "<group>";
+		};
+		528DCD4F2D1CAE300013220E /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD4E2D1CAE300013220E /* MealIngridientEditInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		528DCD512D1CAE300013220E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD502D1CAE300013220E /* MealIngridientEditPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		528DCD532D1CAE300013220E /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD522D1CAE300013220E /* MealIngridientEditContracts.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		528DCD552D1CAE300013220E /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD542D1CAE300013220E /* MealIngridientEditRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		528DCD572D1CAE300013220E /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				5294B9DC2CD3F4DD0021458A /* MealIngridientEditAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		528DCD592D1CAE300013220E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD582D1CAE300013220E /* MealIngridientEditView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		528DCD5B2D1CAE300013220E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD5A2D1CAE300013220E /* MealIngridientEditData.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		528DCD682D1DF5770013220E /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD692D1DF5860013220E /* MealDishError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		528DCD6B2D1E03F40013220E /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD6C2D1E04D10013220E /* CoreDataError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		528DCD6E2D1E0F0C0013220E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				528DCD702D1E0F620013220E /* BackNavigationButton.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		528DCD6F2D1E0F330013220E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				526935F72CEABFCA009838D8 /* MealParameterCell.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		5294B9DD2CD3F4DD0021458A /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
-				5294B9DC2CD3F4DD0021458A /* IngridientEditAssembly.swift */,
+				528DCD562D1CAE300013220E /* IngridientEditAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -1222,9 +1362,10 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		52969AA32CD789070060A1C4 /* MealDishes */ = {
+		52969AA32CD789070060A1C4 /* MealDishEdit */ = {
 			isa = PBXGroup;
 			children = (
+				528DCD682D1DF5770013220E /* Errors */,
 				52969AB02CD789380060A1C4 /* Assembly */,
 				52969AA72CD789370060A1C4 /* Contracts */,
 				52969AB12CD789380060A1C4 /* Entity */,
@@ -1234,7 +1375,7 @@
 				52969AB32CD789380060A1C4 /* View */,
 				52969AAA2CD789370060A1C4 /* ViewState */,
 			);
-			path = MealDishes;
+			path = MealDishEdit;
 			sourceTree = "<group>";
 		};
 		52969AA52CD789370060A1C4 /* Presenter */ = {
@@ -1614,6 +1755,7 @@
 		52D36EB32C6A9459001C0FCB /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				528DCD6B2D1E03F40013220E /* Errors */,
 				52D36EB12C6A9449001C0FCB /* CoreDataService.swift */,
 				52D36EB62C6A99A7001C0FCB /* Protocols */,
 				52D36EB92C6A99E0001C0FCB /* CoreDataExecutor.swift */,
@@ -1643,13 +1785,6 @@
 			isa = PBXGroup;
 			children = (
 				5294B9F72CD40A210021458A /* DishIngridientsListItem.swift */,
-			);
-			path = Entity;
-			sourceTree = "<group>";
-		};
-		52D36EC72C6C0578001C0FCB /* Entity */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1824,6 +1959,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				521673DD2D02732400974FE6 /* SearchListErrors.swift in Sources */,
 				5294B9F12CD3F4DD0021458A /* IngridientEditPresenter.swift in Sources */,
 				522D9D872CE68B420029A921 /* IngridientCategoryEditAssembly.swift in Sources */,
 				52969ABB2CD789380060A1C4 /* MealDishEditView.swift in Sources */,
@@ -1834,6 +1970,7 @@
 				525917582BF96DFA005394DC /* CoreDataStackServiceAssembly.swift in Sources */,
 				525917462BF8E63A005394DC /* MealEditView.swift in Sources */,
 				52A8614E2C09B8FD001AA01D /* CoreDataRestorationStore.swift in Sources */,
+				528DCD5E2D1CAE300013220E /* MealIngridientEditPresenter.swift in Sources */,
 				52969AB82CD789380060A1C4 /* MealDishEditRouter.swift in Sources */,
 				525917742BFF1D85005394DC /* CoreDataInMemoryCache.swift in Sources */,
 				525917452BF8E63A005394DC /* MealEditPresenter.swift in Sources */,
@@ -1847,6 +1984,7 @@
 				52D36EC62C6C0224001C0FCB /* MealDish.swift in Sources */,
 				5259174D2BF96934005394DC /* CoreDataStack.swift in Sources */,
 				525917482BF8E63A005394DC /* MealEditInteractor.swift in Sources */,
+				528DCD602D1CAE300013220E /* MealIngridientEditRouter.swift in Sources */,
 				5294B9F02CD3F4DD0021458A /* IngridientEditInteractor.swift in Sources */,
 				522D9D892CE6A04F0029A921 /* CategoriesListSection.swift in Sources */,
 				52C365592C4EA65D00C3AD99 /* CategoryEditContracts.swift in Sources */,
@@ -1860,9 +1998,11 @@
 				522D9D7C2CE637AE0029A921 /* IngridientCategoriesListAssembly.swift in Sources */,
 				52BF790C2C042D430039202E /* EntityCacheType.swift in Sources */,
 				522D9D812CE68A140029A921 /* DishCategory+EditView.swift in Sources */,
+				528DCD6A2D1DF5860013220E /* MealDishError.swift in Sources */,
 				52969A9E2CD607180060A1C4 /* Ingridient+Picklist.swift in Sources */,
 				52A861A42C0CA0EA001AA01D /* DishEditPresenter.swift in Sources */,
 				52C3655D2C4EA65D00C3AD99 /* CategoryEditInteractor.swift in Sources */,
+				522BA7812D203E3300D6FCC4 /* FieldSectionView.swift in Sources */,
 				52A861AE2C0CA0EA001AA01D /* SearchListInteractor.swift in Sources */,
 				525917722BFF1CE4005394DC /* IdentifiedManagedObject.swift in Sources */,
 				52830A0E2CD18CCB009F903F /* MealIngridient.swift in Sources */,
@@ -1882,6 +2022,7 @@
 				52A861A62C0CA0EA001AA01D /* DishEditViewState.swift in Sources */,
 				525917242BF8B099005394DC /* MealsListView.swift in Sources */,
 				52D5FC612CFCBF30000179BA /* IngridientCategoryEditRouter.swift in Sources */,
+				528DCD6D2D1E04D10013220E /* CoreDataError.swift in Sources */,
 				5220DBDB2BEF864C00F095EE /* NavigationAssembly.swift in Sources */,
 				52D36EB22C6A9449001C0FCB /* CoreDataService.swift in Sources */,
 				5259176A2BFF1B88005394DC /* EntityServiceAssembly.swift in Sources */,
@@ -1917,9 +2058,11 @@
 				528BC5862CFE0BBE008A5861 /* ViewsStateSnapshot.swift in Sources */,
 				525917592BF96DFA005394DC /* CoreDataStackService.swift in Sources */,
 				525917472BF8E63A005394DC /* MealEditViewState.swift in Sources */,
+				528DCD712D1E0F620013220E /* BackNavigationButton.swift in Sources */,
 				5287005B2C16D6C6003BE337 /* PicklistView.swift in Sources */,
 				528BC57D2CFE0082008A5861 /* RecordsStateSnapshot.swift in Sources */,
 				52A861A82C0CA0EA001AA01D /* DishEditRouter.swift in Sources */,
+				528DCD5F2D1CAE300013220E /* MealIngridientEditContracts.swift in Sources */,
 				5220DBE32BEF864C00F095EE /* Assembly.swift in Sources */,
 				52C3655C2C4EA65D00C3AD99 /* CategoryEditViewState.swift in Sources */,
 				525917432BF8E63A005394DC /* MealEditAssembly.swift in Sources */,
@@ -1934,12 +2077,15 @@
 				52A861AD2C0CA0EA001AA01D /* SearchListViewState.swift in Sources */,
 				525917272BF8B099005394DC /* MealsListRouter.swift in Sources */,
 				52969AA02CD607340060A1C4 /* Dish+Picklist.swift in Sources */,
-				5294B9ED2CD3F4DD0021458A /* IngridientEditAssembly.swift in Sources */,
+				5294B9ED2CD3F4DD0021458A /* MealIngridientEditAssembly.swift in Sources */,
 				528BC5752CFDFFEF008A5861 /* RootRouter.swift in Sources */,
 				52A8614D2C09B8FD001AA01D /* CoreDataRestorationStoreAssembly.swift in Sources */,
 				52A861592C0B4FFF001AA01D /* DishCategory.swift in Sources */,
+				528DCD5C2D1CAE300013220E /* MealIngridientEditViewState.swift in Sources */,
 				52969AB92CD789380060A1C4 /* MealDishEditInteractor.swift in Sources */,
 				52969ABD2CD78B690060A1C4 /* MealDishesIngridientsListItem.swift in Sources */,
+				528DCD632D1CAE300013220E /* MealIngridientEditData.swift in Sources */,
+				528DCD622D1CAE300013220E /* MealIngridientEditView.swift in Sources */,
 				522D9D8E2CE6A59C0029A921 /* Ingridient+SearchView.swift in Sources */,
 				527E67F72C56CFBD001A0008 /* CoreDataRestorationItem.swift in Sources */,
 				525EABA22CDB58F400684083 /* IngridientCategory+Picklist.swift in Sources */,
@@ -1958,6 +2104,7 @@
 				5220DBC02BEF864C00F095EE /* ViewStateProtocol.swift in Sources */,
 				52D36EBA2C6A99E0001C0FCB /* CoreDataExecutor.swift in Sources */,
 				526A83092C52AA82003480C4 /* SubtitleCell.swift in Sources */,
+				528DCD5D2D1CAE300013220E /* MealIngridientEditInteractor.swift in Sources */,
 				528700582C16D6C6003BE337 /* DishPicklistAssembly.swift in Sources */,
 				5220DBEB2BEF864C00F095EE /* StrongBox.swift in Sources */,
 				527E67F22C569997001A0008 /* Array+Extension.swift in Sources */,
@@ -1985,6 +2132,7 @@
 				52C365A02C50372500C3AD99 /* CategoriesListContracts.swift in Sources */,
 				52A861A22C0CA0EA001AA01D /* DishEditAssembly.swift in Sources */,
 				5294B9EF2CD3F4DD0021458A /* IngridientEditData.swift in Sources */,
+				528DCD612D1CAE300013220E /* IngridientEditAssembly.swift in Sources */,
 				522D9D7E2CE649A00029A921 /* IngridientCategoriesListRouter.swift in Sources */,
 				52A861A92C0CA0EA001AA01D /* DishesListAssembly.swift in Sources */,
 				522795652CC04AAB00A7A36B /* MealDishesListItem.swift in Sources */,

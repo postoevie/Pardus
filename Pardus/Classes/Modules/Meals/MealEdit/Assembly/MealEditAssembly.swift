@@ -20,7 +20,7 @@ final class MealEditAssembly: Assembly {
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataService(context: coreDataStackService.makeChildMainQueueContext())
+        let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = MealEditInteractor(coreDataService: coreDataService, mealId: mealId)
         
         //ViewState

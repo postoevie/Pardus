@@ -16,6 +16,6 @@ protocol NavigationServiceType: ObservableObject, Identifiable {
     var dishesItems: [Views] { get set }
     var ingridientsItems: [Views] { get set }
     var modalView: Views? { get set }
-    var alert: CustomAlert? { get set }
+    var alert: Alerts? { get set }
     var sheetView: Views? { get set }
 }

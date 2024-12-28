@@ -23,7 +23,7 @@ class MealEditInteractor: MealEditInteractorProtocol {
             guard let dishes = meal?.dishes else {
                 return
             }
-            dishesIds = dishes.map { $0.dish.id }
+            dishesIds = dishes.compactMap { $0.dish?.id }
         }
         
         return .idNotIn(uids: dishesIds)
@@ -51,6 +51,19 @@ class MealEditInteractor: MealEditInteractorProtocol {
         }
     }
     
+    func createMealDish() async throws -> UUID {
+        guard let meal else {
+            assertionFailure()
+            throw MealDishError.noEntity
+        }
+        let mealDishId = UUID()
+        try await coreDataService.perform {
+            let mealDish = try $0.create(type: MealDish.self, id: mealDishId)
+            mealDish.meal = meal
+        }
+        return mealDishId
+    }
+    
     func remove(dishId: UUID) async throws {
         guard let meal else {
             assertionFailure()
@@ -66,13 +79,6 @@ class MealEditInteractor: MealEditInteractorProtocol {
     func performWithMeal(action: @escaping (Meal?) -> Void) async throws {
         await coreDataService.perform { _ in
             action(self.meal)
-        }
-    }
-    
-    func updateMealDish(uid: UUID, action: @escaping (MealDish?) -> Void) async throws {
-        await coreDataService.perform { _ in
-            let mealDish = self.meal?.dishes[uid]
-            action(mealDish)
         }
     }
     

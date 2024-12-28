@@ -11,12 +11,12 @@ import SwiftUI
 final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterProtocol {
     
     private let router: IngridientEditRouterProtocol
-    private weak var viewState: IngridientEditViewStateProtocol?
+    private weak var viewState: (any IngridientEditViewStateProtocol)?
     private let interactor: IngridientEditInteractorProtocol
     
     init(router: IngridientEditRouterProtocol,
          interactor: IngridientEditInteractorProtocol,
-         viewState: IngridientEditViewStateProtocol) {
+         viewState: any IngridientEditViewStateProtocol) {
         self.router = router
         self.interactor = interactor
         self.viewState = viewState
@@ -30,13 +30,13 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
             try await valueSubmitted()
             let filter = self.interactor.categoryFilter
             await MainActor.run {
-                router.showPicklist(ingridientId: ingridientId, filter: filter) { [weak self ] selected in
+                router.showPicklist(ingridientId: ingridientId, filter: filter) { [weak self] selected in
                     guard let self else {
                         return
                     }
                     self.router.hidePicklist()
                     Task {
-                        try await self.interactor.updateIngridientWith(categoryId: selected.first )
+                        try await self.interactor.updateIngridientWith(categoryId: selected.first)
                         try await self.interactor.loadIngridient()
                         await MainActor.run {
                             self.updateViewState()
@@ -76,10 +76,10 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
             return
         }
         viewState.name = data.name
-        viewState.calories = data.calories
-        viewState.proteins = data.proteins
-        viewState.carbohydrates = data.carbohydrates
-        viewState.fats = data.fats
+        viewState.calories = String(data.calories)
+        viewState.proteins = String(data.proteins)
+        viewState.carbohydrates = String(data.carbohydrates)
+        viewState.fats = String(data.fats)
         if let category = interactor.ingridientCategory {
             viewState.category = category
         } else {
@@ -93,9 +93,9 @@ final class IngridientEditPresenter: ObservableObject, IngridientEditPresenterPr
             return
         }
         try await interactor.update(data: IngridientEditData(name: viewState.name,
-                                                             calories: viewState.calories,
-                                                             proteins: viewState.proteins,
-                                                             fats: viewState.fats,
-                                                             carbohydrates: viewState.carbohydrates))
+                                                             calories: Double(viewState.calories) ?? 0,
+                                                             proteins: Double(viewState.proteins) ?? 0,
+                                                             fats: Double(viewState.fats) ?? 0,
+                                                             carbohydrates: Double(viewState.carbohydrates) ?? 0))
     }
 }

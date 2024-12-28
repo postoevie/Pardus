@@ -111,6 +111,6 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     private func mapToItem(meal: Meal) -> MealsListItem {
         MealsListItem(id: meal.id,
                       title: itemDateFormatter.string(from: meal.date),
-                      subtitle: (meal.dishes).map { $0.dish.name }.joined(separator: ", "))
+                      subtitle: (meal.dishes).map { $0.name }.joined(separator: ", "))
     }
 }

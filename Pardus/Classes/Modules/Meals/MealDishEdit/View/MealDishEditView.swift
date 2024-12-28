@@ -8,13 +8,20 @@
 
 import SwiftUI
 
-struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: MealDishEditPresenterProtocol>: View {
+struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
     
-    @StateObject var viewState: ViewState
+    @StateObject var viewState: MealDishEditViewState
     @StateObject var presenter: Presenter
     
     var body: some View {
         VStack {
+            FieldSectionView(titleKey: "itemEdit.label.name") {
+                TextField("", text: $viewState.name)
+                    .defaultTextField()
+                    .onSubmit {
+                        presenter.submitValues()
+                    }
+            }
             HStack {
                 MealParameterCell(title: "dishparameter.kcal",
                                   value: viewState.sumKcals)
@@ -33,8 +40,11 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
                 Text("mealdishedit.ingridients.title")
                 Spacer()
                 Menu {
-                    //Button("Create new", action: presenter.editDishesTapped)
-                    Button("mealdishedit.ingridients.button.addfromcatalog") { presenter.editIngridientsTapped()
+                    Button("mealdishedit.ingridients.button.createNew") {
+                        presenter.createIngridientTapped()
+                    }
+                    Button("mealdishedit.ingridients.button.addfromcatalog") {
+                        presenter.addCatalogIngridientsTapped()
                     }
                 } label: {
                     Image(systemName: "plus.circle")
@@ -47,19 +57,25 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
             .padding(.top)
             .font(.bodyLarge)
             .foregroundStyle(.secondaryText)
-            List(viewState.ingridients) { item in
-                MealDishIngridientRow(item: item,
+            List($viewState.ingridients) { $item in
+                MealDishIngridientRow(item: $item,
                                       onSubmit: {
                     presenter.updateIngridientWeight(ingridientId: item.id, weightString: $0)
                 })
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
-                        presenter.remove(ingridientId: item.id)
+                        presenter.removeIngridientTapped(ingridientId: item.id)
                     } label: {
                         Image(systemName: "trash")
                     }
                     .tint(.red)
+                    Button {
+                        presenter.editIngridientTapped(ingridientId: item.id)
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .tint(.orange)
                 }
             }
             .listStyle(.plain)
@@ -68,15 +84,15 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
         .onAppear {
             presenter.didAppear()
         }
-        .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     presenter.doneTapped()
                 } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.icon2)
+                    Text("app.done")
+                        .font(.titleRegular)
                         .foregroundStyle(.primaryText)
                 }
             }
@@ -85,28 +101,25 @@ struct MealDishEditView<ViewState: MealDishEditViewStateProtocol, Presenter: Mea
 }
 
 fileprivate struct MealDishIngridientRow: View {
-
-    @State var weight: String
     
-    private let item: MealDishesIngridientsListItem
+    private let item: Binding<MealDishesIngridientsListItem>
     private let onSubmit: (String) -> Void
     
-    init(item: MealDishesIngridientsListItem, onSubmit: @escaping (String) -> Void) {
-        self.weight = item.weight
+    init(item: Binding<MealDishesIngridientsListItem>, onSubmit: @escaping (String) -> Void) {
         self.item = item
         self.onSubmit = onSubmit
     }
     
     var body: some View {
         HStack {
-            SubtitleCell(title: item.title,
-                         subtitle: item.subtitle,
-                         badgeColor: item.categoryColor)
+            SubtitleCell(title: item.title.wrappedValue,
+                         subtitle: item.subtitle.wrappedValue,
+                         badgeColor: item.categoryColor.wrappedValue)
             TextField("mealdishedit.ingridients.placeholder.weight",
-                      text: $weight)
+                      text: item.weight)
             .defaultTextField()
             .onSubmit {
-                onSubmit(weight)
+                onSubmit(item.weight.wrappedValue)
             }
             .frame(width: 100)
         }
@@ -137,7 +150,7 @@ struct MealDishEditPreviews: PreviewProvider {
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         
         let context = coreDataStackService.getMainQueueContext()
-
+        
         let dish = Dish(context: context)
         dish.id = UUID()
         dish.name = "Carrot salad 🥕"
@@ -145,7 +158,7 @@ struct MealDishEditPreviews: PreviewProvider {
         let meal = Meal(context: context)
         meal.id = UUID()
         meal.date = Date()
-    
+        
         let mealDish = MealDish(context: context)
         mealDish.id = UUID()
         mealDish.meal = meal

@@ -9,11 +9,12 @@ import CoreData
 
 @objc(MealDish)
 class MealDish: IdentifiedManagedObject {
-    
+
+    @NSManaged var name: String
     @NSManaged var meal: Meal
-    @NSManaged var dish: Dish
+    @NSManaged var dish: Dish?
     @NSManaged var ingridients: Set<MealIngridient>?
-    
+
     var weight: Double {
         guard let ingridients else {
             return 0

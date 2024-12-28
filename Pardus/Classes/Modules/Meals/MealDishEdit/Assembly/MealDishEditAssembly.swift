@@ -6,7 +6,6 @@
 //
 //
 
-
 import SwiftUI
 
 final class MealDishEditAssembly: Assembly {
@@ -20,7 +19,7 @@ final class MealDishEditAssembly: Assembly {
         
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataService(context: coreDataStackService.makeChildMainQueueContext())
+        let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = MealDishEditInteractor(coreDataService: coreDataService, mealDishId: mealDishId)
         
         //ViewState

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 final class IngridientsListAssembly: Assembly {
     

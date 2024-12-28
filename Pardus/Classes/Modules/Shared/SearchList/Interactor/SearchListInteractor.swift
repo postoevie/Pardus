@@ -6,16 +6,27 @@
 //  
 //
 
-protocol SearchListEntityType: IdentifiedManagedObject {
-    
-    var name: String { get set }
-}
-
-import Foundation
+import CoreData
 
 final class SearchListInteractor<Entity: SearchListEntityType>: SearchListInteractorProtocol {
     
-    var filteredEnties: [Entity] {
+    private var filterText = ""
+    
+    private var entityIds: [UUID] = []
+    
+    private var entitiesByIds: [UUID: Entity] = [:]
+
+    private let coreDataService: CoreDataServiceType
+    
+    private let sortParams: SortParams
+    
+    init(coreDataService: CoreDataServiceType,
+         sortParams: SortParams) {
+        self.coreDataService = coreDataService
+        self.sortParams = sortParams
+    }
+    
+    private var filteredEnties: [Entity] {
         guard !filterText.isEmpty else {
             return entities
         }
@@ -24,23 +35,15 @@ final class SearchListInteractor<Entity: SearchListEntityType>: SearchListIntera
         }
     }
     
-    var filterText = ""
-
-    var entities: [Entity] = []
-    
-    let coreDataService: CoreDataServiceType
-    
-    let sortParams: SortParams
-    
-    init(coreDataService: CoreDataServiceType,
-         sortParams: SortParams) {
-        self.coreDataService = coreDataService
-        self.sortParams = sortParams
+    private var entities: [Entity] {
+        entityIds.compactMap { entitiesByIds[$0] }
     }
     
     func loadEntities() async throws {
         try await coreDataService.perform {
-            self.entities = try $0.fetchMany(type: Entity.self, predicate: nil, sortBy: self.sortParams)
+            let entities = try $0.fetchMany(type: Entity.self, predicate: nil, sortBy: self.sortParams)
+            self.entityIds = entities.map { $0.id }
+            self.entitiesByIds = Dictionary(uniqueKeysWithValues: entities.map { ($0.id, $0) })
         }
     }
     
@@ -52,11 +55,11 @@ final class SearchListInteractor<Entity: SearchListEntityType>: SearchListIntera
     
     func deleteEntity(entityId: UUID) async throws {
         try await coreDataService.perform {
-            guard let entityIndexToDelete = self.entities.firstIndex(where: { $0.id == entityId }) else {
+            guard let entityToDelete = self.entitiesByIds[entityId] else {
                 assertionFailure()
                 return
             }
-            let entityToDelete = self.entities.remove(at: entityIndexToDelete)
+            self.entityIds.removeAll(where: { $0 == entityId })
             try $0.delete(objectId: entityToDelete.objectID)
             try $0.persistChanges()
         }

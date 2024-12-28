@@ -29,4 +29,8 @@ final class MealDishEditRouter: MealDishEditRouterProtocol {
     func hidePicklist() {
         navigation.modalView = nil
     }
+    
+    func showMealIngridient(ingridientId: UUID) {
+        navigation.mealsItems.append(.mealIngridientEdit(ingridientId: ingridientId))
+    }
 }

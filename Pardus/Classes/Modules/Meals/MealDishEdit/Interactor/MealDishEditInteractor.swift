@@ -23,7 +23,7 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
             guard let ingridients = self.mealDish?.ingridients else {
                 return
             }
-            ingridientIds = ingridients.map { $0.ingridient.id }
+            ingridientIds = ingridients.compactMap { $0.ingridient?.id }
         }
         return .idNotIn(uids: ingridientIds)
     }
@@ -55,6 +55,12 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
                 let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
                 mealIngridient.dish = mealDish
                 mealIngridient.ingridient = ingridient
+                mealIngridient.name = ingridient.name
+                mealIngridient.weight = 0
+                mealIngridient.caloriesPer100 = ingridient.calories
+                mealIngridient.proteinsPer100 = ingridient.proteins
+                mealIngridient.fatsPer100 = ingridient.fats
+                mealIngridient.carbsPer100 = ingridient.carbs
             }
         }
     }
@@ -69,6 +75,19 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
                 self.mealDish?.ingridients?.remove(ingridientToRemove)
             }
         }
+    }
+    
+    func createMealIngridient() async throws -> UUID {
+        let ingridientId = UUID()
+        try await coreDataService.perform { executor in
+            guard let mealDish = self.mealDish else {
+                assertionFailure()
+                throw MealDishError.noEntity
+            }
+            let ingridient = try executor.create(type: MealIngridient.self, id: ingridientId)
+            ingridient.dish = mealDish
+        }
+        return ingridientId
     }
     
     func performWithMealDish(action: @escaping (MealDish?) -> Void) async throws {

@@ -9,7 +9,6 @@ import CoreData
 
 class CoreDataStack {
     
-    // You use an NSPersistentContainer instance to set up the model, context, and store coordinator simultaneously.
     var container: NSPersistentContainer!
     
     var coordinator: NSPersistentStoreCoordinator {
@@ -48,8 +47,6 @@ class CoreDataStack {
         let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
         
         let url = documentDir!.appending(path: "Pardus.sqlite")
-        
-        //let url = URL(filePath: "/Users/igorpostoev/tmp/Pardus.sqlite")
         
         container = NSPersistentContainer(name: "Pardus", managedObjectModel: model)
         guard let description = container.persistentStoreDescriptions.first else {
@@ -138,7 +135,7 @@ class CoreDataStack {
         let catToDishRel = NSRelationshipDescription()
         catToDishRel.name = "dishes"
         catToDishRel.destinationEntity = dishDescription
-        catToDishRel.deleteRule = .denyDeleteRule
+        catToDishRel.deleteRule = .nullifyDeleteRule
         catToDishRel.isOptional = true
         
         dishToCatRel.inverseRelationship = catToDishRel
@@ -152,12 +149,8 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "MealDish"
             desc.managedObjectClassName = String(describing: MealDish.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            desc.properties = [idAttr]
+            desc.properties = [makeIdAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType)]
             return desc
         }()
         
@@ -195,7 +188,7 @@ class CoreDataStack {
         dishToMealDishRel.name = "mealDishes"
         dishToMealDishRel.isOptional = true
         dishToMealDishRel.destinationEntity = mealDishDescription
-        dishToMealDishRel.deleteRule = .denyDeleteRule
+        dishToMealDishRel.deleteRule = .nullifyDeleteRule
         dishDescription.properties.append(dishToMealDishRel)
         
         mealDishToDishRel.inverseRelationship = dishToMealDishRel
@@ -249,7 +242,7 @@ class CoreDataStack {
         let ingridientToDishRel = NSRelationshipDescription()
         ingridientToDishRel.name = "dishes"
         ingridientToDishRel.destinationEntity = dishDescription
-        ingridientToDishRel.deleteRule = .denyDeleteRule
+        ingridientToDishRel.deleteRule = .nullifyDeleteRule
         ingridientToDishRel.isOptional = true
         
         let dishToIngridientRel = NSRelationshipDescription()
@@ -299,7 +292,7 @@ class CoreDataStack {
         let catToIngridientRel = NSRelationshipDescription()
         catToIngridientRel.name = "ingridients"
         catToIngridientRel.destinationEntity = ingridientDescription
-        catToIngridientRel.deleteRule = .denyDeleteRule
+        catToIngridientRel.deleteRule = .nullifyDeleteRule
         catToIngridientRel.isOptional = true
         
         ingridientToCatRel.inverseRelationship = catToIngridientRel
@@ -312,16 +305,13 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "MealIngridient"
             desc.managedObjectClassName = String(describing: MealIngridient.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let weightAttr = NSAttributeDescription()
-            weightAttr.name = "weight"
-            weightAttr.attributeType = .doubleAttributeType
-        
-            desc.properties = [idAttr, weightAttr]
+            desc.properties = [makeIdAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType),
+                               makeAttribute(name: "caloriesPer100", type: .doubleAttributeType),
+                               makeAttribute(name: "proteinsPer100", type: .doubleAttributeType),
+                               makeAttribute(name: "fatsPer100", type: .doubleAttributeType),
+                               makeAttribute(name: "carbsPer100", type: .doubleAttributeType),
+                               makeAttribute(name: "weight", type: .doubleAttributeType)]
 
             return desc
         }()
@@ -358,7 +348,7 @@ class CoreDataStack {
         let ingridientToMealIngridientRel = NSRelationshipDescription()
         ingridientToMealIngridientRel.name = "mealIngridients"
         ingridientToMealIngridientRel.destinationEntity = mealIngridientDescription
-        ingridientToMealIngridientRel.deleteRule = .denyDeleteRule
+        ingridientToMealIngridientRel.deleteRule = .nullifyDeleteRule
         ingridientToMealIngridientRel.isOptional = true
         
         mealIngridientToIngridientRel.inverseRelationship = ingridientToMealIngridientRel
@@ -376,5 +366,19 @@ class CoreDataStack {
                           ingridientCategoryDescription,
                           mealIngridientDescription]
         return model
+    }
+    
+    private func makeIdAttribute() -> NSAttributeDescription {
+        let attribute = NSAttributeDescription()
+        attribute.name = "id"
+        attribute.attributeType = .UUIDAttributeType
+        return attribute
+    }
+    
+    private func makeAttribute(name: String, type: NSAttributeType) -> NSAttributeDescription {
+        let attribute = NSAttributeDescription()
+        attribute.name = name
+        attribute.attributeType = type
+        return attribute
     }
 }

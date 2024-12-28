@@ -20,7 +20,7 @@ final class DishEditRouter: DishEditRouterProtocol {
         _ = navigation.dishesItems.popLast()
     }
     
-    func entityshowIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
+    func showIngridientsPicklist(dishId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
         navigation.modalView = .dishIngridientsPicklist(type: .multiple,
                                                         filter: filter,
                                                         completion: completion)

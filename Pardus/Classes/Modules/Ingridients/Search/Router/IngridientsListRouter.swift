@@ -9,7 +9,7 @@
 import Foundation
 
 final class IngridientsListRouter: SearchListRouterProtocol {
-
+  
     private var navigation: any NavigationServiceType
     
     init(navigation: any NavigationServiceType) {
@@ -30,5 +30,9 @@ final class IngridientsListRouter: SearchListRouterProtocol {
             return
         }
         navigation.ingridientsItems.append(.ingridientCategoriesList)
+    }
+    
+    func showError(messageKey: String) {
+        navigation.alert = .errorAlert(messageKey: messageKey)
     }
 }

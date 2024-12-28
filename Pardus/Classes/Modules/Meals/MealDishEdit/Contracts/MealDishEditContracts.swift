@@ -15,6 +15,7 @@ protocol MealDishEditRouterProtocol: RouterProtocol {
     func returnBack()
     func showIngidientsPicklist(dishMealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void)
     func hidePicklist()
+    func showMealIngridient(ingridientId: UUID)
 }
 
 // Presenter
@@ -22,9 +23,12 @@ protocol MealDishEditPresenterProtocol: AnyObject, ObservableObject, PresenterPr
 
     func didAppear()
     func doneTapped()
-    func editIngridientsTapped()
-    func remove(ingridientId: UUID)
-    func updateIngridientWeight(ingridientId: UUID, weightString: String) 
+    func submitValues()
+    func addCatalogIngridientsTapped()
+    func createIngridientTapped()
+    func removeIngridientTapped(ingridientId: UUID)
+    func editIngridientTapped(ingridientId: UUID)
+    func updateIngridientWeight(ingridientId: UUID, weightString: String)
 }
 
 // Interactor
@@ -38,6 +42,7 @@ protocol MealDishEditInteractorProtocol: InteractorProtocol {
     func performWithIngridient(uid: UUID, action: @escaping (MealIngridient?) -> Void) async throws
     func setSelectedIngridients(_ dishesIds: Set<UUID>) async throws
     func remove(ingridientId: UUID) async throws
+    func createMealIngridient() async throws -> UUID
     func save() async throws
 }
 
@@ -45,12 +50,12 @@ protocol MealDishEditInteractorProtocol: InteractorProtocol {
 protocol MealDishEditViewStateProtocol: ObservableObject, ViewStateProtocol {
     
     var error: String? { get set }
+    var name: String { get set }
     var sumKcals: String { get set }
     var weight: String { get set }
     var sumProteins: String { get set }
     var sumFats: String { get set }
     var sumCarbs: String { get set }
-    var navigationTitle: String { get set }
     
     var ingridients: [MealDishesIngridientsListItem] { get set }
 }

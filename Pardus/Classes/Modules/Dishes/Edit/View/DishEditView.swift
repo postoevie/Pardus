@@ -19,7 +19,7 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
             VStack(spacing: 16) {
                 VStack (spacing: 8) {
                     HStack {
-                        Text("ingridientedit.label.name")
+                        Text("itemEdit.label.name")
                             .font(.bodyLarge)
                             .foregroundStyle(.secondaryText)
                         Spacer()
@@ -92,13 +92,14 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
             .font(.bodyRegular)
             .navigationTitle("dishedit.navigation.title")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         presenter.doneTapped()
                     } label: {
-                        Image(systemName: "externaldrive.badge.checkmark")
-                            .font(.icon2)
+                        Text("app.done")
+                            .font(.titleRegular)
                             .foregroundStyle(.primaryText)
                     }
                 }
