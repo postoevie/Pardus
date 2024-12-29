@@ -30,6 +30,10 @@ extension View {
     func defaultTextField() -> some View {
         modifier(DefaultTextField())
     }
+    
+    func numericTextField() -> some View {
+        modifier(NumbericTextField())
+    }
 }
 
 private struct DefaultTextField: ViewModifier {
@@ -41,4 +45,16 @@ private struct DefaultTextField: ViewModifier {
             .textFieldStyle(.roundedBorder)
     }
 }
+
+private struct NumbericTextField: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.bodySmall)
+            .submitLabel(.return)
+            .textFieldStyle(.roundedBorder)
+            .keyboardType(.decimalPad)
+    }
+}
+    
     

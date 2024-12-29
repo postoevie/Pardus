@@ -28,7 +28,7 @@ protocol MealDishEditPresenterProtocol: AnyObject, ObservableObject, PresenterPr
     func createIngridientTapped()
     func removeIngridientTapped(ingridientId: UUID)
     func editIngridientTapped(ingridientId: UUID)
-    func updateIngridientWeight(ingridientId: UUID, weightString: String)
+    func updateIngridientWeight(ingridientId: UUID)
 }
 
 // Interactor

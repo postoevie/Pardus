@@ -6,6 +6,7 @@
 //
 //
 
+import Combine
 import SwiftUI
 
 final class MealIngridientEditPresenter: ObservableObject, MealIngridientEditPresenterProtocol {
@@ -13,6 +14,8 @@ final class MealIngridientEditPresenter: ObservableObject, MealIngridientEditPre
     private let router: MealIngridientEditRouterProtocol
     private weak var viewState: MealIngridientEditViewState?
     private let interactor: MealIngridientEditInteractorProtocol
+    
+    var subscriptions: [AnyCancellable] = []
     
     init(router: MealIngridientEditRouterProtocol,
          interactor: MealIngridientEditInteractorProtocol,

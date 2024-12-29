@@ -46,8 +46,13 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         }
     }
     
-    func updateIngridientWeight(ingridientId: UUID, weightString: String) {
+    func updateIngridientWeight(ingridientId: UUID) {
+        guard let viewState,
+              let ingridient = viewState.ingridients.first(where: { $0.id == ingridientId }) else {
+            return
+        }
         Task {
+            let weightString = ingridient.weight
             let weight: NSNumber = NumberFormatter.nutrients.number(from: weightString) ?? .init(value: 0)
             try await interactor.performWithMealDish { mealDish in
                 let ingiridient = mealDish?.ingridients?[ingridientId]

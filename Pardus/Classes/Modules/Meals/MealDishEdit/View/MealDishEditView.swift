@@ -13,6 +13,8 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
     @StateObject var viewState: MealDishEditViewState
     @StateObject var presenter: Presenter
     
+    @FocusState var focusedIdemId: UUID?
+    
     var body: some View {
         VStack {
             FieldSectionView(titleKey: "itemEdit.label.name") {
@@ -59,9 +61,7 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
             .foregroundStyle(.secondaryText)
             List($viewState.ingridients) { $item in
                 MealDishIngridientRow(item: $item,
-                                      onSubmit: {
-                    presenter.updateIngridientWeight(ingridientId: item.id, weightString: $0)
-                })
+                                      focusedIdemId: $focusedIdemId)
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
@@ -84,6 +84,11 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
         .onAppear {
             presenter.didAppear()
         }
+        .onChange(of: focusedIdemId) { oldValue, newValue in
+            if let oldValue {
+                presenter.updateIngridientWeight(ingridientId: oldValue)
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -96,6 +101,18 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
                         .foregroundStyle(.primaryText)
                 }
             }
+            ToolbarItem(placement: .keyboard) {
+                HStack {
+                    Spacer()
+                    Button {
+                        presenter.submitValues()
+                        focusedIdemId = nil
+                    } label: {
+                        Text("app.done")
+                            .font(.keyboard)
+                    }
+                }
+            }
         }
     }
 }
@@ -103,11 +120,12 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
 fileprivate struct MealDishIngridientRow: View {
     
     private let item: Binding<MealDishesIngridientsListItem>
-    private let onSubmit: (String) -> Void
+    private let focusedIdemId: FocusState<UUID?>.Binding
     
-    init(item: Binding<MealDishesIngridientsListItem>, onSubmit: @escaping (String) -> Void) {
+    init(item: Binding<MealDishesIngridientsListItem>,
+         focusedIdemId: FocusState<UUID?>.Binding) {
         self.item = item
-        self.onSubmit = onSubmit
+        self.focusedIdemId = focusedIdemId
     }
     
     var body: some View {
@@ -117,10 +135,8 @@ fileprivate struct MealDishIngridientRow: View {
                          badgeColor: item.categoryColor.wrappedValue)
             TextField("mealdishedit.ingridients.placeholder.weight",
                       text: item.weight)
-            .defaultTextField()
-            .onSubmit {
-                onSubmit(item.weight.wrappedValue)
-            }
+            .numericTextField()
+            .focused(focusedIdemId, equals: item.id)
             .frame(width: 100)
         }
     }

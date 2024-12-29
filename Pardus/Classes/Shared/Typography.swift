@@ -16,6 +16,7 @@ extension Font {
     static let bodySmall2 = AppTypography.Body.small2
     static let icon = AppTypography.Icon.icon
     static let icon2 = AppTypography.Icon.icon2
+    static let keyboard = Font.body
 }
 
 private struct AppTypography {
