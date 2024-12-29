@@ -62,7 +62,6 @@ struct CategoriesListView<Presenter: CategoriesListPresenterProtocol>: View {
         .listStyle(.plain)
         .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
-        .navigationBarBackButtonHidden(true)
         .onAppear {
             presenter.didAppear()
         }

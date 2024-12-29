@@ -92,7 +92,6 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
             .font(.bodyRegular)
             .navigationTitle("dishedit.navigation.title")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

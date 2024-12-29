@@ -63,7 +63,6 @@ struct SearchListView<Presenter: SearchListPresenterProtocol>: View {
         }
         .navigationTitle(viewState.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
-        .navigationBarBackButtonHidden(true)
         .onAppear {
             presenter.didAppear()
         }

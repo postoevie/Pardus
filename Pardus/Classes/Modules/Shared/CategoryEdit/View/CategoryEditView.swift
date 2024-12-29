@@ -40,12 +40,12 @@ struct CategoryEditView<ViewState: CategoryEditViewStateProtocol,
             presenter.onAppear()
         }
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    presenter.tapSave()
+                    presenter.doneTapped()
                 } label: {
-                    Image(systemName: "externaldrive.badge.checkmark")
-                        .font(.icon2)
+                    Text("app.done")
+                        .font(.titleRegular)
                         .foregroundStyle(.primaryText)
                 }
             }

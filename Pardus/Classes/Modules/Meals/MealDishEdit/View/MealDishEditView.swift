@@ -90,7 +90,6 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

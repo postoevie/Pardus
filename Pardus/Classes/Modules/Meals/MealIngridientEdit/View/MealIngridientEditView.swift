@@ -83,7 +83,6 @@ struct MealIngridientEditView<ViewState: MealIngridientEditViewStateProtocol,
         }
         .font(.bodyRegular)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

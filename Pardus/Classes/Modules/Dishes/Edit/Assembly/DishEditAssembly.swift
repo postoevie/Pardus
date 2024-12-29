@@ -20,7 +20,7 @@ final class DishEditAssembly: Assembly {
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataService(context: coreDataStackService.makeChildMainQueueContext())
+        let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = DishEditInteractor(coreDataService: coreDataService, dishId: dishId)
 
         //ViewState

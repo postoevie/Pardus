@@ -9,7 +9,7 @@ final class RecordsRestoreServiceAssembly: Assembly {
     
     func build() -> RecordsRestoreServiceType {
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataService(context: coreDataStackService.makeChildMainQueueContext())
+        let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         return RecordsRestoreService(coreDataService: coreDataService)
     }
 }

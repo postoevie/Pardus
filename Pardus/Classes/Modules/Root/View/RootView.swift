@@ -21,6 +21,7 @@ struct RootView: View {
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
                             .padding(Styles.defaultAppPadding)
+                            .navigationBarBackButtonHidden(true)
                     }
             }
             .tabItem {
@@ -32,6 +33,7 @@ struct RootView: View {
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
                             .padding(Styles.defaultAppPadding)
+                            .navigationBarBackButtonHidden(true)
                     }
             }
             .tabItem {
@@ -50,6 +52,7 @@ struct RootView: View {
                     .navigationDestination(for: Views.self) { path in
                         appViewBuilder.build(view: path)
                             .padding(Styles.defaultAppPadding)
+                            .navigationBarBackButtonHidden(true)
                     }
             }
             .tabItem {

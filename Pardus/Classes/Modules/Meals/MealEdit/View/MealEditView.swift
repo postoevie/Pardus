@@ -86,7 +86,6 @@ struct MealEditView<ViewState: MealEditViewStateProtocol, Presenter: MealEditPre
             presenter.didAppear()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

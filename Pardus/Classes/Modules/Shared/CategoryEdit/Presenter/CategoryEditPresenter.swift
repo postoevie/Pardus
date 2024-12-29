@@ -41,7 +41,7 @@ final class CategoryEditPresenter: ObservableObject, CategoryEditPresenterProtoc
         }
     }
     
-    func tapSave() {
+    func doneTapped() {
         guard let viewState else {
             assertionFailure()
             return

@@ -67,7 +67,6 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
         }
         .navigationTitle("mealslist.navigation.title")
         .navigationBarTitleDisplayMode(.large)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup {
                 Button {

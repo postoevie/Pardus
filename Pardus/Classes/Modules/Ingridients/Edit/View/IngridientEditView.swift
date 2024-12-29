@@ -71,7 +71,6 @@ struct IngridientEditView<ViewState: IngridientEditViewStateProtocol, Presenter:
         .font(.bodyRegular)
         .navigationTitle("ingridientedit.navigation.title")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

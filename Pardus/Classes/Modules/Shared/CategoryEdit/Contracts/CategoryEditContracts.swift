@@ -18,7 +18,7 @@ protocol CategoryEditRouterProtocol: RouterProtocol {
 protocol CategoryEditPresenterProtocol: ObservableObject, PresenterProtocol {
 
     func onAppear()
-    func tapSave()
+    func doneTapped()
 }
 
 // Interactor

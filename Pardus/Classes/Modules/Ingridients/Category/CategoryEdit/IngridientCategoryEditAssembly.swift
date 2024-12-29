@@ -18,7 +18,7 @@ final class IngridientCategoryEditAssembly: Assembly {
 
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
-        let coreDataService = CoreDataService(context: coreDataStackService.makeChildMainQueueContext())
+        let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = CategoryEditInteractor<IngridientCategory>(coreDataService: coreDataService,
                                                                     categoryId: categoryId)
 
