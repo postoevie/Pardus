@@ -53,13 +53,18 @@ final class DishesListAssembly: Assembly {
                let color = try? UIColor.init(hex: colorHex) {
                 categoryColor = Color(color)
             }
-            let ingridientNames = (entity.ingridients ?? []).map {
-                $0.name
-            }
+            let ingridients = Array(entity.ingridients)
+            let ingridientNames = sorted(ingridients: ingridients).map { $0.name }
             return SearchListItem(id: entity.id,
                                   title: entity.name,
                                   subtitle: ingridientNames.joined(separator: ", "),
                                   categoryColor: categoryColor)
+        }
+        
+        private func sorted(ingridients: [Ingridient]) -> [Ingridient] {
+            ingridients.sorted {
+                $0.name < $1.name
+            }
         }
     }
 }

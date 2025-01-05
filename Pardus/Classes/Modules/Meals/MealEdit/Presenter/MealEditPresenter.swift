@@ -31,11 +31,15 @@ final class MealEditPresenter: MealEditPresenterProtocol {
             try await interactor.performWithMeal { meal in
                 self.updateViewState(meal: meal)
             }
+            try await interactor.performWithMealDishes { mealDishes in
+                self.updateViewState(mealDishes: mealDishes)
+            }
         }
     }
     
     func createDishTapped() {
         Task {
+            try await submitValues()
             let dishId = try await interactor.createMealDish()
             await MainActor.run {
                 router.showEditDish(dishId: dishId)
@@ -48,7 +52,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
             return
         }
         Task {
-            try await valueSubmitted()
+            try await submitValues()
             let filter = self.interactor.dishesFilter
             await MainActor.run {
                 self.router.showDishesPick(mealId: mealId, filter: filter) { selectedDishIds in
@@ -59,6 +63,9 @@ final class MealEditPresenter: MealEditPresenterProtocol {
                         try await self.interactor.performWithMeal { meal in
                             self.updateViewState(meal: meal)
                         }
+                        try await self.interactor.performWithMealDishes { mealDishes in
+                            self.updateViewState(mealDishes: mealDishes)
+                        }
                     }
                 }
             }
@@ -67,7 +74,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
     
     func editDish(dishId: UUID) {
         Task {
-            try await valueSubmitted()
+            try await submitValues()
             try await interactor.save()
             await MainActor.run {
                 router.showEditDish(dishId: dishId)
@@ -82,12 +89,15 @@ final class MealEditPresenter: MealEditPresenterProtocol {
             try await interactor.performWithMeal { meal in
                 self.updateViewState(meal: meal)
             }
+            try await interactor.performWithMealDishes { mealDishes in
+                self.updateViewState(mealDishes: mealDishes)
+            }
         }
     }
     
     func doneTapped() {
         Task {
-            try await valueSubmitted()
+            try await submitValues()
             try await interactor.save()
             await MainActor.run {
                 router.returnBack()
@@ -95,7 +105,7 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         }
     }
     
-    private func valueSubmitted() async throws {
+    private func submitValues() async throws {
         guard let viewState else {
             assertionFailure("Prerequsites not accomplished")
             return
@@ -117,7 +127,6 @@ final class MealEditPresenter: MealEditPresenterProtocol {
             return
         }
         let mealDate = meal.date
-        let dishItems = meal.dishes.map(self.mapToListItem)
         let weight = meal.weight
         let sumProteins = String(meal.proteins)
         let sumFats = String(meal.fats)
@@ -127,12 +136,22 @@ final class MealEditPresenter: MealEditPresenterProtocol {
         DispatchQueue.main.async {
             viewState.error = nil
             viewState.date = mealDate
-            viewState.dishItems = dishItems
             viewState.weight = String(weight)
             viewState.sumProteins = String(sumProteins)
             viewState.sumFats = String(sumFats)
             viewState.sumCarbs = String(sumCarbs)
             viewState.sumKcals = String(sumKcals)
+        }
+    }
+    
+    private func updateViewState(mealDishes: [MealDish]) {
+        guard let viewState = self.viewState else {
+            return
+        }
+        let dishItems = mealDishes.map(self.mapToListItem)
+        DispatchQueue.main.async {
+            viewState.error = nil
+            viewState.dishItems = dishItems
         }
     }
     

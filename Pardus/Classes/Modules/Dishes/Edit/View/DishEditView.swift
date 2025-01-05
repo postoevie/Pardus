@@ -148,7 +148,7 @@ struct DishEditPreviews: PreviewProvider {
         carrot.name = "Carrot"
         carrot.category = vegs
         
-        dish.ingridients?.insert(carrot)
+        dish.ingridients.insert(carrot)
         
         try? context.save()
         

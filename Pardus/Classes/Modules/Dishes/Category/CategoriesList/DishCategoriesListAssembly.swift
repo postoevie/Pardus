@@ -78,9 +78,7 @@ fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCus
                 badgeColor = Color(color)
             }
             let items = dishes.map { dish in
-                let ingridientNames = (dish.ingridients ?? []).map {
-                    $0.name
-                }
+                let ingridientNames = dish.ingridients.map { $0.name }
                 return CategoriesListItem(id: dish.id,
                                           title: dish.name,
                                           subtitle: ingridientNames.joined(separator: ", "),

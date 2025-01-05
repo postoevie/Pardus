@@ -31,21 +31,18 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             try await interactor.performWithMealDish { mealDish in
                 self.updateViewState(mealDish: mealDish)
             }
-        }
-    }
-    
-    func submitValues() {
-        guard let viewState else {
-            return
-        }
-        Task {
-            try await interactor.performWithMealDish { mealDish in
-                mealDish?.name = viewState.name
+            try await interactor.performWithIngridients { ingridients in
+                self.updateViewState(mealIngridients: ingridients)
             }
-            try await interactor.save()
         }
     }
     
+    func submitDishValues() {
+        Task {
+            try await saveMealDishValues()
+        }
+    }
+
     func updateIngridientWeight(ingridientId: UUID) {
         guard let viewState,
               let ingridient = viewState.ingridients.first(where: { $0.id == ingridientId }) else {
@@ -55,9 +52,12 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             let weightString = ingridient.weight
             let weight: NSNumber = NumberFormatter.nutrients.number(from: weightString) ?? .init(value: 0)
             try await interactor.performWithMealDish { mealDish in
-                let ingiridient = mealDish?.ingridients?[ingridientId]
+                let ingiridient = mealDish?.ingridients[ingridientId]
                 ingiridient?.weight = weight.doubleValue
                 self.updateViewState(mealDish: mealDish)
+            }
+            try await interactor.performWithIngridients { ingridients in
+                self.updateViewState(mealIngridients: ingridients)
             }
         }
     }
@@ -67,6 +67,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             return
         }
         Task {
+            try await saveMealDishValues()
             let filter = self.interactor.ingridientsFilter
             await MainActor.run {
                 self.router.showIngidientsPicklist(dishMealId: mealDishId, filter: filter) { selectedIngridientsIds in
@@ -77,6 +78,9 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
                         try await self.interactor.performWithMealDish { mealDish in
                             self.updateViewState(mealDish: mealDish)
                         }
+                        try await self.interactor.performWithIngridients { ingridients in
+                            self.updateViewState(mealIngridients: ingridients)
+                        }
                     }
                 }
             }
@@ -85,6 +89,7 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
     
     func createIngridientTapped() {
         Task {
+            try await saveMealDishValues()
             let ingridientId = try await interactor.createMealIngridient()
             try await interactor.save()
             await MainActor.run {
@@ -99,6 +104,9 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
             try await interactor.save()
             try await interactor.performWithMealDish { mealDish in
                 self.updateViewState(mealDish: mealDish)
+            }
+            try await interactor.performWithIngridients { ingridients in
+                self.updateViewState(mealIngridients: ingridients)
             }
         }
     }
@@ -133,17 +141,35 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
         let sumProteins = String(mealDish.proteins)
         let sumFats = String(mealDish.fats)
         let sumCarbs = String(mealDish.carbs)
-        let ingridients = (mealDish.ingridients ?? []).map(self.mapToListItem)
         
         DispatchQueue.main.async {
             viewState.error = nil
             viewState.name = name
-            viewState.ingridients = ingridients
             viewState.weight = String(weight)
             viewState.sumKcals = String(sumKcals)
             viewState.sumProteins = String(sumProteins)
             viewState.sumFats = String(sumFats)
             viewState.sumCarbs = String(sumCarbs)
+        }
+    }
+    
+    private func saveMealDishValues() async throws {
+        guard let viewState else {
+            return
+        }
+        try await interactor.performWithMealDish { mealDish in
+            mealDish?.name = viewState.name
+        }
+        try await interactor.save()
+    }
+    
+    private func updateViewState(mealIngridients: [MealIngridient]) {
+        guard let viewState = self.viewState else {
+            return
+        }
+        let ingridients = mealIngridients.map(self.mapToListItem)
+        DispatchQueue.main.async {
+            viewState.ingridients = ingridients
         }
     }
     

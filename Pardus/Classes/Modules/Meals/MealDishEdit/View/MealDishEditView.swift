@@ -13,16 +13,14 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
     @StateObject var viewState: MealDishEditViewState
     @StateObject var presenter: Presenter
     
-    @FocusState var focusedIdemId: UUID?
+    @FocusState var focusedField: MealDishEditField?
     
     var body: some View {
         VStack {
             FieldSectionView(titleKey: "itemEdit.label.name") {
                 TextField("", text: $viewState.name)
                     .defaultTextField()
-                    .onSubmit {
-                        presenter.submitValues()
-                    }
+                    .focused($focusedField, equals: .dishNameField)
             }
             HStack {
                 MealParameterCell(title: "dishparameter.kcal",
@@ -61,7 +59,7 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
             .foregroundStyle(.secondaryText)
             List($viewState.ingridients) { $item in
                 MealDishIngridientRow(item: $item,
-                                      focusedIdemId: $focusedIdemId)
+                                      focusedField: $focusedField)
                 .defaultCellInsets()
                 .swipeActions {
                     Button {
@@ -84,9 +82,13 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
         .onAppear {
             presenter.didAppear()
         }
-        .onChange(of: focusedIdemId) { oldValue, newValue in
-            if let oldValue {
-                presenter.updateIngridientWeight(ingridientId: oldValue)
+        .onChange(of: focusedField) { oldValue, newValue in
+            switch oldValue {
+            case .dishNameField:
+                presenter.submitDishValues()
+            case .ingridientWeightField(let itemId):
+                presenter.updateIngridientWeight(ingridientId: itemId)
+            default: break
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -104,8 +106,7 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
                 HStack {
                     Spacer()
                     Button {
-                        presenter.submitValues()
-                        focusedIdemId = nil
+                        focusedField = nil
                     } label: {
                         Text("app.done")
                             .font(.keyboard)
@@ -116,15 +117,21 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
     }
 }
 
+enum MealDishEditField: Hashable {
+    
+    case dishNameField
+    case ingridientWeightField(UUID)
+}
+
 fileprivate struct MealDishIngridientRow: View {
     
     private let item: Binding<MealDishesIngridientsListItem>
-    private let focusedIdemId: FocusState<UUID?>.Binding
+    private let focusedField: FocusState<MealDishEditField?>.Binding
     
     init(item: Binding<MealDishesIngridientsListItem>,
-         focusedIdemId: FocusState<UUID?>.Binding) {
+         focusedField: FocusState<MealDishEditField?>.Binding) {
         self.item = item
-        self.focusedIdemId = focusedIdemId
+        self.focusedField = focusedField
     }
     
     var body: some View {
@@ -135,7 +142,7 @@ fileprivate struct MealDishIngridientRow: View {
             TextField("mealdishedit.ingridients.placeholder.weight",
                       text: item.weight)
             .numericTextField()
-            .focused(focusedIdemId, equals: item.id)
+            .focused(focusedField, equals: .ingridientWeightField(item.id))
             .frame(width: 100)
         }
     }
@@ -183,7 +190,7 @@ struct MealDishEditPreviews: PreviewProvider {
         carrot.id = UUID()
         carrot.name = "Carrot"
         carrot.calories = 50
-        dish.ingridients?.insert(carrot)
+        dish.ingridients.insert(carrot)
         
         let carrotInMeal = MealIngridient(context: context)
         carrotInMeal.id = UUID()

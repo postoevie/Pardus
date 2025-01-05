@@ -66,6 +66,22 @@ final class DishEditInteractor: DishEditInteractorProtocol {
         }
     }
     
+    func performWithIngridients(action: @escaping ([Ingridient]) -> Void) async {
+        await coreDataService.perform { _ in
+            guard let ingridients = self.dish?.ingridients else {
+                action([])
+                return
+            }
+            action(self.sorted(ingridients: Array(ingridients)))
+        }
+    }
+    
+    private func sorted(ingridients: [Ingridient]) -> [Ingridient] {
+        ingridients.sorted {
+            $0.name < $1.name
+        }
+    }
+    
     func setCategory(uid: UUID?) async throws {
         guard let dish else {
             assertionFailure()
@@ -87,11 +103,7 @@ final class DishEditInteractor: DishEditInteractorProtocol {
         }
         try await coreDataService.perform {
             let selectedIngridients = Set(try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: Array(uids))))
-            dish.ingridients = if let ingridients = dish.ingridients {
-                ingridients.union(selectedIngridients)
-            } else {
-                selectedIngridients
-            }
+            dish.ingridients = dish.ingridients.union(selectedIngridients)
         }
     }
     
@@ -101,8 +113,8 @@ final class DishEditInteractor: DishEditInteractorProtocol {
             return
         }
         await coreDataService.perform { _ in
-            if let ingridient = dish.ingridients?[ingridientId] {
-                dish.ingridients?.remove(ingridient)
+            if let ingridient = dish.ingridients[ingridientId] {
+                dish.ingridients.remove(ingridient)
             }
         }
     }

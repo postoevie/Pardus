@@ -111,7 +111,7 @@ struct SearchListPreviews: PreviewProvider {
         let ingridient = Ingridient(context: context)
         ingridient.id = UUID()
         ingridient.name = "Chicken"
-        dish.ingridients?.insert(ingridient)
+        dish.ingridients.insert(ingridient)
 
         try? context.save()
     }

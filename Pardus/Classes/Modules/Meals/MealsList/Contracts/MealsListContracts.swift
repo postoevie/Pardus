@@ -30,11 +30,12 @@ protocol MealsListPresenterProtocol: ObservableObject, PresenterProtocol {
 
 // Interactor
 protocol MealsListInteractorProtocol: InteractorProtocol {
-    func performWithMeals(action: @escaping ([Meal]) -> Void) async throws
     var startDate: Date { get set }
     var endDate: Date { get set }
     var dateFilterEnabled: Bool { get set }
     func loadMeals() async throws
+    func performWithMeals(action: @escaping ([Meal]) -> Void) async throws
+    func getDishes(for meal: Meal) -> [MealDish]
     func delete(itemId: UUID) async throws
 }
 

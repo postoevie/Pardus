@@ -45,7 +45,6 @@ class MealEditInteractor: MealEditInteractorProtocol {
             }
             let newMeal = try $0.create(type: Meal.self, id: UUID())
             newMeal.date = Date()
-            newMeal.dishes = Set<MealDish>()
             self.mealId = newMeal.id
             self.meal = newMeal
         }
@@ -82,6 +81,23 @@ class MealEditInteractor: MealEditInteractorProtocol {
         }
     }
     
+    func performWithMealDishes(action: @escaping ([MealDish]) -> Void) async throws {
+        await coreDataService.perform { _ in
+            guard let meal = self.meal else {
+                action([])
+                return
+            }
+            let mealDishes = Array(meal.dishes)
+            action(self.sorted(mealDishes))
+        }
+    }
+    
+    private func sorted(_ mealDishes: [MealDish]) -> [MealDish] {
+        mealDishes.sorted {
+            $0.createdAt < $1.createdAt
+        }
+    }
+    
     func save() async throws {
         try await coreDataService.perform {
             try $0.persistChanges()
@@ -100,9 +116,8 @@ class MealEditInteractor: MealEditInteractorProtocol {
                 let mealDish = try $0.create(type: MealDish.self, id: UUID())
                 mealDish.dish = dish
                 mealDish.meal = meal
-                
-                let ingridientsToAdd = dish.ingridients ?? []
-                for ingridient in ingridientsToAdd {
+                mealDish.name = dish.name
+                for ingridient in dish.ingridients {
                     let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
                     mealIngridient.dish = mealDish
                     mealIngridient.ingridient = ingridient

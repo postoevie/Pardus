@@ -37,6 +37,7 @@ protocol MealEditInteractorProtocol: InteractorProtocol {
     
     func loadInitialMeal() async throws
     func performWithMeal(action: @escaping (Meal?) -> Void) async throws
+    func performWithMealDishes(action: @escaping ([MealDish]) -> Void) async throws
     func createMealDish() async throws -> UUID
     func setSelectedDishes(_ dishesIds: Set<UUID>) async throws
     func remove(dishId: UUID) async throws

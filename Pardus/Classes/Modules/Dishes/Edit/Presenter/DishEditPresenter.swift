@@ -28,6 +28,9 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             try await interactor.performWithDish { dish in
                 self.updateViewState(dish: dish)
             }
+            await self.interactor.performWithIngridients { ingridients in
+                self.updateViewState(ingridients: ingridients)
+            }
         }
     }
     
@@ -68,8 +71,9 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                     self.router.hidePicklist()
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
-                        try await self.interactor.performWithDish { dish in
-                            self.updateViewState(dish: dish)
+                        try await self.interactor.save()
+                        await self.interactor.performWithIngridients { ingridients in
+                            self.updateViewState(ingridients: ingridients)
                         }
                     }
                 }
@@ -90,8 +94,8 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
                     Task {
                         try await self.interactor.setSelectedIngridients(uids: selectedIds)
                         try await self.interactor.save()
-                        try await self.interactor.performWithDish { dish in
-                            self.updateViewState(dish: dish)
+                        await self.interactor.performWithIngridients { ingridients in
+                            self.updateViewState(ingridients: ingridients)
                         }
                     }
                 }
@@ -103,8 +107,8 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
         Task {
             try await interactor.remove(ingridientId: ingridientId)
             try await self.interactor.save()
-            try await interactor.performWithDish { dish in
-                self.updateViewState(dish: dish)
+            await interactor.performWithIngridients { ingridients in
+                self.updateViewState(ingridients: ingridients)
             }
         }
     }
@@ -127,32 +131,44 @@ final class DishEditPresenter: ObservableObject, DishEditPresenterProtocol {
             viewState.error = "errors.absendentity"
             return
         }
-        viewState.name = dish.name
+        
+        let name = dish.name
+        var categoryModel: DishCategoryViewModel?
         if let category = dish.category {
             var categoryColor: Color = .clear
             if let colorHex = category.colorHex,
                let color = try? UIColor.init(hex: colorHex) {
                 categoryColor = Color(color)
             }
-            viewState.category = DishCategoryViewModel(id: category.id,
-                                                       name: category.name,
-                                                       color: categoryColor)
-        } else {
-            viewState.category = nil
+            categoryModel = DishCategoryViewModel(id: category.id,
+                                                  name: category.name,
+                                                  color: categoryColor)
         }
-        viewState.ingridients = if let ingridients = dish.ingridients {
-            ingridients.map { ingridient in
-                DishIngridientsListItem(id: ingridient.id,
-                                        title: ingridient.name,
-                                        subtitle: NumberFormatter.nutrientsDefaultString(calories: ingridient.calories,
-                                                                                         proteins: ingridient.proteins,
-                                                                                         fats: ingridient.fats,
-                                                                                         carbs: ingridient.carbs),
-                                        categoryColor: .clear)
-            }
-        } else {
-            []
+        
+        DispatchQueue.main.async {
+            viewState.name = name
+            viewState.category = categoryModel
         }
+    }
+    
+    private func updateViewState(ingridients: [Ingridient]) {
+        guard let viewState else {
+            return
+        }
+        let ingridientItems = ingridients.map(mapToListItem)
+        DispatchQueue.main.async {
+            viewState.ingridients = ingridientItems
+        }
+    }
+    
+    private func mapToListItem(_ ingridient: Ingridient) -> DishIngridientsListItem {
+        DishIngridientsListItem(id: ingridient.id,
+                                title: ingridient.name,
+                                subtitle: NumberFormatter.nutrientsDefaultString(calories: ingridient.calories,
+                                                                                 proteins: ingridient.proteins,
+                                                                                 fats: ingridient.fats,
+                                                                                 carbs: ingridient.carbs),
+                                categoryColor: .clear)
     }
     
     private func valueSubmitted() async throws {

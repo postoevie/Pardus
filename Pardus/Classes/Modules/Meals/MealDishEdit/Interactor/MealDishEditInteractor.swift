@@ -47,22 +47,27 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
         guard let mealDish else {
             return
         }
-        try await coreDataService.perform {
-            let ingridientsToAdd = try $0.fetchMany(type: Ingridient.self,
-                                                    predicate: NSPredicate.idIn(uids: Array(ingridientIds)),
-                                                    sortBy: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
+        try await coreDataService.perform { executor in
+            let ingridientsToAdd = try executor.fetchMany(type: Ingridient.self,
+                                                          predicate: NSPredicate.idIn(uids: Array(ingridientIds)),
+                                                          sortBy: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
             for ingridient in ingridientsToAdd {
-                let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
-                mealIngridient.dish = mealDish
-                mealIngridient.ingridient = ingridient
-                mealIngridient.name = ingridient.name
-                mealIngridient.weight = 0
-                mealIngridient.caloriesPer100 = ingridient.calories
-                mealIngridient.proteinsPer100 = ingridient.proteins
-                mealIngridient.fatsPer100 = ingridient.fats
-                mealIngridient.carbsPer100 = ingridient.carbs
+                try self.makeMealIngridient(executor, mealDish: mealDish, ingridient: ingridient)
             }
         }
+    }
+    
+    private func makeMealIngridient(_ executor: CoreDataExecutorType,
+                                    mealDish: MealDish,
+                                    ingridient: Ingridient) throws {
+        let mealIngridient = try executor.create(type: MealIngridient.self, id: UUID())
+        mealIngridient.dish = mealDish
+        mealIngridient.ingridient = ingridient
+        mealIngridient.name = ingridient.name
+        mealIngridient.caloriesPer100 = ingridient.calories
+        mealIngridient.proteinsPer100 = ingridient.proteins
+        mealIngridient.fatsPer100 = ingridient.fats
+        mealIngridient.carbsPer100 = ingridient.carbs
     }
     
     func remove(ingridientId: UUID) async throws {
@@ -71,8 +76,8 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
             return
         }
         await coreDataService.perform { _ in
-            if let ingridientToRemove = mealDish.ingridients?[ingridientId] {
-                self.mealDish?.ingridients?.remove(ingridientToRemove)
+            if let ingridientToRemove = mealDish.ingridients[ingridientId] {
+                self.mealDish?.ingridients.remove(ingridientToRemove)
             }
         }
     }
@@ -96,10 +101,20 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
         }
     }
     
-    func performWithIngridient(uid: UUID, action: @escaping (MealIngridient?) -> Void) async throws {
+    func performWithIngridients(action: @escaping ([MealIngridient]) -> Void) async throws {
         await coreDataService.perform { _ in
-            let ingridient = self.mealDish?.ingridients?[uid]
-            action(ingridient)
+            guard let mealDish = self.mealDish else {
+                action([])
+                return
+            }
+            let mealDishes = Array(mealDish.ingridients)
+            action(self.sorted(mealDishes))
+        }
+    }
+    
+    private func sorted(_ mealIngridients: [MealIngridient]) -> [MealIngridient] {
+        mealIngridients.sorted {
+            $0.createdAt < $1.createdAt
         }
     }
     

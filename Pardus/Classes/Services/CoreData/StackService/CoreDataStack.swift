@@ -15,20 +15,20 @@ class CoreDataStack {
         container.persistentStoreCoordinator
     }
     
+    lazy var rootContext: NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.automaticallyMergesChangesFromParent = false
+        context.persistentStoreCoordinator = coordinator
+        return context
+    }()
+    
     lazy var mainQueueContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = coordinator
+        context.parent = rootContext
         context.automaticallyMergesChangesFromParent = true
         context.retainsRegisteredObjects = true
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.shouldDeleteInaccessibleFaults = true
-        return context
-    }()
-    
-    lazy var privateQueueContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        context.automaticallyMergesChangesFromParent = false
-        context.persistentStoreCoordinator = coordinator
         return context
     }()
     
@@ -67,16 +67,9 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "Meal"
             desc.managedObjectClassName = String(describing: Meal.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let dateAttr = NSAttributeDescription()
-            dateAttr.name = "date"
-            dateAttr.attributeType = .dateAttributeType
-            
-            desc.properties = [idAttr, dateAttr]
+            desc.properties = [makeIdAttribute(),
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "date", type: .dateAttributeType)]
             return desc
         }()
         
@@ -84,19 +77,9 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "Dish"
             desc.managedObjectClassName = String(describing: Dish.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let nameAttr = NSAttributeDescription()
-            nameAttr.name = "name"
-            nameAttr.attributeType = .stringAttributeType
-            nameAttr.isOptional = true
-            
-            desc.properties = [idAttr,
-                               nameAttr]
-            
+            desc.properties = [makeIdAttribute(),
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: "")]
             return desc
         }()
         
@@ -104,22 +87,10 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "DishCategory"
             desc.managedObjectClassName = String(describing: DishCategory.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let nameAttr = NSAttributeDescription()
-            nameAttr.name = "name"
-            nameAttr.attributeType = .stringAttributeType
-            nameAttr.isOptional = true
-            
-            let colorAttr = NSAttributeDescription()
-            colorAttr.name = "colorHex"
-            colorAttr.attributeType = .stringAttributeType
-            colorAttr.isOptional = true
-            
-            desc.properties = [idAttr, nameAttr, colorAttr]
+            desc.properties = [makeIdAttribute(),
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: ""),
+                               makeAttribute(name: "colorHex", type: .stringAttributeType, isOptional: true)]
             return desc
         }()
         
@@ -150,7 +121,8 @@ class CoreDataStack {
             desc.name = "MealDish"
             desc.managedObjectClassName = String(describing: MealDish.self)
             desc.properties = [makeIdAttribute(),
-                               makeAttribute(name: "name", type: .stringAttributeType)]
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: "")]
             return desc
         }()
         
@@ -198,43 +170,14 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "Ingridient"
             desc.managedObjectClassName = String(describing: Ingridient.self)
+            desc.properties = [makeIdAttribute(),
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: ""),
+                               makeAttribute(name: "calories", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "proteins", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "fats", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "carbs", type: .doubleAttributeType, defaultValue: 0)]
             
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let nameAttr = NSAttributeDescription()
-            nameAttr.name = "name"
-            nameAttr.attributeType = .stringAttributeType
-            nameAttr.isOptional = true
-            
-            let caloriesAttr = NSAttributeDescription()
-            caloriesAttr.name = "calories"
-            caloriesAttr.attributeType = .doubleAttributeType
-            caloriesAttr.defaultValue = 0
-            
-            let proteinsAttr = NSAttributeDescription()
-            proteinsAttr.name = "proteins"
-            proteinsAttr.attributeType = .doubleAttributeType
-            proteinsAttr.defaultValue = 0
-            
-            let fatsAttr = NSAttributeDescription()
-            fatsAttr.name = "fats"
-            fatsAttr.attributeType = .doubleAttributeType
-            fatsAttr.defaultValue = 0
-            
-            let carbsAttr = NSAttributeDescription()
-            carbsAttr.name = "carbs"
-            carbsAttr.attributeType = .doubleAttributeType
-            carbsAttr.defaultValue = 0
-            
-            desc.properties = [idAttr,
-                               nameAttr,
-                               caloriesAttr,
-                               proteinsAttr,
-                               fatsAttr,
-                               carbsAttr]
-
             return desc
         }()
         
@@ -261,22 +204,10 @@ class CoreDataStack {
             let desc = NSEntityDescription()
             desc.name = "IngridientCategory"
             desc.managedObjectClassName = String(describing: IngridientCategory.self)
-            
-            let idAttr = NSAttributeDescription()
-            idAttr.name = "id"
-            idAttr.attributeType = .UUIDAttributeType
-            
-            let nameAttr = NSAttributeDescription()
-            nameAttr.name = "name"
-            nameAttr.attributeType = .stringAttributeType
-            nameAttr.isOptional = true
-            
-            let colorAttr = NSAttributeDescription()
-            colorAttr.name = "colorHex"
-            colorAttr.attributeType = .stringAttributeType
-            colorAttr.isOptional = true
-            
-            desc.properties = [idAttr, nameAttr, colorAttr]
+            desc.properties = [makeIdAttribute(),
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: ""),
+                               makeAttribute(name: "colorHex", type: .stringAttributeType, isOptional: true)]
             return desc
         }()
         
@@ -306,12 +237,13 @@ class CoreDataStack {
             desc.name = "MealIngridient"
             desc.managedObjectClassName = String(describing: MealIngridient.self)
             desc.properties = [makeIdAttribute(),
-                               makeAttribute(name: "name", type: .stringAttributeType),
-                               makeAttribute(name: "caloriesPer100", type: .doubleAttributeType),
-                               makeAttribute(name: "proteinsPer100", type: .doubleAttributeType),
-                               makeAttribute(name: "fatsPer100", type: .doubleAttributeType),
-                               makeAttribute(name: "carbsPer100", type: .doubleAttributeType),
-                               makeAttribute(name: "weight", type: .doubleAttributeType)]
+                               makeCreatedAtAttribute(),
+                               makeAttribute(name: "name", type: .stringAttributeType, defaultValue: ""),
+                               makeAttribute(name: "caloriesPer100", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "proteinsPer100", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "fatsPer100", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "carbsPer100", type: .doubleAttributeType, defaultValue: 0),
+                               makeAttribute(name: "weight", type: .doubleAttributeType, defaultValue: 0)]
 
             return desc
         }()
@@ -337,7 +269,6 @@ class CoreDataStack {
         mealDishDescription.properties.append(mealDishToMealIngridient)
         
         // MealIngridient <--> Ingridient
-        
         let mealIngridientToIngridientRel = NSRelationshipDescription()
         mealIngridientToIngridientRel.name = "ingridient"
         mealIngridientToIngridientRel.destinationEntity = ingridientDescription
@@ -375,10 +306,19 @@ class CoreDataStack {
         return attribute
     }
     
-    private func makeAttribute(name: String, type: NSAttributeType) -> NSAttributeDescription {
+    private func makeCreatedAtAttribute() -> NSAttributeDescription {
+        let attribute = NSAttributeDescription()
+        attribute.name = "createdAt"
+        attribute.attributeType = .dateAttributeType
+        return attribute
+    }
+    
+    private func makeAttribute(name: String, type: NSAttributeType, isOptional: Bool = false, defaultValue: Any? = nil) -> NSAttributeDescription {
         let attribute = NSAttributeDescription()
         attribute.name = name
         attribute.attributeType = type
+        attribute.isOptional = isOptional
+        attribute.defaultValue = defaultValue
         return attribute
     }
 }

@@ -25,6 +25,7 @@ struct CoreDataExecutor: CoreDataExecutorType {
     func create<Object>(type: Object.Type, id: UUID) throws -> Object where Object : IdentifiedManagedObject {
         let object = Object(context: context)
         object.id = id
+        object.createdAt = Date()
         return object
     }
     

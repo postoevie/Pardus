@@ -11,4 +11,5 @@ import CoreData
 class IdentifiedManagedObject: NSManagedObject, Identifiable {
     
     @NSManaged var id: UUID
+    @NSManaged var createdAt: Date
 }

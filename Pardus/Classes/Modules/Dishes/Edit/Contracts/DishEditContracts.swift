@@ -37,6 +37,7 @@ protocol DishEditInteractorProtocol: InteractorProtocol {
     
     func loadInitialDish() async throws
     func performWithDish(action: @escaping (Dish?) -> Void) async throws
+    func performWithIngridients(action: @escaping ([Ingridient]) -> Void) async
     func setCategory(uid: UUID?) async throws
     func setSelectedIngridients(uids: Set<UUID>) async throws
     func remove(ingridientId: UUID) async throws

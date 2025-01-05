@@ -23,7 +23,12 @@ final class RootRouter: RootRouterProtocol {
     }
     
     private func getViewSnapshot() -> ViewsStateSnapshot? {
-        getUITestSnapshot()
+        do {
+            return try getUITestSnapshot()
+        } catch {
+            print() //TODO: P-58 Analytics
+        }
+        return nil
     }
     
     private func apply(snapshot: ViewsStateSnapshot) {
@@ -33,12 +38,11 @@ final class RootRouter: RootRouterProtocol {
         navigationService.ingridientsItems = snapshot.ingridientsItems
     }
     
-    private func getUITestSnapshot() -> ViewsStateSnapshot? {
+    private func getUITestSnapshot() throws -> ViewsStateSnapshot? {
         guard let uiTestViewPath = EnvironmentUtils.uiTestsViewSnapshotPath,
-              let uiTestData = FileManager.default.contents(atPath: uiTestViewPath),
-              let snapshot = try? JSONDecoder().decode(ViewsStateSnapshot.self, from: uiTestData) else {
+              let uiTestData = FileManager.default.contents(atPath: uiTestViewPath) else {
             return nil
         }
-        return snapshot
+        return try JSONDecoder().decode(ViewsStateSnapshot.self, from: uiTestData)
     }
 }

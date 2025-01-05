@@ -36,17 +36,23 @@ final class MealsListInteractor: MealsListInteractorProtocol {
         }
     }
     
+    func loadMeals() async throws {
+        try await dataService.perform {
+            self.meals = try $0.fetchMany(type: Meal.self,
+                                          predicate: nil,
+                                          sortBy: SortParams(fieldName: (\Meal.date).fieldName, ascending: false))
+        }
+    }
+    
     func performWithMeals(action: @escaping ([Meal]) -> Void) async throws {
         await dataService.perform { _ in
             action(self.filteredMeals)
         }
     }
     
-    func loadMeals() async throws {
-        try await dataService.perform {
-            self.meals = try $0.fetchMany(type: Meal.self,
-                                          predicate: nil,
-                                          sortBy: SortParams(fieldName: (\Meal.date).fieldName, ascending: false))
+    func getDishes(for meal: Meal) -> [MealDish] {
+        Array(meal.dishes).sorted {
+            $0.name < $1.name
         }
     }
     

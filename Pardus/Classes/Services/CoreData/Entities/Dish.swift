@@ -12,5 +12,5 @@ class Dish: IdentifiedManagedObject {
     
     @NSManaged var name: String
     @NSManaged var category: DishCategory?
-    @NSManaged var ingridients: Set<Ingridient>?
+    @NSManaged var ingridients: Set<Ingridient>
 }

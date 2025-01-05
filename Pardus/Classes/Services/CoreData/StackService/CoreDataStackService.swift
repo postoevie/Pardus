@@ -17,7 +17,11 @@ class CoreDataStackService: CoreDataStackServiceType {
         let stack = CoreDataStack()
         stack.setup(inMemory: inMemory)
         dataStack = stack
-        makeFirstLaunchData(in: stack.mainQueueContext)
+        do {
+            try makeFirstLaunchData(in: stack.mainQueueContext)
+        } catch {
+            print(error) //TODO: P-58
+        }
     }
     
     func getMainQueueContext() -> NSManagedObjectContext {
@@ -28,57 +32,76 @@ class CoreDataStackService: CoreDataStackServiceType {
         dataStack.makeStubMainQueueContext()
     }
     
-    private func makeFirstLaunchData(in context: NSManagedObjectContext) {
+    private func makeFirstLaunchData(in context: NSManagedObjectContext) throws {
         guard UserDefaults.standard.string(forKey: "com.pardus.firstStartupData") == nil else {
             return
         }
-        
-        let dishCategory = DishCategory(context: context)
-        dishCategory.name = "Salads"
-        dishCategory.colorHex = "#00AA00"
-        dishCategory.id = UUID()
-        
-        let dish = Dish(context: context)
-        dish.id = UUID()
-        dish.name = "Carrot salad 🥕"
-        dish.category = dishCategory
-        
-        let soup = Dish(context: context)
-        soup.id = UUID()
-        soup.name = "Soup 🍜"
-        soup.category = dishCategory
-        
-        let meal = Meal(context: context)
-        meal.id = UUID()
-        meal.date = Date()
-        meal.dishes = Set()
-    
-        let mealDish = MealDish(context: context)
-        mealDish.id = UUID()
-        
-        let soupMealDish = MealDish(context: context)
-        soupMealDish.id = UUID()
-        
-        mealDish.meal = meal
-        mealDish.dish = dish
-        
-        soupMealDish.meal = meal
-        soupMealDish.dish = soup
-        
-        let meal2 = Meal(context: context)
-        meal2.id = UUID()
-        meal2.date = Calendar.current.date(byAdding: .day,
-                                           value: 1,
-                                           to: Date()) ?? Date()
-        meal2.dishes = Set()
-        
-        let meal3 = Meal(context: context)
-        meal3.id = UUID()
-        meal3.date = Date()
-        meal3.dishes = Set()
-        
-        try? context.save()
+        let coreDataService = CoreDataService(context: context)
+        try coreDataService.syncPerform { executor in
+            
+            // Create dish categories
+            let saladsCategory = try executor.create(type: DishCategory.self, id: UUID())
+            saladsCategory.name = "Salads"
+            saladsCategory.colorHex = "#02A50C"
+            
+            let soupsCategory = try executor.create(type: DishCategory.self, id: UUID())
+            soupsCategory.name = "Soups"
+            soupsCategory.colorHex = "#C9A203"
+            
+            // Create dishes
+            let chickenSalad = try executor.create(type: Dish.self, id: UUID())
+            chickenSalad.name = "Chicken salad"
+            chickenSalad.category = saladsCategory
+            
+            let tomatoSoup = try executor.create(type: Dish.self, id: UUID())
+            tomatoSoup.id = UUID()
+            tomatoSoup.name = "Tomato soup"
+            tomatoSoup.category = soupsCategory
+            
+            // Create first meal
+            let meal1 = try executor.create(type: Meal.self, id: UUID())
+            meal1.date = Date()
+            meal1.dishes = Set()
+            
+            // Add dishes to meal
+            let saladMealDish = try executor.create(type: MealDish.self, id: UUID())
+            saladMealDish.meal = meal1
+            saladMealDish.dish = chickenSalad
+            saladMealDish.name = chickenSalad.name
+            
+            let soupMealDish = try executor.create(type: MealDish.self, id: UUID())
+            soupMealDish.meal = meal1
+            soupMealDish.dish = tomatoSoup
+            soupMealDish.name = tomatoSoup.name
+            
+            let meal2 = try executor.create(type: Meal.self, id: UUID())
+            meal2.id = UUID()
+            meal2.date = Calendar.current.date(byAdding: .day,
+                                               value: 1,
+                                               to: Date()) ?? Date()
+            meal2.dishes = Set()
+            
+            let meal3 = try executor.create(type: Meal.self, id: UUID())
+            meal3.id = UUID()
+            meal3.date = Date()
+            meal3.dishes = Set()
+            
+            try? context.save()
+        }
         
         UserDefaults.standard.setValue(Date().formatted(), forKey: "com.pardus.firstStartupData")
+    }
+    
+    private func makeMealIngridient(_ executor: CoreDataExecutorType,
+                                    mealDish: MealDish,
+                                    ingridient: Ingridient) throws {
+        let mealIngridient = try executor.create(type: MealIngridient.self, id: UUID())
+        mealIngridient.dish = mealDish
+        mealIngridient.ingridient = ingridient
+        mealIngridient.name = ingridient.name
+        mealIngridient.caloriesPer100 = ingridient.calories
+        mealIngridient.proteinsPer100 = ingridient.proteins
+        mealIngridient.fatsPer100 = ingridient.fats
+        mealIngridient.carbsPer100 = ingridient.carbs
     }
 }

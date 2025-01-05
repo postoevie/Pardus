@@ -3,7 +3,7 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 18.5.24.
-//  
+//
 //
 
 import SwiftUI
@@ -109,8 +109,9 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
     }
     
     private func mapToItem(meal: Meal) -> MealsListItem {
-        MealsListItem(id: meal.id,
-                      title: itemDateFormatter.string(from: meal.date),
-                      subtitle: (meal.dishes).map { $0.name }.joined(separator: ", "))
+        let mealDishes = interactor.getDishes(for: meal)
+        return MealsListItem(id: meal.id,
+                             title: itemDateFormatter.string(from: meal.date),
+                             subtitle: mealDishes.map { $0.name }.joined(separator: ", "))
     }
 }

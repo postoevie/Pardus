@@ -19,10 +19,14 @@ final class RootInteractor: RootInteractorProtocol {
     
     func restoreRecords() {
         guard let uiTestDataPath = EnvironmentUtils.uiTestsDataSnapshotPath,
-              let uiTestData = FileManager.default.contents(atPath: uiTestDataPath),
-              let snapshot = try? JSONDecoder().decode(RecordsStateSnapshot.self, from: uiTestData) else {
+              let uiTestData = FileManager.default.contents(atPath: uiTestDataPath) else {
             return
         }
-        restoreRecordsService.restoreRecords(snapshot: snapshot)
+        do {
+            let snapshot = try JSONDecoder().decode(RecordsStateSnapshot.self, from: uiTestData)
+            restoreRecordsService.restoreRecords(snapshot: snapshot)
+        } catch {
+            print(error) //TODO: P-58
+        }
     }
 }
