@@ -169,6 +169,9 @@
 		52B35CA12CF3437E006D0EC8 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B35CA02CF3437E006D0EC8 /* Styles.swift */; };
 		52BB176D2C68CC2500DC5D59 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */; };
 		52BB17712C690D3300DC5D59 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BB17702C690D3300DC5D59 /* View+Modifiers.swift */; };
+		52BBF5D62D2B45E300540E67 /* MemoryPressureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BBF5D52D2B45E300540E67 /* MemoryPressureService.swift */; };
+		52BBF5D82D2B46BB00540E67 /* MemoryPressureServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BBF5D72D2B46BB00540E67 /* MemoryPressureServiceAssembly.swift */; };
+		52BBF5DA2D2B513700540E67 /* MemoryPressureServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BBF5D92D2B513700540E67 /* MemoryPressureServiceType.swift */; };
 		52BF79042C0391E50039202E /* EntityModelMappingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79032C0391E50039202E /* EntityModelMappingType.swift */; };
 		52BF79082C042C370039202E /* MealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF79072C042C370039202E /* MealModel.swift */; };
 		52BF790C2C042D430039202E /* EntityCacheType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF790B2C042D430039202E /* EntityCacheType.swift */; };
@@ -392,6 +395,9 @@
 		52B35CA02CF3437E006D0EC8 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		52BB176C2C68CC2500DC5D59 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		52BB17702C690D3300DC5D59 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
+		52BBF5D52D2B45E300540E67 /* MemoryPressureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryPressureService.swift; sourceTree = "<group>"; };
+		52BBF5D72D2B46BB00540E67 /* MemoryPressureServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryPressureServiceAssembly.swift; sourceTree = "<group>"; };
+		52BBF5D92D2B513700540E67 /* MemoryPressureServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryPressureServiceType.swift; sourceTree = "<group>"; };
 		52BF79032C0391E50039202E /* EntityModelMappingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityModelMappingType.swift; sourceTree = "<group>"; };
 		52BF79072C042C370039202E /* MealModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealModel.swift; sourceTree = "<group>"; };
 		52BF790B2C042D430039202E /* EntityCacheType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCacheType.swift; sourceTree = "<group>"; };
@@ -538,6 +544,7 @@
 		5220DBD82BEF864C00F095EE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				52BBF5D42D2B454F00540E67 /* MemoryPressure */,
 				525917612BF9735C005394DC /* CoreData */,
 				5220DBD92BEF864C00F095EE /* NavigationService */,
 			);
@@ -1609,6 +1616,24 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		52BBF5D42D2B454F00540E67 /* MemoryPressure */ = {
+			isa = PBXGroup;
+			children = (
+				52BBF5DB2D2B515E00540E67 /* Contracts */,
+				52BBF5D52D2B45E300540E67 /* MemoryPressureService.swift */,
+				52BBF5D72D2B46BB00540E67 /* MemoryPressureServiceAssembly.swift */,
+			);
+			path = MemoryPressure;
+			sourceTree = "<group>";
+		};
+		52BBF5DB2D2B515E00540E67 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				52BBF5D92D2B513700540E67 /* MemoryPressureServiceType.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
 		52BF79052C042C250039202E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1757,20 +1782,20 @@
 			children = (
 				528DCD6B2D1E03F40013220E /* Errors */,
 				52D36EB12C6A9449001C0FCB /* CoreDataService.swift */,
-				52D36EB62C6A99A7001C0FCB /* Protocols */,
+				52D36EB62C6A99A7001C0FCB /* Contracts */,
 				52D36EB92C6A99E0001C0FCB /* CoreDataExecutor.swift */,
 				52D36EBB2C6A9B36001C0FCB /* CoreDataServiceAssembly.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
 		};
-		52D36EB62C6A99A7001C0FCB /* Protocols */ = {
+		52D36EB62C6A99A7001C0FCB /* Contracts */ = {
 			isa = PBXGroup;
 			children = (
 				52D36EB42C6A9463001C0FCB /* CoreDataServiceType.swift */,
 				52D36EB72C6A99CB001C0FCB /* CoreDataExecutorType.swift */,
 			);
-			path = Protocols;
+			path = Contracts;
 			sourceTree = "<group>";
 		};
 		52D36EBF2C6BDD95001C0FCB /* Utils */ = {
@@ -2008,8 +2033,10 @@
 				52830A0E2CD18CCB009F903F /* MealIngridient.swift in Sources */,
 				528BC5742CFDFFEF008A5861 /* RootPresenter.swift in Sources */,
 				5294B9F32CD3F4DD0021458A /* IngridientEditView.swift in Sources */,
+				52BBF5D62D2B45E300540E67 /* MemoryPressureService.swift in Sources */,
 				522D9D842CE68A920029A921 /* IngridientCategory+EditView.swift in Sources */,
 				528BC5712CFDFFEF008A5861 /* RootAssembly.swift in Sources */,
+				52BBF5D82D2B46BB00540E67 /* MemoryPressureServiceAssembly.swift in Sources */,
 				52969ABA2CD789380060A1C4 /* MealDishEditAssembly.swift in Sources */,
 				5220DBE72BEF864C00F095EE /* DependencyContainer.swift in Sources */,
 				5294B9F42CD3F4DD0021458A /* IngridientEditViewState.swift in Sources */,
@@ -2032,6 +2059,7 @@
 				52D36EB82C6A99CB001C0FCB /* CoreDataExecutorType.swift in Sources */,
 				52BF79082C042C370039202E /* MealModel.swift in Sources */,
 				5294B9F22CD3F4DD0021458A /* IngridientEditRouter.swift in Sources */,
+				52BBF5DA2D2B513700540E67 /* MemoryPressureServiceType.swift in Sources */,
 				5287005A2C16D6C6003BE337 /* PicklistPresenter.swift in Sources */,
 				528BC57F2CFE00A8008A5861 /* RecordsRestoreService.swift in Sources */,
 				52969A962CD4D6BE0060A1C4 /* DishCategoriesPicklistAssembly.swift in Sources */,

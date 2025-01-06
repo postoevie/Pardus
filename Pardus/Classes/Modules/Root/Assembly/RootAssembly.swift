@@ -20,7 +20,10 @@ final class RootAssembly: Assembly {
 
         // Interactor
         let restoreService = container.resolve(RecordsRestoreServiceAssembly.self).build()
-        let interactor = RootInteractor(restoreRecordsService: restoreService)
+        let memoryService = container.resolve(MemoryPressureServiceAssembly.self).build()
+        
+        let interactor = RootInteractor(restoreRecordsService: restoreService,
+                                        memoryPressureService: memoryService)
 
         // Presenter
         let presenter = RootPresenter(router: router, interactor: interactor)

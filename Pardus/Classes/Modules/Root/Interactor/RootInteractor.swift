@@ -12,9 +12,16 @@ import Foundation
 final class RootInteractor: RootInteractorProtocol {
     
     let restoreRecordsService: RecordsRestoreServiceType
+    let memoryPressureService: MemoryPressureServiceType
     
-    init(restoreRecordsService: RecordsRestoreServiceType) {
+    init(restoreRecordsService: RecordsRestoreServiceType,
+         memoryPressureService: MemoryPressureServiceType) {
         self.restoreRecordsService = restoreRecordsService
+        self.memoryPressureService = memoryPressureService
+    }
+    
+    func startMemoryPressureObservation() {
+        memoryPressureService.start()
     }
     
     func restoreRecords() {

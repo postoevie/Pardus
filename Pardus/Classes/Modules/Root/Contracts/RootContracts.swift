@@ -23,5 +23,6 @@ protocol RootPresenterProtocol: PresenterProtocol {
 // Interactor
 protocol RootInteractorProtocol: InteractorProtocol {
 
+    func startMemoryPressureObservation()
     func restoreRecords()
 }

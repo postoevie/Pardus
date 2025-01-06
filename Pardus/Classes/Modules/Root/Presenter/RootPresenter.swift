@@ -20,6 +20,7 @@ final class RootPresenter: RootPresenterProtocol, ObservableObject {
     }
     
     func onAppear() {
+        interactor.startMemoryPressureObservation()
         interactor.restoreRecords()
         router.showStartScreen()
     }

@@ -21,6 +21,7 @@ class RootApp: App {
         container.apply(NavigationAssembly.self)
         container.apply(CoreDataStackServiceAssembly.self)
         container.apply(RecordsRestoreServiceAssembly.self)
+        container.apply(MemoryPressureServiceAssembly.self)
         
         // Modules
         container.apply(RootAssembly.self)
