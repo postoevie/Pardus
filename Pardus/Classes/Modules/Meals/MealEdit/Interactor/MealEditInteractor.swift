@@ -118,12 +118,23 @@ class MealEditInteractor: MealEditInteractorProtocol {
                 mealDish.meal = meal
                 mealDish.name = dish.name
                 for ingridient in dish.ingridients {
-                    let mealIngridient = try $0.create(type: MealIngridient.self, id: UUID())
-                    mealIngridient.dish = mealDish
-                    mealIngridient.ingridient = ingridient
+                    try self.makeMealIngridient($0, mealDish: mealDish, ingridient: ingridient)
                 }
             }
         }
+    }
+    
+    private func makeMealIngridient(_ executor: CoreDataExecutorType,
+                                    mealDish: MealDish,
+                                    ingridient: Ingridient) throws {
+        let mealIngridient = try executor.create(type: MealIngridient.self, id: UUID())
+        mealIngridient.dish = mealDish
+        mealIngridient.ingridient = ingridient
+        mealIngridient.name = ingridient.name
+        mealIngridient.caloriesPer100 = ingridient.calories
+        mealIngridient.proteinsPer100 = ingridient.proteins
+        mealIngridient.fatsPer100 = ingridient.fats
+        mealIngridient.carbsPer100 = ingridient.carbs
     }
 }
 
