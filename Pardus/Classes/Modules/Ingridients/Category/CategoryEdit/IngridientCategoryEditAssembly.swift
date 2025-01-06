@@ -22,7 +22,7 @@ final class IngridientCategoryEditAssembly: Assembly {
         let interactor = CategoryEditInteractor<IngridientCategory>(coreDataService: coreDataService,
                                                                     categoryId: categoryId)
 
-        //ViewState
+        // ViewState
         let viewState = CategoryEditViewState()
 
         // Presenter
@@ -33,4 +33,3 @@ final class IngridientCategoryEditAssembly: Assembly {
         return view
     }
 }
-

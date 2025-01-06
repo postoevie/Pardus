@@ -6,11 +6,10 @@
 //
 //
 
-
 import SwiftUI
 import Combine
 
-public class NavigationService: NavigationServiceType, ObservableObject, Identifiable  {
+public class NavigationService: NavigationServiceType, ObservableObject, Identifiable {
     
     public let id = UUID()
     
@@ -44,6 +43,7 @@ enum Views: Codable, Equatable, Hashable {
     }
     
     // Explicitly implement decoding
+    // swiftlint:disable:next cyclomatic_complexity
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         self = switch try container.decode(Codes.self) {
@@ -82,6 +82,7 @@ enum Views: Codable, Equatable, Hashable {
         }
     }
     
+    // swiftlint:disable:next cyclomatic_complexity
     private func makeCode() -> Codes {
         switch self {
         case .mealsList:

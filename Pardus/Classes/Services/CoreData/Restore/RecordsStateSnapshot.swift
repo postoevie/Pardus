@@ -42,4 +42,3 @@ struct IngridientCategoryState: Codable {
     
     let name: String
 }
-

@@ -69,17 +69,19 @@ struct RootView: View {
             }
         }
         .sheet(isPresented: .constant($navigationService.sheetView.wrappedValue != nil),
-               onDismiss: { navigationService.sheetView = nil }) {
+               onDismiss: {
+            navigationService.sheetView = nil
+        },
+               content: {
             if let sheet = navigationService.sheetView {
                 appViewBuilder.build(view: sheet)
             }
-        }
+        })
         .alert(isPresented: .constant($navigationService.alert.wrappedValue != nil)) {
             appViewBuilder.build(alert: navigationService.alert)
         }
     }
 }
-
 
 struct RootViewPreviews: PreviewProvider {
     

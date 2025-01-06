@@ -12,7 +12,7 @@ final class DishesListRouter: SearchListRouterProtocol {
 
     private var navigation: any NavigationServiceType
     
-    init(navigation: any NavigationServiceType){
+    init(navigation: any NavigationServiceType) {
         self.navigation = navigation
     }
     

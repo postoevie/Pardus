@@ -9,14 +9,15 @@
 import Foundation
 
 protocol StrongBox: AnyObject {
-    var strongBoxHolder: [String : AnyObject] { set get }
+    var strongBoxHolder: [String: AnyObject] { get set }
 }
 
 extension StrongBox {
+    
     func strongBox<T>(_ configure: () -> T) -> T {
         let key = ObjectKey(T.self).key
-        if let object = self.strongBoxHolder[key] {
-            return object as! T
+        if let object = self.strongBoxHolder[key] as? T {
+            return object
         }
         let object = configure()
         strongBoxHolder[key] = object as AnyObject

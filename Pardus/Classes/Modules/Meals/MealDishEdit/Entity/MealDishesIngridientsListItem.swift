@@ -14,12 +14,4 @@ struct MealDishesIngridientsListItem: Identifiable {
     var subtitle: String
     var weight: String
     var categoryColor: Color
-    
-    init(id: UUID, title: String, subtitle: String, weight: String, categoryColor: Color) {
-        self.id = id
-        self.title = title
-        self.subtitle = subtitle
-        self.weight = weight
-        self.categoryColor = categoryColor
-    }
 }

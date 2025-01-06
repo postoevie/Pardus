@@ -6,7 +6,6 @@
 //
 //
 
-
 import Foundation
 
 class MealEditInteractor: MealEditInteractorProtocol {
@@ -143,7 +142,7 @@ extension MealEditInteractor {
     
 }
 
-extension Set where Element : Identifiable<UUID> {
+extension Set where Element: Identifiable<UUID> {
     
     subscript(id: UUID) -> Element? {
         self.first { $0.id == id }

@@ -7,9 +7,9 @@
 
 extension Array: AsyncSequence {
 
-    public struct AsyncIterator : AsyncIteratorProtocol {
+    public struct AsyncIterator: AsyncIteratorProtocol {
         
-        let array: Array<Element>
+        let array: [Element]
         var index = 0
         public mutating func next() async -> Element? {
             guard !Task.isCancelled else {
@@ -27,4 +27,3 @@ extension Array: AsyncSequence {
         return AsyncIterator(array: self)
     }
 }
-

@@ -24,23 +24,25 @@ final class DishCategoriesListAssembly: Assembly {
         let mainSorting = SortParams(fieldName: (\DishCategory.name).fieldName, ascending: true)
         let detailSorting = SortParams(fieldName: (\Dish.name).fieldName, ascending: true)
         
-        let interactor = CategoriesListInteractor<DishCategory,
-                                                  Dish,
-                                                  CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
-                                                                                      customizer: CategoriesListInteractorCustomizer(),
-                                                                                      mainEntitySortParams: mainSorting,
-                                                                                      detailEntitySortParams: detailSorting)
-        //ViewState
+        let interactor = CategoriesListInteractor<
+            DishCategory,
+            Dish,
+            CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
+                                                customizer: CategoriesListInteractorCustomizer(),
+                                                mainEntitySortParams: mainSorting,
+                                                detailEntitySortParams: detailSorting)
+        // ViewState
         let viewState = CategoriesListViewState()
         
         // Presenter
-        let presenter = CategoriesListPresenter<DishCategory,
-                                                Dish,
-                                                CategoriesListInteractor,
-                                                CategoriesListPresenterCustomizer>(router: router,
-                                                                                   interactor: interactor,
-                                                                                   viewState: viewState,
-                                                                                   customizer: CategoriesListPresenterCustomizer())
+        let presenter = CategoriesListPresenter<
+            DishCategory,
+            Dish,
+            CategoriesListInteractor,
+            CategoriesListPresenterCustomizer>(router: router,
+                                               interactor: interactor,
+                                               viewState: viewState,
+                                               customizer: CategoriesListPresenterCustomizer())
         
         // View
         let view = CategoriesListView(viewState: viewState, presenter: presenter)
@@ -48,7 +50,7 @@ final class DishCategoriesListAssembly: Assembly {
     }
 }
 
-fileprivate struct CategoriesListInteractorCustomizer: CategoriesListInteractorCustomizerProtocol {
+private struct CategoriesListInteractorCustomizer: CategoriesListInteractorCustomizerProtocol {
     
     func getDetailEntities(mainEntity: DishCategory) -> [Dish] {
         Array(mainEntity.dishes)
@@ -59,7 +61,7 @@ fileprivate struct CategoriesListInteractorCustomizer: CategoriesListInteractorC
     }
 }
 
-fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCustomizerProtocol {
+private struct CategoriesListPresenterCustomizer: CategoriesListPresenterCustomizerProtocol {
     
     typealias MainEntity = DishCategory
     typealias DetailEntity = Dish

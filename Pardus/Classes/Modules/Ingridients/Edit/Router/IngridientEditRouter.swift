@@ -12,7 +12,7 @@ final class IngridientEditRouter: IngridientEditRouterProtocol {
     
     private var navigation: any NavigationServiceType
     
-    init(navigation: any NavigationServiceType){
+    init(navigation: any NavigationServiceType) {
         self.navigation = navigation
     }
     

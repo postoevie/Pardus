@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WeakBox: AnyObject {
-    var weakBoxHolder: [String : WeakContainer<AnyObject>] { set get}
+    var weakBoxHolder: [String: WeakContainer<AnyObject>] { get set }
 }
 
 extension WeakBox {

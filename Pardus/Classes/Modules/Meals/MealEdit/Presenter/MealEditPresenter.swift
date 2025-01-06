@@ -168,9 +168,10 @@ final class MealEditPresenter: MealEditPresenterProtocol {
            let color = try? UIColor.init(hex: colorHex) {
             categoryColor = Color(color)
         }
+        let subtitle = "w: \(weightString) kcal: \(calString) p: \(proteinsString) f: \(fatsString) c: \(carbsString)"
         let item = MealDishesListItem(id: mealDish.id,
                                       title: mealDish.name,
-                                      subtitle: "w: \(weightString) kcal: \(calString) p: \(proteinsString) f: \(fatsString) c: \(carbsString)",
+                                      subtitle: subtitle,
                                       weight: NumberFormatter.nutrients.string(for: mealDish.weight) ?? "0",
                                       categoryColor: categoryColor)
         return item

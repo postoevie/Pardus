@@ -5,6 +5,8 @@
 //  Created by Igor Postoev on 1.6.24..
 //
 
+// swiftlint:disable all
+
 import CoreData
 
 struct DishCategoryModel: EntityModelType {

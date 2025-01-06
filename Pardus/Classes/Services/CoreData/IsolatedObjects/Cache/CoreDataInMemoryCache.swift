@@ -7,7 +7,6 @@
 
 import CoreData
 
-// TODO: Actor?
 class CoreDataInMemoryCache: EntityCacheType {
     
     let context: NSManagedObjectContext
@@ -88,4 +87,3 @@ class CoreDataInMemoryCache: EntityCacheType {
         }
     }
 }
-

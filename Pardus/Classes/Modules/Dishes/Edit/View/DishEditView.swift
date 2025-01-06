@@ -17,7 +17,7 @@ struct DishEditView<ViewState: DishEditViewStateProtocol,
     var body: some View {
         VStack {
             VStack(spacing: 16) {
-                VStack (spacing: 8) {
+                VStack(spacing: 8) {
                     HStack {
                         Text("itemEdit.label.name")
                             .font(.bodyLarge)
@@ -137,7 +137,6 @@ struct DishEditPreviews: PreviewProvider {
         dish.id = UUID()
         dish.name = "Carrot salad 🥕"
         dish.category = dishCategory
-        
         
         let vegs = IngridientCategory(context: context)
         vegs.name = "Vegs"

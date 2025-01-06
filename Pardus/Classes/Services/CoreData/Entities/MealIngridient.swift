@@ -35,4 +35,3 @@ class MealIngridient: IdentifiedManagedObject {
         carbsPer100 * weight / 100
     }
 }
-

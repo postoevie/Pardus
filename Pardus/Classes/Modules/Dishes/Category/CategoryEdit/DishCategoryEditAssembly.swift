@@ -20,9 +20,10 @@ final class DishCategoryEditAssembly: Assembly {
         // Interactor
         let coreDataStackService = container.resolve(CoreDataStackServiceAssembly.self).build()
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
-        let interactor = CategoryEditInteractor<DishCategory>(coreDataService: coreDataService, categoryId: dishCategoryId)
+        let interactor = CategoryEditInteractor<DishCategory>(coreDataService: coreDataService,
+                                                              categoryId: dishCategoryId)
 
-        //ViewState
+        // ViewState
         let viewState =  CategoryEditViewState()
 
         // Presenter

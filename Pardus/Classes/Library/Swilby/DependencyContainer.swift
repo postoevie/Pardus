@@ -30,15 +30,15 @@ protocol Resolver: WeakBox, StrongBox {
 }
 
 extension Resolver {
-    func resolve<T>(_ type: T.Type) -> T where T : Assembly {
+    func resolve<T>(_ type: T.Type) -> T where T: Assembly {
         return self.resolve(type, name: nil)
     }
 }
 
 // DI Container
 class DependencyContainer {
-    internal var weakBoxHolder = [String : WeakContainer<AnyObject>]()
-    internal var strongBoxHolder = [String : AnyObject]()
+    internal var weakBoxHolder = [String: WeakContainer<AnyObject>]()
+    internal var strongBoxHolder = [String: AnyObject]()
 
     let assemblyFactory: AssemblyFactoryProtocol
     
@@ -48,14 +48,14 @@ class DependencyContainer {
 }
 
 extension DependencyContainer: Resolver {
-    func resolve<T>(_ type: T.Type, name: String?) -> T where T : Assembly {
+    func resolve<T>(_ type: T.Type, name: String?) -> T where T: Assembly {
         let module = self.assemblyFactory.resolve(type, name: name)
         return module.init(container: self)
     }
 }
 
 extension DependencyContainer: Applyer {
-    func apply<T>(_ type: T.Type, name: String?) where T : AssemblyType {
+    func apply<T>(_ type: T.Type, name: String?) where T: AssemblyType {
         self.assemblyFactory.apply(type, name: name)
     }
 }

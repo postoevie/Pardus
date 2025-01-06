@@ -7,6 +7,7 @@
 
 import CoreData
 
+// swiftlint:disable:next type_body_length
 class CoreDataStack {
     
     var container: NSPersistentContainer!
@@ -55,13 +56,14 @@ class CoreDataStack {
         print("DBURL: \(url)")
         description.url = url
         description.type = inMemory ? NSInMemoryStoreType : NSSQLiteStoreType
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
     }
     
+    // swiftlint:disable:next function_body_length
     private func makeModel() -> NSManagedObjectModel {
         let mealDescription = {
             let desc = NSEntityDescription()
@@ -313,7 +315,10 @@ class CoreDataStack {
         return attribute
     }
     
-    private func makeAttribute(name: String, type: NSAttributeType, isOptional: Bool = false, defaultValue: Any? = nil) -> NSAttributeDescription {
+    private func makeAttribute(name: String,
+                               type: NSAttributeType,
+                               isOptional: Bool = false,
+                               defaultValue: Any? = nil) -> NSAttributeDescription {
         let attribute = NSAttributeDescription()
         attribute.name = name
         attribute.attributeType = type

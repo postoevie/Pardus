@@ -19,4 +19,3 @@ enum PicklistViewItemType: Hashable {
     case onlyTitle(title: String, badgeColor: Color)
     case withSubtitle(title: String, subtitle: String, badgeColor: Color)
 }
-

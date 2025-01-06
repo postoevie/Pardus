@@ -10,4 +10,3 @@ struct CategoriesListDataItem<MainEntity, DetailEntity> {
     let mainEntity: MainEntity?
     let detailEntities: [DetailEntity]
 }
-

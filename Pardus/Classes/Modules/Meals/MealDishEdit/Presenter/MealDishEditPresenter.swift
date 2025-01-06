@@ -184,10 +184,12 @@ final class MealDishEditPresenter: MealDishEditPresenterProtocol {
            let color = try? UIColor.init(hex: colorHex) {
             categoryColor = Color(color)
         }
+        let subtitle = "\(calString) kcal \(proteinsString)/\(fatsString)/\(carbsString)"
+        let weightString = NumberFormatter.nutrients.string(for: ingridient.weight) ?? "0"
         let item = MealDishesIngridientsListItem(id: ingridient.id,
                                                  title: ingridient.name,
-                                                 subtitle: "\(calString) kcal \(proteinsString)/\(fatsString)/\(carbsString)",
-                                                 weight: NumberFormatter.nutrients.string(for: ingridient.weight) ?? "0",
+                                                 subtitle: subtitle,
+                                                 weight: weightString,
                                                  categoryColor: categoryColor)
         return item
     }

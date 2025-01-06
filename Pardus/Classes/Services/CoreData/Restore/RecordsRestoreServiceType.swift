@@ -9,4 +9,3 @@ protocol RecordsRestoreServiceType {
     
     func restoreRecords(snapshot: RecordsStateSnapshot)
 }
-

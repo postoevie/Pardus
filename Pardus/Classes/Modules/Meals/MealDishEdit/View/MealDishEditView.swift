@@ -82,7 +82,7 @@ struct MealDishEditView<Presenter: MealDishEditPresenterProtocol>: View {
         .onAppear {
             presenter.didAppear()
         }
-        .onChange(of: focusedField) { oldValue, newValue in
+        .onChange(of: focusedField) { oldValue, _ in
             switch oldValue {
             case .dishNameField:
                 presenter.submitDishValues()
@@ -123,7 +123,7 @@ enum MealDishEditField: Hashable {
     case ingridientWeightField(UUID)
 }
 
-fileprivate struct MealDishIngridientRow: View {
+private struct MealDishIngridientRow: View {
     
     private let item: Binding<MealDishesIngridientsListItem>
     private let focusedField: FocusState<MealDishEditField?>.Binding
@@ -203,4 +203,3 @@ struct MealDishEditPreviews: PreviewProvider {
         return mealDish.id
     }
 }
-

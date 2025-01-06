@@ -6,7 +6,6 @@
 //  
 //
 
-
 import Foundation
 import CoreData
 import SwiftUI
@@ -102,7 +101,8 @@ final class DishEditInteractor: DishEditInteractorProtocol {
             return
         }
         try await coreDataService.perform {
-            let selectedIngridients = Set(try $0.fetchMany(type: Ingridient.self, predicate: NSPredicate.idIn(uids: Array(uids))))
+            let selectedIngridients = Set(try $0.fetchMany(type: Ingridient.self,
+                                                           predicate: NSPredicate.idIn(uids: Array(uids))))
             dish.ingridients = dish.ingridients.union(selectedIngridients)
         }
     }

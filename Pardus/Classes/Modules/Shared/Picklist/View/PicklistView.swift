@@ -58,20 +58,20 @@ struct PicklistView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         presenter.cancelTapped()
-                    }) {
+                    }, label: {
                         Text("app.cancel")
                             .font(.bodyRegular)
                             .foregroundStyle(.primaryText)
-                    }
+                    })
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         presenter.doneTapped()
-                    }) {
+                    }, label: {
                         Text("app.done")
                             .font(.bodyRegular)
                             .foregroundStyle(.primaryText)
-                    }
+                    })
                 }
             }
             .onAppear {
@@ -130,4 +130,3 @@ struct DishesPickPreviews: PreviewProvider {
         return meal.id
     }
 }
-

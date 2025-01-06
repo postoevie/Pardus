@@ -6,7 +6,6 @@
 //  
 //
 
-
 import Foundation
 
 final class RootInteractor: RootInteractorProtocol {
@@ -33,7 +32,7 @@ final class RootInteractor: RootInteractorProtocol {
             let snapshot = try JSONDecoder().decode(RecordsStateSnapshot.self, from: uiTestData)
             restoreRecordsService.restoreRecords(snapshot: snapshot)
         } catch {
-            print(error) //TODO: P-58
+            print(error) // TODO: P-58
         }
     }
 }

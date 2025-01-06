@@ -22,7 +22,7 @@ final class MealDishEditAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = MealDishEditInteractor(coreDataService: coreDataService, mealDishId: mealDishId)
         
-        //ViewState
+        // ViewState
         let viewState = MealDishEditViewState()
         
         // Presenter

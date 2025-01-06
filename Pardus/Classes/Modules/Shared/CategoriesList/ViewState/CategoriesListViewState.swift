@@ -33,4 +33,3 @@ final class CategoriesListViewState: ObservableObject, CategoriesListViewStatePr
         navigationTitle = text
     }
 }
-

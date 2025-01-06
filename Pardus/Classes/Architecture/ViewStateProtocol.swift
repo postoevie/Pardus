@@ -6,6 +6,6 @@
 //  
 //
 
-protocol ViewStateProtocol : AnyObject {
+protocol ViewStateProtocol: AnyObject {
    
 }

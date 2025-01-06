@@ -78,6 +78,11 @@ final class MealsListPresenter: ObservableObject, MealsListPresenterProtocol {
         }
     }
     
+    func getFilterImageName() -> String {
+        let dateSelectionVisible = viewState?.dateSelectionVisible == true
+        return dateSelectionVisible ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
+    }
+    
     private func updateViewState() {
         Task {
             try await interactor.performWithMeals { meals in

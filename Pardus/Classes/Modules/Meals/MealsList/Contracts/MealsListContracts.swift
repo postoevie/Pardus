@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 // Router
 protocol MealsListRouterProtocol: RouterProtocol {
     
@@ -26,6 +25,7 @@ protocol MealsListPresenterProtocol: ObservableObject, PresenterProtocol {
     func didAppear()
     func deleteItem(uid: UUID)
     func tapItem(uid: UUID)
+    func getFilterImageName() -> String
 }
 
 // Interactor

@@ -54,4 +54,3 @@ struct SubtitleCell: View {
         }
     }
 }
-

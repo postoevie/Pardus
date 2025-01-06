@@ -12,7 +12,7 @@ final class MealDishEditRouter: MealDishEditRouterProtocol {
     
     private var navigation: any NavigationServiceType
     
-    init(navigation: any NavigationServiceType){
+    init(navigation: any NavigationServiceType) {
         self.navigation = navigation
     }
     

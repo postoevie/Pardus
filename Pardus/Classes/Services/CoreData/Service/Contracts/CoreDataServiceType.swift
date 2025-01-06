@@ -11,7 +11,8 @@ protocol CoreDataServiceType: AnyObject {
     
     /// Safely performs given action in syncronous manner
     ///
-    /// - Parameter action: Completion which retreives database actions executor. Violating completion scope with managed objects/contexts can lead to unpredictable subsequences.
+    /// - Parameter action: Completion which retreives database actions executor. 
+    /// Violating completion scope with managed objects/contexts can lead to unpredictable subsequences.
     ///
     /// Code example
     /// ```
@@ -25,4 +26,3 @@ protocol CoreDataServiceType: AnyObject {
     
     func perform(action: @escaping (CoreDataExecutorType) throws -> Void) async rethrows
 }
-

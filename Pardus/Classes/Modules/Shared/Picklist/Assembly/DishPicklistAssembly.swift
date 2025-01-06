@@ -6,7 +6,6 @@
 //
 //
 
-
 import SwiftUI
 
 final class DishPicklistAssembly: Assembly {
@@ -26,12 +25,13 @@ final class DishPicklistAssembly: Assembly {
         let interactor = PicklistInteractor<Dish>(coreDataService: coreDataService,
                                                   type: type,
                                                   filterPredicate: filter,
-                                                  sortParams: SortParams(fieldName: (\Dish.name).fieldName, ascending: true))
+                                                  sortParams: SortParams(fieldName: (\Dish.name).fieldName,
+                                                                         ascending: true))
         
         // Presenter
         let presenter = PicklistPresenter(router: router, interactor: interactor, completion: completion)
         
-        //ViewState
+        // ViewState
         let viewState = PicklistState()
         presenter.viewState = viewState
         

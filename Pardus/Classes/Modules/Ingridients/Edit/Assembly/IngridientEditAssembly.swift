@@ -6,7 +6,6 @@
 //  
 //
 
-
 import SwiftUI
 
 final class IngridientEditAssembly: Assembly {
@@ -23,7 +22,7 @@ final class IngridientEditAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = IngridientEditInteractor(coreDataService: coreDataService, ingridientId: ingridientId)
 
-        //ViewState
+        // ViewState
         let viewState = IngridientEditViewState()
 
         // Presenter

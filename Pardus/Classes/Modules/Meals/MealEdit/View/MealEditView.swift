@@ -158,4 +158,3 @@ struct MealEditPreviews: PreviewProvider {
         return meal.id
     }
 }
-

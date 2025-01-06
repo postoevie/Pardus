@@ -6,7 +6,6 @@
 //
 //
 
-
 import Foundation
 
 class MealDishEditInteractor: MealDishEditInteractorProtocol {
@@ -48,9 +47,10 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
             return
         }
         try await coreDataService.perform { executor in
+            let sortParams = SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true)
             let ingridientsToAdd = try executor.fetchMany(type: Ingridient.self,
                                                           predicate: NSPredicate.idIn(uids: Array(ingridientIds)),
-                                                          sortBy: SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true))
+                                                          sortBy: sortParams)
             for ingridient in ingridientsToAdd {
                 try self.makeMealIngridient(executor, mealDish: mealDish, ingridient: ingridient)
             }
@@ -124,4 +124,3 @@ class MealDishEditInteractor: MealDishEditInteractorProtocol {
         }
     }
 }
-

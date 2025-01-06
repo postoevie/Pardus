@@ -56,5 +56,3 @@ private struct NumbericTextField: ViewModifier {
             .keyboardType(.decimalPad)
     }
 }
-    
-    

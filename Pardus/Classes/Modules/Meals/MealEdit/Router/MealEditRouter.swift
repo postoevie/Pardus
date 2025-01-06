@@ -12,7 +12,7 @@ final class MealEditRouter: MealEditRouterProtocol {
     
     private var navigation: any NavigationServiceType
     
-    init(navigation: any NavigationServiceType){
+    init(navigation: any NavigationServiceType) {
         self.navigation = navigation
     }
     
@@ -23,7 +23,6 @@ final class MealEditRouter: MealEditRouterProtocol {
     func showEditDish(dishId: UUID) {
         navigation.mealsItems.append(.mealDishEdit(mealDishId: dishId))
     }
-    
     
     func showDishesPick(mealId: UUID, filter: Predicate?, completion: @escaping (Set<UUID>) -> Void) {
         navigation.modalView = .dishPicklist(type: .multiple,

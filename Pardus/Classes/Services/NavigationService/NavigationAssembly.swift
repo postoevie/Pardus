@@ -10,11 +10,10 @@ import Foundation
 
 final class NavigationAssembly: Assembly {
     
-    //Only one navigation should use in app
+    // Only one navigation should use in app
     static let navigation = NavigationService()
     
     func build() -> any NavigationServiceType {
         Self.navigation
     }
 }
-

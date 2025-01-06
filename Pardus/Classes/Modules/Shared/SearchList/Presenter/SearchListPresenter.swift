@@ -10,7 +10,10 @@ import SwiftUI
 
 final class SearchListPresenter<Entity,
                                 Interactor: SearchListInteractorProtocol,
-                                Customizer: SearchListPresenterCustomizerProtocol>: ObservableObject, SearchListPresenterProtocol where Interactor.Entity == Entity, Customizer.Entity == Entity {
+                                Customizer: SearchListPresenterCustomizerProtocol>: 
+                                    ObservableObject,
+                                    SearchListPresenterProtocol where Interactor.Entity == Entity,
+                                                                      Customizer.Entity == Entity {
     
     private let router: SearchListRouterProtocol
     private weak var viewState: SearchListViewStateProtocol?

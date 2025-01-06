@@ -17,4 +17,3 @@ final class DishCategoryEditRouter: CategoryEditRouterProtocol {
         _ = navigation.dishesItems.popLast()
     }
 }
-

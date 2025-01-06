@@ -141,7 +141,6 @@ private struct ClipSide: ViewModifier {
     }
 }
 
-
 struct CategoriesListPreviews: PreviewProvider {
     
     static let viewBuilder: ApplicationViewBuilder = {

@@ -6,7 +6,6 @@
 //
 //
 
-
 import SwiftUI
 
 final class MealsListAssembly: Assembly {
@@ -23,7 +22,7 @@ final class MealsListAssembly: Assembly {
         let dataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = MealsListInteractor(dataService: dataService)
         
-        //ViewState
+        // ViewState
         let viewState = MealsListViewState()
         
         // Presenter

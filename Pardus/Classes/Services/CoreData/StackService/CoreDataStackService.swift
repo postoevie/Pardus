@@ -20,7 +20,7 @@ class CoreDataStackService: CoreDataStackServiceType {
         do {
             try makeFirstLaunchData(in: stack.mainQueueContext)
         } catch {
-            print(error) //TODO: P-58
+            print(error) // TODO: P-58
         }
     }
     

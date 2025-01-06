@@ -6,7 +6,6 @@
 //  
 //
 
-
 import SwiftUI
 
 final class DishEditAssembly: Assembly {
@@ -23,7 +22,7 @@ final class DishEditAssembly: Assembly {
         let coreDataService = CoreDataService(context: coreDataStackService.getMainQueueContext())
         let interactor = DishEditInteractor(coreDataService: coreDataService, dishId: dishId)
 
-        //ViewState
+        // ViewState
         let viewState =  DishEditViewState()
 
         // Presenter

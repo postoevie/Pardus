@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct SearchListItem: Identifiable {
+    
     let id: UUID
     let title: String
     let subtitle: String
     let categoryColor: Color
-    
-    init(id: UUID, title: String, subtitle: String, categoryColor: Color) {
-        self.id = id
-        self.title = title
-        self.subtitle = subtitle
-        self.categoryColor = categoryColor
-    }
 }

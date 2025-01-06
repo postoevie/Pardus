@@ -17,4 +17,3 @@ class Ingridient: IdentifiedManagedObject {
     @NSManaged var fats: Double
     @NSManaged var carbs: Double
 }
-

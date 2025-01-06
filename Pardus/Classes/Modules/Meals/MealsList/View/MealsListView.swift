@@ -72,7 +72,7 @@ struct MealsListView<ViewState: MealsListViewStateProtocol,
                 Button {
                     presenter.tapToggleDateFilter()
                 } label: {
-                    Image(systemName: viewState.dateSelectionVisible ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                    Image(systemName: presenter.getFilterImageName())
                         .font(.icon2)
                         .foregroundStyle(.primaryText)
                 }

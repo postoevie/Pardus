@@ -49,7 +49,6 @@ class RootApp: App {
         appViewBuilder = ApplicationViewBuilder(container: container)
     }
     
-    
     var body: some Scene {
         WindowGroup {
             container.resolve(RootAssembly.self).build(appViewBuilder: appViewBuilder)

@@ -23,24 +23,26 @@ final class IngridientCategoriesListAssembly: Assembly {
         let mainSorting = SortParams(fieldName: (\IngridientCategory.name).fieldName, ascending: true)
         let detailSorting = SortParams(fieldName: (\Ingridient.name).fieldName, ascending: true)
         
-        let interactor = CategoriesListInteractor<IngridientCategory,
-                                                  Ingridient,
-                                                  CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
-                                                                                      customizer: CategoriesListInteractorCustomizer(),
-                                                                                      mainEntitySortParams: mainSorting,
-                                                                                      detailEntitySortParams: detailSorting)
+        let interactor =
+        CategoriesListInteractor<IngridientCategory,
+                                 Ingridient,
+                                 CategoriesListInteractorCustomizer>(coreDataService: coreDataService,
+                                                                     customizer: CategoriesListInteractorCustomizer(),
+                                                                     mainEntitySortParams: mainSorting,
+                                                                     detailEntitySortParams: detailSorting)
         
-        //ViewState
+        // ViewState
         let viewState = CategoriesListViewState()
         
         // Presenter
-        let presenter = CategoriesListPresenter<IngridientCategory,
-                                                Ingridient,
-                                                CategoriesListInteractor,
-                                                CategoriesListPresenterCustomizer>(router: router,
-                                                                                   interactor: interactor,
-                                                                                   viewState: viewState,
-                                                                                   customizer: CategoriesListPresenterCustomizer())
+        let presenter =
+        CategoriesListPresenter<IngridientCategory,
+                                Ingridient,
+                                CategoriesListInteractor,
+                                CategoriesListPresenterCustomizer>(router: router,
+                                                                   interactor: interactor,
+                                                                   viewState: viewState,
+                                                                   customizer: CategoriesListPresenterCustomizer())
         
         // View
         let view = CategoriesListView(viewState: viewState, presenter: presenter)
@@ -48,7 +50,7 @@ final class IngridientCategoriesListAssembly: Assembly {
     }
 }
 
-fileprivate struct CategoriesListInteractorCustomizer: CategoriesListInteractorCustomizerProtocol {
+private struct CategoriesListInteractorCustomizer: CategoriesListInteractorCustomizerProtocol {
 
     func getDetailEntities(mainEntity: IngridientCategory) -> [Ingridient] {
         Array(mainEntity.ingridients)
@@ -59,7 +61,7 @@ fileprivate struct CategoriesListInteractorCustomizer: CategoriesListInteractorC
     }
 }
 
-fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCustomizerProtocol {
+private struct CategoriesListPresenterCustomizer: CategoriesListPresenterCustomizerProtocol {
     
     func getNavigationTitle() -> String {
         "Categories"
@@ -91,4 +93,3 @@ fileprivate struct CategoriesListPresenterCustomizer: CategoriesListPresenterCus
         }
     }
 }
-

@@ -11,11 +11,12 @@ import SwiftUI
 final class CategoriesListPresenter<MainEntity,
                                     DetailEntity,
                                     Interactor: CategoriesListInteractorProtocol,
-                                    Customizer: CategoriesListPresenterCustomizerProtocol>: ObservableObject,
-                                                                                            CategoriesListPresenterProtocol where Interactor.MainEntity == MainEntity,
-                                                                                                                                  Interactor.DetailEntity == DetailEntity,
-                                                                                                                                  Customizer.MainEntity == MainEntity,
-                                                                                                                                  Customizer.DetailEntity == DetailEntity {
+                                    Customizer: CategoriesListPresenterCustomizerProtocol>:
+                                        ObservableObject,
+                                        CategoriesListPresenterProtocol where Interactor.MainEntity == MainEntity,
+                                                                              Interactor.DetailEntity == DetailEntity,
+                                                                              Customizer.MainEntity == MainEntity,
+                                                                              Customizer.DetailEntity == DetailEntity {
     
     private let router: CategoriesListRouterProtocol
     private weak var viewState: (any CategoriesListViewStateProtocol)?

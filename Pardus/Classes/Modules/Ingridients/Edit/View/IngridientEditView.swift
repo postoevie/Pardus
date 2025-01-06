@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-struct IngridientEditView<ViewState: IngridientEditViewStateProtocol, Presenter: IngridientEditPresenterProtocol>: View {
+struct IngridientEditView<ViewState: IngridientEditViewStateProtocol,
+                          Presenter: IngridientEditPresenterProtocol>: View {
            
     @StateObject var viewState: ViewState
     @StateObject var presenter: Presenter

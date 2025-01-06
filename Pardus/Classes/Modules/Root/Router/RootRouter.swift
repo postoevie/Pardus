@@ -26,7 +26,7 @@ final class RootRouter: RootRouterProtocol {
         do {
             return try getUITestSnapshot()
         } catch {
-            print() //TODO: P-58 Analytics
+            print() // TODO: P-58 Analytics
         }
         return nil
     }

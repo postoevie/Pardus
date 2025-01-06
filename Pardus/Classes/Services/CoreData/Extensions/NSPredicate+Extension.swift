@@ -35,7 +35,7 @@ enum Predicate {
     
     case idIn(uids: [UUID])
     case idNotIn(uids: [UUID])
-    case `in`(fieldName: String, argument: Any?)
+    case `in`(fieldName: String, argument: Any?) // swiftlint:disable:this identifier_name
     case notIn(fieldName: String, argument: Any?)
     case equal(fieldName: String, argument: Any?)
 }

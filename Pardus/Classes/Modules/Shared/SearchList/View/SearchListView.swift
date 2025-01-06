@@ -116,4 +116,3 @@ struct SearchListPreviews: PreviewProvider {
         try? context.save()
     }
 }
-

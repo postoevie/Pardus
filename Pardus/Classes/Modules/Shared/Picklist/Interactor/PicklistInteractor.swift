@@ -24,7 +24,7 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
         self.sortParams = sortParams
     }
     
-    //MARK: -PicklistInteractorProtocol
+    // MARK: - PicklistInteractorProtocol
     var items: [PicklistViewItem] {
         entities.map { entity in
             var badgeColor: Color = .clear
@@ -68,4 +68,3 @@ final class PicklistInteractor<Entity: PicklistItemEntityType>: PicklistInteract
         }
     }
 }
-

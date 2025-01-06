@@ -11,7 +11,7 @@ final class IngridientCategoriesListRouter: CategoriesListRouterProtocol {
 
     private var navigation: any NavigationServiceType
     
-    init(navigation: any NavigationServiceType){
+    init(navigation: any NavigationServiceType) {
         self.navigation = navigation
     }
     
@@ -39,4 +39,3 @@ final class IngridientCategoriesListRouter: CategoriesListRouterProtocol {
         navigation.ingridientsItems.append(.ingridientsList)
     }
 }
-

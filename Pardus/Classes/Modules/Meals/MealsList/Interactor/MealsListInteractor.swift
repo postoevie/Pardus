@@ -6,7 +6,6 @@
 //  
 //
 
-
 import Foundation
 
 final class MealsListInteractor: MealsListInteractorProtocol {
@@ -27,8 +26,12 @@ final class MealsListInteractor: MealsListInteractorProtocol {
     private var filteredMeals: [Meal] {
         if dateFilterEnabled {
             meals.filter {
-                let startDateCondition = Calendar.current.compare(startDate, to: $0.date, toGranularity: .minute) == .orderedAscending
-                let endDateCondition = Calendar.current.compare(endDate, to: $0.date, toGranularity: .minute) == .orderedDescending
+                let startDateCondition = Calendar.current.compare(startDate,
+                                                                  to: $0.date,
+                                                                  toGranularity: .minute) == .orderedAscending
+                let endDateCondition = Calendar.current.compare(endDate,
+                                                                to: $0.date,
+                                                                toGranularity: .minute) == .orderedDescending
                 return startDateCondition && endDateCondition
             }
         } else {

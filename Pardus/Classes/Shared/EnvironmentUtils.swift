@@ -25,4 +25,3 @@ enum EnvironmentUtils {
         ProcessInfo.processInfo.environment[Const.UITests.dataSnapshotPathKey]
     }
 }
-

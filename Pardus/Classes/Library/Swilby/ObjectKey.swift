@@ -14,7 +14,7 @@ internal struct ObjectKey {
     
     fileprivate(set) var key: String {
         get { return String(self.hashValue) }
-        set {}
+        set {} // swiftlint:disable:this unused_setter_value
     }
     
     internal init(_ objectType: Any.Type, name: String? = nil) {

@@ -9,4 +9,3 @@ protocol MemoryPressureServiceType {
     
     func start()
 }
-

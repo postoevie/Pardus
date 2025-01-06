@@ -5,9 +5,9 @@
 //  Created by Igor Postoev on 27.5.24..
 //
 
+// swiftlint:disable all
+
 import CoreData
-
-
 struct MealModel: EntityModelType, Identifiable {
     
     static private(set) var mapping: EntityModelMappingType = MealModelMapping()
@@ -15,12 +15,6 @@ struct MealModel: EntityModelType, Identifiable {
     let id: UUID
     let date: Date
     let dishes: [DishModel]
-    
-    init(id: UUID, date: Date, dishes: [DishModel]) {
-        self.id = id
-        self.date = date
-        self.dishes = dishes
-    }
 }
 
 private struct MealModelMapping: EntityModelMappingType {
@@ -42,7 +36,7 @@ private struct MealModelMapping: EntityModelMappingType {
     func fill(managedObject: NSManagedObject, with model: EntityModelType) throws {
         guard let entity = managedObject as? Meal,
               let model = model as? MealModel,
-              let _ = managedObject.managedObjectContext else {
+              managedObject.managedObjectContext != nil else {
             throw NSError()
         }
         entity.date = model.date

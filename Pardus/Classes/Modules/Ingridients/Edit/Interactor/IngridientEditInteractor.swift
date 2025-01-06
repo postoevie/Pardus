@@ -80,7 +80,8 @@ final class IngridientEditInteractor: IngridientEditInteractorProtocol {
         
         try await coreDataService.perform {
             if let categoryId {
-                ingridient.category = try $0.fetchOne(type: IngridientCategory.self, predicate: .idIn(uids: [categoryId]))
+                ingridient.category = try $0.fetchOne(type: IngridientCategory.self,
+                                                      predicate: .idIn(uids: [categoryId]))
             } else {
                 ingridient.category = nil
             }
@@ -108,7 +109,8 @@ final class IngridientEditInteractor: IngridientEditInteractorProtocol {
         }
         try await coreDataService.perform {
             if let categoryId {
-                ingridient.category = try $0.fetchOne(type: IngridientCategory.self, predicate: .idIn(uids: [categoryId]))
+                ingridient.category = try $0.fetchOne(type: IngridientCategory.self,
+                                                      predicate: .idIn(uids: [categoryId]))
             } else {
                 ingridient.category = nil
             }

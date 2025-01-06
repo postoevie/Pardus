@@ -8,16 +8,16 @@
 
 import SwiftUI
 
-final class ApplicationViewBuilder : Assembly, ObservableObject {
+final class ApplicationViewBuilder: Assembly, ObservableObject {
     
     required init(container: Container) {
         super.init(container: container)
     }
    
-    @ViewBuilder
-    func build(view: Views) -> some View {
+    // swiftlint:disable:next cyclomatic_complexity
+    @ViewBuilder func build(view: Views) -> some View {
         switch view {
-        case .mealsList :
+        case .mealsList:
             buildMealsList()
         case .mealEdit(let mealId):
             buildMealEdit(mealId)
@@ -125,7 +125,6 @@ final class ApplicationViewBuilder : Assembly, ObservableObject {
         container.resolve(IngridientEditAssembly.self).build(ingridientId: ingridientId)
     }
     
-    
     @ViewBuilder
     fileprivate func buildIngridientPicklist(_ type: PicklistType,
                                              _ filter: Predicate?,
@@ -172,7 +171,6 @@ extension ApplicationViewBuilder {
         }
     }
 }
-
 
 extension ApplicationViewBuilder {
     

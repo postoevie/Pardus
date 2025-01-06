@@ -17,25 +17,22 @@ struct CoreDataExecutor: CoreDataExecutorType {
 
     let context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
-    }
-    
     @discardableResult
-    func create<Object>(type: Object.Type, id: UUID) throws -> Object where Object : IdentifiedManagedObject {
+    func create<Object>(type: Object.Type, id: UUID) throws -> Object where Object: IdentifiedManagedObject {
         let object = Object(context: context)
         object.id = id
         object.createdAt = Date()
         return object
     }
     
-    func fetchMany<Object>(type: Object.Type, predicate: NSPredicate?) throws -> [Object] where Object : NSManagedObject {
+    func fetchMany<Object>(type: Object.Type,
+                           predicate: NSPredicate?) throws -> [Object] where Object: NSManagedObject {
         try fetchMany(type: type, predicate: predicate, sortBy: nil)
     }
     
     func fetchMany<Object>(type: Object.Type,
                            predicate: NSPredicate?,
-                           sortBy sortData: SortParams?) throws -> [Object] where Object : NSManagedObject {
+                           sortBy sortData: SortParams?) throws -> [Object] where Object: NSManagedObject {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.predicate = predicate
         if let sortData {
@@ -46,7 +43,7 @@ struct CoreDataExecutor: CoreDataExecutorType {
         return try context.fetch(request)
     }
     
-    func fetchOne<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Object? where Object : NSManagedObject {
+    func fetchOne<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Object? where Object: NSManagedObject {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.fetchLimit = 1
         request.predicate = predicate
@@ -57,7 +54,7 @@ struct CoreDataExecutor: CoreDataExecutorType {
         try context.existingObject(with: objectID)
     }
     
-    func count<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Int where Object : NSManagedObject {
+    func count<Object>(type: Object.Type, predicate: NSPredicate?) throws -> Int where Object: NSManagedObject {
         let request = NSFetchRequest<Object>(entityName: String(describing: Object.self))
         request.predicate = predicate
         return try context.count(for: request)

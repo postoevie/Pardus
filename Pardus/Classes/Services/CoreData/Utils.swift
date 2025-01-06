@@ -23,7 +23,6 @@ extension NSManagedObjectContext {
     }
 }
 
-
 private class MockRestorationStore: CoreDataRestorationStoreType {
     func clear(key: Views) {
         

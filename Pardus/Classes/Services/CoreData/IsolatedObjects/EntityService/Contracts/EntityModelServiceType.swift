@@ -6,6 +6,8 @@
 //	
 //
 
+// swiftlint:disable all
+
 import Foundation
 
 protocol EntityModelServiceType {

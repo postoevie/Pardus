@@ -15,8 +15,18 @@ final class PardusUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         
-        let potato = (UUID(), IngridientState(name: "Potato", calories: 10, proteins: 10, fats: 20, carbs: 10, categoryId: nil))
-        let egg = (UUID(), IngridientState(name: "Eggs", calories: 1, proteins: 20, fats: 30, carbs: 10, categoryId: nil))
+        let potato = (UUID(), IngridientState(name: "Potato",
+                                              calories: 10,
+                                              proteins: 10,
+                                              fats: 20,
+                                              carbs: 10,
+                                              categoryId: nil))
+        let egg = (UUID(), IngridientState(name: "Eggs",
+                                           calories: 1,
+                                           proteins: 20,
+                                           fats: 30,
+                                           carbs: 10,
+                                           categoryId: nil))
         let ingridientStates = [potato, egg]
         
         dishesStates = [(UUID(), DishState(name: "Mashed potato", categoryId: nil, ingridientIds: Set([potato.0]))),

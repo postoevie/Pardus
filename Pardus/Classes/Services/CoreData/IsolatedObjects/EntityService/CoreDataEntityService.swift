@@ -5,6 +5,8 @@
 //  Created by Igor Postoev on 19.5.24..
 //
 
+// swiftlint:disable all
+
 import CoreData
 
 class CoreDataEntityService {

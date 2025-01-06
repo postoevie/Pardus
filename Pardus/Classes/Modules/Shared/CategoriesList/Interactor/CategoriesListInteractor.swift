@@ -3,14 +3,16 @@
 //  Pardus
 //
 //  Created by Igor Postoev on 23.7.24.
-//  
+//
 //
 
 import Foundation
 
 final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
-                                         DetailEntity: IdentifiedManagedObject,
-                                         Customizer: CategoriesListInteractorCustomizerProtocol>: CategoriesListInteractorProtocol where Customizer.MainEntity == MainEntity, Customizer.DetailEntity == DetailEntity {
+                                     DetailEntity: IdentifiedManagedObject,
+                                     Customizer: CategoriesListInteractorCustomizerProtocol>:
+                                        CategoriesListInteractorProtocol where Customizer.MainEntity == MainEntity,
+                                                                               Customizer.DetailEntity == DetailEntity {
     
     private var mainEntities: [MainEntity] = []
     private var detailEntities: [DetailEntity] = []
@@ -33,7 +35,8 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
         await coreDataService.perform { _ in
             var data = [CategoriesListDataItem<MainEntity, DetailEntity>]()
             for entity in self.mainEntities {
-                let item = CategoriesListDataItem(mainEntity: entity, detailEntities: self.getDetailEntities(for: entity))
+                let item = CategoriesListDataItem(mainEntity: entity,
+                                                  detailEntities: self.getDetailEntities(for: entity))
                 data.append(item)
             }
             let orphanDetails = self.customizer.getOrphanEntities(detailEntities: self.detailEntities)
@@ -46,8 +49,12 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
     
     func loadDishes() async throws {
         try await coreDataService.perform {
-            self.mainEntities = try $0.fetchMany(type: MainEntity.self, predicate: nil, sortBy: self.mainEntitySortParams)
-            self.detailEntities = try $0.fetchMany(type: DetailEntity.self, predicate: nil, sortBy: self.detailEntitySortParams)
+            self.mainEntities = try $0.fetchMany(type: MainEntity.self,
+                                                 predicate: nil,
+                                                 sortBy: self.mainEntitySortParams)
+            self.detailEntities = try $0.fetchMany(type: DetailEntity.self,
+                                                   predicate: nil,
+                                                   sortBy: self.detailEntitySortParams)
         }
     }
     
@@ -62,7 +69,7 @@ final class CategoriesListInteractor<MainEntity: IdentifiedManagedObject,
             try $0.persistChanges()
         }
     }
-    
+
     func deleteMainEntity(entityId: UUID) async throws {
         try await coreDataService.perform {
             guard let entityIndex = self.mainEntities.firstIndex(where: { $0.id == entityId }) else {
